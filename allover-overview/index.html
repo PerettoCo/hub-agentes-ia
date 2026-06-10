@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>relatório estratégico All Over</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E31919; --red-dark: #B80F0F; --red-light: #FF2424;
+    --black: #0A0A0A; --black2: #111111; --black3: #1A1A1A; --black4: #222222;
+    --gray: #2E2E2E; --gray2: #3D3D3D; --gray3: #555;
+    --white: #FFFFFF; --white2: #F0F0F0; --white3: #C8C8C8; --text-muted: #888;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--black); color:var(--white); font-family:'Barlow',sans-serif; font-size:16px; line-height:1.6; overflow-x:hidden; }
+  
+  .topbar { background:var(--red); padding:8px 48px; display:flex; align-items:center; justify-content:space-between; font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
+  header { background:var(--black2); border-bottom:1px solid var(--gray); padding:20px 48px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; }
+  .logo { font-family:'Barlow Condensed',sans-serif; font-size:24px; font-weight:900; letter-spacing:.02em; }
+  .logo span { color:var(--red); }
+  .logo small { font-size:11px; font-weight:400; color:var(--text-muted); letter-spacing:.08em; margin-left:12px; }
+  .header-tag { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; background:var(--red); padding:4px 14px; }
+
+  .hero { padding:80px 48px 56px; background:var(--black2); border-bottom:3px solid var(--red); position:relative; overflow:hidden; }
+  .hero::before { content:'ALL OVER'; position:absolute; right:-20px; top:50%; transform:translateY(-50%); font-family:'Barlow Condensed',sans-serif; font-size:200px; font-weight:900; color:rgba(255,255,255,.03); line-height:1; pointer-events:none; white-space:nowrap; }
+  .hero-tag { display:inline-block; background:var(--red); font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:5px 12px; margin-bottom:20px; }
+  .hero h1 { font-family:'Barlow Condensed',sans-serif; font-size:clamp(44px,7vw,84px); font-weight:900; line-height:.88; letter-spacing:-.02em; text-transform:uppercase; margin-bottom:16px; }
+  .hero h1 span { color:var(--red); }
+  .hero-sub { font-size:17px; color:var(--white3); max-width:680px; line-height:1.55; margin-bottom:40px; }
+  .hero-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--gray); }
+  .hero-stat { background:var(--black3); padding:24px 28px; }
+  .stat-number { font-family:'Barlow Condensed',sans-serif; font-size:44px; font-weight:900; color:var(--red); line-height:1; display:block; }
+  .stat-number.white { color:var(--white); }
+  .stat-label { font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--white3); margin-top:6px; display:block; }
+
+  section { padding:72px 48px; border-bottom:1px solid var(--gray); }
+  section:nth-child(even) { background:var(--black3); }
+  
+  .section-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--red); margin-bottom:12px; display:flex; align-items:center; gap:10px; }
+  .section-label::before { content:''; display:block; width:24px; height:2px; background:var(--red); }
+  .section-title { font-family:'Barlow Condensed',sans-serif; font-size:clamp(32px,5vw,52px); font-weight:900; line-height:.93; letter-spacing:-.01em; text-transform:uppercase; margin-bottom:40px; }
+  .section-title span { color:var(--red); }
+  .section-sub { font-size:15px; color:var(--white3); max-width:800px; line-height:1.55; margin-bottom:36px; }
+
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--gray); }
+  .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--gray); }
+  .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--gray); }
+  .grid-5 { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; background:var(--gray); }
+
+  .card { background:var(--black3); padding:32px; position:relative; }
+  .card-tag { display:inline-block; background:var(--red); color:var(--white); font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:3px 8px; margin-bottom:16px; }
+  .card-tag.gray { background:var(--gray2); }
+  .card-tag.amber { background:#92400e; color:#fbbf24; }
+  .card-tag.green { background:#14532d; color:#4ade80; }
+  .card-tag.blue { background:#1e3a5f; color:#93c5fd; }
+  .card h3 { font-family:'Barlow Condensed',sans-serif; font-size:22px; font-weight:800; text-transform:uppercase; letter-spacing:.02em; margin-bottom:10px; line-height:1.1; }
+  .card p { font-size:14px; color:var(--white3); line-height:1.6; }
+  .card-metric { font-family:'Barlow Condensed',sans-serif; font-size:36px; font-weight:900; color:var(--red); margin-top:16px; display:block; }
+  .card-metric.white { color:var(--white); }
+  .card-metric.small { font-size:22px; }
+
+  .highlight-box { background:linear-gradient(135deg,var(--black3),var(--black4)); border-left:4px solid var(--red); padding:32px 36px; margin-bottom:2px; }
+  .highlight-box h4 { font-family:'Barlow Condensed',sans-serif; font-size:18px; font-weight:800; text-transform:uppercase; color:var(--red); margin-bottom:8px; }
+  .highlight-box p { font-size:14px; color:var(--white3); line-height:1.55; }
+  .highlight-box strong { color:var(--white); }
+
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  table thead th { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted); text-align:left; padding:12px 16px; border-bottom:1px solid var(--gray); }
+  table tbody td { padding:12px 16px; border-bottom:1px solid var(--gray2); color:var(--white3); }
+  table tbody tr:hover td { background:var(--black4); }
+  table .num { font-family:'Barlow Condensed',sans-serif; font-weight:700; text-align:right; }
+  table .pct { color:var(--text-muted); }
+
+  .canal-block { background:var(--black3); border-top:3px solid var(--red); padding:28px; }
+  .canal-block.amber { border-top-color:#f59e0b; }
+  .canal-block.green { border-top-color:#22c55e; }
+  .canal-block.blue { border-top-color:#3b82f6; }
+  .canal-block.gray { border-top-color:var(--gray2); }
+  .canal-block.purple { border-top-color:#8b5cf6; }
+  .canal-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:14px; }
+  .canal-header h3 { font-family:'Barlow Condensed',sans-serif; font-size:22px; font-weight:900; text-transform:uppercase; letter-spacing:.02em; }
+  .canal-badge { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:3px 10px; }
+  .badge-critical { background:var(--red); color:var(--white); }
+  .badge-warning { background:#92400e; color:#fbbf24; }
+  .badge-ok { background:#14532d; color:#4ade80; }
+  .badge-blue { background:#1e3a5f; color:#93c5fd; }
+  .badge-gray { background:var(--gray2); color:var(--white3); }
+  .canal-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--gray); margin:12px 0; }
+  .canal-metric { background:var(--black4); padding:12px 16px; }
+  .canal-metric-val { font-family:'Barlow Condensed',sans-serif; font-size:22px; font-weight:900; display:block; }
+  .canal-metric-label { font-size:9px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted); }
+
+  .funnel-step { display:flex; gap:0; margin-bottom:2px; }
+  .funnel-num { width:50px; background:var(--red); display:flex; align-items:center; justify-content:center; font-family:'Barlow Condensed',sans-serif; font-size:24px; font-weight:900; flex-shrink:0; }
+  .funnel-content { flex:1; background:var(--black3); padding:20px 28px; display:flex; align-items:flex-start; gap:20px; }
+  .funnel-main { flex:1; }
+  .funnel-title { font-family:'Barlow Condensed',sans-serif; font-size:18px; font-weight:800; text-transform:uppercase; margin-bottom:4px; }
+  .funnel-desc { font-size:12px; color:var(--white3); line-height:1.5; }
+  .funnel-kpis { flex-shrink:0; text-align:right; min-width:160px; }
+  .funnel-kpi-label { font-size:9px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted); }
+  .funnel-kpi-val { font-size:16px; font-weight:700; font-family:'Barlow Condensed',sans-serif; }
+
+  .timeline-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--gray); }
+  .phase { background:var(--black3); padding:32px; }
+  .phase-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--red); margin-bottom:4px; }
+  .phase-title { font-family:'Barlow Condensed',sans-serif; font-size:24px; font-weight:900; text-transform:uppercase; margin-bottom:8px; }
+  .phase-items { list-style:none; margin-top:12px; }
+  .phase-items li { font-size:12px; color:var(--white3); padding:5px 0; border-bottom:1px solid var(--gray2); display:flex; gap:8px; }
+  .phase-items li::before { content:'>'; color:var(--red); font-weight:700; }
+
+  .callout { background:var(--black4); border:1px solid var(--gray); padding:20px 24px; margin-top:12px; }
+  .callout h4 { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:800; text-transform:uppercase; color:var(--red); margin-bottom:6px; }
+  .callout p { font-size:13px; color:var(--white3); line-height:1.5; }
+
+  .insight-block { display:flex; gap:2px; background:var(--gray); }
+  .insight-item { background:var(--black3); padding:24px; flex:1; border-top:3px solid var(--red); }
+  .insight-num { font-family:'Barlow Condensed',sans-serif; font-size:36px; font-weight:900; color:var(--red); display:block; }
+  .insight-label { font-size:13px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--white3); margin:6px 0 10px; }
+  .insight-desc { font-size:14px; color:var(--text-muted); line-height:1.55; }
+
+  .bar { height:8px; border-radius:4px; min-width:4px; }
+  .bar-cell { display:flex; align-items:center; gap:10px; }
+  .bar-value { font-family:'Barlow Condensed',sans-serif; font-weight:700; white-space:nowrap; }
+
+  .scenario-card { background:var(--black3); border-left:4px solid var(--red); padding:28px; margin-bottom:2px; }
+  .scenario-card.blue { border-left-color:#3b82f6; }
+  .scenario-card.green { border-left-color:#22c55e; }
+  .scenario-card.amber { border-left-color:#f59e0b; }
+  .scenario-card.purple { border-left-color:#8b5cf6; }
+  .scenario-card.gray { border-left-color:var(--gray2); }
+  .scenario-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; }
+  .scenario-name { font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:900; text-transform:uppercase; }
+  .scenario-budget { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; color:var(--red); padding:3px 10px; border:1px solid var(--gray2); }
+  .scenario-desc { font-size:13px; color:var(--white3); line-height:1.5; margin-bottom:12px; }
+  .scenario-tags { display:flex; flex-wrap:wrap; gap:6px; }
+  .scenario-tag { font-size:10px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; padding:3px 8px; border:1px solid var(--gray2); color:var(--white3); }
+  .scenario-tag.green { border-color:#22c55e; color:#4ade80; }
+  .scenario-tag.red { border-color:var(--red); color:var(--red); }
+
+  .toggle-group { display:flex; gap:0; margin-bottom:32px; flex-wrap:wrap; }
+  .toggle-btn { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:10px 20px; background:var(--black4); border:1px solid var(--gray); color:var(--white3); cursor:pointer; transition:.2s; }
+  .toggle-btn.active { background:var(--red); border-color:var(--red); color:var(--white); }
+  .toggle-btn:first-child { border-radius:4px 0 0 4px; }
+  .toggle-btn:last-child { border-radius:0 4px 4px 0; }
+  .toggle-btn:hover { background:var(--gray2); }
+
+  .scenario-content { display:none; }
+  .scenario-content.active { display:block; }
+
+  /* ===== CHART SYSTEM ===== */
+  .chart-bar { display:flex; align-items:center; gap:12px; margin-bottom:4px; }
+  .chart-bar-label { width:160px; flex-shrink:0; font-size:12px; font-weight:600; color:var(--white3); text-align:right; }
+  .chart-bar-track { flex:1; height:28px; background:var(--black4); border-radius:4px; overflow:hidden; position:relative; }
+  .chart-bar-fill { height:100%; border-radius:4px; width:0; transition:width 1.2s cubic-bezier(.22,1,.36,1); position:relative; }
+  .chart-bar-fill.google { background:linear-gradient(90deg,var(--red),var(--red-light)); }
+  .chart-bar-fill.non-google { background:linear-gradient(90deg,#3b82f6,#8b5cf6); }
+  .chart-bar-fill.organic { background:linear-gradient(90deg,#22c55e,#4ade80); }
+  .chart-bar-fill.direct { background:linear-gradient(90deg,var(--gray2),var(--gray3)); }
+  .chart-bar-fill::after { content:attr(data-pct); position:absolute; right:8px; top:50%; transform:translateY(-50%); font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; color:var(--white); text-shadow:0 1px 2px rgba(0,0,0,.5); }
+  .chart-bar-value { width:50px; flex-shrink:0; font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; color:var(--text-muted); }
+
+  /* ===== DUAL BAR COMPARE ===== */
+  .dual-bar { display:flex; gap:2px; background:var(--gray); margin:16px 0; }
+  .dual-bar-side { flex:1; background:var(--black4); padding:24px; text-align:center; }
+  .dual-bar-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px; }
+  .dual-bar-num { font-family:'Barlow Condensed',sans-serif; font-size:clamp(36px,4vw,56px); font-weight:900; line-height:1; }
+  .dual-bar-pct { font-size:13px; color:var(--white3); margin-top:6px; }
+  .dual-bar-track { height:12px; background:var(--black3); border-radius:6px; margin-top:16px; overflow:hidden; }
+  .dual-bar-fill { height:100%; border-radius:6px; transition:width 1.5s cubic-bezier(.22,1,.36,1); width:0; }
+  .dual-bar-fill.red { background:var(--red); }
+  .dual-bar-fill.blue { background:#3b82f6; }
+  .dual-bar-caption { font-size:11px; color:var(--text-muted); margin-top:10px; }
+
+  /* ===== GAP VISUAL ===== */
+  .gap-block { display:flex; align-items:center; gap:2px; background:var(--gray); margin:16px 0; }
+  .gap-block > div { background:var(--black4); padding:20px 24px; flex:1; text-align:center; }
+  .gap-arrow { flex:0 0 60px; background:var(--black3); display:flex; align-items:center; justify-content:center; font-size:24px; color:var(--red); }
+  .gap-label { font-size:10px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--text-muted); }
+  .gap-value { font-family:'Barlow Condensed',sans-serif; font-size:clamp(28px,3vw,42px); font-weight:900; line-height:1; margin:4px 0; }
+  .gap-detail { font-size:11px; color:var(--white3); }
+  .gap-vs { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; color:var(--red); letter-spacing:.1em; text-transform:uppercase; }
+
+  /* ===== BUDGET DOT MATRIX ===== */
+  .budget-comparison { display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--gray); }
+  .budget-card { background:var(--black4); padding:20px; }
+  .budget-name { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:800; text-transform:uppercase; }
+  .budget-total { font-size:12px; color:var(--text-muted); margin-bottom:8px; }
+  .budget-row { display:flex; align-items:center; gap:8px; margin-bottom:3px; font-size:11px; }
+  .budget-dot { width:8px; height:8px; border-radius:2px; flex-shrink:0; }
+  .budget-dot.red { background:var(--red); }
+  .budget-dot.blue { background:#3b82f6; }
+  .budget-dot.green { background:#22c55e; }
+  .budget-dot.amber { background:#f59e0b; }
+  .budget-dot.purple { background:#8b5cf6; }
+  .budget-dot.gray { background:var(--gray2); }
+  .budget-row-pct { font-family:'Barlow Condensed',sans-serif; font-weight:700; width:30px; text-align:right; color:var(--white3); }
+  .budget-row-label { color:var(--text-muted); flex:1; }
+
+  /* ===== IMAGE EMBEDS ===== */
+  .img-frame { background:var(--black3); border:1px solid var(--gray); padding:16px; margin:12px 0; border-radius:4px; }
+  .img-frame img { width:100%; height:auto; display:block; border-radius:2px; }
+  .img-caption { font-size:13px; color:var(--text-muted); margin-top:10px; letter-spacing:.02em; line-height:1.55; display:flex; align-items:flex-start; gap:8px; }
+  .img-caption strong { color:var(--white3); }
+  .img-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:12px 0; }
+  .logo-img { height:28px; width:auto; display:block; }
+  .budget-row-bar { width:60px; height:6px; background:var(--black3); border-radius:3px; overflow:hidden; }
+  .budget-row-fill { height:100%; border-radius:3px; }
+
+  /* ===== HOVER REVEAL ===== */
+  .reveal-card { background:var(--black3); border:1px solid var(--gray); cursor:pointer; transition:.3s; }
+  .reveal-card:hover { border-color:var(--red); transform:translateY(-2px); }
+  .reveal-card-header { padding:20px 24px; display:flex; justify-content:space-between; align-items:center; }
+  .reveal-card-header h4 { font-family:'Barlow Condensed',sans-serif; font-size:15px; font-weight:800; text-transform:uppercase; }
+  .reveal-card-header .toggle-icon { font-size:18px; color:var(--red); transition:transform .3s; }
+  .reveal-card.open .toggle-icon { transform:rotate(45deg); }
+  .reveal-card-body { padding:0 24px; max-height:0; overflow:hidden; transition:max-height .5s ease, padding .3s; }
+  .reveal-card.open .reveal-card-body { max-height:600px; padding:0 24px 20px; }
+
+  /* ===== TIMELINE DOT ===== */
+  .timeline-dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; flex-shrink:0; }
+
+  .bar-container { margin-top:24px; }
+  .bar-label-row { display:flex; justify-content:space-between; font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px; }
+
+  @media (max-width:900px) {
+    .topbar, header, section, .hero { padding-left:20px; padding-right:20px; }
+    .hero-stats { grid-template-columns:repeat(2,1fr); }
+    .grid-2, .grid-3, .grid-4, .grid-5, .insight-block, .timeline-grid, .dual-bar, .gap-block, .budget-comparison { grid-template-columns:1fr; flex-direction:column; }
+    .hero::before { font-size:80px; }
+    .funnel-content { flex-direction:column; }
+    .funnel-kpis { text-align:left; min-width:auto; }
+    .chart-bar-label { width:100px; font-size:10px; }
+    .chart-bar-value { width:40px; font-size:11px; }
+    .gap-arrow { flex:0 0 40px; font-size:16px; padding:8px; transform:rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span>Roteiro Estratégico 360°</span>
+  <span>All Over Exterior Roofing · Jul 2025 — Jun 2026</span>
+</div>
+
+<header>
+  <div class="logo" style="display:flex;align-items:center;gap:12px;"><img src="images/v4-logo.png" alt="V4" class="logo-img"> <small style="font-size:11px;font-weight:400;color:var(--text-muted);letter-spacing:.08em;">All Over Exterior Roofing</small></div>
+  <div class="header-tag">Roteiro Estratégico 360°</div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-tag">Capítulo 1 · O Diagnóstico</div>
+  <h1>O Google entrega. <span>O que falta é amplitude.</span></h1>
+  <p class="hero-sub">All Over investiu pesado em Google Ads e construiu uma presença digital forte. Os dados mostram que o motor segue funcionando — mas o mercado de roofing em Houston mudou. Concorrência mais agressiva, CPCs sazonais que disparam na temporada de tempestades e um ecossistema de canais ainda inexplorado. A pergunta certa não é "Google ainda funciona?". É: "qual é a composição de mídia ideal para 2026?"</p>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="stat-number count-up" data-target="154">0</span>
+      <span class="stat-label">Leads gerados (11 meses)</span>
+    </div>
+    <div class="hero-stat">
+      <span class="stat-number white">$24.140</span>
+      <span class="stat-label">Investimento total em anúncios</span>
+    </div>
+    <div class="hero-stat">
+      <span class="stat-number count-up" data-target="51353">0</span>
+      <span class="stat-label">Eventos-chave no site</span>
+    </div>
+    <div class="hero-stat">
+      <span class="stat-number">$0,47</span>
+      <span class="stat-label">Custo médio por evento</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CAPÍTULO 2: CENÁRIO DE MERCADO ===== -->
+<section>
+  <div class="section-label">Capítulo 2</div>
+  <h2 class="section-title">O mercado de roofing <span>em Houston</span></h2>
+
+  <div class="grid-3">
+    <div class="card">
+      <span class="card-tag">Concorrência</span>
+      <h3>5.690 roofers no Texas</h3>
+      <p>Houston concentra <strong style="color:var(--white);">305 empresas de roofing</strong> — 5,4% de todo o estado. Cada uma disputando as mesmas keywords na temporada de tempestades.</p>
+      <span class="card-metric small" style="color:#f59e0b;">+40-80% CPC na temporada</span>
+    </div>
+    <div class="card">
+      <span class="card-tag">CPC Real</span>
+      <h3>$10,70 CPC médio</h3>
+      <p>O CPC real do setor de roofing é o <strong style="color:var(--white);">mais alto de todos os home services</strong> — $10,70 contra $7,85 da média geral. Em Houston, na temporada de furacões, chega a $52-$84 por clique.</p>
+      <span class="card-metric small">$228 CPL médio nationwide</span>
+    </div>
+    <div class="card">
+      <span class="card-tag">Comportamento</span>
+      <h3>50% buscam online</h3>
+      <p>Pesquisa 2025 da Roofing Contractor mostra que <strong style="color:var(--white);">50% dos homeowners</strong> encontram empreiteiras via busca online. Outros 11% já usam IA (ChatGPT, Copilot, Perplexity). O consumidor de roofing migrou pro digital — e não volta.</p>
+      <span class="card-metric small" style="color:#22c55e;">Ticket médio residencial: $13.400</span>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:2px;">
+    <h4>O que isso significa para a All Over</h4>
+    <p>Roofing tem o maior CPL dos home services ($228 nacional, $88-$165 em Houston) porque <strong>o ticket justifica o investimento</strong>. Um lead de roofing que fecha um telhado residencial de $13.400 tem um ROA potencial de 80:1. O problema não é o custo do lead — é <strong>deixar leads na mesa</strong> por não estar onde o consumidor está. E o consumidor de Houston está cada vez mais fragmentado entre canais.</p>
+  </div>
+</section>
+
+<!-- ===== CAPÍTULO 3: ANÁLISE HISTÓRICA DOS CANAIS ===== -->
+<section>
+  <div class="section-label">Capítulo 3</div>
+  <h2 class="section-title">Análise histórica: <span>o que cada canal entregou</span></h2>
+  <p class="section-sub">11 meses de dados reais da All Over, combinando GA4, GHL e benchmarks de mercado. Cada canal tem um papel na jornada — entender o peso de cada um é o primeiro passo para desenhar a composição ideal.</p>
+
+  <div class="grid-2">
+    <div class="canal-block">
+      <div class="canal-header"><h3>Google Ads — Search</h3><span class="canal-badge badge-critical">80,7% do ad spend</span></div>
+      <div class="canal-metrics">
+        <div class="canal-metric"><span class="canal-metric-val" style="color:var(--red);">3.525</span><span class="canal-metric-label">Sessões</span></div>
+        <div class="canal-metric"><span class="canal-metric-val">7.500</span><span class="canal-metric-label">Eventos chave</span></div>
+        <div class="canal-metric"><span class="canal-metric-val" style="color:#f59e0b;">$2,60</span><span class="canal-metric-label">CPC (acima da média)</span></div>
+      </div>
+      <div style="font-size:13px;color:var(--white3);margin-top:8px;">
+        <strong style="color:var(--white);">Veredito: ⭐ Canal âncora.</strong> Entrega o tráfego de maior intenção. O CPC de $2,60 da All Over está abaixo da média nacional de roofing ($10,70), indicando boa otimização. Responde por 53,6% de todos os eventos-chave. Onde está o gap: 80,7% do orçamento está concentrado aqui, criando dependência e vulnerabilidade a flutuações sazonais de CPC.
+      </div>
+    </div>
+    <div class="canal-block green">
+      <div class="canal-header"><h3>Google Cross-network</h3><span class="canal-badge badge-ok">19,3% do ad spend</span></div>
+      <div class="canal-metrics">
+        <div class="canal-metric"><span class="canal-metric-val" style="color:var(--red);">15.274</span><span class="canal-metric-label">Sessões (maior volume)</span></div>
+        <div class="canal-metric"><span class="canal-metric-val">20.083</span><span class="canal-metric-label">Eventos chave</span></div>
+        <div class="canal-metric"><span class="canal-metric-val" style="color:#22c55e;">$0,23</span><span class="canal-metric-label">CPC (7x menor)</span></div>
+      </div>
+      <div style="font-size:13px;color:var(--white3);margin-top:8px;">
+        <strong style="color:var(--white);">Veredito: ⭐ Canal de maior eficiência.</strong> Com CPC de $0,23, o Cross-network (Display, YouTube, Discovery) entrega 20.083 eventos ao custo de apenas $4.656. É o canal mais sub-orçado proporcionalmente ao desempenho. Ideal para construir reconhecimento de marca e remarketing.
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:2px;">
+    <div class="grid-2">
+      <div class="canal-block amber">
+        <div class="canal-header"><h3>Organic Search (SEO)</h3><span class="canal-badge badge-warning">Em maturação</span></div>
+        <div class="canal-metrics">
+          <div class="canal-metric"><span class="canal-metric-val">2.253</span><span class="canal-metric-label">Sessões orgânicas</span></div>
+          <div class="canal-metric"><span class="canal-metric-val" style="color:#22c55e;">4.373</span><span class="canal-metric-label">Eventos chave</span></div>
+          <div class="canal-metric"><span class="canal-metric-val" style="color:#22c55e;">1min01s</span><span class="canal-metric-label">Tempo médio de engajamento</span></div>
+        </div>
+        <div style="font-size:13px;color:var(--white3);margin-top:8px;">
+          <strong style="color:var(--white);">Veredito: 🔶 Potencial não realizado.</strong> Os 24 artigos SEO criados em maio de 2026 ainda estão amadurecendo. O tráfego orgânico atual (7,1% das sessões) deve crescer nos próximos 90-120 dias. O SEO de roofing tem CPL de $100-$300 (vs $228 do Google Ads pago) e conversão de 8-12%. É o canal mais rentável no longo prazo.
+        </div>
+      </div>
+      <div class="canal-block blue">
+        <div class="canal-header"><h3>Facebook & Instagram Ads</h3><span class="canal-badge badge-blue">5,2% leads (histórico)</span></div>
+        <div class="canal-metrics">
+          <div class="canal-metric"><span class="canal-metric-val">8</span><span class="canal-metric-label">Leads rastreados</span></div>
+          <div class="canal-metric"><span class="canal-metric-val" style="color:#f59e0b;">$20-$80</span><span class="canal-metric-label">CPL médio (benchmark)</span></div>
+          <div class="canal-metric"><span class="canal-metric-val" style="color:#f59e0b;">10-20%</span><span class="canal-metric-label">Taxa de conversão</span></div>
+        </div>
+        <div style="font-size:13px;color:var(--white3);margin-top:8px;">
+          <strong style="color:var(--white);">Veredito: 🔶 Sub-utilizado e sub-testado.</strong> Apenas 8 leads vieram do Facebook em 11 meses, mas com CPL potencial de $20-$80 — muito abaixo do Google Ads. O Facebook entrega leads de menor intenção, mas com custo baixo. Precisa de nurturing — e os 10 emails de nutrição criados em maio são o complemento perfeito.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== GAP DE ATRIBUIÇÃO: GA4 vs GHL ===== -->
+  <div class="section-label" style="margin-top:32px;">Gap de Atribuição</div>
+  <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(24px,3.5vw,36px);font-weight:900;text-transform:uppercase;margin-bottom:12px;">O que o GA4 vê <span style="color:var(--red);">vs</span> o que o GHL registra</h2>
+  <p class="section-sub" style="margin-bottom:20px;">53,6% dos eventos chave vêm do Google Ads no GA4. Mas só <strong style="color:var(--red);">18,8% dos leads</strong> chegam com GCLID no GHL. Os outros 76% aparecem como "Direct/Orgânico" — invisíveis. O problema não é o canal. É o rastreio.</p>
+
+  <div class="dual-bar">
+    <div class="dual-bar-side">
+      <div class="dual-bar-label">GA4 — Atribuição Baseada em Dados</div>
+      <div class="dual-bar-num" style="color:var(--red);">53,6%</div>
+      <div class="dual-bar-pct">Google Ads como fonte de eventos chave</div>
+      <div class="dual-bar-track"><div class="dual-bar-fill red" style="width:53.6%;"></div></div>
+      <div class="dual-bar-caption">Modelo baseado em dados confirma 53,7% — Google Ads domina qualquer modelo de atribuição</div>
+    </div>
+    <div class="dual-bar-side">
+      <div class="dual-bar-label">GHL — leads.csv (154 leads reais)</div>
+      <div class="dual-bar-num" style="color:#f59e0b;">18,8%</div>
+      <div class="dual-bar-pct">Leads com GCLID rastreado</div>
+      <div class="dual-bar-track"><div class="dual-bar-fill" style="width:18.8%;background:#f59e0b;"></div></div>
+      <div class="dual-bar-caption" style="color:#f59e0b;">76% dos leads chegam como Direct/Orgânico — sem origem identificável</div>
+    </div>
+  </div>
+
+  <div class="gap-block">
+    <div>
+      <div class="gap-label">GA4 vê</div>
+      <div class="gap-value" style="color:var(--red);">53,6%</div>
+      <div class="gap-detail">Google Ads nos eventos</div>
+    </div>
+    <div class="gap-arrow">▶</div>
+    <div>
+      <div class="gap-label">GHL registra</div>
+      <div class="gap-value" style="color:#f59e0b;">18,8%</div>
+      <div class="gap-detail">Google Ads nos leads</div>
+    </div>
+    <div class="gap-arrow">▶</div>
+    <div>
+      <div class="gap-label">Gap real</div>
+      <div class="gap-value" style="color:var(--red);">2,85x</div>
+      <div class="gap-detail">subnotificação de leads Google</div>
+    </div>
+    <div class="gap-arrow">▶</div>
+    <div>
+      <div class="gap-label">Causa raiz</div>
+      <div class="gap-value" style="color:#8b5cf6;">/free-inspection</div>
+      <div class="gap-detail">79% dos leads, mas só 4,9% do tráfego — jornada quebra o GCLID</div>
+    </div>
+  </div>
+
+  <div class="img-frame">
+    <img src="images/pagina-destino-1.jpg" alt="GA4 — Landing Pages" loading="lazy">
+    <div class="img-caption"><strong>📊 GA4 — Páginas de Destino:</strong> O relatório confirma: <strong style="color:var(--white);">/roofing-services</strong> recebe 57,5% de todo o tráfego pago — mas o formulário de lead está em <strong style="color:var(--white);">/free-inspection</strong> (só 4,9% do tráfego). O lead bate na página de serviço, navega, depois volta pelo Direct para o formulário. Resultado: o GCLID se perde e o Google Ads não recebe o crédito. A solução: formulário de lead direto na página de serviço + rastreio persistente.</div>
+  </div>
+
+  <div class="callout" style="margin-top:16px;">
+    <h4>O paradoxo do Google Ads</h4>
+    <p>O GA4 mostra que <strong style="color:var(--white);">Google Ads gera 53,6% das conversões</strong> em qualquer modelo de atribuição. O CPC de $2,60 está abaixo da média nacional ($10,70). O motor funciona. O que está quebrado é o <strong style="color:var(--red);">elo entre o clique no anúncio e o lead no CRM</strong> — 76% dos leads perdem o GCLID porque o formulário de conversão está numa página diferente da que recebe o tráfego pago. <strong style="color:var(--white);">Consertar isso é a ação de maior retorno imediato.</strong></p>
+  </div>
+
+  <div class="img-grid-2">
+    <div class="img-frame">
+      <img src="images/atribuicao-modelos-1.jpg" alt="GA4 — Modelos de Atribuição" loading="lazy">
+      <div class="img-caption"><strong>📊 GA4 — Modelos de Atribuição:</strong> Google CPC entrega 53,6% (último clique) e 53,7% (baseado em dados). A variação é de apenas +0,17% — o Google Ads domina <strong style="color:var(--white);">qualquer modelo</strong>. Apple Ads (an/paid) mantém 7,4% em ambos. Isso prova que a dependência do Google não é artefato de modelo — é real.</div>
+    </div>
+    <div class="img-frame">
+      <img src="images/atribuicao-conversoes-1.jpg" alt="GA4 — Análise de Atribuição de Conversões" loading="lazy">
+      <div class="img-caption"><strong>📊 GA4 — Análise de Atribuição:</strong> Cross-network lidera em pontos de contato únicos (40,65%) e finais (74,29%). Paid Search é o motor de <strong style="color:var(--white);">primeiros contatos</strong> (21,46%) e intermediários (23,59%). Organic Search tem o maior peso como <strong style="color:var(--white);">ponto de contato inicial</strong> (29,06%) — o SEO está plantando sementes que o Google Ads colhe.</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:8px;">
+    <h4>Canais que ainda não foram testados</h4>
+    <p>Os dados mostram que a All Over opera essencialmente com <strong style="color:var(--white);">2 canais pagos</strong> (Google Search + Cross-network) em um mercado com <strong style="color:var(--white);">pelo menos 7 canais viáveis</strong> para roofing. As maiores oportunidades estão em canais onde a concorrência ainda não chegou — e onde a audiência da All Over já está.</p>
+  </div>
+</section>
+
+<!-- ===== CAPÍTULO 4: OUTRAS PLATAFORMAS / ORIGEM MÍDIA ===== -->
+<section>
+  <div class="section-label">Capítulo 4</div>
+  <h2 class="section-title">Outras plataformas: <span>o que os dados já mostram</span></h2>
+  <p class="section-sub">Além do Google Search e do Cross-network, <strong style="color:var(--white);">6 outras plataformas</strong> já entregam tráfego e conversões para a All Over — sem investimento dedicado, sem campanhas estruturadas, sem otimização. Apple Search Ads, Yelp e Bing já provaram que a audiência existe e se engaja. O que falta é a estratégia para capturar esse potencial.</p>
+
+  <!-- BAR CHART: Usuários por Origem/Mídia -->
+  <div class="bar-container" id="chart-sources">
+    <div class="bar-label-row"><span style="color:var(--red);font-weight:700;">■ Google</span><span style="color:#3b82f6;font-weight:700;">■ Não-Google</span><span style="color:#22c55e;font-weight:700;">■ Orgânico</span><span>% de Usuários</span></div>
+
+    <div class="chart-bar"><span class="chart-bar-label">google / cpc</span><div class="chart-bar-track"><div class="chart-bar-fill google" style="width:50.7%" data-pct="50,7%"></div></div><span class="chart-bar-value">8.680</span></div>
+
+    <div class="chart-bar"><span class="chart-bar-label">(direct) / (none)</span><div class="chart-bar-track"><div class="chart-bar-fill direct" style="width:27.74%" data-pct="27,7%"></div></div><span class="chart-bar-value">4.749</span></div>
+
+    <div class="chart-bar"><span class="chart-bar-label" style="color:#8b5cf6;">an / paid <span style="color:var(--text-muted);font-weight:400;">(Apple Ads)</span></span><div class="chart-bar-track"><div class="chart-bar-fill non-google" style="width:7.93%" data-pct="7,9%"></div></div><span class="chart-bar-value">1.358</span></div>
+
+    <div class="chart-bar"><span class="chart-bar-label">google / organic</span><div class="chart-bar-track"><div class="chart-bar-fill organic" style="width:6.45%" data-pct="6,5%"></div></div><span class="chart-bar-value">1.104</span></div>
+
+    <div class="chart-bar"><span class="chart-bar-label" style="color:#f59e0b;">fb+ig / paid</span><div class="chart-bar-track"><div class="chart-bar-fill non-google" style="width:2.24%" data-pct="2,2%"></div></div><span class="chart-bar-value">384</span></div>
+
+    <div class="chart-bar"><span class="chart-bar-label" style="color:#f59e0b;">Facebook referrals</span><div class="chart-bar-track"><div class="chart-bar-fill non-google" style="width:1.62%" data-pct="1,6%"></div></div><span class="chart-bar-value">278</span></div>
+
+    <div class="chart-bar"><span class="chart-bar-label" style="color:#8b5cf6;">yelp / referral</span><div class="chart-bar-track"><div class="chart-bar-fill non-google" style="width:0.44%" data-pct="0,4%"></div></div><span class="chart-bar-value">75</span></div>
+
+    <div class="chart-bar"><span class="chart-bar-label" style="color:#3b82f6;">bing / organic ⚡</span><div class="chart-bar-track"><div class="chart-bar-fill non-google" style="width:0.56%" data-pct="96 conv."></div></div><span class="chart-bar-value">96 conv</span></div>
+
+    <!-- TOTAL OPPORTUNITY ROW -->
+    <div class="chart-bar" style="margin-top:12px;padding-top:12px;border-top:2px solid var(--gray);">
+      <span class="chart-bar-label" style="color:var(--white);font-weight:800;">Fora do Google</span>
+      <div class="chart-bar-track" style="height:32px;">
+        <div class="chart-bar-fill non-google" style="width:12.23%;background:linear-gradient(90deg,#f59e0b,#8b5cf6);" data-pct="12,23%"></div>
+      </div>
+      <span class="chart-bar-value" style="color:var(--white);font-weight:900;">2.095 usu</span>
+    </div>
+  </div>
+
+  <div class="bar-label-row" style="margin-top:4px;justify-content:flex-start;gap:20px;">
+    <span style="font-size:10px;color:var(--text-muted);">Fonte: GA4 · Primeira origem/mídia do usuário · Jul/2025–Mai/2026</span>
+    <span style="font-size:10px;color:var(--text-muted);">⚡ Bing/organic aparece apenas no relatório de conversões</span>
+  </div>
+
+  <!-- GA4 SCREENSHOT: Source/Medium -->
+  <div class="img-frame">
+    <img src="images/source-medium-1.jpg" alt="GA4 — Primeira Origem/Mídia do Usuário" loading="lazy">
+    <div class="img-caption"><strong>📊 GA4 — Aquisição de Usuários por Primeira Origem/Mídia:</strong> Os dados brutos do Google Analytics confirmam a hierarquia: Google CPC domina com 50,7% dos usuários, seguido por Direct (27,74%) e Apple Ads (7,93%) como 3º canal. Cada barra do gráfico acima corresponde a uma linha deste relatório.</div>
+  </div>
+
+  <!-- INTERACTIVE INSIGHT CARDS WITH HOVER -->
+  <div class="grid-2" style="margin-top:20px;">
+    <div class="reveal-card" onclick="this.classList.toggle('open')">
+      <div class="reveal-card-header">
+        <h4><span style="color:#8b5cf6;">📱</span> Apple Search Ads — 1.358 usuários invisíveis</h4>
+        <span class="toggle-icon">+</span>
+      </div>
+      <div class="reveal-card-body">
+        <div class="dual-bar">
+          <div class="dual-bar-side">
+            <div class="dual-bar-label">Usuários Apple Ads</div>
+            <div class="dual-bar-num" style="color:#8b5cf6;">1.358</div>
+            <div class="dual-bar-pct">7,93% do total — 3º maior canal</div>
+            <div class="dual-bar-track"><div class="dual-bar-fill red" style="width:7.93%;"></div></div>
+            <div class="dual-bar-caption">vs 50,7% do Google CPC — 6,4x menor, mas SEM investimento dedicado</div>
+          </div>
+          <div class="dual-bar-side">
+            <div class="dual-bar-label">Atribuição — First Touch</div>
+            <div class="dual-bar-num" style="color:#3b82f6;">17,37%</div>
+            <div class="dual-bar-pct">dos primeiros contatos começam no ecossistema Apple</div>
+            <div class="dual-bar-track"><div class="dual-bar-fill blue" style="width:17.37%;"></div></div>
+            <div class="dual-bar-caption">1 em cada 6 novos contatos com a All Over começa num iPhone</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--white3);margin-top:12px;">Apple Search Ads aparece com <strong style="color:var(--white);">$0 de ad spend no GA4</strong> porque a Apple não reporta custo via integração padrão. A All Over pode estar pagando por 1.358 usuários sem conseguir medir o ROI. Com campanhas estruturadas no Apple Ads Manager, esse canal pode se tornar o <strong style="color:var(--white);">2º maior motor de leads</strong> da operação.</p>
+      </div>
+    </div>
+
+    <div class="reveal-card" onclick="this.classList.toggle('open')">
+      <div class="reveal-card-header">
+        <h4><span style="color:#f59e0b;">⭐</span> Yelp — o canal que mais engaja</h4>
+        <span class="toggle-icon">+</span>
+      </div>
+      <div class="reveal-card-body">
+        <div class="grid-3" style="margin-bottom:12px;">
+          <div class="canal-metric"><span class="canal-metric-val" style="color:#8b5cf6;">2min57s</span><span class="canal-metric-label">Tempo médio (maior da base)</span></div>
+          <div class="canal-metric"><span class="canal-metric-val" style="color:#8b5cf6;">1,75</span><span class="canal-metric-label">Sessões engajadas / usuário</span></div>
+          <div class="canal-metric"><span class="canal-metric-val" style="color:#8b5cf6;">268</span><span class="canal-metric-label">Conversões (374 eventos)</span></div>
+        </div>
+        <p style="font-size:13px;color:var(--white3);">Só 75 usuários, mas <strong style="color:var(--white);">2min57s de engajamento</strong> vs 21s do Google Search. Quem chega via Yelp já está decidido — só precisa de confiança. <strong style="color:var(--white);">Yelp Ads</strong> pode escalar com CPL de $40-$80 e time response rápido. É o canal de <strong style="color:var(--white);">maior eficiência qualitativa</strong> de toda a base.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:2px;">
+    <div class="reveal-card" onclick="this.classList.toggle('open')">
+      <div class="reveal-card-header">
+        <h4><span style="color:#3b82f6;">🔍</span> Bing — 96 conversões orgânicas = validação pura</h4>
+        <span class="toggle-icon">+</span>
+      </div>
+      <div class="reveal-card-body">
+        <div class="dual-bar">
+          <div class="dual-bar-side">
+            <div class="dual-bar-label">Conversões sem investimento</div>
+            <div class="dual-bar-num" style="color:#3b82f6;">96</div>
+            <div class="dual-bar-pct">Orgânicas — $0 de ad spend</div>
+          </div>
+          <div class="dual-bar-side">
+            <div class="dual-bar-label">Projeção Bing Ads ($400/mês)</div>
+            <div class="dual-bar-num" style="color:#22c55e;">+40-60</div>
+            <div class="dual-bar-pct">conversões/mês a CPL $60-$130</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--white3);margin-top:12px;">O <strong style="color:var(--white);">Bing já entrega 96 conversões</strong> sem um centavo investido. Isso é a validação mais forte possível: o público do Bing já está procurando roofing em Houston e convertendo organicamente. Com campanhas importadas do Google Ads (mesmas keywords, mesmas páginas), o potencial comprovado é de <strong style="color:var(--white);">+15-25% de leads totais</strong> a um CPL 30-40% menor.</p>
+        <div class="img-frame" style="margin-top:8px;">
+          <img src="images/performance-conversao-1.jpg" alt="GA4 — Conversões por Origem/Mídia" loading="lazy">
+          <div class="img-caption"><strong>📊 GA4 — Performance da Conversão (last-click):</strong> O dado que não mente: <strong style="color:var(--white);">bing / organic aparece com 96 conversões (0,21%) e $0 de custo</strong> — ao lado de google / cpc (53,19%), google / organic (7,34%), an / paid (3,86%) e yelp.com / referral (0,59%). Bing já entrega conversões sem investimento. Com campanhas pagas, esse número escala.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal-card" onclick="this.classList.toggle('open')">
+      <div class="reveal-card-header">
+        <h4><span style="color:#f59e0b;">📱</span> Meta — 662 usuários sem estratégia</h4>
+        <span class="toggle-icon">+</span>
+      </div>
+      <div class="reveal-card-body">
+        <div class="grid-3" style="margin-bottom:12px;">
+          <div class="canal-metric"><span class="canal-metric-val" style="color:#f59e0b;">384</span><span class="canal-metric-label">Usuários pagos (fb+ig)</span></div>
+          <div class="canal-metric"><span class="canal-metric-val" style="color:#f59e0b;">278</span><span class="canal-metric-label">Referral orgânico</span></div>
+          <div class="canal-metric"><span class="canal-metric-val" style="color:#f59e0b;">662</span><span class="canal-metric-label">Total (3,87% da base)</span></div>
+        </div>
+        <p style="font-size:13px;color:var(--white3);">Campanhas pagas mínimas e sem otimização. Referral orgânico já entrega <strong style="color:var(--white);">501 eventos chave sem custo</strong> — sinal de que a audiência Meta existe, se engaja e compartilha. Com campanhas de lead gen direto (CPL potencial $20-$80) + nurturing via email, o ecossistema Meta pode virar o <strong style="color:var(--white);">2º maior canal em volume</strong> com investimento moderado.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BIG NUMBER: 12.23% -->
+  <div class="highlight-box" style="margin-top:2px;background:linear-gradient(135deg,var(--black3),#1a0a2e);border-left-color:#8b5cf6;">
+    <div style="display:flex;align-items:center;gap:32px;flex-wrap:wrap;">
+      <div style="text-align:center;flex-shrink:0;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(48px,6vw,72px);font-weight:900;color:#8b5cf6;line-height:1;" class="count-up" data-target="12.23">0</div>
+        <div style="font-size:11px;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;">dos usuários já vêm<br>de fora do Google</div>
+      </div>
+      <div style="flex:1;min-width:200px;">
+        <h4 style="color:#8b5cf6;">2.095 usuários. 2.784 conversões. $0 de estratégia.</h4>
+        <p>Apple Ads, Yelp, Bing, Facebook e Instagram já entregam <strong style="color:var(--white);">12,23% dos usuários</strong> da All Over — sem campanhas dedicadas, sem otimização, sem investimento coordenado. Com a composição de mídia certa, esse número pode <strong style="color:var(--white);">triplicar em 6 meses</strong>. A pergunta não é "se" funcionam. É: <strong style="color:var(--red);">quanto investir para capturar a demanda que já existe?</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CAPÍTULO 5: BING / MICROSOFT ADS ===== -->
+<section>
+  <div class="section-label">Capítulo 5</div>
+  <h2 class="section-title">Microsoft Advertising: <span>o canal mais subestimado do roofing</span></h2>
+  <p class="section-sub">Enquanto todo mundo está no Google lutando por CPCs que dobram na temporada de tempestades, o Bing (Microsoft Ads) oferece o mesmo público — <strong style="color:var(--white);">mais velho, mais rico, mais intenção</strong> — por 30-50% menos por clique. E com uma vantagem que o Google não tem: compliance integrado ao ecossistema Microsoft.</p>
+
+  <div class="grid-3">
+    <div class="card">
+      <span class="card-tag blue">Custo</span>
+      <h3>CPC 30-50% menor</h3>
+      <p>CPC médio de roofing no Bing: <strong style="color:var(--white);">$5-$7</strong> vs $10,70 no Google. Para a All Over, que paga $2,60 no Google (abaixo da média), o Bing pode entregar <strong style="color:var(--white);">CPC de $1,30-$1,80</strong> com importação direta das campanhas atuais.</p>
+      <span class="card-metric small" style="color:#22c55e;">CPL estimado: $60-$130</span>
+    </div>
+    <div class="card">
+      <span class="card-tag blue">Audiência</span>
+      <h3>O perfil do dono de casa</h3>
+      <p><strong style="color:var(--white);">33% dos usuários do Bing</strong> têm renda familiar acima de $100K. A faixa etária dominante é 35-65 anos — exatamente quem contrata serviços de telhado. 70% das buscas são em desktop (vs 40% no Google), sinal de <strong style="color:var(--white);">pesquisa de alta intenção</strong>.</p>
+      <span class="card-metric small">+20% ticket médio vs Google</span>
+    </div>
+    <div class="card">
+      <span class="card-tag blue">Compliance</span>
+      <h3>Segurança de dados corporativa</h3>
+      <p>O Microsoft Advertising opera com <strong style="color:var(--white);">Consent Mode avançado</strong> e está alinhado com as práticas de privacidade GDPR. Para clientes que valorizam <strong style="color:var(--white);">compliance e transparência</strong> — como empresas que atendem o ecossistema Microsoft 365 — o Bing é o caminho natural.</p>
+      <span class="card-metric small" style="color:#93c5fd;">Copilot integrado desde 2025</span>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:2px;">
+    <h4>Integração com o ecossistema Microsoft</h4>
+    <p>Empresas que usam Microsoft 365, Teams, Outlook e LinkedIn têm seus funcionários expostos ao Bing como mecanismo padrão do Edge/Windows. <strong style="color:var(--white);">Funcionários de grandes corporações em Houston</strong> (setor de energia, saúde, educação) pesquisam serviços domésticos no Bing durante o expediente — e encontram <strong style="color:var(--white);">muito menos concorrência</strong> do que no Google. A All Over pode ser uma das primeiras roofing companies em Houston a ocupar esse espaço.</p>
+  </div>
+
+  <div style="margin-top:16px;">
+    <div class="grid-3">
+      <div class="canal-block blue">
+        <div class="canal-header"><h3>Comparativo Bing vs Google</h3></div>
+        <table>
+          <thead>
+            <tr><th>Métrica</th><th>Google Ads</th><th>Microsoft Ads</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CPC médio home services</td><td>$7,85</td><td style="color:#4ade80;">$3,50-$5,00</td></tr>
+            <tr><td>CPC roofing (est.)</td><td>$10,70</td><td style="color:#4ade80;">$5,00-$7,00</td></tr>
+            <tr><td>Incremento de leads</td><td>—</td><td style="color:#4ade80;">+15-25% sobre Google</td></tr>
+            <tr><td>Renda familiar >$100K</td><td>~25%</td><td style="color:#4ade80;">33%</td></tr>
+            <tr><td>Desktop vs Mobile</td><td>40/60</td><td style="color:#4ade80;">70/30</td></tr>
+            <tr><td>Público 35-65 anos</td><td>Médio</td><td style="color:#4ade80;">Alta concentração</td></tr>
+            <tr><td>Compliance/privacy</td><td>Standard</td><td style="color:#4ade80;">Advanced Consent Mode</td></tr>
+          </tbody>
+        </table>
+        <div class="callout" style="margin-top:12px;">
+          <h4>Recomendação de orçamento</h4>
+          <p>Iniciar com <strong style="color:var(--white);">15-20% do orçamento atual de Search</strong> (~$300-$500/mês) em campanhas importadas do Google. Meta: 15-25% de leads incrementais a 40% menos CPL. Escalar ou cortar com base em dados reais de 60 dias.</p>
+        </div>
+      </div>
+
+      <div class="canal-block blue" style="grid-column:span 2;">
+        <div class="canal-header"><h3>Microsoft Copilot + LinkedIn Targeting: a vantagem invisível</h3></div>
+        <p style="font-size:13px;color:var(--white3);margin-bottom:16px;">O Microsoft Ads é a única plataforma de search que permite segmentação por <strong style="color:var(--white);">cargo, indústria e empresa</strong> via LinkedIn. Isso significa que a All Over pode, por exemplo, segmentar <strong style="color:var(--white);">"proprietários de imóveis em Houston"</strong> ou <strong style="color:var(--white);">"gestores de facilities de empresas de energia"</strong> — algo impossível no Google.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--gray);">
+          <div style="background:var(--black4);padding:16px;">
+            <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600;">Segmentação LinkedIn</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;margin-top:4px;">Cargo + Indústria + Local</div>
+            <div style="font-size:12px;color:var(--white3);margin-top:4px;">Ex: "Facility Manager" + "Oil & Energy" + "Houston"</div>
+          </div>
+          <div style="background:var(--black4);padding:16px;">
+            <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600;">Copilot Integration</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;margin-top:4px;">Aparição em respostas de IA</div>
+            <div style="font-size:12px;color:var(--white3);margin-top:4px;">Anúncios elegíveis para aparecer no Microsoft Copilot</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CAPÍTULO 6: DEMAIS CANAIS ===== -->
+<section>
+  <div class="section-label">Capítulo 6</div>
+  <h2 class="section-title">Outros canais: <span>o ecossistema completo</span></h2>
+  <p class="section-sub">Além de Google e Microsoft, existem pelo menos 5 canais adicionais que a All Over deveria considerar. Cada um atende a um momento diferente da jornada do consumidor — da descoberta à decisão final.</p>
+
+  <div class="grid-2">
+    <div class="canal-block amber">
+      <div class="canal-header"><h3>LSA — Local Services Ads</h3><span class="canal-badge badge-warning">Gap de Time Response</span></div>
+      <p style="font-size:13px;color:var(--white3);margin-bottom:12px;">O LSA é o canal de maior intenção para roofing: CPL de <strong style="color:var(--white);">$58-$98</strong> em Houston, e o lead já chega pré-qualificado. O problema da All Over não é o LSA em si — é o <strong style="color:var(--red);">tempo de resposta</strong>. LSA prioriza quem responde em menos de 2h. Acima disso, o Google entrega o lead para o concorrente.</p>
+      <div class="callout">
+        <h4>Ação imediata</h4>
+        <p>Estruturar resposta automatizada + alerta mobile para leads LSA. Cada hora de atraso custa leads que poderiam estar fechando com CPL de $65.</p>
+      </div>
+    </div>
+    <div class="canal-block" style="border-top-color:#8b5cf6;">
+      <div class="canal-header"><h3>SEO + Google Business Profile</h3><span class="canal-badge badge-ok">Base sólida</span></div>
+      <p style="font-size:13px;color:var(--white3);margin-bottom:12px;">O GBP é o <strong style="color:var(--white);">canal de maior ROI do roofing</strong>: CPL de $15-$50 e conversão de 25-35%. Os 24 artigos SEO de maio de 2026 precisam de 90-120 dias para maturar, mas vão gerar tráfego orgânico crescente. Com 305 roofers em Houston, o GBP e o SEO são os diferenciais competitivos duradouros.</p>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-top:2px;">
+    <div class="canal-block green">
+      <div class="canal-header"><h3>Email + Automação</h3></div>
+      <div style="font-size:13px;color:var(--white3);">
+        <strong style="color:var(--white);">10 emails de nutrição</strong> criados em maio de 2026 — mas nunca ativados. O email marketing fecha o gap entre o lead "frio" do Facebook/Display e a decisão de contratar. Referrals (indicações) têm CPL de $25-$75 e conversão de 25-40% — o maior ROI de todos.
+      </div>
+    </div>
+    <div class="canal-block blue">
+      <div class="canal-header"><h3>YouTube + Vídeo</h3></div>
+      <div style="font-size:13px;color:var(--white3);">
+        Cross-network inclui YouTube, mas sem conteúdo dedicado. Vídeos de "antes/depois" e depoimentos de clientes em Houston geram confiança e alimentam remarketing. O CPC do YouTube é 60-70% menor que o Search.
+      </div>
+    </div>
+    <div class="canal-block amber">
+      <div class="canal-header"><h3>Programático / Geofencing</h3></div>
+      <div style="font-size:13px;color:var(--white3);">
+        <strong style="color:var(--white);">Digital Door Knocking</strong> (geofencing hiperlocal): CPC de $3-$5 e CPL potencial de $30-$80. Segmenta por raio de CEP diretamente nos bairros de Houston com mais casas com mais de 20 anos de construção — o timing ideal para substituição de telhado.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CAPÍTULO 7: 5 CENÁRIOS DE COMPOSIÇÃO DE MÍDIA ===== -->
+<section>
+  <div class="section-label">Capítulo 7</div>
+  <h2 class="section-title">5 cenários de composição de mídia <span>para 2026</span></h2>
+  <p class="section-sub">Cada cenário abaixo parte do orçamento atual da All Over e propõe uma redistribuição. Clique nas abas para explorar cada estratégia.</p>
+
+  <div class="toggle-group" id="scenario-tabs">
+    <div class="toggle-btn active" data-scenario="defensiva">01. Defensiva</div>
+    <div class="toggle-btn" data-scenario="equilibrada">02. Equilibrada</div>
+    <div class="toggle-btn" data-scenario="ofensiva">03. Ofensiva</div>
+    <div class="toggle-btn" data-scenario="crescimento">04. Crescimento</div>
+    <div class="toggle-btn" data-scenario="digital-360">05. Digital 360°</div>
+  </div>
+
+  <!-- CENÁRIO 1: Defensiva -->
+  <div class="scenario-content active" id="s-defensiva">
+    <div class="scenario-card amber">
+      <div class="scenario-header">
+        <div class="scenario-name">01 · Estratégia Defensiva</div>
+        <div class="scenario-budget">~$2.000/mês</div>
+      </div>
+      <div class="scenario-desc"><strong>Foco:</strong> Máximo de eficiência com risco mínimo. Mantém o que já funciona, corta o que não deu retorno claro. Ideal se o budget for restrito ou se o cliente quiser "esperar para ver" antes de expandir.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--gray);margin-bottom:12px;">
+        <div style="background:var(--black4);padding:16px;">
+          <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;">Google Search</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;">70%</div>
+          <div style="font-size:12px;color:var(--white3);">$1.400/mês — manter campanhas atuais</div>
+        </div>
+        <div style="background:var(--black4);padding:16px;">
+          <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;">Cross-network</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;">15%</div>
+          <div style="font-size:12px;color:var(--white3);">$300/mês — remarketing apenas</div>
+        </div>
+        <div style="background:var(--black4);padding:16px;">
+          <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;">Microsoft Ads</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;">10%</div>
+          <div style="font-size:12px;color:var(--white3);">$200/mês — teste controlado</div>
+        </div>
+        <div style="background:var(--black4);padding:16px;">
+          <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;">LSA + GBP</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;">5%</div>
+          <div style="font-size:12px;color:var(--white3);">$100/mês — resposta rápida</div>
+        </div>
+      </div>
+      <div class="scenario-tags">
+        <span class="scenario-tag green">Risco: Baixo</span>
+        <span class="scenario-tag">Potencial de crescimento: Médio</span>
+        <span class="scenario-tag red">Dependência de Google: Alta</span>
+      </div>
+      <div class="callout" style="margin-top:12px;">
+        <h4>Resultado esperado (90 dias)</h4>
+        <p>+15-20% leads via Bing. Estabilização do CPA. Sem crescimento expressivo, mas com proteção contra oscilações de CPC sazonal. CPL estimado: $95-$130.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENÁRIO 2: Equilibrada -->
+  <div class="scenario-content" id="s-equilibrada">
+    <div class="scenario-card green">
+      <div class="scenario-header">
+        <div class="scenario-name">02 · Estratégia Equilibrada</div>
+        <div class="scenario-budget">~$3.000/mês</div>
+      </div>
+      <div class="scenario-desc"><strong>Foco:</strong> Diversificação controlada. Reduz dependência do Google Search (que cai de 80% para 50% do orçamento) e distribui entre canais comprovados. O cliente mantém o que funciona enquanto testa novos canais com orçamento dedicado.</div>
+      <table style="margin-bottom:12px;">
+        <thead>
+          <tr><th>Canal</th><th>%</th><th>Valor</th><th>Função</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Google Search</td><td class="num">50%</td><td class="num">$1.500</td><td>Âncora — intenção de busca</td></tr>
+          <tr><td style="color:#4ade80;">Microsoft Ads (Bing)</td><td class="num">15%</td><td class="num">$450</td><td>Incremental — CPC mais baixo</td></tr>
+          <tr><td>Cross-network</td><td class="num">15%</td><td class="num">$450</td><td>Awareness + remarketing</td></tr>
+          <tr><td>LSA</td><td class="num">10%</td><td class="num">$300</td><td>Alta intenção local</td></tr>
+          <tr><td>Facebook/Instagram</td><td class="num">5%</td><td class="num">$150</td><td>Baixo CPL, nurturing</td></tr>
+          <tr><td>YouTube (Vídeo)</td><td class="num">5%</td><td class="num">$150</td><td>Conteúdo + confiança</td></tr>
+        </tbody>
+      </table>
+      <div class="scenario-tags">
+        <span class="scenario-tag green">Risco: Médio-Baixo</span>
+        <span class="scenario-tag">Potencial de crescimento: Alto</span>
+        <span class="scenario-tag">Dependência de Google: Média</span>
+      </div>
+      <div class="callout" style="margin-top:12px;">
+        <h4>Resultado esperado (90 dias)</h4>
+        <p>+30-40% leads totais. Bing delivera 15-20% dos leads a CPL 40% menor. CPL blendado cai de $125 para $90-110. Dependência de Google reduzida de 80% para 50%. Base para escalar.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENÁRIO 3: Ofensiva -->
+  <div class="scenario-content" id="s-ofensiva">
+    <div class="scenario-card" style="border-left-color:var(--red);">
+      <div class="scenario-header">
+        <div class="scenario-name">03 · Estratégia Ofensiva</div>
+        <div class="scenario-budget">~$5.000/mês</div>
+      </div>
+      <div class="scenario-desc"><strong>Foco:</strong> Crescimento agressivo em múltiplas frentes. Assume que a All Over quer capturar market share em Houston antes que a concorrência sature os canais emergentes. O orçamento sobe, mas o CPL blendado cai.</div>
+      <table style="margin-bottom:12px;">
+        <thead>
+          <tr><th>Canal</th><th>%</th><th>Valor</th><th>Função</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Google Search</td><td class="num">40%</td><td class="num">$2.000</td><td>Âncora — manter campanhas de alta intenção</td></tr>
+          <tr><td style="color:#4ade80;">Microsoft Ads</td><td class="num">20%</td><td class="num">$1.000</td><td>Escalar — CPL mais baixo, intenção alta</td></tr>
+          <tr><td>Cross-network</td><td class="num">15%</td><td class="num">$750</td><td>Remarketing + Discovery campaigns</td></tr>
+          <tr><td>LSA</td><td class="num">10%</td><td class="num">$500</td><td>Time Response resolvido = leads frescos</td></tr>
+          <tr><td>Facebook/Instagram</td><td class="num">8%</td><td class="num">$400</td><td>Escalar — CPL de $30-60</td></tr>
+          <tr><td>Geofencing</td><td class="num">5%</td><td class="num">$250</td><td>Segmentação por CEP (bairros-alvo)</td></tr>
+          <tr><td>YouTube</td><td class="num">2%</td><td class="num">$100</td><td>Conteúdo de autoridade</td></tr>
+        </tbody>
+      </table>
+      <div class="scenario-tags">
+        <span class="scenario-tag">Risco: Médio</span>
+        <span class="scenario-tag green">Potencial de crescimento: Muito Alto</span>
+        <span class="scenario-tag green">Dependência de Google: Reduzida (40%)</span>
+      </div>
+      <div class="callout" style="margin-top:12px;">
+        <h4>Resultado esperado (120 dias)</h4>
+        <p>+70-100% leads totais. Market share em Houston capturado sazonalmente (pré-tempestades). CPL blendado: $75-$95. Bing + LSA viram segundo e terceiro canais em volume.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENÁRIO 4: Crescimento -->
+  <div class="scenario-content" id="s-crescimento">
+    <div class="scenario-card purple">
+      <div class="scenario-header">
+        <div class="scenario-name">04 · Estratégia de Crescimento</div>
+        <div class="scenario-budget">~$7.500/mês</div>
+      </div>
+      <div class="scenario-desc"><strong>Foco:</strong> Escala total com marketing de performance + conteúdo. Combina mídia paga diversificada com SEO agressivo e automação de email para capturar leads em todos os estágios do funil.</div>
+      <table style="margin-bottom:12px;">
+        <thead>
+          <tr><th>Canal</th><th>%</th><th>Valor</th><th>Função</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Google Search</td><td class="num">30%</td><td class="num">$2.250</td><td>Alta intenção + LSA</td></tr>
+          <tr><td style="color:#4ade80;">Microsoft Ads</td><td class="num">20%</td><td class="num">$1.500</td><td>Segundo search, CPL 40% menor</td></tr>
+          <tr><td>Cross-network</td><td class="num">18%</td><td class="num">$1.350</td><td>Discovery + Remarketing + YouTube</td></tr>
+          <tr><td>Facebook/Instagram</td><td class="num">12%</td><td class="num">$900</td><td>Nurturing + ofertas sazonais</td></tr>
+          <tr><td>LSA</td><td class="num">10%</td><td class="num">$750</td><td>Lead quente local</td></tr>
+          <tr><td>Geofencing</td><td class="num">5%</td><td class="num">$375</td><td>Bairros-alvo (casas 20+ anos)</td></tr>
+          <tr><td>Email + Automação</td><td class="num">3%</td><td class="num">$225</td><td>Nurturing + referral program</td></tr>
+          <tr><td>Programático (Display)</td><td class="num">2%</td><td class="num">$150</td><td>Segmentação contextual</td></tr>
+        </tbody>
+      </table>
+      <div class="scenario-tags">
+        <span class="scenario-tag">Risco: Médio-Alto</span>
+        <span class="scenario-tag green">Potencial de crescimento: Máximo</span>
+        <span class="scenario-tag">Dependência de Google: Baixa (30%)</span>
+      </div>
+      <div class="callout" style="margin-top:12px;">
+        <h4>Resultado esperado (180 dias)</h4>
+        <p>+150% leads. Bing vira 15-20% do volume total. CPL blendado de $65-$85. Funil de nutrição recupera 10-15% dos leads não convertidos. Programa de indicações ativado via email. Presença dominante em Houston.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENÁRIO 5: Digital 360 -->
+  <div class="scenario-content" id="s-digital-360">
+    <div class="scenario-card blue">
+      <div class="scenario-header">
+        <div class="scenario-name">05 · Digital 360°</div>
+        <div class="scenario-budget">~$10.000/mês</div>
+      </div>
+      <div class="scenario-desc"><strong>Foco:</strong> Ecossistema completo. A All Over opera como uma marca digital integrada — mídia paga, SEO, conteúdo, automação, referral, LSA e IA (Copilot, ChatGPT, AI Overviews). Efeito flywheel entre canais.</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--gray);margin-bottom:12px;">
+        <div style="background:var(--black4);padding:12px;">
+          <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">Google Search</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:var(--red);">25%</div>
+          <div style="font-size:10px;color:var(--white3);">$2.500</div>
+        </div>
+        <div style="background:var(--black4);padding:12px;">
+          <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">Microsoft Ads</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:#3b82f6;">20%</div>
+          <div style="font-size:10px;color:var(--white3);">$2.000</div>
+        </div>
+        <div style="background:var(--black4);padding:12px;">
+          <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">Cross-network</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:#22c55e;">18%</div>
+          <div style="font-size:10px;color:var(--white3);">$1.800</div>
+        </div>
+        <div style="background:var(--black4);padding:12px;">
+          <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">Social + Vídeo</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:#f59e0b;">15%</div>
+          <div style="font-size:10px;color:var(--white3);">$1.500</div>
+        </div>
+        <div style="background:var(--black4);padding:12px;">
+          <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">LSA + Geofence</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:var(--white);">12%</div>
+          <div style="font-size:10px;color:var(--white3);">$1.200</div>
+        </div>
+      </div>
+      <div style="font-size:13px;color:var(--white3);margin-bottom:12px;">+ SEO contínuo ($500/mês), automação de email, programa de indicações e otimização para AI Search (Copilot + ChatGPT + Google AI Overviews).</div>
+      <div class="scenario-tags">
+        <span class="scenario-tag">Risco: Alto (requer gestão dedicada)</span>
+        <span class="scenario-tag green">Potencial de crescimento: Máximo</span>
+        <span class="scenario-tag green">Dependência de Google: Mínima (25%)</span>
+      </div>
+      <div class="callout" style="margin-top:12px;">
+        <h4>Resultado esperado (12 meses)</h4>
+        <p>+300% leads anuais. CPL blendado de $55-$75. Receita estimada: 8-12x o investimento em mídia. All Over se posiciona como marca digital dominante no mercado de Houston — capturando não só busca ativa, mas presença em AI Search onde 11% dos consumidores já pesquisam.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BUDGET COMPARISON SUMMARY ===== -->
+  <div class="section-label" style="margin-top:32px;">Visão Consolidada</div>
+  <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(24px,3.5vw,36px);font-weight:900;text-transform:uppercase;margin-bottom:12px;">Os 5 cenários <span style="color:var(--red);">lado a lado</span></h2>
+  <p class="section-sub" style="margin-bottom:20px;">Como o orçamento se redistribui entre canais em cada cenário. Quanto maior o investimento, menor a dependência do Google Search — e maior a diversificação.</p>
+
+  <div class="budget-comparison">
+    <div class="budget-card">
+      <div class="budget-name" style="color:#f59e0b;">Defensiva</div>
+      <div class="budget-total">$2.000/mês · Risco Baixo</div>
+      <div class="budget-row"><span class="budget-dot red"></span><span class="budget-row-pct">70%</span><span class="budget-row-label">Google Search</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:70%;background:var(--red);"></div></div></div>
+      <div class="budget-row"><span class="budget-dot green"></span><span class="budget-row-pct">15%</span><span class="budget-row-label">Cross-network</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:15%;background:#22c55e;"></div></div></div>
+      <div class="budget-row"><span class="budget-dot blue"></span><span class="budget-row-pct">10%</span><span class="budget-row-label">Microsoft Ads</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:10%;background:#3b82f6;"></div></div></div>
+      <div class="budget-row"><span class="budget-dot amber"></span><span class="budget-row-pct">5%</span><span class="budget-row-label">LSA</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:5%;background:#f59e0b;"></div></div></div>
+    </div>
+    <div class="budget-card">
+      <div class="budget-name" style="color:#22c55e;">Equilibrada</div>
+      <div class="budget-total">$3.000/mês · Risco Médio-Baixo</div>
+      <div class="budget-row"><span class="budget-dot red"></span><span class="budget-row-pct">50%</span><span class="budget-row-label">Google Search</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:50%;background:var(--red);"></div></div></div>
+      <div class="budget-row"><span class="budget-dot green"></span><span class="budget-row-pct">15%</span><span class="budget-row-label">Cross-network</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:15%;background:#22c55e;"></div></div></div>
+      <div class="budget-row"><span class="budget-dot blue"></span><span class="budget-row-pct">15%</span><span class="budget-row-label">Microsoft Ads</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:15%;background:#3b82f6;"></div></div></div>
+      <div class="budget-row"><span class="budget-dot amber"></span><span class="budget-row-pct">10%</span><span class="budget-row-label">LSA</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:10%;background:#f59e0b;"></div></div></div>
+      <div class="budget-row"><span class="budget-dot purple"></span><span class="budget-row-pct">5%</span><span class="budget-row-label">Facebook</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:5%;background:#8b5cf6;"></div></div></div>
+      <div class="budget-row"><span class="budget-dot gray"></span><span class="budget-row-pct">5%</span><span class="budget-row-label">YouTube</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:5%;background:var(--gray2);"></div></div></div>
+    </div>
+    <div class="budget-card">
+      <div class="budget-name" style="color:var(--red);">Ofensiva</div>
+      <div class="budget-total">$5.000/mês · Risco Médio</div>
+      <div class="budget-row"><span class="budget-dot red"></span><span class="budget-row-pct">40%</span><span class="budget-row-label">Google Search</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:40%;background:var(--red);"></div></div></div>
+      <div class="budget-row"><span class="budget-dot blue"></span><span class="budget-row-pct">20%</span><span class="budget-row-label">Microsoft Ads</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:20%;background:#3b82f6;"></div></div></div>
+      <div class="budget-row"><span class="budget-dot green"></span><span class="budget-row-pct">15%</span><span class="budget-row-label">Cross-network</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:15%;background:#22c55e;"></div></div></div>
+      <div class="budget-row"><span class="budget-dot amber"></span><span class="budget-row-pct">10%</span><span class="budget-row-label">LSA</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:10%;background:#f59e0b;"></div></div></div>
+      <div class="budget-row"><span class="budget-dot purple"></span><span class="budget-row-pct">8%</span><span class="budget-row-label">Facebook</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:8%;background:#8b5cf6;"></div></div></div>
+      <div class="budget-row"><span class="budget-dot gray"></span><span class="budget-row-pct">5%</span><span class="budget-row-label">Geofencing</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:5%;background:var(--gray2);"></div></div></div>
+      <div class="budget-row"><span class="budget-dot" style="background:#06b6d4;"></span><span class="budget-row-pct">2%</span><span class="budget-row-label">YouTube</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:2%;background:#06b6d4;"></div></div></div>
+    </div>
+    <div class="budget-card">
+      <div class="budget-name" style="color:#8b5cf6;">Crescimento</div>
+      <div class="budget-total">$7.500/mês · Risco Médio-Alto</div>
+      <div class="budget-row"><span class="budget-dot red"></span><span class="budget-row-pct">30%</span><span class="budget-row-label">Google Search</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:30%;background:var(--red);"></div></div></div>
+      <div class="budget-row"><span class="budget-dot blue"></span><span class="budget-row-pct">20%</span><span class="budget-row-label">Microsoft Ads</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:20%;background:#3b82f6;"></div></div></div>
+      <div class="budget-row"><span class="budget-dot green"></span><span class="budget-row-pct">18%</span><span class="budget-row-label">Cross-network</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:18%;background:#22c55e;"></div></div></div>
+      <div class="budget-row"><span class="budget-dot purple"></span><span class="budget-row-pct">12%</span><span class="budget-row-label">Facebook</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:12%;background:#8b5cf6;"></div></div></div>
+      <div class="budget-row"><span class="budget-dot amber"></span><span class="budget-row-pct">10%</span><span class="budget-row-label">LSA</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:10%;background:#f59e0b;"></div></div></div>
+      <div class="budget-row"><span class="budget-dot gray"></span><span class="budget-row-pct">5%</span><span class="budget-row-label">Geofencing</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:5%;background:var(--gray2);"></div></div></div>
+      <div class="budget-row"><span class="budget-dot" style="background:#94a3b8;"></span><span class="budget-row-pct">3%</span><span class="budget-row-label">Email</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:3%;background:#94a3b8;"></div></div></div>
+      <div class="budget-row"><span class="budget-dot" style="background:#64748b;"></span><span class="budget-row-pct">2%</span><span class="budget-row-label">Programático</span><div class="budget-row-bar"><div class="budget-row-fill" style="width:2%;background:#64748b;"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CAPÍTULO 8: FUNIL DE MÍDIA INTEGRADO ===== -->
+<section>
+  <div class="section-label">Capítulo 8</div>
+  <h2 class="section-title">O funil integrado: <span>cada canal no seu momento</span></h2>
+  <p class="section-sub">A mágica não está em nenhum canal isolado — está em como eles se complementam. Um lead descobre a All Over pelo YouTube, pesquisa no Bing, lê um artigo de blog, vê um remarketing no Facebook e converte pelo LSA. Cada canal empurra o lead para o próximo estágio.</p>
+
+  <div class="funnel-step">
+    <div class="funnel-num">1</div>
+    <div class="funnel-content">
+      <div class="funnel-main">
+        <div class="funnel-title" style="color:#22c55e;">TOFU — Descoberta</div>
+        <div class="funnel-desc">Cross-network (Display/YouTube), Facebook Ads, SEO orgânico. Quem nunca ouviu falar da All Over começa aqui.</div>
+      </div>
+      <div class="funnel-kpis">
+        <div class="funnel-kpi-label">Custo por contato</div>
+        <div class="funnel-kpi-val" style="color:#22c55e;">$0,05-$0,50</div>
+      </div>
+    </div>
+  </div>
+  <div class="funnel-step">
+    <div class="funnel-num">2</div>
+    <div class="funnel-content">
+      <div class="funnel-main">
+        <div class="funnel-title" style="color:#3b82f6;">MOFU — Consideração</div>
+        <div class="funnel-desc">Google Search, Microsoft Ads, LSA, YouTube (conteúdo educativo). O consumidor pesquisa opções, compara orçamentos, lê artigos.</div>
+      </div>
+      <div class="funnel-kpis">
+        <div class="funnel-kpi-label">CPL médio</div>
+        <div class="funnel-kpi-val" style="color:#3b82f6;">$60-$130</div>
+      </div>
+    </div>
+  </div>
+  <div class="funnel-step">
+    <div class="funnel-num">3</div>
+    <div class="funnel-content">
+      <div class="funnel-main">
+        <div class="funnel-title" style="color:var(--red);">BOFU — Decisão</div>
+        <div class="funnel-desc">Email de nutrição, remarketing com oferta (free inspection), LSA, programa de indicações. O lead fecha ou precisa de um último empurrão.</div>
+      </div>
+      <div class="funnel-kpis">
+        <div class="funnel-kpi-label">Taxa de fechamento</div>
+        <div class="funnel-kpi-val" style="color:var(--red);">25-40%</div>
+      </div>
+    </div>
+  </div>
+  <div class="funnel-step">
+    <div class="funnel-num">4</div>
+    <div class="funnel-content">
+      <div class="funnel-main">
+        <div class="funnel-title" style="color:#f59e0b;">Pós-venda — Retenção</div>
+        <div class="funnel-desc">Email de follow-up, pedido de review (GBP), programa de indicações. Cliente satisfeito vira fonte de referral (CPL médio: $25-$75, conversão: 25-40%).</div>
+      </div>
+      <div class="funnel-kpis">
+        <div class="funnel-kpi-label">Valor vitalício</div>
+        <div class="funnel-kpi-val" style="color:#f59e0b;">$13.400+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CAPÍTULO 9: CUSTO POR LEAD POR CANAL ===== -->
+<section>
+  <div class="section-label">Capítulo 9</div>
+  <h2 class="section-title">CPL comparativo por canal: <span>onde investir?</span></h2>
+  <p class="section-sub">Benchmarks do setor vs performance real da All Over. Quanto menor o CPL, maior a eficiência — desde que o lead tenha qualidade para fechar.</p>
+
+  <div style="background:var(--black3);padding:4px 20px 20px;">
+    <table>
+      <thead>
+        <tr><th>Canal</th><th>CPL Nacional</th><th>CPL Houston</th><th>CPL All Over*</th><th>Conversão</th><th>Veredito</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Google Business Profile</td><td class="num">$15-50</td><td class="num">$15-50</td><td class="num" style="color:#f59e0b;">Não medido</td><td class="num">25-35%</td><td style="color:#22c55e;">⭐⭐⭐⭐⭐</td></tr>
+        <tr><td>Referral / Indicações</td><td class="num">$25-75</td><td class="num">$25-75</td><td class="num" style="color:#f59e0b;">Não medido</td><td class="num">25-40%</td><td style="color:#22c55e;">⭐⭐⭐⭐⭐</td></tr>
+        <tr><td>SEO (Orgânico)</td><td class="num">$100-300</td><td class="num">$80-200</td><td class="num" style="color:#f59e0b;">Em maturação</td><td class="num">8-12%</td><td style="color:#22c55e;">⭐⭐⭐⭐</td></tr>
+        <tr><td>LSA (Local Services)</td><td class="num">$58-98</td><td class="num">$58-98</td><td class="num" style="color:var(--red);">Comprometido</td><td class="num">30-40%</td><td style="color:#f59e0b;">⭐⭐⭐ (Time Response)</td></tr>
+        <tr><td>Microsoft Ads (Bing)</td><td class="num">$50-130</td><td class="num">$40-100</td><td class="num" style="color:#f59e0b;">Não testado</td><td class="num">5-8%</td><td style="color:#3b82f6;">⭐⭐⭐⭐ (potencial)</td></tr>
+        <tr><td>Facebook / Instagram</td><td class="num">$20-80</td><td class="num">$20-60</td><td class="num" style="color:#f59e0b;">Sub-testado</td><td class="num">10-20%</td><td style="color:#3b82f6;">⭐⭐⭐ (potencial)</td></tr>
+        <tr><td>Google Search Atual</td><td class="num">$125-228</td><td class="num">$88-165</td><td class="num" style="color:var(--white);">~$125</td><td class="num">5,6% (sessão)</td><td style="color:var(--red);">⭐⭐⭐⭐ (âncora)</td></tr>
+      </tbody>
+    </table>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:12px;">* CPL All Over estimado com base em ad spend / leads atribuídos. Dados de 11 meses (Jul/2025-Mai/2026). Benchmarks nacionais: LocaliQ, SearchLight Digital, PPC Chief 2025-2026. Benchmarks Houston: DG Agency 2026.</div>
+  </div>
+
+  <!-- ===== CPL BAR CHART ===== -->
+  <div style="background:var(--black3);padding:24px;margin-top:20px;">
+    <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;text-transform:uppercase;margin-bottom:16px;">CPL visual por canal <span style="color:var(--text-muted);font-weight:400;font-size:13px;text-transform:none;">— Quanto menor, maior a eficiência</span></h3>
+
+    <div class="chart-bar"><span class="chart-bar-label" style="color:#22c55e;">GBP (Google Business)</span><div class="chart-bar-track"><div class="chart-bar-fill" style="width:10%"></div></div><span class="chart-bar-value" style="color:#22c55e;">$15-50</span></div>
+    <div class="chart-bar"><span class="chart-bar-label" style="color:#22c55e;">Referral / Indicações</span><div class="chart-bar-track"><div class="chart-bar-fill" style="width:12%"></div></div><span class="chart-bar-value" style="color:#22c55e;">$25-75</span></div>
+    <div class="chart-bar"><span class="chart-bar-label" style="color:#3b82f6;">Yelp Ads (potencial)</span><div class="chart-bar-track"><div class="chart-bar-fill non-google" style="width:14%"></div></div><span class="chart-bar-value" style="color:#3b82f6;">$40-80</span></div>
+    <div class="chart-bar"><span class="chart-bar-label" style="color:#3b82f6;">Microsoft Ads (proj.)</span><div class="chart-bar-track"><div class="chart-bar-fill non-google" style="width:18%"></div></div><span class="chart-bar-value" style="color:#3b82f6;">$50-130</span></div>
+    <div class="chart-bar"><span class="chart-bar-label" style="color:#f59e0b;">LSA (Local Services)</span><div class="chart-bar-track"><div class="chart-bar-fill" style="width:22%;background:linear-gradient(90deg,#f59e0b,#92400e);"></div></div><span class="chart-bar-value" style="color:#f59e0b;">$58-98</span></div>
+    <div class="chart-bar"><span class="chart-bar-label" style="color:#f59e0b;">Facebook / Instagram</span><div class="chart-bar-track"><div class="chart-bar-fill non-google" style="width:16%"></div></div><span class="chart-bar-value" style="color:#f59e0b;">$20-80</span></div>
+    <div class="chart-bar"><span class="chart-bar-label" style="color:#f59e0b;">SEO (Orgânico)</span><div class="chart-bar-track"><div class="chart-bar-fill organic" style="width:26%"></div></div><span class="chart-bar-value" style="color:#f59e0b;">$100-300</span></div>
+    <div class="chart-bar"><span class="chart-bar-label" style="color:var(--red);">Google Search (atual)</span><div class="chart-bar-track"><div class="chart-bar-fill google" style="width:32%"></div></div><span class="chart-bar-value" style="color:var(--red);">$125-228</span></div>
+
+    <div class="bar-label-row" style="margin-top:8px;justify-content:flex-start;gap:16px;">
+      <span style="font-size:10px;color:var(--text-muted);">■ Menor CPL</span>
+      <span style="font-size:10px;color:var(--text-muted);">■ Maior CPL</span>
+      <span style="font-size:10px;color:var(--red);">● Google Search atual é o canal mais caro — e o único que a All Over usa</span>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:16px;">
+    <h4>A matriz de decisão</h4>
+    <p>Canais com <strong style="color:var(--white);">CPL baixo e conversão alta</strong> (GBP, LSA, Referral) devem ser prioridade imediata. Canais com <strong style="color:var(--white);">CPL baixo e conversão média</strong> (Bing, Facebook) são a aposta de crescimento. Canais com <strong style="color:var(--white);">CPL alto e conversão alta</strong> (Google Search, SEO maduro) são a âncora. A All Over hoje depende exclusivamente de uma única âncora — o Google Search — quando poderia estar operando com 3-4 âncoras simultâneas.</p>
+  </div>
+</section>
+
+<!-- ===== CAPÍTULO 10: ROADMAP 180 DIAS ===== -->
+<section>
+  <div class="section-label">Capítulo 10</div>
+  <h2 class="section-title">Roadmap 180 dias: <span>da correção à escala</span></h2>
+
+  <div class="timeline-grid">
+    <div class="phase">
+      <div class="phase-label">Dias 1-30</div>
+      <div class="phase-title" style="color:var(--red);">Fundação</div>
+      <ul class="phase-items">
+        <li>Ativar GCLID persistence no formulário</li>
+        <li>Importar campanhas Google → Microsoft Ads</li>
+        <li>Estruturar Time Response do LSA (&lt;2h)</li>
+        <li>Ativar sequência de 10 emails de nutrição</li>
+        <li>Criar dashboard Looker Studio GA4+GHL+Ads</li>
+      </ul>
+      <div style="margin-top:16px;padding:12px;background:var(--black4);border-left:3px solid var(--red);">
+        <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;">Meta</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;">+15-25% leads</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-label">Dias 31-90</div>
+      <div class="phase-title" style="color:#f59e0b;">Otimização</div>
+      <ul class="phase-items">
+        <li>Escalar Microsoft Ads com base em dados (se CPL &lt; $90)</li>
+        <li>Ativar campanhas de remarketing no Cross-network</li>
+        <li>Lançar teste de Facebook Ads (lead gen direto)</li>
+        <li>Iniciar geofencing em bairros-alvo (CEP de alta densidade)</li>
+        <li>Produzir 2 vídeos de depoimento para YouTube</li>
+      </ul>
+      <div style="margin-top:16px;padding:12px;background:var(--black4);border-left:3px solid #f59e0b;">
+        <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;">Meta</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;">+50-70% leads</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-label">Dias 91-180</div>
+      <div class="phase-title" style="color:#22c55e;">Escala</div>
+      <ul class="phase-items">
+        <li>Maturação SEO dos 24 artigos + novos conteúdos</li>
+        <li>Expansão Microsoft Ads (20-25% do budget total)</li>
+        <li>Programa de indicações ativado via email + SMS</li>
+        <li>Revisão trimestral de composição de mídia</li>
+        <li>Otimização para AI Search (Copilot, ChatGPT, AI Overviews)</li>
+      </ul>
+      <div style="margin-top:16px;padding:12px;background:var(--black4);border-left:3px solid #22c55e;">
+        <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;">Meta</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;">+100-150% leads</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CAPÍTULO 11: CONCLUSÃO ===== -->
+<section style="border-bottom:3px solid var(--red);">
+  <div class="section-label">Capítulo 11</div>
+  <h2 class="section-title">A nova composição de mídia: <span>o caminho da All Over</span></h2>
+  <p class="section-sub">A All Over não precisa escolher entre Google ou Bing. Precisa de um sistema de canais que trabalhem juntos, cada um no seu papel, com métricas claras e orçamento dinâmico.</p>
+
+  <div class="insight-block" style="margin-bottom:2px;">
+    <div class="insight-item">
+      <span class="insight-num">53,6%</span>
+      <span class="insight-label">Google Ads (qualquer modelo)</span>
+      <span class="insight-desc">O Google Search segue sendo o motor de alta intenção. Não se mexe no que funciona — apenas se otimiza.</span>
+    </div>
+    <div class="insight-item" style="border-top-color:#3b82f6;">
+      <span class="insight-num" style="color:#3b82f6;">$0,23</span>
+      <span class="insight-label">CPC Cross-network</span>
+      <span class="insight-desc">O canal mais eficiente está sub-orçado. Display + YouTube + Discovery são o motor de awareness com ROI comprovado.</span>
+    </div>
+    <div class="insight-item" style="border-top-color:#22c55e;">
+      <span class="insight-num" style="color:#22c55e;">30-50%</span>
+      <span class="insight-label">Menos no Bing</span>
+      <span class="insight-desc">Microsoft Ads entrega o mesmo público por menos. É o canal mais subestimado do roofing — e a All Over pode ser pioneira em Houston.</span>
+    </div>
+  </div>
+
+  <div class="insight-block">
+    <div class="insight-item" style="border-top-color:#f59e0b;">
+      <span class="insight-num" style="color:#f59e0b;">15-25%</span>
+      <span class="insight-label">Incremento Bing</span>
+      <span class="insight-desc">Contratantes que rodam Google + Bing relatam 15-25% mais leads totais com CPL 30-40% menor no segundo canal.</span>
+    </div>
+    <div class="insight-item" style="border-top-color:var(--gray2);">
+      <span class="insight-num" style="color:var(--white3);">305</span>
+      <span class="insight-label">Roofers em Houston</span>
+      <span class="insight-desc">Quase todos competem no Google. Quase nenhum está no Bing, no YouTube com conteúdo, no geofencing ou no email nurturing.</span>
+    </div>
+    <div class="insight-item" style="border-top-color:var(--red);">
+      <span class="insight-num">$13.400</span>
+      <span class="insight-label">Ticket médio</span>
+      <span class="insight-desc">Cada lead de roofing vale 58x o CPL médio do Google. O problema nunca foi o custo — é não gerar leads suficientes para fechar.</span>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:16px;border-left-color:#22c55e;">
+    <h4>A recomendação V4</h4>
+    <p>Começar pelo <strong style="color:var(--white);">Cenário Equilibrado</strong> (~$3.000/mês) com viés para o <strong style="color:var(--white);">Ofensivo</strong> (~$5.000/mês) após 60 dias de dados. A composição ideal para Houston em 2026 é: Google Search (40%) + Microsoft Ads (20%) + Cross-network (15%) + LSA (10%) + Facebook (8%) + Geofencing (5%) + YouTube (2%). <strong style="color:var(--red);">Microsoft Ads é a recomendação estratégica nº 1</strong> — por compliance, por custo e por ser o canal onde a concorrência ainda não está.</p>
+  </div>
+</section>
+
+<footer style="padding:32px 48px;background:var(--black2);border-top:1px solid var(--gray);">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;">
+    <div><span style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;">V4</span> <span style="color:var(--text-muted);font-size:12px;margin-left:8px;">All Over Exterior Roofing — Roteiro Estratégico 360° · Preparado para ROPRE Check-in</span></div>
+    <div style="font-size:11px;color:var(--text-muted);letter-spacing:.05em;">Fontes: GA4, GHL, LocaliQ, SearchLight Digital, PPC Chief, DG Agency, Microsoft Advertising, BrightLocal, Roofing Contractor Survey 2025</div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  const tabs = document.querySelectorAll('.toggle-btn');
+  const contents = {
+    defensiva: document.getElementById('s-defensiva'),
+    equilibrada: document.getElementById('s-equilibrada'),
+    ofensiva: document.getElementById('s-ofensiva'),
+    crescimento: document.getElementById('s-crescimento'),
+    'digital-360': document.getElementById('s-digital-360')
+  };
+
+  tabs.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      tabs.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+
+      Object.keys(contents).forEach(function(key) {
+        contents[key].classList.remove('active');
+      });
+
+      var scenario = btn.getAttribute('data-scenario');
+      if (contents[scenario]) {
+        contents[scenario].classList.add('active');
+      }
+    });
+  });
+})();
+
+// Animated Counters
+(function() {
+  var counters = document.querySelectorAll('.count-up');
+  if (!counters.length) return;
+
+  function animateCounter(el) {
+    var target = parseFloat(el.getAttribute('data-target'));
+    var duration = 2000;
+    var start = performance.now();
+
+    function update(now) {
+      var elapsed = now - start;
+      var progress = Math.min(elapsed / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = eased * target;
+      el.textContent = target % 1 === 0 ? Math.round(current) : current.toFixed(2).replace('.', ',') + '%';
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(function(c) { observer.observe(c); });
+})();
+
+// Scroll-Reveal for all chart bars
+(function() {
+  var bars = document.querySelectorAll('.chart-bar-fill');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        var w = el.style.width;
+        el.style.width = '0';
+        requestAnimationFrame(function() {
+          el.style.width = w;
+        });
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  bars.forEach(function(bar) { observer.observe(bar); });
+})();
+
+// Scroll-reveal for dual-bar fills
+(function() {
+  var fills = document.querySelectorAll('.dual-bar-fill');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        var w = el.style.width;
+        el.style.width = '0';
+        requestAnimationFrame(function() {
+          el.style.width = w;
+        });
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+  fills.forEach(function(f) { observer.observe(f); });
+})();
+</script>
+
+</body>
+</html>
