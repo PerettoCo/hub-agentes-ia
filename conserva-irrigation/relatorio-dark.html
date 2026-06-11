@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Conserva Irrigation · Relatório de Performance · Dark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0D0D0D;--surface:#1A1A1A;--surface2:#242424;--border:#333;--text:#E8E8E8;--text2:#9E9E9E;--red:#D01010;--gold:#C8923E;--green:#2E7D32;--blue:#1565C0;--red-light:rgba(208,16,16,.15);--gold-light:rgba(200,146,62,.15);--green-light:rgba(46,125,50,.15);--blue-light:rgba(21,101,192,.15)}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:15px}
+h1,h2,h3{font-family:'Inter',sans-serif;font-weight:700;color:#fff}
+h1{font-size:3.2rem;letter-spacing:-1px;font-weight:800}
+h2{font-size:2.2rem;margin-bottom:.75rem;letter-spacing:-.3px;font-weight:700}
+h3{font-size:1.3rem;font-weight:600}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+section{padding:60px 0;border-bottom:1px solid var(--border)}
+.section-label{font-size:.6rem;text-transform:uppercase;letter-spacing:3px;color:var(--gold);font-weight:600;display:flex;align-items:center;gap:8px;margin-bottom:.5rem}
+.section-label::before{content:'';width:24px;height:2px;background:var(--gold)}
+header{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.96);backdrop-filter:blur(10px);padding:12px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+header .logo{height:26px;filter:brightness(10)}
+header span{font-size:.65rem;color:var(--gold);text-transform:uppercase;letter-spacing:2px;border:1px solid var(--gold);padding:4px 12px;border-radius:4px;font-weight:600}
+#hero{padding:80px 0 48px;background:linear-gradient(180deg,#0D0D0D,#1A1A1A)}
+.hero-badge{display:inline-block;background:var(--red);color:#fff;padding:4px 14px;border-radius:4px;font-size:.65rem;text-transform:uppercase;letter-spacing:2.5px;font-weight:600;margin-bottom:.75rem}
+.hero-alert{background:var(--red-light);border:1px solid rgba(208,16,16,.3);border-radius:8px;padding:12px 16px;font-size:.82rem;color:#FF8A80;display:flex;align-items:center;gap:10px;margin-bottom:1.5rem}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px 16px;text-align:center}
+.stat .v{font-size:1.8rem;font-weight:800;color:#fff;font-family:'Inter',sans-serif;letter-spacing:-.5px}
+.stat .l{font-size:.65rem;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-top:4px;font-weight:500}
+.stat .c{font-size:.7rem;margin-top:3px;font-weight:500}
+.stat .c.green{color:#66BB6A}
+.stat .c.red{color:#EF5350}
+.stat .c.gold{color:var(--gold)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:14px}
+.card-accent{border-left:4px solid var(--red)}
+.card-gold{border-left:4px solid var(--gold)}
+.card-green{border-left:4px solid var(--green)}
+.card-blue{border-left:4px solid var(--blue)}
+.chart-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
+.chart-box h4{font-size:.85rem;margin-bottom:.75rem;color:var(--gold);font-weight:600;display:flex;align-items:center;gap:8px}
+.chart-box h4 span{font-size:.55rem;background:var(--surface2);color:var(--text2);padding:2px 8px;border-radius:3px;font-weight:500}
+.chart-wrap{height:300px;position:relative}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:900px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:.78rem}
+th{background:var(--red);color:#fff;padding:8px 12px;text-align:left;font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.5px}
+td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text)}
+tr:nth-child(even){background:rgba(255,255,255,.02)}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px 16px;text-align:center}
+.kpi .kv{font-size:1.7rem;font-weight:800;color:#fff;font-family:'Inter',sans-serif;letter-spacing:-.5px}
+.kpi .kl{font-size:.65rem;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.kpi .kd{font-size:.62rem;color:var(--text2);margin-top:2px}
+.kpi.danger .kv{color:var(--red)}
+.kpi.success .kv{color:#66BB6A}
+.kpi.warning .kv{color:var(--gold)}
+.alert{border-radius:8px;padding:12px 16px;margin-bottom:10px;font-size:.82rem;display:flex;align-items:flex-start;gap:10px}
+.alert-red{background:var(--red-light);border:1px solid rgba(208,16,16,.3);color:#FF8A80}
+.alert-gold{background:var(--gold-light);border:1px solid rgba(200,146,62,.3);color:#FFD54F}
+.alert-green{background:var(--green-light);border:1px solid rgba(46,125,50,.3);color:#81C784}
+.alert-blue{background:var(--blue-light);border:1px solid rgba(21,101,192,.3);color:#64B5F6}
+.progress{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin:6px 0}
+.progress .fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--red),#E53935);transition:width 1.5s ease}
+.progress .fill.gold{background:linear-gradient(90deg,var(--gold),#FDD835)}
+.progress .fill.green{background:linear-gradient(90deg,var(--green),#66BB6A)}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+.tag-red{background:rgba(208,16,16,.2);color:#EF5350}
+.tag-green{background:rgba(46,125,50,.2);color:#81C784}
+.tag-gold{background:rgba(200,146,62,.2);color:#FFD54F}
+.tag-blue{background:rgba(21,101,192,.2);color:#64B5F6}
+.tag-gray{background:rgba(158,158,158,.2);color:#BDBDBD}
+.insight{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;border-left:4px solid var(--gold);margin-bottom:10px}
+.insight h5{font-size:.82rem;color:var(--gold);margin-bottom:4px}
+.insight p{font-size:.78rem;color:var(--text2);line-height:1.6}
+.insight .hyp{font-size:.72rem;color:#64B5F6;margin-top:6px;font-style:italic}
+.insight .val{font-size:.7rem;color:#81C784;margin-top:3px}
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:12px;top:4px;bottom:4px;width:2px;background:var(--border)}
+.tl-item{position:relative;margin-bottom:18px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px}
+.tl-item::before{content:'';position:absolute;left:-22px;top:18px;width:10px;height:10px;background:var(--red);border-radius:50%;border:2px solid var(--bg);box-shadow:0 0 0 2px var(--red)}
+.tl-item .tl-d{font-size:.6rem;color:var(--gold);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.tl-item .tl-t{font-size:.85rem;font-weight:600;color:#fff;margin:3px 0}
+.tl-item .tl-p{font-size:.75rem;color:var(--text2);line-height:1.5}
+.strategy-box{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-top:10px}
+.strategy-box h4{font-size:.85rem;color:var(--gold);margin-bottom:4px}
+.strategy-box p{font-size:.75rem;color:var(--text2);line-height:1.5}
+footer{padding:32px 24px;text-align:center;font-size:.7rem;color:var(--text2);border-top:1px solid var(--border)}
+footer img{height:24px;margin-bottom:8px;opacity:.5}
+</style>
+</head>
+<body>
+
+<header>
+<img class="logo" src="data:image/png;base64,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" alt="V4">
+<span>Relatório Master</span>
+</header>
+
+<section id="hero">
+<div class="container">
+<div class="hero-badge">Conserva Irrigation · Greater Scottsdale, AZ</div>
+<h1>Performance Analítica<br>H1 2025 → H1 2026</h1>
+<p style="color:var(--text2);font-size:1rem;margin-bottom:1.5rem;max-width:600px">1.347 pedidos analisados · $997.6K líquidos · 18 meses de dados reais extraídos do ServiceMinder</p>
+
+<div class="hero-alert">
+<span style="font-size:1.2rem">&#9888;</span>
+<span>Queda crítica em Junho/2026: -80,7% vs 2025. Causa raiz: 13 de 16 campanhas do Google Ads pausadas. Impacto estimado: <strong>$40K/mês em receita não realizada.</strong></span>
+</div>
+
+<div class="hero-stats">
+<div class="stat"><div class="v">$997.6K</div><div class="l">Receita Líquida (18 meses)</div><div class="c gold">&nbsp;</div></div>
+<div class="stat"><div class="v">1.347</div><div class="l">Total de Pedidos</div><div class="c gold">Média $741/pedido</div></div>
+<div class="stat"><div class="v">$1.04M</div><div class="l">Receita Bruta</div><div class="c green">+$37.6K em refunds (-3.6%)</div></div>
+<div class="stat"><div class="v">-6.6%</div><div class="l">YoY H1 (2025→2026)</div><div class="c red">$352.3K → $328.9K</div></div>
+<div class="stat"><div class="v">$111K</div><div class="l">Melhor Mês (Mar/26)</div><div class="c green">Pico sazonal de primavera</div></div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<div class="section-label">Receita por Canal</div>
+<h2>Mix de Canais & Evolução H1→H1</h2>
+
+<div class="grid-2">
+<div class="chart-box">
+<h4>Receita por Canal <span>$ total (18 meses)</span></h4>
+<div class="chart-wrap"><canvas id="chanRevChart"></canvas></div>
+</div>
+<div class="chart-box">
+<h4>Comparativo H1 2025 → H1 2026 <span>canais principais</span></h4>
+<div class="chart-wrap"><canvas id="chanMixChart"></canvas></div>
+</div>
+</div>
+
+<table style="margin-top:8px">
+<tr><th>Canal</th><th>Pedidos</th><th>Receita Bruta</th><th>Refunds</th><th>Receita Líquida</th><th>%</th><th>Ticket Médio</th></tr>
+<tr><td>Google LSA</td><td>428</td><td>$258.295</td><td>-$13.433</td><td>$244.862</td><td>24.5%</td><td>$606</td></tr>
+<tr><td>Referral & Trade</td><td>146</td><td>$178.631</td><td>-$12.413</td><td>$166.218</td><td>16.7%</td><td>$1.223</td></tr>
+<tr><td>Google Search Ads</td><td>129</td><td>$136.923</td><td>-$1.554</td><td>$135.369</td><td>13.6%</td><td>$1.062</td></tr>
+<tr><td>Online Ads</td><td>200</td><td>$102.214</td><td>-$7.263</td><td>$94.951</td><td>9.5%</td><td>$511</td></tr>
+<tr><td>Manual Invoice</td><td>71</td><td>$61.003</td><td>$0</td><td>$61.003</td><td>6.1%</td><td>$859</td></tr>
+<tr><td>Thumbtack</td><td>61</td><td>$44.295</td><td>-$360</td><td>$43.935</td><td>4.4%</td><td>$726</td></tr>
+<tr><td>Angi</td><td>40</td><td>$39.112</td><td>-$548</td><td>$38.564</td><td>3.9%</td><td>$978</td></tr>
+<tr><td>Outros</td><td>272</td><td>$214.791</td><td>-$8.842</td><td>$205.949</td><td>20.6%</td><td>$789</td></tr>
+</table>
+
+<div class="grid-3" style="margin-top:16px">
+<div class="card card-accent">
+<h4 style="color:#fff">&#9650; LSA domina volume</h4>
+<p style="font-size:.78rem;color:var(--text2);margin-top:6px">428 pedidos (31.8%) mas ticket de apenas $606. Cresceu de $40K (H1/25) para $73K (H1/26) — maior canal em pedidos, menor em ticket.</p>
+</div>
+<div class="card card-gold">
+<h4 style="color:#fff">&#9650; Referral explode 333%</h4>
+<p style="font-size:.78rem;color:var(--text2);margin-top:6px">Saltou de $22K (H1/25) para $96K (H1/26). Programa de Trade Alliances está funcionando. Ticket médio de $1.223 é o 2º maior.</p>
+</div>
+<div class="card card-blue">
+<h4 style="color:#fff">&#9650; Search cresce 6x</h4>
+<p style="font-size:.78rem;color:var(--text2);margin-top:6px">De $11K (H1/25) para $68K (H1/26). 516% de crescimento. Ticket de $1.062 e apenas 1.1% de refunds — melhor custo-benefício.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<div class="section-label">Serviços</div>
+<h2>Decomposição por Tipo de Serviço</h2>
+
+<div class="grid-2">
+<div class="chart-box">
+<h4>Receita por Serviço <span>% do total</span></h4>
+<div class="chart-wrap"><canvas id="svcChart"></canvas></div>
+</div>
+<div class="chart-box">
+<h4>Ticket Médio por Serviço <span>$ por pedido</span></h4>
+<div class="chart-wrap"><canvas id="svcTicketChart"></canvas></div>
+</div>
+</div>
+
+<table style="margin-top:8px">
+<tr><th>Serviço</th><th>Pedidos</th><th>Receita</th><th>%</th><th>Ticket Médio</th><th>Ticket Máx</th></tr>
+<tr><td>Diagnostic Fee</td><td>795</td><td>$428.116</td><td>42.9%</td><td>$538</td><td>$5.013</td></tr>
+<tr><td>Residential New System</td><td>81</td><td>$253.147</td><td>25.4%</td><td>$3.125</td><td>$12.850</td></tr>
+<tr><td>Commercial Repair</td><td>120</td><td>$186.954</td><td>18.7%</td><td>$1.558</td><td>$29.051</td></tr>
+<tr><td>Commercial New System</td><td>11</td><td>$84.920</td><td>8.5%</td><td>$7.720</td><td>$53.352</td></tr>
+<tr><td>Season Packages</td><td>139</td><td>$22.513</td><td>2.3%</td><td>$162</td><td>$525</td></tr>
+<tr><td>Manutenção (CMP)</td><td>38</td><td>$7.448</td><td>0.7%</td><td>$196</td><td>$650</td></tr>
+<tr><td>Warranty Service Call</td><td>138</td><td>$390</td><td>0.0%</td><td>$3</td><td>$240</td></tr>
+</table>
+
+<div class="card card-accent" style="margin-top:12px">
+<h4 style="color:#FF8A80">&#9888; 60% da receita depende de diagnóstico</h4>
+<p style="font-size:.78rem;color:var(--text2);margin-top:4px">Diagnostic Fee sozinha representa 42.9% dos pedidos e 42.9% da receita. É a porta de entrada — mas sem conversão para novos sistemas residenciais (25.4%), o ticket médio fica baixo. A taxa de conversão diagnóstico → sistema novo é a alavanca mais importante do negócio.</p>
+</div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<div class="section-label">Sazonalidade</div>
+<h2>Receita Mensal & Comparativo YoY</h2>
+
+<div class="chart-box">
+<h4>Receita Mensal <span>Jan/2025 → Jun/2026</span></h4>
+<div class="chart-wrap"><canvas id="monthlyChart"></canvas></div>
+</div>
+
+<div class="grid-2" style="margin-top:12px">
+<div class="chart-box">
+<h4>YoY Jan-Jun <span>2025 vs 2026</span></h4>
+<div class="chart-wrap"><canvas id="yoyChart"></canvas></div>
+</div>
+<div class="chart-box">
+<h4>Trimestral <span>com % de refunds</span></h4>
+<div class="chart-wrap"><canvas id="qtrChart"></canvas></div>
+</div>
+</div>
+
+<div class="grid-4" style="margin-top:12px">
+<div class="kpi">
+<div class="kv" style="color:#66BB6A">$111K</div>
+<div class="kl">Recorde Mensal</div>
+<div class="kd">Março 2026</div>
+</div>
+<div class="kpi">
+<div class="kv" style="color:#EF5350">$9.6K</div>
+<div class="kl">Pior Mês</div>
+<div class="kd">Junho 2026 (-80.7% YoY)</div>
+</div>
+<div class="kpi">
+<div class="kv" style="color:var(--gold)">$82.4K</div>
+<div class="kl">Pico Sazonal 2025</div>
+<div class="kd">Julho 2025</div>
+</div>
+<div class="kpi">
+<div class="kv" style="color:var(--gold)">$352K → $329K</div>
+<div class="kl">H1 2025 → H1 2026</div>
+<div class="kd">-6.6% YoY</div>
+</div>
+</div>
+
+<div class="card card-accent" style="margin-top:12px">
+<h4 style="color:#FF8A80">&#9888; A crise de Junho/26 não é sazonal</h4>
+<p style="font-size:.78rem;color:var(--text2);margin-top:4px">Em 2025, Junho foi o 2º mês em volume (105 pedidos, $49.9K). Em 2026, despencou para 29 pedidos ($9.6K). A diferença de -80.7% não é explicada por sazonalidade — é resultado direto das campanhas pausadas. Julho/25 foi o pico do ano ($82.4K). Se as campanhas não forem reativadas, Julho/26 pode repetir Junho.</p>
+</div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<div class="section-label">Ticket & Clientes</div>
+<h2>Distribuição de Ticket & Top Clientes</h2>
+
+<div class="grid-2">
+<div class="chart-box">
+<h4>Distribuição por Faixa de Ticket <span>% da receita</span></h4>
+<div class="chart-wrap"><canvas id="ticketChart"></canvas></div>
+</div>
+<div class="card" style="padding:20px">
+<h4 style="color:var(--gold);margin-bottom:10px">Top 10 Clientes</h4>
+<table>
+<tr><th>Cliente</th><th>Pedidos</th><th>Receita</th><th>%</th></tr>
+<tr><td>Lydia Jessop - B4 Enterprises</td><td>11</td><td>$91.508</td><td>9.2%</td></tr>
+<tr><td>Southgate Commerce Center</td><td>7</td><td>$47.127</td><td>4.7%</td></tr>
+<tr><td>Precision Rain LLC</td><td>6</td><td>$27.061</td><td>2.7%</td></tr>
+<tr><td>SMS Assist / LESSEN</td><td>39</td><td>$23.528</td><td>2.4%</td></tr>
+<tr><td>Kimberly Weimer</td><td>6</td><td>$17.884</td><td>1.8%</td></tr>
+<tr><td>OSM - Outdoor Systems Mgmt</td><td>3</td><td>$17.620</td><td>1.8%</td></tr>
+<tr><td>Todd Govig</td><td>11</td><td>$15.555</td><td>1.6%</td></tr>
+<tr><td>Divisions Maintenance Group</td><td>25</td><td>$15.271</td><td>1.5%</td></tr>
+<tr><td>Super Home Inc</td><td>26</td><td>$14.768</td><td>1.5%</td></tr>
+<tr><td>Charles Covington</td><td>2</td><td>$11.700</td><td>1.2%</td></tr>
+</table>
+</div>
+</div>
+
+<div class="grid-3" style="margin-top:12px">
+<div class="card card-accent">
+<div style="font-size:1.4rem;font-weight:700;color:var(--red);font-family:'Playfair Display'">20.9%</div>
+<div style="font-size:.78rem;color:var(--text2);margin-top:4px">da receita vem de pedidos acima de <strong>$10K</strong> — apenas 10 pedidos (0.7% do total). São os "elefantes": raros, mas transformam o mês.</div>
+</div>
+<div class="card card-gold">
+<div style="font-size:1.4rem;font-weight:700;color:var(--gold);font-family:'Playfair Display'">9.2%</div>
+<div style="font-size:.78rem;color:var(--text2);margin-top:4px">da receita concentrada em <strong>um único cliente</strong> (Lydia Jessop). Risco de concentração alto — perder esse cliente equivale a -$7.6K/mês.</div>
+</div>
+<div class="card card-blue">
+<div style="font-size:1.4rem;font-weight:700;color:var(--blue);font-family:'Playfair Display'">$100-500</div>
+<div style="font-size:.78rem;color:var(--text2);margin-top:4px">é a faixa de 57.5% dos pedidos (Diagnostic Fee). O negócio vive de volume com ticket baixo — escala é a única alavanca de receita.</div>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<div class="section-label">Refunds</div>
+<h2>Análise de Refunds / Write-offs</h2>
+
+<div class="grid-2">
+<div class="card card-accent">
+<h4 style="color:#FF8A80">$37.589 em refunds (3.6% da receita bruta)</h4>
+<p style="font-size:.78rem;color:var(--text2);margin-top:8px">65 transações com valor negativo foram identificadas. A maior parte concentrada em:</p>
+<ul style="font-size:.78rem;color:var(--text2);margin-top:6px;padding-left:16px;line-height:1.8">
+<li><strong>Google LSA:</strong> $13.433 em refunds (35.7% do total) — maior taxa de WO entre canais</li>
+<li><strong>Referral & Trade:</strong> $12.413 (33.0%) — Lydia Jessop responde por $11.036 deste valor</li>
+<li><strong>Online Ads:</strong> $7.263 (19.3%)</li>
+<li><strong>Google Search:</strong> $1.554 (4.1%) — menor taxa de WO entre canais pagos</li>
+</ul>
+</div>
+<div class="card card-gold">
+<h4 style="color:var(--gold)">Diagnostic Fee concentra 72% dos refunds</h4>
+<p style="font-size:.78rem;color:var(--text2);margin-top:8px">Serviço de diagnóstico é o que mais gera chargebacks/clientes insatisfeitos. Como é a porta de entrada (795 pedidos), naturalmente concentra o volume. Mas a taxa de 6.3% de refunds sobre a receita do serviço é preocupante.</p>
+<p style="font-size:.78rem;color:var(--text2);margin-top:6px">Commercial New System tem o maior refund individual (-$5.335) — risco alto em projetos de grande porte.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<div class="section-label">Teoria das Restrições</div>
+<h2>Gargalos & Alavancas Estratégicas</h2>
+
+<div class="grid-2">
+<div class="card card-accent">
+<div class="stat" style="margin-bottom:8px;text-align:left;background:transparent;padding:0;border:none">
+<div class="v" style="font-size:2rem;color:var(--red)">#1</div>
+<div class="l" style="font-size:.85rem;text-transform:none;letter-spacing:0;color:#fff">Campanhas de Google Ads pausadas</div>
+</div>
+<p style="font-size:.78rem;color:var(--text2);line-height:1.6">13 de 16 campanhas pausadas — 18.75% de capacidade operacional. <strong>É o gargalo raiz.</strong> Search Ads cresceu 516% em H1/26 mesmo com campanhas pausadas. Se estivessem todas ativas, o potencial é de $40-60K/mês adicionais.</p>
+<div class="strategy-box">
+<h4>Subordine ao Gargalo</h4>
+<p>Reativar campanhas é prioridade #1. Sem isso, nenhuma outra ação terá impacto significativo. Estimar impacto: +$30-50K/mês em 30 dias.</p>
+</div>
+</div>
+<div class="card card-gold">
+<div class="stat" style="margin-bottom:8px;text-align:left;background:transparent;padding:0;border:none">
+<div class="v" style="font-size:2rem;color:var(--gold)">#2</div>
+<div class="l" style="font-size:.85rem;text-transform:none;letter-spacing:0;color:#fff">Ticket baixo do canal LSA ($606)</div>
+</div>
+<p style="font-size:.78rem;color:var(--text2);line-height:1.6">LSA entrega 428 pedidos mas ticket de $606 vs $1.062 do Search. É o canal de maior volume mas também o de pior qualidade. Além disso, concentra 35.7% dos refunds.</p>
+<div class="strategy-box">
+<h4>Eleve o Gargalo</h4>
+<p>Criar fluxo de upsell pós-diagnóstico. Transferir leads LSA qualificados para Search Ads com landing page de New System. Meta: elevar ticket LSA para $800.</p>
+</div>
+</div>
+<div class="card card-blue">
+<div class="stat" style="margin-bottom:8px;text-align:left;background:transparent;padding:0;border:none">
+<div class="v" style="font-size:2rem;color:var(--blue)">#3</div>
+<div class="l" style="font-size:.85rem;text-transform:none;letter-spacing:0;color:#fff">Conversão diagnóstico → sistema novo</div>
+</div>
+<p style="font-size:.78rem;color:var(--text2);line-height:1.6">795 diagnósticos vs 81 novos sistemas residenciais = ~10% de conversão. Cada ponto percentual de melhoria = $31K adicionais (81 x $3.125).</p>
+<div class="strategy-box">
+<h4>Expanda o Gargalo</h4>
+<p>Implementar follow-up automatizado pós-diagnóstico com email/SMS. Oferta de temporada para conversão em 7 dias. Meta: elevar conversão para 15%.</p>
+</div>
+</div>
+<div class="card card-green">
+<div class="stat" style="margin-bottom:8px;text-align:left;background:transparent;padding:0;border:none">
+<div class="v" style="font-size:2rem;color:#66BB6A">#4</div>
+<div class="l" style="font-size:.85rem;text-transform:none;letter-spacing:0;color:#fff">Receita Recorrente sub-explorada</div>
+</div>
+<p style="font-size:.78rem;color:var(--text2);line-height:1.6">Season Packages + CMP Maintenance = apenas 3% da receita. Em um negócio de irrigação com sazonalidade, receita recorrente é o colchão dos meses de baixa (Nov-Jan).</p>
+<div class="strategy-box">
+<h4>Identifique o Novo Gargalo</h4>
+<p>Programa "Club Conserva" com manutenção preventiva mensal. Meta: 5% da receita em 12 meses. Testar com 50 clientes existentes.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<div class="section-label">Projeções</div>
+<h2>Cenários Financeiros · 12 Meses</h2>
+
+<div class="chart-box">
+<h4>Investimento vs Receita Projetada <span>3 cenários</span></h4>
+<div class="chart-wrap"><canvas id="projChart"></canvas></div>
+</div>
+
+<div class="grid-3" style="margin-top:12px">
+<div class="card card-accent">
+<h4 style="color:#FF8A80">&#9660; Conservador</h4>
+<div style="font-size:2rem;font-weight:700;color:#fff;font-family:'Playfair Display'">$780K</div>
+<div style="font-size:.78rem;color:var(--text2);margin-top:4px">Reativação parcial (50% das campanhas)<br>Investimento: $8K/mês<br>Receita estável, sem crescimento</div>
+</div>
+<div class="card card-gold">
+<h4 style="color:var(--gold)">&#9679; Realista</h4>
+<div style="font-size:2rem;font-weight:700;color:#fff;font-family:'Playfair Display'">$1.25M</div>
+<div style="font-size:.78rem;color:var(--text2);margin-top:4px">80% das campanhas ativas + Search otimizado<br>Investimento: $15K/mês<br>Crescimento de 25% vs 2025</div>
+</div>
+<div class="card card-green">
+<h4 style="color:#66BB6A">&#9650; Otimista</h4>
+<div style="font-size:2rem;font-weight:700;color:#fff;font-family:'Playfair Display'">$1.65M</div>
+<div style="font-size:.78rem;color:var(--text2);margin-top:4px">100% ativo + SEO + YouTube<br>Investimento: $25K/mês<br>Diversificação de canais plena</div>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<div class="section-label">Insights Estratégicos</div>
+<h2>Hipóteses & Validações</h2>
+
+<div class="grid-2">
+<div class="insight">
+<h5>1. A crise de Junho é operacional, não sazonal</h5>
+<p>Junho/25 fez $49.9K com 105 pedidos. Junho/26 fez $9.6K com 29 pedidos (-80.7%). Campanhas pausadas são a causa.</p>
+<div class="hyp">Hipótese: Reativar campanhas em Julho restaura 60-70% do volume.</div>
+<div class="val">Validação: Comparar Julho/26 vs Julho/25 ($82.4K). Se >$50K, tese confirmada.</div>
+</div>
+<div class="insight">
+<h5>2. Search Ads é o canal de maior ROI</h5>
+<p>Cresceu 516% (H1/25→H1/26). Ticket 75% maior que LSA. Apenas 1.1% de refunds.</p>
+<div class="hyp">Hipótese: Aumentar Search Ads de $3.6K/mês para $15K/mês pode gerar $700K+/ano.</div>
+<div class="val">Validação: Testar com $8K/mês por 60 dias. CPA target: <$100.</div>
+</div>
+<div class="insight">
+<h5>3. LSA precisa de contenção, não de corte</h5>
+<p>24.5% da receita mas 35.7% dos refunds. Ticket $606 é o menor entre canais pagos.</p>
+<div class="hyp">Hipótese: Qualificação de leads LSA reduz refunds em 40%.</div>
+<div class="val">Validação: Implementar triagem pré-diagnóstico. Meta: refund rate <2%.</div>
+</div>
+<div class="insight">
+<h5>4. Organic Search é o próximo motor</div>
+<p>Apenas 0.7% da receita ($7.4K em 18 meses). Um negócio local bem otimizado tira 10-15% da receita de orgânico.</p>
+<div class="hyp">Hipótese: Com SEO local + GBP + blog, Organic chega a 5% em 6 meses.</div>
+<div class="val">Validação: Acompanhar rankings de 10 keywords + tráfego orgânico mensal.</div>
+</div>
+<div class="insight">
+<h5>5. Concentração de risco em top clientes</h5>
+<p>Lydia Jessop = 9.2% da receita. Top 5 = 20.2%. Perder um grande cliente impacta fortemente.</p>
+<div class="hyp">Hipótese: Diversificar com Search Ads reduz risco de concentração.</div>
+<div class="val">Validação: Meta: nenhum cliente >5% da receita total.</div>
+</div>
+<div class="insight">
+<h5>6. Receita recorrente é colchão financeiro</h5>
+<p>Season Packages + Manutenção = apenas 3% da receita. Nos meses de baixa (Nov-Jan, ~$30K/mês), receita recorrente seria o estabilizador.</p>
+<div class="hyp">Hipótese: Programa "Club Conserva" pode gerar $50K/mês em 12 meses.</div>
+<div class="val">Validação: Testar com 50 clientes. Retenção >80% = escala.</div>
+</div>
+</div>
+</div>
+</section>
+
+<section style="border-bottom:none">
+<div class="container">
+<div class="section-label">Roadmap</div>
+<h2>Plano de Implementação · 6 Meses</h2>
+
+<div class="grid-2">
+<div class="timeline">
+<div class="tl-item">
+<div class="tl-d">Semanas 1-2 · Julho 2026</div>
+<div class="tl-t">&#9888; Resgate: Reativar Campanhas</div>
+<div class="tl-p">Auditar 16 anúncios reprovados. Corrigir políticas. Reativar Brand, Calls, PMax. <strong>$15-20K/mês em risco.</strong></div>
+</div>
+<div class="tl-item">
+<div class="tl-d">Semanas 3-4 · Julho 2026</div>
+<div class="tl-t">&#128269; SEO Local + GBP</div>
+<div class="tl-p">Otimizar Google Business Profile. Publicar 5 blog posts. Cadastro em diretórios (Yelp, Angi, HomeAdvisor).</div>
+</div>
+<div class="tl-item">
+<div class="tl-d">Mês 2 · Agosto 2026</div>
+<div class="tl-t">&#128202; Search Estruturado por Serviço</div>
+<div class="tl-p">Campanhas separadas por serviço. Landing pages dedicadas. Orçamento: $8K/mês. <strong>Meta CPA: $100.</strong></div>
+</div>
+<div class="tl-item">
+<div class="tl-d">Mês 3 · Setembro 2026</div>
+<div class="tl-t">&#129309; Trade Alliances + LSA Triage</div>
+<div class="tl-p">Programa de parcerias com HOAs. Triagem de leads LSA para conter refunds.</div>
+</div>
+<div class="tl-item">
+<div class="tl-d">Mês 4 · Outubro 2026</div>
+<div class="tl-t">&#127909; YouTube + High Season</div>
+<div class="tl-p">3 vídeos: sistema inteligente + depoimento + tour. Remarketing. Email sequence High Season.</div>
+</div>
+<div class="tl-item">
+<div class="tl-d">Meses 5-6 · Nov-Dez 2026</div>
+<div class="tl-t">&#128200; Escala + Club Conserva</div>
+<div class="tl-p">Orçamento $15K/mês. Programa de manutenção preventiva. Preparar pico Março 2027.</div>
+</div>
+</div>
+<div>
+<div class="card card-accent">
+<h4 style="color:#FF8A80">Riscos & Mitigações</h4>
+<table style="margin-top:8px">
+<tr><th>Risco</th><th>Prob.</th><th>Impacto</th><th>Mitigação</th></tr>
+<tr><td>Anúncios sem solução</td><td><span class="tag tag-red">Alta</span></td><td>Crítico</td><td>Suporte Google Ads</td></tr>
+<tr><td>Orçamento insuficiente</td><td><span class="tag tag-gold">Média</span></td><td>Alto</td><td>Priorizar Search + PMax</td></tr>
+<tr><td>Sazonalidade inverno</td><td><span class="tag tag-gold">Média</span></td><td>Médio</td><td>Manutenção preventiva</td></tr>
+<tr><td>Concorrência</td><td><span class="tag tag-red">Alta</span></td><td>Médio</td><td>Smart tech + economia</td></tr>
+<tr><td>Dependência de plataforma</td><td><span class="tag tag-gold">Média</span></td><td>Alto</td><td>Diversificar canais</td></tr>
+</table>
+</div>
+<div class="card card-gold" style="margin-top:12px">
+<h4 style="color:var(--gold)">Checklist Imediato (30 dias)</h4>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:8px;font-size:.78rem">
+<div>&#9744; Auditar anúncios reprovados</div>
+<div>&#9744; Reativar Brand + Calls</div>
+<div>&#9744; Publicar 5 blog posts</div>
+<div>&#9744; Otimizar GBP</div>
+<div>&#9744; Estruturar Search por serviço</div>
+<div>&#9744; Triagem de leads LSA</div>
+</div>
+</div>
+<div class="card card-green" style="margin-top:12px">
+<h4 style="color:#66BB6A">Indicadores de Sucesso (30 dias)</h4>
+<ul style="font-size:.78rem;color:var(--text2);margin-top:6px;padding-left:16px;line-height:1.8">
+<li>&#9989; Pelo menos 8 campanhas reativadas</li>
+<li>&#9989; CPA dos 30 dias &lt; $150 (vs $276 atual estimado)</li>
+<li>&#9989; Receita Julho > $40K (vs $9.6K em Junho)</li>
+<li>&#9989; Google Business Profile 100% completo</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<img src="data:image/png;base64,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" alt="V4">
+<p>V4 Company · Relatório Analítico · Conserva Irrigation of Greater Scottsdale</p>
+<p style="font-size:.6rem;color:#666;margin-top:2px">1.347 pedidos analisados do ServiceMinder · Jan/2025 a Jun/2026 · Dados reais</p>
+</footer>
+
+<script>
+// MONTHLY REVENUE
+new Chart(document.getElementById('monthlyChart'),{type:'bar',data:{labels:['Jan/25','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez','Jan/26','Fev','Mar','Abr','Mai','Jun'],datasets:[{label:'2025',data:[44940,38588,60234,100596,58085,49857,78634,61695,50530,67101,29976,28536,null,null,null,null,null,null],backgroundColor:'rgba(200,146,62,0.5)',borderColor:'#C8923E',borderWidth:1,borderRadius:3},{label:'2026',data:[null,null,null,null,null,null,null,null,null,null,null,null,52211,59765,111073,46829,49370,9637],backgroundColor:'rgba(208,16,16,0.7)',borderColor:'#D01010',borderWidth:1,borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#9E9E9E',font:{size:11}}}},scales:{x:{ticks:{color:'#9E9E9E',maxTicksLimit:12},grid:{color:'#333'}},y:{ticks:{color:'#9E9E9E',callback:v=>'$'+(v/1000).toFixed(0)+'K'},grid:{color:'#333'}}}}});
+
+// YOY
+new Chart(document.getElementById('yoyChart'),{type:'bar',data:{labels:['Jan','Fev','Mar','Abr','Mai','Jun'],datasets:[{label:'2025',data:[44940,38588,60234,100596,58085,49857],backgroundColor:'rgba(200,146,62,0.5)',borderRadius:4},{label:'2026',data:[52211,59765,111073,46829,49370,9637],backgroundColor:'rgba(208,16,16,0.7)',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#9E9E9E',font:{size:11}}}},scales:{x:{ticks:{color:'#9E9E9E'},grid:{color:'#333'}},y:{ticks:{color:'#9E9E9E',callback:v=>'$'+(v/1000).toFixed(0)+'K'},grid:{color:'#333'}}}}});
+
+// CHANNEL REVENUE
+new Chart(document.getElementById('chanRevChart'),{type:'bar',data:{labels:['Google LSA','Referral','Search Ads','Online Ads','Invoice','Thumbtack','Angi','Outros'],datasets:[{label:'Receita Líquida',data:[244862,166218,135369,94951,61003,43935,38564,205949],backgroundColor:['#D01010','#C8923E','#1565C0','#757575','#9E9E9E','#2E7D32','#FF8A80','#616161'],borderRadius:4}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#9E9E9E',callback:v=>'$'+(v/1000).toFixed(0)+'K'},grid:{color:'#333'}},y:{ticks:{color:'#9E9E9E'},grid:{display:false}}}}});
+
+// CHANNEL MIX H1 vs H1
+new Chart(document.getElementById('chanMixChart'),{type:'bar',data:{labels:['LSA','Search','Referral','Online Ads','Thumbtack','Angi'],datasets:[{label:'H1 2025',data:[40092,10976,22120,30007,1370,14856],backgroundColor:'rgba(200,146,62,0.4)',borderRadius:4},{label:'H1 2026',data:[73242,67595,95724,53879,11120,12696],backgroundColor:'rgba(208,16,16,0.7)',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#9E9E9E',font:{size:10}}}},scales:{x:{ticks:{color:'#9E9E9E'},grid:{display:false}},y:{ticks:{color:'#9E9E9E',callback:v=>'$'+(v/1000).toFixed(0)+'K'},grid:{color:'#333'}}}}});
+
+// SERVICE DOUGHNUT
+new Chart(document.getElementById('svcChart'),{type:'doughnut',data:{labels:['Diagnostic Fee','Resid. New System','Commercial Repair','Commercial New System','Season Packs','Manutenção','Outros'],datasets:[{data:[428116,253147,186954,84920,22513,7448,36557],backgroundColor:['#D01010','#C8923E','#1565C0','#2E7D32','#757575','#9E9E9E','#616161'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#9E9E9E',font:{size:10},padding:8}}}}});
+
+// SERVICE TICKET
+new Chart(document.getElementById('svcTicketChart'),{type:'bar',data:{labels:['Diagnóstico','Res. System','Com. Repair','Com. System','Season','Manutenção'],datasets:[{label:'Ticket Médio ($)',data:[538,3125,1558,7720,162,196],backgroundColor:['#757575','#C8923E','#1565C0','#D01010','#9E9E9E','#616161'],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#9E9E9E'},grid:{display:false}},y:{ticks:{color:'#9E9E9E',callback:v=>'$'+v},grid:{color:'#333'}}}}});
+
+// QUARTERLY
+new Chart(document.getElementById('qtrChart'),{type:'bar',data:{labels:['Q1/25','Q2/25','Q3/25','Q4/25','Q1/26','Q2/26'],datasets:[{label:'Receita',data:[143761,209538,190858,125612,244753,108042],backgroundColor:['#C8923E','#C8923E','#C8923E','#C8923E','#D01010','#D01010'],borderRadius:4},{label:'Refunds (%)',data:[0.3,0.8,5.5,0.7,9.3,2.0],backgroundColor:'rgba(208,16,16,0.2)',borderRadius:4,yAxisID:'y1'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#9E9E9E',font:{size:10}}}},scales:{x:{ticks:{color:'#9E9E9E'},grid:{display:false}},y:{ticks:{color:'#9E9E9E',callback:v=>'$'+(v/1000).toFixed(0)+'K'},grid:{color:'#333'}},y1:{position:'right',ticks:{color:'#EF5350',callback:v=>v+'%'},grid:{display:false}}}}});
+
+// TICKET DISTRIBUTION
+new Chart(document.getElementById('ticketChart'),{type:'bar',data:{labels:['$0-100','$100-300','$300-500','$500-1K','$1K-2K','$2K-5K','$5K-10K','$10K+'],datasets:[{label:'% da Receita',data:[0.2,7.2,10.5,19.0,14.3,18.7,12.9,20.9],backgroundColor:['#616161','#757575','#9E9E9E','#C8923E','#C8923E','#D01010','#D01010','#D01010'],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#9E9E9E'},grid:{display:false}},y:{ticks:{color:'#9E9E9E',callback:v=>v+'%'},grid:{color:'#333'}}}}});
+
+// PROJECTION
+new Chart(document.getElementById('projChart'),{type:'bar',data:{labels:['Conservador','Realista','Otimista'],datasets:[{label:'Investimento Anual',data:[96000,180000,300000],backgroundColor:'#D01010',borderRadius:4},{label:'Receita Projetada',data:[780000,1250000,1650000],backgroundColor:'#2E7D32',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#9E9E9E',font:{size:11}}}},scales:{x:{ticks:{color:'#9E9E9E'},grid:{display:false}},y:{ticks:{color:'#9E9E9E',callback:v=>'$'+(v/1000).toFixed(0)+'K'},grid:{color:'#333'}}}}});
+
+// Progress bars animation
+document.querySelectorAll('.progress .fill').forEach(bar=>{
+  let p=parseFloat(bar.dataset.progress)||0;
+  let obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){bar.style.width=p+'%';obs.unobserve(e.target);}});
+  },{threshold:.3});
+  obs.observe(bar);
+});
+</script>
+</body>
+</html>
