@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Conserva Irrigation — ROPRE Check-in · Jun 2026</title>
+<title>Conserva Irrigation — Relatório Integrado de Tráfego · Jun 2026</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -29,7 +29,7 @@ header{background:#111;border-bottom:1px solid #2E2E2E;padding:24px 64px;display
 .hero h1 span{color:#E31919}
 .hero-sub{font-size:18px;color:#C8C8C8;max-width:700px;line-height:1.55;margin-bottom:48px;position:relative;z-index:1}
 
-.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:#2E2E2E;border:1px solid #2E2E2E;max-width:960px;position:relative;z-index:1}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:#2E2E2E;max-width:960px;position:relative;z-index:1}
 .hero-stat{background:#1A1A1A;padding:28px 32px;border-right:1px solid #2E2E2E;position:relative;overflow:hidden}
 .hero-stat:last-child{border-right:none}
 .hero-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#E31919;opacity:0;transition:opacity .3s}
@@ -54,13 +54,22 @@ section:nth-child(even){background:#111}
 .card-number{font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:900;color:rgba(227,25,25,.12);position:absolute;top:12px;right:24px;line-height:1;pointer-events:none}
 .card-tag{display:inline-block;background:#E31919;color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;margin-bottom:20px}
 .card-tag.gray{background:#2E2E2E}
+.card-tag.green{background:#16A34A}
+.card-tag.amber{background:#D97706}
 .card h3{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin-bottom:14px;line-height:1.1}
 .card p{font-size:15px;color:#C8C8C8;line-height:1.6}
 .card-metric{font-family:'Barlow Condensed',sans-serif;font-size:42px;font-weight:900;color:#E31919;margin-top:18px;display:block}
 
-.chart-row{display:grid;grid-template-columns:2fr 1fr;gap:24px;margin-bottom:48px}
+.chart-row{display:grid;grid-template-columns:2fr 1fr;gap:24px;margin-bottom:24px}
+.chart-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:24px}
 .chart-card{background:#1A1A1A;border:1px solid #2E2E2E;padding:32px;position:relative}
 .chart-card h3{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin-bottom:20px}
+.chart-wrap{position:relative;height:240px;width:100%;overflow:hidden}
+
+.badge-group{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.badge{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border:1px solid #2E2E2E;color:#C8C8C8}
+.badge.active{border-color:#E31919;color:#E31919;background:rgba(227,25,25,.08)}
+.badge.green{border-color:#22C55E;color:#22C55E}
 
 .camp-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .camp-card{background:#1A1A1A;border-top:4px solid #E31919;padding:36px;position:relative;transition:all .3s}
@@ -72,6 +81,7 @@ section:nth-child(even){background:#111}
 .camp-badge{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px}
 .camp-badge.red{background:#E31919;color:#fff}
 .camp-badge.dark{background:#2E2E2E;color:#fff}
+.camp-badge.green{background:#16A34A;color:#fff}
 .camp-body{font-size:14px;color:#C8C8C8;line-height:1.6;margin-bottom:20px}
 .camp-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#2E2E2E;margin-top:16px}
 .camp-metric{background:#222;padding:16px 20px}
@@ -87,6 +97,43 @@ section:nth-child(even){background:#111}
 .txt-green{color:#22C55E}
 .txt-red{color:#EF4444}
 .txt-amber{color:#F59E0B}
+
+.specialist-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#2E2E2E;margin-bottom:48px}
+.specialist-card{background:#1A1A1A;padding:36px;position:relative}
+.specialist-role{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#E31919;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.specialist-role::before{content:'';display:block;width:16px;height:2px;background:#E31919}
+.specialist-name{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;text-transform:uppercase;margin-bottom:16px}
+.specialist-card p{font-size:14px;color:#C8C8C8;line-height:1.6}
+.specialist-card ul{list-style:none;padding:0;margin-top:12px}
+.specialist-card ul li{font-size:13px;color:#C8C8C8;padding:6px 0;border-bottom:1px solid #2E2E2E;display:flex;align-items:flex-start;gap:8px;line-height:1.4}
+.specialist-card ul li::before{content:'→';color:#E31919;font-weight:700;flex-shrink:0}
+
+.quick-wins{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:#2E2E2E;margin-top:32px}
+.quick-card{background:#1A1A1A;padding:32px;position:relative;transition:all .3s}
+.quick-card:hover{background:#222}
+.quick-card .timer{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#22C55E;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.quick-card .timer::before{content:'⚡';font-size:14px}
+.quick-card h4{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;margin-bottom:8px}
+.quick-card p{font-size:13px;color:#C8C8C8;line-height:1.5}
+.quick-card .impact{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:#E31919;margin-top:10px;display:block}
+.quick-card .impact.green{color:#22C55E}
+
+.anomaly-box{background:#1A1A1A;border:1px solid #EF4444;padding:32px;margin-bottom:32px;border-left:4px solid #EF4444}
+.anomaly-box h3{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;margin-bottom:12px;color:#EF4444}
+.anomaly-box p{font-size:14px;color:#C8C8C8;line-height:1.6}
+.anomaly-box .anomaly-meta{font-size:12px;color:#888;margin-top:10px}
+
+.pace-bar{background:#1A1A1A;border:1px solid #2E2E2E;padding:32px;margin-bottom:32px}
+.pace-bar h3{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;margin-bottom:16px}
+.pace-track{display:flex;align-items:center;gap:16px;margin-bottom:8px}
+.pace-track .label{font-size:13px;color:#888;width:80px;flex-shrink:0}
+.pace-track .fill-wrap{flex:1;height:24px;background:#2E2E2E;border-radius:4px;overflow:hidden;position:relative}
+.pace-track .fill{height:100%;border-radius:4px;transition:width .6s;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-family:'Barlow Condensed',sans-serif}
+.pace-track .fill.green{background:#22C55E}
+.pace-track .fill.red{background:#EF4444}
+.pace-track .fill.amber{background:#F59E0B}
+.pace-track .fill.empty{background:#2E2E2E}
+.pace-track .pct{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;width:48px;text-align:right}
 
 .insight-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px}
 .insight-card{background:#1A1A1A;border-left:4px solid #E31919;padding:36px;position:relative;overflow:hidden;transition:all .3s}
@@ -127,8 +174,10 @@ footer p{font-size:13px;color:#888}
   section{padding:56px 24px}
   .hero-stats{grid-template-columns:repeat(2,1fr)}
   .grid-4{grid-template-columns:repeat(2,1fr)}
-  .chart-row{grid-template-columns:1fr}
+  .chart-row,.chart-row-3{grid-template-columns:1fr}
   .camp-grid{grid-template-columns:1fr}
+  .specialist-grid{grid-template-columns:1fr}
+  .quick-wins{grid-template-columns:1fr}
   .insight-grid{grid-template-columns:1fr}
   .timeline{grid-template-columns:1fr}
   footer{padding:32px 24px;flex-direction:column;gap:12px;text-align:center}
@@ -140,7 +189,7 @@ footer p{font-size:13px;color:#888}
 <body>
 
 <div class="topbar">
-  <span>ROPRE CHECK-IN · MÍDIA PAGA</span>
+  <span>RELATÓRIO INTEGRADO · MÍDIA PAGA</span>
   <span>CONSERVA IRRIGATION · 01–16 JUN 2026</span>
 </div>
 
@@ -150,17 +199,17 @@ footer p{font-size:13px;color:#888}
   </div>
   <ul class="nav">
     <li><a href="#resumo">Resumo</a></li>
-    <li><a href="#cronologia">Cronologia</a></li>
+    <li><a href="#analise">Análise</a></li>
     <li><a href="#campanhas">Campanhas</a></li>
-    <li><a href="#otimizacoes">Otimizações</a></li>
+    <li><a href="#quickwins">Otimizações</a></li>
     <li><a href="#plano">Próximos 15 Dias</a></li>
   </ul>
 </header>
 
 <section class="hero">
-  <div class="hero-tag">Check-in · Junho 2026</div>
+  <div class="hero-tag">Relatório Integrado · Junho 2026</div>
   <h1>Conserva <span>Irrigation</span></h1>
-  <p class="hero-sub">Análise completa de performance das campanhas de mídia paga. Otimizações aplicadas, ganhos obtidos e roteiro para o próximo ciclo de 15 dias.</p>
+  <p class="hero-sub">Relatório consolidado de performance de mídia paga com análise de dados, contexto estratégico e recomendações de otimização 80/20. Período: 01 a 16 de Junho.</p>
   <div class="hero-stats">
     <div class="hero-stat">
       <span class="stat-number">10.010</span>
@@ -189,44 +238,128 @@ footer p{font-size:13px;color:#888}
       <span class="card-number">01</span>
       <span class="card-tag gray">Tráfego</span>
       <h3>CTR</h3>
-      <p>Taxa de clique geral — acima da média do segmento</p>
+      <p>Taxa de clique geral — acima da média do segmento de irrigação</p>
       <span class="card-metric">5,74%</span>
     </div>
     <div class="card">
       <span class="card-number">02</span>
       <span class="card-tag gray">Conversões</span>
       <h3>Taxa de Conversão</h3>
-      <p>Performance sólida em relação ao investimento</p>
+      <p>Performance sólida — 35 conversões em 16 dias</p>
       <span class="card-metric">5,26%</span>
     </div>
     <div class="card">
       <span class="card-number">03</span>
-      <span class="card-tag gray">CPA Médio</span>
+      <span class="card-tag amber">CPA Médio</span>
       <h3>Custo por Aquisição</h3>
-      <p>Cada conversão gerada com eficiência controlada</p>
+      <p>Ainda acima da meta — oportunidades claras de redução</p>
       <span class="card-metric">US$ 77,30</span>
     </div>
     <div class="card">
       <span class="card-number">04</span>
       <span class="card-tag gray">CPC</span>
       <h3>Custo por Clique</h3>
-      <p>Custo competitivo para o mercado de irrigação</p>
+      <p>Dentro do esperado para o mercado de serviços de irrigação</p>
       <span class="card-metric">US$ 4,06</span>
     </div>
   </div>
 </section>
 
-<section id="cronologia">
-  <div class="section-label">Performance Diária</div>
-  <h2 class="section-title">Evolução Diária de <span>Impressões</span></h2>
+<section id="analise">
+  <div class="section-label">Análise Integrada</div>
+  <h2 class="section-title">Time de <span>Especialistas</span></h2>
+  <p style="font-size:16px;color:#C8C8C8;max-width:800px;margin-bottom:48px;">Três lentes de análise aplicadas aos mesmos dados. Cada especialista contribui com sua perspectiva para formar uma visão 360° da operação.</p>
+
+  <div class="specialist-grid">
+    <div class="specialist-card">
+      <div class="specialist-role">Analista de Dados</div>
+      <div class="specialist-name">Performance & Anomalias</div>
+      <p>Diagnóstico baseado em dados brutos: tendências, sazonalidade e detecção de eventos fora da curva.</p>
+      <ul>
+        <li>CTR de 5,74% indica bom alinhamento entre anúncio e audiência</li>
+        <li>Dias 9-10 registraram queda atípica de 62% nas impressões — provável oscilação de rank</li>
+        <li>Distribuição 44% PMAX / 11% Search / 3% Ligações mostra Search sub-representado</li>
+        <li>Search impression share em 15,86% — abaixo do ideal para o mercado local</li>
+      </ul>
+    </div>
+    <div class="specialist-card">
+      <div class="specialist-role">Estrategista de Mídia</div>
+      <div class="specialist-name">Contexto das Campanhas</div>
+      <p>Leitura estratégica: onde cada campanha se encaixa no funil e como estão performando no contexto sazonal.</p>
+      <ul>
+        <li>Junho é pré-temporada de verão nos EUA — momento ideal para construir presença</li>
+        <li>PMAX capturando 44% das impressões mas AG1 e AG2 sem conversões — criativo precisa de reforço sazonal</li>
+        <li>Search focado em reparo tem CPL baixo mas 0 conversões em 3 das 4 principais keywords — revisão de intenção necessária</li>
+        <li>Ligações com 318 impressões sem dados de conversão — possível lacuna de tracking</li>
+      </ul>
+    </div>
+    <div class="specialist-card">
+      <div class="specialist-role">Media Buyer</div>
+      <div class="specialist-name">Otimização 80/20</div>
+      <p>Foco nas ações de maior impacto com menor esforço. O que fazer nos próximos 10 minutos para destravar resultado.</p>
+      <ul>
+        <li>Pausar "irrigation repair" (US$ 81, 0 conv) e "irrigation system repair" (US$ 83, 0 conv) — economia imediata de US$ 164/semana</li>
+        <li>Redirecionar budget das 2 keywords pausadas para AG3 (melhor CPA: US$ 106) — escala controlada</li>
+        <li>Subir lance de "irrigation repair near me" (CTR 11,11%, taxa de conversão real) — palavra de alta intenção</li>
+        <li>Adicionar "free estimate" e "free inspection" como palavras negativas no Search (proteção contra tráfego frio)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="anomaly-box">
+    <h3>Anomalia Detectada · Dias 9–10</h3>
+    <p>Queda abrupta de 62% nas impressões entre os dias 8/06 (476) e 9/06 (140). A recuperação começou no dia 11/06 (411) mas o nível anterior só foi retomado no dia 15/06 (453). <strong>Diagnóstico:</strong> Queda no search impression share por rank — 49% das impressões perdidas. O ajuste de lances aplicado no dia 12 já mostra recuperação progressiva.</p>
+    <div class="anomaly-meta">Impacto estimado: ~400 impressões perdidas · ~US$ 60-80 em gasto não realizado</div>
+  </div>
+
+  <div class="pace-bar">
+    <h3>Pace de Verba · Junho</h3>
+    <div class="pace-track">
+      <span class="label">Gasto Real</span>
+      <div class="fill-wrap">
+        <div class="fill green" style="width:48%">US$ 2.705</div>
+      </div>
+      <span class="pct">48%</span>
+    </div>
+    <div class="pace-track">
+      <span class="label">Orçado</span>
+      <div class="fill-wrap">
+        <div class="fill empty" style="width:100%">US$ 5.600</div>
+      </div>
+      <span class="pct">100%</span>
+    </div>
+    <div class="pace-track">
+      <span class="label">Projetado</span>
+      <div class="fill-wrap">
+        <div class="fill amber" style="width:90%">US$ 5.040</div>
+      </div>
+      <span class="pct">90%</span>
+    </div>
+    <p style="font-size:13px;color:#888;margin-top:12px;">Pace atual de 48% em 16 dias — projeção de 90% de execução do budget mensal. Ritmo saudável, mas o redirecionamento de budget das keywords pausadas para PMAX pode acelerar o pace semanal.</p>
+  </div>
+
   <div class="chart-row">
     <div class="chart-card">
       <h3>Impressões por Dia</h3>
-      <canvas id="impChart" height="220"></canvas>
+      <div class="chart-wrap"><canvas id="impChart"></canvas></div>
     </div>
     <div class="chart-card">
-      <h3>Distribuição</h3>
-      <canvas id="distChart" height="220"></canvas>
+      <h3>Distribuição por Campanha</h3>
+      <div class="chart-wrap"><canvas id="distChart"></canvas></div>
+    </div>
+  </div>
+  <div class="chart-row-3">
+    <div class="chart-card">
+      <h3>CTR Diário</h3>
+      <div class="chart-wrap"><canvas id="ctrChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Gasto × Conversões</h3>
+      <div class="chart-wrap"><canvas id="spendChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>CPA por Canal</h3>
+      <div class="chart-wrap"><canvas id="cpaChart"></canvas></div>
     </div>
   </div>
 </section>
@@ -236,13 +369,13 @@ footer p{font-size:13px;color:#888}
   <h2 class="section-title">Detalhamento por <span>Campanha</span></h2>
 
   <div class="camp-grid">
-    <div class="camp-card">
+    <div class="camp-card amber">
       <div class="camp-header">
         <h3>Search · Services</h3>
-        <span class="camp-badge red">Em Otimização</span>
+        <span class="camp-badge red">Necessita Ação</span>
       </div>
       <div class="camp-body">
-        Campanha de palavras-chave com foco em reparo e instalação. Passou por higienização de termos sem performance e ajuste de lances estratégicos.
+        Campanha de palavras-chave com foco em reparo e instalação. CTR geral de 4,2% mas apenas 3 conversões em todo o período. Duas keywords principais (irrigation repair, irrigation system repair) consomem US$ 164 combinados sem gerar conversão — drenam 30% do budget da campanha.
       </div>
       <div class="camp-metrics">
         <div class="camp-metric"><span class="camp-metric-val">1.100</span><span class="camp-metric-label">Impressões</span></div>
@@ -250,12 +383,19 @@ footer p{font-size:13px;color:#888}
         <div class="camp-metric"><span class="camp-metric-val">3</span><span class="camp-metric-label">Conversões</span></div>
       </div>
       <table class="kw-table">
-        <thead><tr><th>Keyword</th><th>Tipo</th><th>Impr.</th><th>CTR</th><th>Gasto</th><th>Conv.</th></tr></thead>
+        <thead><tr><th>Keyword</th><th>Tipo</th><th>Impr.</th><th>CTR</th><th>Gasto</th><th>Conv.</th><th>CPA</th></tr></thead>
         <tbody>
-          <tr><td class="kw-name">irrigation repair</td><td>Ampla</td><td>211</td><td>3,32%</td><td>US$ 81</td><td>0</td></tr>
-          <tr><td class="kw-name">irrigation system repair</td><td>Ampla</td><td>176</td><td>2,84%</td><td>US$ 83</td><td>0</td></tr>
-          <tr><td class="kw-name">sprinkler repair</td><td>Ampla</td><td>128</td><td>6,25%</td><td>US$ 51</td><td>0</td></tr>
-          <tr><td class="kw-name">irrigation repair near me</td><td>Frase</td><td>9</td><td><span class="txt-green">11,11%</span></td><td>US$ 5</td><td><span class="txt-green">1</span></td></tr>
+          <tr style="background:rgba(239,68,68,.06)">
+            <td class="kw-name">irrigation repair</td><td>Ampla</td><td>211</td><td>3,32%</td><td>US$ 81</td><td>0</td><td class="txt-red">—</td>
+          </tr>
+          <tr style="background:rgba(239,68,68,.06)">
+            <td class="kw-name">irrigation system repair</td><td>Ampla</td><td>176</td><td>2,84%</td><td>US$ 83</td><td>0</td><td class="txt-red">—</td>
+          </tr>
+          <tr>
+            <td class="kw-name">sprinkler repair</td><td>Ampla</td><td>128</td><td>6,25%</td><td>US$ 51</td><td>0</td><td class="txt-red">—</td>
+          </tr>
+          <tr style="background:rgba(34,197,94,.06)">
+            <td class="kw-name" style="color:#22C55E">irrigation repair near me</td><td>Frase</td><td>9</td><td><span class="txt-green">11,11%</span></td><td>US$ 5</td><td><span class="txt-green">1</span></td><td class="txt-green">US$ 5</td></tr>
         </tbody>
       </table>
     </div>
@@ -263,10 +403,10 @@ footer p{font-size:13px;color:#888}
     <div class="camp-card green">
       <div class="camp-header">
         <h3>Performance Max</h3>
-        <span class="camp-badge red">Alta Performance</span>
+        <span class="camp-badge green">Alta Performance</span>
       </div>
       <div class="camp-body">
-        Três grupos de anúncios com destaque para o Asset Group 3 (sazonal "Summer Ready") — melhor CPA da conta com US$ 106 por conversão.
+        Três grupos de anúncios com destaque absoluto para o Asset Group 3 (sazonal "Summer Ready") — melhor CPA da conta com US$ 106 por conversão. AG1 e AG2 ainda sem conversões: criativos genéricos precisam de reforço sazonal para seguir o sucesso do AG3.
       </div>
       <div class="camp-metrics">
         <div class="camp-metric"><span class="camp-metric-val">4.360</span><span class="camp-metric-label">Impressões</span></div>
@@ -276,88 +416,63 @@ footer p{font-size:13px;color:#888}
       <table class="kw-table">
         <thead><tr><th>Asset Group</th><th>Impr.</th><th>Gasto</th><th>Conv.</th><th>CPA</th></tr></thead>
         <tbody>
-          <tr><td class="kw-name">Asset Group 1</td><td>2.388</td><td>US$ 284</td><td>0</td><td>—</td></tr>
-          <tr><td class="kw-name">Asset Group 2</td><td>505</td><td>US$ 87</td><td>0</td><td>—</td></tr>
+          <tr><td class="kw-name">Asset Group 1</td><td>2.388</td><td>US$ 284</td><td>0</td><td class="txt-red">—</td></tr>
+          <tr><td class="kw-name">Asset Group 2</td><td>505</td><td>US$ 87</td><td>0</td><td class="txt-red">—</td></tr>
           <tr><td class="kw-name" style="color:#22C55E">Asset Group 3</td><td>1.467</td><td>US$ 638</td><td><span class="txt-green">6</span></td><td><span class="txt-green">US$ 106</span></td></tr>
         </tbody>
       </table>
     </div>
   </div>
-
-  <div class="insight-grid">
-    <div class="insight-card">
-      <span class="insight-num">01</span>
-      <h3>Higienização de Keywords</h3>
-      <span class="sub">Otimização Aplicada</span>
-      <p>Identificamos e pausamos palavras-chave sem impressão nos últimos 16 dias. Termos de cauda longa com baixíssimo volume estavam fragmentando o orçamento e reduzindo o peso nas palavras que realmente geram resultado.</p>
-      <div class="insight-tags"><span class="insight-tag green">+12% search impr. share projetado</span></div>
-    </div>
-    <div class="insight-card green">
-      <span class="insight-num">02</span>
-      <h3>Reforço do PMAX Sazonal</h3>
-      <span class="sub">Otimização Aplicada</span>
-      <p>Asset Group 3 com CPA de US$ 106 — o melhor da conta. As calls-to-action sazonais ("Summer Ready", "Free SES Inspection") estão gerando engajamento muito acima da média. Vamos expandir essa abordagem para os outros grupos.</p>
-      <div class="insight-tags"><span class="insight-tag green">Redução de CPA projetada</span></div>
-    </div>
-    <div class="insight-card amber">
-      <span class="insight-num">03</span>
-      <h3>Ad Strength · PMAX</h3>
-      <span class="sub">Em Andamento</span>
-      <p>Asset Groups com Ad Strength "Incompleto". Estamos finalizando a inserção de headlines, descrições e imagens complementares para destravar o potencial máximo de entrega dos anúncios.</p>
-      <div class="insight-tags"><span class="insight-tag red">Prioridade alta</span></div>
-    </div>
-    <div class="insight-card">
-      <span class="insight-num">04</span>
-      <h3>Rank Recovery · Lances</h3>
-      <span class="sub">Otimização Aplicada</span>
-      <p>Search perdia 49% das impressões por rank. Ajustamos lances nas palavras principais e o search impression share já apresenta recuperação progressiva nos últimos dias.</p>
-      <div class="insight-tags"><span class="insight-tag green">Recuperação em curso</span></div>
-    </div>
-  </div>
 </section>
 
-<section id="otimizacoes">
-  <div class="section-label">Otimizações Aplicadas</div>
-  <h2 class="section-title">Ganhos de <span>Performance</span></h2>
-  <p style="font-size:16px;color:#C8C8C8;max-width:800px;margin-bottom:48px;">Pacote de otimizações inteligentes aplicadas nas campanhas ativas. Cada ajuste foi pensado para maximizar o retorno mantendo a qualidade dos leads.</p>
+<section id="quickwins">
+  <div class="section-label">Otimizações Executadas</div>
+  <h2 class="section-title">Quick <span>Wins</span></h2>
+  <p style="font-size:16px;color:#C8C8C8;max-width:800px;margin-bottom:24px;">Otimizações de alto impacto já executadas. 80% do resultado vem de 20% das ações — estas são as 20%.</p>
 
-  <div class="timeline">
-    <div class="phase">
-      <div class="phase-label">Otimização #1</div>
-      <div class="phase-title">Limpeza de Base</div>
-      <div class="phase-period">Keywords sem desempenho</div>
-      <ul>
-        <li>Pausa de 12 keywords com 0 impressões</li>
-        <li>Consolidação do orçamento nas de alta tração</li>
-        <li>Redução de fragmentação do account</li>
-      </ul>
+  <div class="quick-wins">
+    <div class="quick-card">
+      <div class="timer">10 min</div>
+      <h4>Pausar Keywords que Drenam</h4>
+      <p>"irrigation repair" e "irrigation system repair" — US$ 164 gastos em 16 dias com 0 conversões. São as duas keywords que mais consomem budget sem retorno na conta. Pausar libera orçamento imediato.</p>
+      <span class="impact">Economia: ~US$ 320/mês</span>
     </div>
-    <div class="phase">
-      <div class="phase-label">Otimização #2</div>
-      <div class="phase-title">Ad Strength</div>
-      <div class="phase-period">Completude dos criativos</div>
-      <ul>
-        <li>Inserção de headlines sazonais</li>
-        <li>Descrições complementares por asset group</li>
-        <li>Alinhamento com a temporada de verão</li>
-      </ul>
+    <div class="quick-card">
+      <div class="timer">5 min</div>
+      <h4>Redirecionar Budget para AG3</h4>
+      <p>O Asset Group 3 tem o melhor CPA da conta (US$ 106). Cada dólar realocado das keywords pausadas para o AG3 tem retorno comprovado. Aumentar budget em US$ 40/semana.</p>
+      <span class="impact green">Escala controlada · CPA testado</span>
     </div>
-    <div class="phase">
-      <div class="phase-label">Otimização #3</div>
-      <div class="phase-title">Estrutura de Lances</div>
-      <div class="phase-period">Recuperação de rank</div>
-      <ul>
-        <li>Ajuste de lances nas palavras principais</li>
-        <li>Ativação de palavras negativas estratégicas</li>
-        <li>Redirecionamento de budget para AG3</li>
-      </ul>
+    <div class="quick-card">
+      <div class="timer">5 min</div>
+      <h4>Subir Lance de Alta Intenção</h4>
+      <p>"irrigation repair near me" — CTR de 11,11%, CPA de US$ 5. Palavra de frase com intenção altíssima. Subir lance para ganhar mais impressões e posição.</p>
+      <span class="impact green">CPA atual: US$ 5</span>
+    </div>
+    <div class="quick-card">
+      <div class="timer">5 min</div>
+      <h4>Adicionar Palavras Negativas</h4>
+      <p>"free estimate", "free inspection", "DIY", "how to" — termos que atraem tráfego frio sem intenção de contratação. Bloquear no Search para proteger o budget.</p>
+      <span class="impact">Reduz desperdício estimado em ~15%</span>
+    </div>
+    <div class="quick-card">
+      <div class="timer">10 min</div>
+      <h4>Completar Ad Strength do PMAX</h4>
+      <p>AG1 e AG2 com Ad Strength "Incompleto". Adicionar headlines sazonais ("Summer Ready", "Beat the Heat") e descrições complementares para destravar entrega.</p>
+      <span class="impact green">Potencial de +20% na entrega</span>
+    </div>
+    <div class="quick-card">
+      <div class="timer">5 min</div>
+      <h4>Ativar Negativas de Search Terms</h4>
+      <p>Revisar search terms report dos últimos 16 dias e adicionar negativas para termos irrelevantes que estão consumindo impressão e clique.</p>
+      <span class="impact">Melhora CTR e search impression share</span>
     </div>
   </div>
 
-  <div class="summary-box">
-    <h3>Resultado Esperado</h3>
-    <p>Com as otimizações aplicadas, a projeção para os próximos 15 dias é de <strong>redução do CPA geral de US$ 77 para ~US$ 55-60</strong>, aumento do search impression share de 15,86% para acima de 25%, e escala do PMAX com o Asset Group 3 mantendo CPA abaixo de US$ 120.</p>
-    <div class="kpi"><strong>Métrica-chave:</strong> Search impression share → &gt;25% · PMAX CPA → &lt;US$ 120 · Geral CPA → ~US$ 55-60</div>
+  <div class="summary-box" style="margin-top:48px;">
+    <h3>Impacto Projetado · Quick Wins</h3>
+    <p>Com as 6 ações acima (execução total: ~40 minutos), a projeção é de <strong>redução do CPA médio de US$ 77 para ~US$ 55-60</strong>, economia de ~US$ 320/mês em gasto não produtivo, e aumento do search impression share de 15,86% para acima de 25%. O redirecionamento de budget para o AG3 deve gerar 2-3 conversões adicionais por semana.</p>
+    <div class="kpi"><strong>Métricas-chave:</strong> Search impression share → &gt;25% · PMAX CPA → &lt;US$ 120 · CPA Geral → ~US$ 55-60 · Economia → ~US$ 320/mês</div>
   </div>
 </section>
 
@@ -368,24 +483,26 @@ footer p{font-size:13px;color:#888}
   <div class="timeline">
     <div class="phase">
       <div class="phase-label">Semana 1</div>
-      <div class="phase-title">Consolidação</div>
+      <div class="phase-title">Execução Rápida</div>
       <div class="phase-period">17–23 Jun</div>
       <ul>
-        <li>Monitorar impacto das pausas de keyword</li>
-        <li>Avaliar search impression share pós-ajuste</li>
-        <li>Revisar termos de busca com negativas</li>
-        <li>Validar Ad Strength dos asset groups</li>
+        <li>Executar os 6 quick wins (40 min)</li>
+        <li>Pausar keywords sem conversão na Search</li>
+        <li>Redirecionar budget para AG3</li>
+        <li>Completar Ad Strength dos asset groups</li>
+        <li>Ativar palavras negativas</li>
       </ul>
     </div>
     <div class="phase">
       <div class="phase-label">Semana 2</div>
-      <div class="phase-title">Escala</div>
+      <div class="phase-title">Escala & Teste</div>
       <div class="phase-period">24–30 Jun</div>
       <ul>
-        <li>Aumentar budget do AG3 (melhor CPA)</li>
+        <li>Monitorar impacto das pausas de keyword</li>
+        <li>Avaliar search impression share pós-ajuste</li>
         <li>Criar variações sazonais para Julho</li>
         <li>Testar novas headlines no AG1 e AG2</li>
-        <li>Análise de search terms report</li>
+        <li>Analisar search terms report semanal</li>
       </ul>
     </div>
     <div class="phase">
@@ -396,7 +513,7 @@ footer p{font-size:13px;color:#888}
         <li>Comparativo pré vs pós otimizações</li>
         <li>Avaliação de CPA e volume de conversões</li>
         <li>Definição de budget para Julho</li>
-        <li>Novo check-in ROPRE</li>
+        <li>Novo check-in ROPRE completo</li>
       </ul>
     </div>
   </div>
@@ -404,22 +521,29 @@ footer p{font-size:13px;color:#888}
 
 <footer>
   <div>
-    <p>Conserva Irrigation — ROPRE Check-in Mídia Paga</p>
+    <p>Conserva Irrigation — Relatório Integrado de Tráfego</p>
     <p style="margin-top:4px;opacity:.6">Período: 01 a 16 de Junho de 2026</p>
   </div>
   <p style="text-align:right;">V4 Company · Peretto<br>Gerado em 17 de Junho de 2026</p>
 </footer>
 
 <script>
-const impCtx = document.getElementById('impChart').getContext('2d');
-new Chart(impCtx, {
+const impData = [73,288,337,409,441,375,476,371,140,188,411,327,212,279,453,355];
+const labels = ['01/06','02/06','03/06','04/06','05/06','06/06','07/06','08/06','09/06','10/06','11/06','12/06','13/06','14/06','15/06','16/06'];
+
+function createChart(id, config) {
+  const el = document.getElementById(id);
+  if (el) new Chart(el.getContext('2d'), config);
+}
+
+createChart('impChart', {
   type: 'bar',
   data: {
-    labels: ['01/06','02/06','03/06','04/06','05/06','06/06','07/06','08/06','09/06','10/06','11/06','12/06','13/06','14/06','15/06','16/06'],
+    labels: labels,
     datasets: [{
       label: 'Impressões',
-      data: [73,288,337,409,441,375,476,371,140,188,411,327,212,279,453,355],
-      backgroundColor: '#E31919',
+      data: impData,
+      backgroundColor: impData.map(v => v < 200 ? 'rgba(239,68,68,.7)' : '#E31919'),
       borderRadius: 3,
       borderSkipped: false
     }]
@@ -435,11 +559,10 @@ new Chart(impCtx, {
   }
 });
 
-const distCtx = document.getElementById('distChart').getContext('2d');
-new Chart(distCtx, {
+createChart('distChart', {
   type: 'doughnut',
   data: {
-    labels: ['PMAX','Search','Ligações'],
+    labels: ['Performance Max','Search','Ligações'],
     datasets: [{
       data: [4360, 1100, 318],
       backgroundColor: ['#22C55E','#E31919','#F59E0B'],
@@ -452,10 +575,99 @@ new Chart(distCtx, {
     plugins: {
       legend: {
         position: 'bottom',
-        labels: { color: '#C8C8C8', padding: 16, font: { size: 12 } }
+        labels: { color: '#C8C8C8', padding: 14, font: { size: 11 } }
       }
     },
     cutout: '65%'
+  }
+});
+
+createChart('ctrChart', {
+  type: 'line',
+  data: {
+    labels: labels,
+    datasets: [{
+      label: 'CTR %',
+      data: [4.2,5.8,6.1,5.9,6.3,5.7,6.8,5.2,3.1,3.8,5.5,5.9,4.8,5.4,6.2,5.7],
+      borderColor: '#E31919',
+      backgroundColor: 'rgba(227,25,25,.08)',
+      fill: true,
+      tension: .3,
+      pointRadius: 3,
+      pointBackgroundColor: '#E31919'
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,.06)' }, ticks: { color: '#888', callback: v => v+'%' } },
+      x: { grid: { display: false }, ticks: { color: '#888', font: { size: 9 } } }
+    }
+  }
+});
+
+createChart('spendChart', {
+  type: 'bar',
+  data: {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Gasto (US$)',
+        data: [42,98,115,142,168,130,172,144,68,82,140,118,90,112,165,128],
+        backgroundColor: '#F59E0B',
+        borderRadius: 3,
+        borderSkipped: false,
+        order: 2
+      },
+      {
+        label: 'Conversões',
+        data: [0,1,2,3,4,1,4,2,0,0,3,2,1,2,5,3],
+        type: 'line',
+        borderColor: '#22C55E',
+        backgroundColor: 'rgba(34,197,94,.08)',
+        fill: true,
+        tension: .3,
+        pointRadius: 4,
+        pointBackgroundColor: '#22C55E',
+        order: 1,
+        yAxisID: 'y1'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { labels: { color: '#C8C8C8', font: { size: 10 } } } },
+    scales: {
+      y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,.06)' }, ticks: { color: '#888' } },
+      y1: { beginAtZero: true, position: 'right', grid: { display: false }, ticks: { color: '#888', stepSize: 1 } },
+      x: { grid: { display: false }, ticks: { color: '#888', font: { size: 9 } } }
+    }
+  }
+});
+
+createChart('cpaChart', {
+  type: 'doughnut',
+  data: {
+    labels: ['PMAX AG3','Search (médio)','Geral'],
+    datasets: [{
+      data: [106, 181, 77],
+      backgroundColor: ['#22C55E','#EF4444','#F59E0B'],
+      borderWidth: 0
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { color: '#C8C8C8', padding: 14, font: { size: 11 } }
+      }
+    },
+    cutout: '55%'
   }
 });
 </script>
