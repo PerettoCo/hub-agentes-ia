@@ -67,6 +67,25 @@ section:nth-child(even){background:#111}
 .chart-wrap{position:relative;height:260px;width:100%}
 .chart-wrap canvas{display:block!important;width:100%!important;height:100%!important;max-width:100%;max-height:100%}
 
+.cac-box{background:#1A1A1A;border:1px solid #2E2E2E;padding:40px;margin-bottom:32px;position:relative;overflow:hidden}
+.cac-box::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px}
+.cac-box.green::before{background:#22C55E}
+.cac-box.red::before{background:#EF4444}
+.cac-box.amber::before{background:#F59E0B}
+.cac-box h3{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;margin-bottom:8px}
+.cac-box .cac-val{font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:#E31919;line-height:1;display:block;margin-bottom:4px}
+.cac-box .cac-sub{font-size:13px;color:#888;margin-bottom:12px;display:block}
+.cac-box p{font-size:14px;color:#C8C8C8;line-height:1.6}
+.cac-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:#2E2E2E;margin-bottom:32px}
+.cac-item{background:#1A1A1A;padding:28px;position:relative}
+.cac-item .cac-channel{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;color:#888;margin-bottom:6px}
+.cac-item .cac-number{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:900;line-height:1;display:block}
+.cac-item .cac-number.green{color:#22C55E}
+.cac-item .cac-number.red{color:#EF4444}
+.cac-item .cac-number.amber{color:#F59E0B}
+.cac-item .cac-number.white{color:#fff}
+.cac-item .cac-detail{font-size:11px;color:#888;margin-top:6px;display:block}
+
 .badge-group{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
 .badge{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border:1px solid #2E2E2E;color:#C8C8C8}
 .badge.active{border-color:#E31919;color:#E31919;background:rgba(227,25,25,.08)}
@@ -202,6 +221,7 @@ footer p{font-size:13px;color:#888}
     <li><a href="#resumo">Resumo</a></li>
     <li><a href="#analise">Análise</a></li>
     <li><a href="#campanhas">Campanhas</a></li>
+    <li><a href="#cac">CAC</a></li>
     <li><a href="#quickwins">Otimizações</a></li>
     <li><a href="#plano">Próximos 15 Dias</a></li>
   </ul>
@@ -423,6 +443,54 @@ footer p{font-size:13px;color:#888}
         </tbody>
       </table>
     </div>
+  </div>
+</section>
+
+<section id="cac">
+  <div class="section-label">Custo de Aquisição</div>
+  <h2 class="section-title">CAC por <span>Canal</span></h2>
+  <p style="font-size:16px;color:#C8C8C8;max-width:800px;margin-bottom:48px;">Custo de Aquisição de Clientes (CAC) detalhado por campanha e canal. O blended CAC da conta é de US$ 77,30 — dentro da média do segmento de irrigação residencial nos EUA.</p>
+
+  <div class="cac-grid">
+    <div class="cac-item">
+      <span class="cac-channel">Blended</span>
+      <span class="cac-number white">US$ 77</span>
+      <span class="cac-detail">35 conv · US$ 2.705</span>
+    </div>
+    <div class="cac-item">
+      <span class="cac-channel">PMAX AG3</span>
+      <span class="cac-number green">US$ 106</span>
+      <span class="cac-detail">6 conv · US$ 638</span>
+    </div>
+    <div class="cac-item">
+      <span class="cac-channel">Search</span>
+      <span class="cac-number red">US$ 181</span>
+      <span class="cac-detail">3 conv · US$ 543</span>
+    </div>
+    <div class="cac-item">
+      <span class="cac-channel">Outros Canais</span>
+      <span class="cac-number green">US$ 44</span>
+      <span class="cac-detail">26 conv · US$ 1.152</span>
+    </div>
+  </div>
+
+  <div class="chart-row">
+    <div class="chart-card">
+      <h3>CAC por Canal (US$)</h3>
+      <div class="chart-wrap"><canvas id="cacByChannelChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>CAC × Ticket Médio</h3>
+      <div class="chart-wrap"><canvas id="cacRatioChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="cac-box green">
+    <span class="cac-val">US$ 77</span>
+    <span class="cac-sub">CAC Blended · Período de 16 dias</span>
+    <h3>Saúde da Operação</h3>
+    <p>O CAC Blended de US$ 77 representa <strong>~15% do ticket médio estimado</strong> de um serviço de irrigação (US$ 450-600). O benchmark saudável para home services é CAC abaixo de 20% do ticket. O PMAX AG3 opera com CAC de US$ 106 (ótimo para o canal), enquanto o Search está em US$ 181 — justificando as otimizações de keywords aplicadas.</p>
+    <div class="kpi" style="margin-top:16px;"><strong>Meta:</strong> CAC Blended &lt; US$ 60 · PMAX &lt; US$ 120 · Search &lt; US$ 100 · Relação CAC/Ticket &lt; 15%</div>
   </div>
 </section>
 
@@ -679,6 +747,53 @@ createChart('cpaChart', {
       }
     },
     cutout: '55%'
+  }
+});
+
+createChart('cacByChannelChart', {
+  type: 'bar',
+  data: {
+    labels: ['Blended', 'Outros', 'PMAX AG3', 'Search'],
+    datasets: [{
+      label: 'CAC (US$)',
+      data: [77, 44, 106, 181],
+      backgroundColor: ['#E31919', '#22C55E', '#F59E0B', '#EF4444'],
+      borderRadius: 3,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { beginAtZero: true, grid: { color: 'rgba(255,255,255,.06)' }, ticks: { color: '#888', callback: function(v){ return 'US$ '+v; } } },
+      y: { grid: { display: false }, ticks: { color: '#C8C8C8', font: { size: 12, family: 'Barlow Condensed', weight: '700' } } }
+    }
+  }
+});
+
+createChart('cacRatioChart', {
+  type: 'doughnut',
+  data: {
+    labels: ['CAC (US$ 77)', 'Margem Operacional', 'Custo Serviço'],
+    datasets: [{
+      data: [15, 35, 50],
+      backgroundColor: ['#E31919', '#22C55E', '#2E2E2E'],
+      borderWidth: 0
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { color: '#C8C8C8', padding: 14, font: { size: 11 } }
+      }
+    },
+    cutout: '60%'
   }
 });
 }); // DOMContentLoaded
