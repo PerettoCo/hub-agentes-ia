@@ -62,9 +62,10 @@ section:nth-child(even){background:#111}
 
 .chart-row{display:grid;grid-template-columns:2fr 1fr;gap:24px;margin-bottom:24px}
 .chart-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:24px}
-.chart-card{background:#1A1A1A;border:1px solid #2E2E2E;padding:32px;position:relative}
+.chart-card{background:#1A1A1A;border:1px solid #2E2E2E;padding:32px;position:relative;overflow:hidden}
 .chart-card h3{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin-bottom:20px}
-.chart-wrap{position:relative;height:240px;width:100%;overflow:hidden}
+.chart-wrap{position:relative;height:260px;width:100%}
+.chart-wrap canvas{display:block!important;width:100%!important;height:100%!important;max-width:100%;max-height:100%}
 
 .badge-group{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
 .badge{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border:1px solid #2E2E2E;color:#C8C8C8}
@@ -528,14 +529,24 @@ footer p{font-size:13px;color:#888}
 </footer>
 
 <script>
+(function() {
 const impData = [73,288,337,409,441,375,476,371,140,188,411,327,212,279,453,355];
 const labels = ['01/06','02/06','03/06','04/06','05/06','06/06','07/06','08/06','09/06','10/06','11/06','12/06','13/06','14/06','15/06','16/06'];
 
 function createChart(id, config) {
-  const el = document.getElementById(id);
-  if (el) new Chart(el.getContext('2d'), config);
+  var el = document.getElementById(id);
+  if (!el) return;
+  var parent = el.parentElement;
+  if (parent) {
+    el.width = parent.clientWidth || 300;
+    el.height = parent.clientHeight || 260;
+  }
+  var chart = new Chart(el.getContext('2d'), config);
+  setTimeout(function(){ chart.resize(); }, 50);
+  return chart;
 }
 
+document.addEventListener('DOMContentLoaded', function(){
 createChart('impChart', {
   type: 'bar',
   data: {
@@ -543,7 +554,7 @@ createChart('impChart', {
     datasets: [{
       label: 'Impressões',
       data: impData,
-      backgroundColor: impData.map(v => v < 200 ? 'rgba(239,68,68,.7)' : '#E31919'),
+      backgroundColor: impData.map(function(v){ return v < 200 ? 'rgba(239,68,68,.7)' : '#E31919'; }),
       borderRadius: 3,
       borderSkipped: false
     }]
@@ -602,7 +613,7 @@ createChart('ctrChart', {
     maintainAspectRatio: false,
     plugins: { legend: { display: false } },
     scales: {
-      y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,.06)' }, ticks: { color: '#888', callback: v => v+'%' } },
+      y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,.06)' }, ticks: { color: '#888', callback: function(v){ return v+'%'; } } },
       x: { grid: { display: false }, ticks: { color: '#888', font: { size: 9 } } }
     }
   }
@@ -670,6 +681,8 @@ createChart('cpaChart', {
     cutout: '55%'
   }
 });
+}); // DOMContentLoaded
+})();
 </script>
 
 </body>
