@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório Consolidado de Tráfego — Atlas Copco</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #ffffff;
+    color: #222222;
+    line-height: 1.6;
+    padding: 0;
+  }
+  .container { max-width: 960px; margin: 0 auto; padding: 40px 24px; }
+
+  /* Header */
+  .header {
+    border-bottom: 3px solid #1a56db;
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+  .header h1 { font-size: 26px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+  .header .subtitle { font-size: 15px; color: #555; }
+  .header .meta { font-size: 13px; color: #777; margin-top: 8px; }
+
+  /* Sections */
+  .section { margin-bottom: 36px; }
+  .section h2 {
+    font-size: 20px; font-weight: 700; color: #1a56db;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+  }
+  .section h3 {
+    font-size: 16px; font-weight: 700; color: #333;
+    margin-top: 20px; margin-bottom: 10px;
+  }
+
+  /* Executive Summary Box */
+  .exec-summary {
+    background: #f7f9fc;
+    border: 1px solid #e0e5ee;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .exec-summary .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .exec-summary .metric {
+    text-align: center;
+    padding: 12px 8px;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #e8ecf4;
+  }
+  .exec-summary .metric .value { font-size: 22px; font-weight: 700; color: #1a56db; }
+  .exec-summary .metric .label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+  .exec-summary .metric .value.zero { color: #cc0000; }
+  .exec-summary .metric .value.pace { color: #e68a00; }
+  .exec-summary .diagnosis {
+    font-size: 14px; color: #333;
+    background: #fff3e0;
+    border-left: 4px solid #e68a00;
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin-top: 12px;
+  }
+  .diagnosis.critical { background: #fdecea; border-left-color: #cc0000; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+  thead th {
+    background: #f0f2f5;
+    color: #333;
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 8px;
+    border-bottom: 2px solid #d0d5dd;
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 8px;
+    border-bottom: 1px solid #e8ecf4;
+    vertical-align: top;
+  }
+  tbody tr:hover { background: #f8f9fb; }
+  tbody tr.total td { font-weight: 700; background: #f0f2f5; border-top: 2px solid #d0d5dd; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .text-muted { color: #888; }
+
+  /* Status badges */
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 11px; font-weight: 600; }
+  .badge-red { background: #fdecea; color: #b71c1c; }
+  .badge-yellow { background: #fff8e1; color: #e68a00; }
+  .badge-green { background: #e8f5e9; color: #2e7d32; }
+  .badge-blue { background: #e3f2fd; color: #1565c0; }
+  .badge-gray { background: #f0f0f0; color: #555; }
+
+  /* Priority list */
+  .priority-list { list-style: none; padding: 0; }
+  .priority-list li {
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    border: 1px solid #e0e5ee;
+    background: #fafbfc;
+  }
+  .priority-list li .priority-header {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 4px;
+  }
+  .priority-list li .priority-header .tag { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 3px; }
+  .priority-list li .priority-title { font-weight: 600; font-size: 15px; color: #222; }
+  .priority-list li ul { margin-top: 6px; padding-left: 20px; }
+  .priority-list li ul li { padding: 3px 0; margin: 0; border: none; background: none; font-size: 13px; }
+
+  /* Anomaly table spacing */
+  .anomaly-critical td:first-child { border-left: 3px solid #cc0000; }
+  .anomaly-high td:first-child { border-left: 3px solid #e68a00; }
+  .anomaly-moderate td:first-child { border-left: 3px solid #1976d2; }
+
+  /* Health status */
+  .health-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .health-item {
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #e0e5ee;
+    text-align: center;
+  }
+  .health-item .h-status { font-size: 18px; margin-bottom: 4px; }
+  .health-item .h-label { font-size: 12px; color: #555; }
+  .health-item .h-score { font-size: 13px; font-weight: 600; }
+
+  /* Footer */
+  .footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 12px;
+    color: #888;
+    text-align: center;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .container { padding: 20px 12px; }
+    table { font-size: 12px; }
+    thead th, tbody td { padding: 6px 4px; }
+    .exec-summary .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Relatório Consolidado de Tráfego</h1>
+    <div class="subtitle">Atlas Copco — Google Ads (Search)</div>
+    <div class="meta">
+      Período: 1 a 17 de Junho de 2026 &nbsp;|&nbsp; Emissão: 18 de Junho de 2026<br>
+      Squad: Prime &nbsp;|&nbsp; Estratégia: Maximize Conversions &nbsp;|&nbsp; Budget: US$ 100/dia
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="section">
+    <h2>Resumo Executivo</h2>
+    <div class="exec-summary">
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="value">US$ 725,18</div>
+          <div class="label">Investimento Total</div>
+        </div>
+        <div class="metric">
+          <div class="value">2.153</div>
+          <div class="label">Impressões</div>
+        </div>
+        <div class="metric">
+          <div class="value">337</div>
+          <div class="label">Cliques</div>
+        </div>
+        <div class="metric">
+          <div class="value">15,65%</div>
+          <div class="label">CTR</div>
+        </div>
+        <div class="metric">
+          <div class="value">US$ 2,15</div>
+          <div class="label">CPC Médio</div>
+        </div>
+        <div class="metric">
+          <div class="value zero">0</div>
+          <div class="label">Conversões</div>
+        </div>
+        <div class="metric">
+          <div class="value pace">42,7%</div>
+          <div class="label">Pace</div>
+        </div>
+        <div class="metric">
+          <div class="value">62,1</div>
+          <div class="label">Opt. Score (médio)</div>
+        </div>
+      </div>
+
+      <div class="diagnosis critical">
+        <strong>🔴 Diagnóstico Crítico:</strong> US$ 725,18 gastos com <strong>zero conversões</strong> em 17 dias. Ambas as campanhas estão com status "Eligible (Limited)" — a campanha PAL não possui Google Tag instalado, e a APE tem rastreamento de conversão incompleto. A estratégia Maximize Conversions opera às cegas sem dados históricos de conversão. Adicionado a isso, o Lost IS (rank) médio de 66% indica que a conta está perdendo 2 de cada 3 impressões possíveis por baixo rank de anúncio.
+      </div>
+    </div>
+  </div>
+
+  <!-- CAMPANHAS -->
+  <div class="section">
+    <h2>Performance por Campanha</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Campanha</th>
+          <th class="num">Gasto</th>
+          <th class="num">Impr.</th>
+          <th class="num">Cliques</th>
+          <th class="num">CTR</th>
+          <th class="num">CPC</th>
+          <th class="num">Conv.</th>
+          <th class="num">Opt. Score</th>
+          <th class="num">Lost IS (Rank)</th>
+          <th class="num">Lost IS (Budget)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>PAL — Power Generation &amp; Lighting</td>
+          <td class="num">US$ 367,62</td>
+          <td class="num">1.255</td>
+          <td class="num">220</td>
+          <td class="num">17,53%</td>
+          <td class="num">US$ 1,67</td>
+          <td class="num zero">0</td>
+          <td class="num">60,71</td>
+          <td class="num"><span class="badge badge-red">73,46%</span></td>
+          <td class="num">18,72%</td>
+        </tr>
+        <tr>
+          <td>APE — Portable Air Compressors</td>
+          <td class="num">US$ 357,56</td>
+          <td class="num">898</td>
+          <td class="num">117</td>
+          <td class="num">13,03%</td>
+          <td class="num">US$ 3,06</td>
+          <td class="num zero">0</td>
+          <td class="num">63,50</td>
+          <td class="num"><span class="badge badge-yellow">51,91%</span></td>
+          <td class="num"><span class="badge badge-yellow">37,79%</span></td>
+        </tr>
+        <tr class="total">
+          <td>Total</td>
+          <td class="num">US$ 725,18</td>
+          <td class="num">2.153</td>
+          <td class="num">337</td>
+          <td class="num">15,65%</td>
+          <td class="num">US$ 2,15</td>
+          <td class="num zero">0</td>
+          <td class="num">62,10</td>
+          <td class="num"><span class="badge badge-red">66,19%</span></td>
+          <td class="num">25,15%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>PAL — Grupos de Anúncio</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Grupo</th>
+          <th class="num">Gasto</th>
+          <th class="num">Impr.</th>
+          <th class="num">Cliques</th>
+          <th class="num">CTR</th>
+          <th class="num">CPC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Generators (Diesel Power Generation)</td>
+          <td class="num">US$ 348,81</td>
+          <td class="num">1.235</td>
+          <td class="num">213</td>
+          <td class="num">17,25%</td>
+          <td class="num">US$ 1,64</td>
+        </tr>
+        <tr>
+          <td>Energy Storage &amp; Clean Energy</td>
+          <td class="num">US$ 18,81</td>
+          <td class="num">19</td>
+          <td class="num">7</td>
+          <td class="num">36,84%</td>
+          <td class="num">US$ 2,69</td>
+        </tr>
+        <tr>
+          <td class="text-muted">Light Towers (LED, Diesel, Solar...)</td>
+          <td class="num text-muted">US$ 0,00</td>
+          <td class="num text-muted">1</td>
+          <td class="num text-muted">0</td>
+          <td class="num text-muted">0%</td>
+          <td class="num text-muted">—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>APE — Grupos de Anúncio</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Grupo</th>
+          <th class="num">Gasto</th>
+          <th class="num">Impr.</th>
+          <th class="num">Cliques</th>
+          <th class="num">CTR</th>
+          <th class="num">CPC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Medium M-Series (385-950 CFM)</td>
+          <td class="num">US$ 116,92</td>
+          <td class="num">345</td>
+          <td class="num">32</td>
+          <td class="num">9,28%</td>
+          <td class="num">US$ 3,65</td>
+        </tr>
+        <tr>
+          <td>Large High-Pressure Drillair (600-1800 CFM)</td>
+          <td class="num">US$ 75,46</td>
+          <td class="num">187</td>
+          <td class="num">34</td>
+          <td class="num">18,18%</td>
+          <td class="num">US$ 2,22</td>
+        </tr>
+        <tr>
+          <td>E-Air Electric Compressors</td>
+          <td class="num">US$ 64,87</td>
+          <td class="num">116</td>
+          <td class="num">21</td>
+          <td class="num">18,10%</td>
+          <td class="num">US$ 3,09</td>
+        </tr>
+        <tr>
+          <td>VSD Variable Speed Drive Compressors</td>
+          <td class="num">US$ 56,63</td>
+          <td class="num">83</td>
+          <td class="num">15</td>
+          <td class="num">18,07%</td>
+          <td class="num">US$ 3,78</td>
+        </tr>
+        <tr>
+          <td>Air Treatment &amp; Boosting</td>
+          <td class="num">US$ 37,96</td>
+          <td class="num">76</td>
+          <td class="num">12</td>
+          <td class="num">15,79%</td>
+          <td class="num">US$ 3,16</td>
+        </tr>
+        <tr>
+          <td>General Air Compressor (Head / Generic)</td>
+          <td class="num">US$ 5,73</td>
+          <td class="num">90</td>
+          <td class="num">3</td>
+          <td class="num">3,33%</td>
+          <td class="num">US$ 1,91</td>
+        </tr>
+        <tr>
+          <td class="text-muted">B-Air Battery Compressors</td>
+          <td class="num text-muted">US$ 0,00</td>
+          <td class="num text-muted">0</td>
+          <td class="num text-muted">0</td>
+          <td class="num text-muted">—</td>
+          <td class="num text-muted">—</td>
+        </tr>
+        <tr>
+          <td class="text-muted">Small Towable Compressors (XAS NA)</td>
+          <td class="num text-muted">US$ 0,00</td>
+          <td class="num text-muted">1</td>
+          <td class="num text-muted">0</td>
+          <td class="num text-muted">0%</td>
+          <td class="num text-muted">—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TOP KEYWORDS -->
+  <div class="section">
+    <h2>Top 10 Keywords por Gasto</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Keyword</th>
+          <th>Match</th>
+          <th>Grupo</th>
+          <th class="num">Impr.</th>
+          <th class="num">Cliques</th>
+          <th class="num">CTR</th>
+          <th class="num">CPC</th>
+          <th class="num">Gasto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>industrial diesel generator</td>
+          <td><span class="badge badge-blue">Broad</span></td>
+          <td>Generators</td>
+          <td class="num">904</td>
+          <td class="num">190</td>
+          <td class="num">21,02%</td>
+          <td class="num">US$ 1,66</td>
+          <td class="num"><strong>US$ 315,69</strong></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>heavy duty air compressor</td>
+          <td><span class="badge badge-blue">Broad</span></td>
+          <td>M-Series</td>
+          <td class="num">294</td>
+          <td class="num">27</td>
+          <td class="num">9,18%</td>
+          <td class="num">US$ 3,73</td>
+          <td class="num">US$ 100,70</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>high pressure diesel compressor</td>
+          <td><span class="badge badge-blue">Broad</span></td>
+          <td>Drillair</td>
+          <td class="num">173</td>
+          <td class="num">34</td>
+          <td class="num">19,65%</td>
+          <td class="num">US$ 2,22</td>
+          <td class="num">US$ 75,46</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>electric compressor for construction</td>
+          <td><span class="badge badge-blue">Broad</span></td>
+          <td>E-Air</td>
+          <td class="num">116</td>
+          <td class="num">21</td>
+          <td class="num">18,10%</td>
+          <td class="num">US$ 3,09</td>
+          <td class="num">US$ 64,87</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>energy efficient portable compressor</td>
+          <td><span class="badge badge-blue">Broad</span></td>
+          <td>VSD</td>
+          <td class="num">74</td>
+          <td class="num">14</td>
+          <td class="num">18,92%</td>
+          <td class="num">US$ 4,01</td>
+          <td class="num">US$ 56,21</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>portable desiccant dryer</td>
+          <td><span class="badge badge-blue">Broad</span></td>
+          <td>Air Treatment</td>
+          <td class="num">75</td>
+          <td class="num">12</td>
+          <td class="num">16,00%</td>
+          <td class="num">US$ 3,16</td>
+          <td class="num">US$ 37,96</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>"mobile solar generator"</td>
+          <td><span class="badge badge-gray">Phrase</span></td>
+          <td>Energy Storage</td>
+          <td class="num">15</td>
+          <td class="num">6</td>
+          <td class="num">40,00%</td>
+          <td class="num">US$ 2,99</td>
+          <td class="num">US$ 17,95</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>"diesel generator"</td>
+          <td><span class="badge badge-gray">Phrase</span></td>
+          <td>Generators</td>
+          <td class="num">184</td>
+          <td class="num">13</td>
+          <td class="num">7,07%</td>
+          <td class="num">US$ 1,21</td>
+          <td class="num">US$ 15,78</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>"industrial air compressor"</td>
+          <td><span class="badge badge-gray">Phrase</span></td>
+          <td>M-Series</td>
+          <td class="num">35</td>
+          <td class="num">2</td>
+          <td class="num">5,71%</td>
+          <td class="num">US$ 6,49</td>
+          <td class="num">US$ 12,98</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>diesel generator</td>
+          <td><span class="badge badge-blue">Broad</span></td>
+          <td>Generators</td>
+          <td class="num">114</td>
+          <td class="num">7</td>
+          <td class="num">6,14%</td>
+          <td class="num">US$ 1,66</td>
+          <td class="num">US$ 11,63</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:#666;"><strong>Nota:</strong> "industrial diesel generator" (Broad) responde por <strong>43,5% de todo o gasto da conta</strong> (US$ 315,69). Todas as 10 keywords com maior gasto são Broad Match.</p>
+  </div>
+
+  <!-- GEOGRAPHY -->
+  <div class="section">
+    <h2>Distribuição Geográfica</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Cidade</th>
+          <th>Estado</th>
+          <th class="num">Gasto</th>
+          <th class="num">Impr.</th>
+          <th class="num">Cliques</th>
+          <th class="num">CTR</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Charlotte</td>
+          <td>North Carolina</td>
+          <td class="num"><strong>US$ 117,44</strong></td>
+          <td class="num">217</td>
+          <td class="num">23</td>
+          <td class="num">10,60%</td>
+        </tr>
+        <tr>
+          <td>Houston</td>
+          <td>Texas</td>
+          <td class="num">US$ 71,87</td>
+          <td class="num">216</td>
+          <td class="num">34</td>
+          <td class="num">15,74%</td>
+        </tr>
+        <tr>
+          <td>Dallas</td>
+          <td>Texas</td>
+          <td class="num">US$ 45,97</td>
+          <td class="num">115</td>
+          <td class="num">16</td>
+          <td class="num">13,91%</td>
+        </tr>
+        <tr>
+          <td>Denver</td>
+          <td>Colorado</td>
+          <td class="num">US$ 43,61</td>
+          <td class="num">62</td>
+          <td class="num">13</td>
+          <td class="num">20,97%</td>
+        </tr>
+        <tr>
+          <td>Atlanta</td>
+          <td>Georgia</td>
+          <td class="num">US$ 39,30</td>
+          <td class="num">152</td>
+          <td class="num">16</td>
+          <td class="num">10,53%</td>
+        </tr>
+        <tr>
+          <td>Phoenix</td>
+          <td>Arizona</td>
+          <td class="num">US$ 14,41</td>
+          <td class="num">53</td>
+          <td class="num">5</td>
+          <td class="num">9,43%</td>
+        </tr>
+        <tr>
+          <td>Orlando</td>
+          <td>Florida</td>
+          <td class="num">US$ 12,79</td>
+          <td class="num">34</td>
+          <td class="num">4</td>
+          <td class="num">11,76%</td>
+        </tr>
+        <tr>
+          <td>Miami</td>
+          <td>Florida</td>
+          <td class="num">US$ 12,17</td>
+          <td class="num">49</td>
+          <td class="num">6</td>
+          <td class="num">12,24%</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:#666;">A campanha PAL não possui breakdown por cidade (exibida como "United States" — US$ 367,62). Charlotte e Houston representam 36% do gasto localizável.</p>
+  </div>
+
+  <!-- ANOMALIES -->
+  <div class="section">
+    <h2>Anomalias Detectadas</h2>
+
+    <h3>🔴 Críticas</h3>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:32px">#</th>
+          <th>Anomalia</th>
+          <th>Campanha</th>
+          <th>Impacto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="anomaly-critical">
+          <td>1</td>
+          <td><strong>Zero conversões em 17 dias</strong></td>
+          <td>Ambas</td>
+          <td>US$ 725,18 sem retorno mensurável</td>
+        </tr>
+        <tr class="anomaly-critical">
+          <td>2</td>
+          <td><strong>Google Tag ausente</strong> — "website is missing a Google tag"</td>
+          <td>PAL</td>
+          <td>Rastreamento zero</td>
+        </tr>
+        <tr class="anomaly-critical">
+          <td>3</td>
+          <td><strong>Conversion tracking incompleto</strong></td>
+          <td>APE</td>
+          <td>"conversion tracking setup is incomplete"</td>
+        </tr>
+        <tr class="anomaly-critical">
+          <td>4</td>
+          <td><strong>Maximize Conversions sem dados históricos</strong></td>
+          <td>Ambas</td>
+          <td>Algoritmo opera às cegas</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>🟡 Altas</h3>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:32px">#</th>
+          <th>Anomalia</th>
+          <th>Campanha</th>
+          <th>Impacto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="anomaly-high">
+          <td>5</td>
+          <td>Lost IS (rank) de 73%</td>
+          <td>PAL</td>
+          <td>3 de 4 impressões possíveis perdidas</td>
+        </tr>
+        <tr class="anomaly-high">
+          <td>6</td>
+          <td>Lost IS (rank) de 52%</td>
+          <td>APE</td>
+          <td>Metade das impressões perdidas</td>
+        </tr>
+        <tr class="anomaly-high">
+          <td>7</td>
+          <td>"Missing enough relevant keywords"</td>
+          <td>Ambas</td>
+          <td>Base de keywords insuficiente</td>
+        </tr>
+        <tr class="anomaly-high">
+          <td>8</td>
+          <td>95% do budget concentrado em 1 grupo</td>
+          <td>PAL (Generators)</td>
+          <td>Energy Storage e Light Towers subfinanciados</td>
+        </tr>
+        <tr class="anomaly-high">
+          <td>9</td>
+          <td>43,5% do gasto total em 1 keyword</td>
+          <td>PAL</td>
+          <td>"industrial diesel generator" = US$ 315,69</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>🟢 Moderadas</h3>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:32px">#</th>
+          <th>Anomalia</th>
+          <th>Impacto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="anomaly-moderate">
+          <td>10</td>
+          <td>Nenhum anúncio com Ad Strength "Excellent"</td>
+          <td>CTR e QS abaixo do potencial</td>
+        </tr>
+        <tr class="anomaly-moderate">
+          <td>11</td>
+          <td>2 RSAs com Ad Strength "Poor"</td>
+          <td>Light Towers e Air Treatment</td>
+        </tr>
+        <tr class="anomaly-moderate">
+          <td>12</td>
+          <td>Dezenas de keywords Phrase Match com 0 impressões</td>
+          <td>Esforço de gestão desperdiçado</td>
+        </tr>
+        <tr class="anomaly-moderate">
+          <td>13</td>
+          <td>Sitelinks insuficientes em todos os RSAs</td>
+          <td>Extensão que melhora CTR e QS</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- AD STRENGTH -->
+  <div class="section">
+    <h2>Análise de Ad Strength (RSAs)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Anúncio (Grupo)</th>
+          <th>Ad Strength</th>
+          <th>Melhorias Recomendadas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Energy Storage</td><td><span class="badge badge-green">Good</span></td><td>+ keywords headlines/descrições; +6 sitelinks</td></tr>
+        <tr><td>Generators (Diesel)</td><td><span class="badge badge-green">Good</span></td><td>+2 sitelinks</td></tr>
+        <tr><td>M-Series</td><td><span class="badge badge-green">Good</span></td><td>+ keywords descrições; +2 sitelinks</td></tr>
+        <tr><td>B-Air Battery</td><td><span class="badge badge-green">Good</span></td><td>+ keywords headlines/descrições; +2 sitelinks</td></tr>
+        <tr><td>Small Towable</td><td><span class="badge badge-green">Good</span></td><td>+ keywords headlines/descrições; +2 sitelinks</td></tr>
+        <tr><td>VSD</td><td><span class="badge badge-green">Good</span></td><td>+ keywords headlines/descrições; +2 sitelinks</td></tr>
+        <tr><td>Drillair</td><td><span class="badge badge-green">Good</span></td><td>+ keywords descrições; +2 sitelinks</td></tr>
+        <tr><td>General Air</td><td><span class="badge badge-yellow">Average</span></td><td>+ keywords headlines; +2 sitelinks</td></tr>
+        <tr><td>E-Air Electric</td><td><span class="badge badge-yellow">Average</span></td><td>+ keywords headlines; +2 sitelinks</td></tr>
+        <tr><td>Light Towers</td><td><span class="badge badge-red">Poor</span></td><td>+ keywords headlines/descrições; +6 sitelinks</td></tr>
+        <tr><td>Air Treatment</td><td><span class="badge badge-red">Poor</span></td><td>+ keywords headlines/descrições; +2 sitelinks</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:#666;">9 de 11 RSAs precisam de mais keywords. Todos precisam de mais sitelinks. Nenhum atingiu "Excellent".</p>
+  </div>
+
+  <!-- PACE -->
+  <div class="section">
+    <h2>Pace de Verba</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Parâmetro</th>
+          <th class="num">Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Orçamento diário total</td><td class="num">US$ 100,00 (US$ 50 + US$ 50)</td></tr>
+        <tr><td>Período</td><td class="num">17 dias</td></tr>
+        <tr><td>Verba total disponível</td><td class="num">US$ 1.700,00</td></tr>
+        <tr><td>Gasto realizado</td><td class="num">US$ 725,18</td></tr>
+        <tr><td><strong>Pace</strong></td><td class="num"><strong>42,7%</strong></td></tr>
+        <tr><td>Gasto médio diário</td><td class="num">US$ 42,66</td></tr>
+        <tr><td>Projeção de gasto mensal (30 dias)</td><td class="num">US$ 1.281,60</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:#666;">A conta está gastando bem abaixo da capacidade. O principal motivo: Lost IS (rank) de 66% — as campanhas não são exibidas para grande parte do volume disponível. A PAL especificamente perde 73% das impressões por rank.</p>
+  </div>
+
+  <!-- RECOMMENDATIONS -->
+  <div class="section">
+    <h2>Recomendações Priorizadas</h2>
+
+    <ol class="priority-list">
+      <li>
+        <div class="priority-header">
+          <span class="tag" style="background:#fdecea;color:#b71c1c;">P1 — Crítico</span>
+          <span class="priority-title">Consertar Rastreamento</span>
+        </div>
+        <ul>
+          <li>Instalar Google Tag (gtag.js ou GTM) no site atlasCopco.com</li>
+          <li>Configurar Google Ads conversion tracking (lead form, telefone, chat)</li>
+          <li>Verificar disparo do tag via Tag Assistant</li>
+          <li>Validar registro de conversões no Google Ads</li>
+        </ul>
+      </li>
+
+      <li>
+        <div class="priority-header">
+          <span class="tag" style="background:#fdecea;color:#b71c1c;">P2 — Alto</span>
+          <span class="priority-title">Melhorar Quality Score e Relevância</span>
+        </div>
+        <ul>
+          <li>Revisar RSAs para incluir keywords de alto volume nas headlines</li>
+          <li>Adicionar sitelinks em todos os RSAs (mínimo 4-6 por grupo)</li>
+          <li>Criar landing pages específicas por grupo de produto</li>
+          <li>Melhorar Ad Strength dos RSAs Poor/Average</li>
+          <li>Implementar extensões de chamada e snippet estruturado</li>
+        </ul>
+      </li>
+
+      <li>
+        <div class="priority-header">
+          <span class="tag" style="background:#fff8e1;color:#e68a00;">P3 — Alto</span>
+          <span class="priority-title">Ajustar Estratégia de Lances</span>
+        </div>
+        <ul>
+          <li>Migrar de Maximize Conversions para <strong>Maximize Clicks</strong> temporariamente</li>
+          <li>Definir CPC máximo (US$ 2,00-3,00) para controlar custos</li>
+          <li>Após 30 conversões, migrar para <strong>Target CPA</strong></li>
+          <li>Monitorar diariamente o impacto na CTR e volume de cliques</li>
+        </ul>
+      </li>
+
+      <li>
+        <div class="priority-header">
+          <span class="tag" style="background:#fff8e1;color:#e68a00;">P4 — Médio-Alto</span>
+          <span class="priority-title">Expandir e Refinar Keywords</span>
+        </div>
+        <ul>
+          <li>Pausar keywords com 0 impressões nos últimos 90 dias (~30+ keywords)</li>
+          <li>Adicionar <strong>Exact Match</strong> para queries de alta intenção</li>
+          <li>Criar <strong>lista de negative keywords</strong> ("free", "diy", "repair", "parts")</li>
+          <li>Expandir com <strong>Phrase Match</strong> em variações de cauda longa</li>
+          <li>Manter Broad Match apenas para descoberta, controlado com negativas</li>
+        </ul>
+      </li>
+
+      <li>
+        <div class="priority-header">
+          <span class="tag" style="background:#fff8e1;color:#e68a00;">P5 — Médio</span>
+          <span class="priority-title">Ajustar Alocação de Budget</span>
+        </div>
+        <ul>
+          <li>Aumentar budget da PAL se Lost IS (budget) continuar &gt; 15%</li>
+          <li>APE precisa de MAIS budget (perde 38% por budget)</li>
+          <li>Alocar budget mínimo para Light Towers, B-Air e Small Towable (US$ 5-10/dia cada)</li>
+          <li>Revisar alocação semanalmente com base em CTR e CPC</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+
+  <!-- HEALTH -->
+  <div class="section">
+    <h2>Resumo da Saúde da Conta</h2>
+    <div class="health-grid">
+      <div class="health-item"><div class="h-status">🔴</div><div class="h-label">Rastreamento</div><div class="h-score" style="color:#b71c1c;">Crítico</div></div>
+      <div class="health-item"><div class="h-status">🟡</div><div class="h-label">Quality Score</div><div class="h-score" style="color:#e68a00;">Ruim</div></div>
+      <div class="health-item"><div class="h-status">🟡</div><div class="h-label">Estrutura Keywords</div><div class="h-score" style="color:#e68a00;">Regular</div></div>
+      <div class="health-item"><div class="h-status">🟡</div><div class="h-label">Anúncios (RSAs)</div><div class="h-score" style="color:#e68a00;">Regular</div></div>
+      <div class="health-item"><div class="h-status">🔴</div><div class="h-label">Estratégia Lances</div><div class="h-score" style="color:#b71c1c;">Inadequada</div></div>
+      <div class="health-item"><div class="h-status">🟡</div><div class="h-label">Alocação Budget</div><div class="h-score" style="color:#e68a00;">Regular</div></div>
+      <div class="health-item"><div class="h-status">🟢</div><div class="h-label">Seg. Geográfica</div><div class="h-score" style="color:#2e7d32;">Boa</div></div>
+      <div class="health-item"><div class="h-status">🟢</div><div class="h-label">CTR</div><div class="h-score" style="color:#2e7d32;">Boa</div></div>
+      <div class="health-item"><div class="h-status" style="font-size:22px;">🟡</div><div class="h-label">Saúde Geral</div><div class="h-score" style="color:#e68a00;">Crítico-Médio</div></div>
+    </div>
+  </div>
+
+  <!-- MEDIUM-TERM ROADMAP -->
+  <div class="section">
+    <h2>Roadmap de Médio Prazo — Otimização de Campanhas e Expansão de Funil</h2>
+    <p style="font-size:13px;color:#555;margin-bottom:12px;">Após a implementação das correções críticas (tracking, lances, QS), este roadmap organiza a evolução da conta em 3 horizontes.</p>
+
+    <h3>🟡 Fase 1 — Otimização de Campanhas (Dias 1-30)</h3>
+    <p style="font-size:12px;color:#888;margin-bottom:8px;"><em>Pré-requisito: Google Tag instalado e conversões registrando.</em></p>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Ação</th><th>Detalhamento</th><th>Impacto Esperado</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Migrar para Target CPA</strong></td><td>Após 30 conversões, migrar de Maximize Clicks para Target CPA com base no CPA observado</td><td>Redução de 15-25% no CPA</td></tr>
+        <tr><td>2</td><td><strong>Expandir Exact Match</strong></td><td>Adicionar Exact Match para as 20 queries de maior intenção do Search Terms Report</td><td>Aumento de 10-20% na taxa de conversão</td></tr>
+        <tr><td>3</td><td><strong>Elevar Ad Strength para Excellent</strong></td><td>Implementar todas as recomendações do Google nos 11 RSAs</td><td>Aumento de 5-15% na CTR</td></tr>
+        <tr><td>4</td><td><strong>Sitelinks em massa</strong></td><td>Adicionar 4-6 sitelinks em cada grupo de anúncio</td><td>Melhoria no QS e CTR</td></tr>
+        <tr><td>5</td><td><strong>Negative Keywords</strong></td><td>Lista abrangente ("free", "diy", "repair", "manual", "parts", "price")</td><td>Redução de desperdício em 10-15%</td></tr>
+        <tr><td>6</td><td><strong>Landing Pages específicas</strong></td><td>LPs dedicadas por grupo de produto (ex: /generators/diesel/, /air-compressors/portable/)</td><td>Melhoria no QS (Landing Page Exp.)</td></tr>
+        <tr><td>7</td><td><strong>Limpeza de keywords</strong></td><td>Pausar keywords com 0 impressões nos últimos 90 dias (~30+ keywords)</td><td>Conta mais enxuta e gerenciável</td></tr>
+      </tbody>
+    </table>
+
+    <h3>🟠 Fase 2 — Expansão de Canais (Dias 30-60)</h3>
+    <p style="font-size:12px;color:#888;margin-bottom:8px;"><em>Pré-requisito: Fase 1 consolidada com conversões estáveis.</em></p>
+    <table>
+      <thead>
+        <tr><th>Canal</th><th>Ação</th><th>Budget Sugerido</th><th>Justificativa</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Display / Remarketing</strong></td><td>Remarketing dinâmico para visitantes que não converteram</td><td>US$ 10-15/dia</td><td>Ciclo de venda longo — remarketing mantém presença</td></tr>
+        <tr><td><strong>Campanha de Marca</strong></td><td>Campanha dedicada para "Atlas Copco" + variações</td><td>US$ 10-15/dia</td><td>Proteger branded search de concorrentes</td></tr>
+        <tr><td><strong>YouTube (Video)</strong></td><td>2-3 vídeos de demonstração de produto (TrueView in-stream)</td><td>US$ 15-20/dia</td><td>Engajamento visual para decisores B2B</td></tr>
+        <tr><td><strong>Performance Max</strong></td><td>PMax com feeds de produto e assets criativos</td><td>US$ 20-30/dia</td><td>Cobertura omnichannel (Search, Shopping, Display, YouTube)</td></tr>
+        <tr><td><strong>LinkedIn Ads</strong></td><td>Segmentação por cargo e setor (construção, mineração)</td><td>US$ 20-30/dia</td><td>Público B2B qualificado</td></tr>
+      </tbody>
+    </table>
+
+    <h3>🔵 Fase 3 — Expansão de Funil (Dias 60-90+)</h3>
+    <p style="font-size:12px;color:#888;margin-bottom:8px;"><em>Pré-requisito: Canais da Fase 2 rodando e gerando dados.</em></p>
+    <table>
+      <thead>
+        <tr><th>Iniciativa</th><th>Descrição</th><th>Prazo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>TOF — Conteúdo Educacional</strong></td><td>"Como escolher um gerador industrial", "Diesel vs Elétrico vs Bateria", "Guia de compressores para construção"</td><td>60-90 dias</td></tr>
+        <tr><td><strong>MOF — Comparação</strong></td><td>Comparativos de linhas de produto, cases de uso, calculadoras de TCO</td><td>60-90 dias</td></tr>
+        <tr><td><strong>SEO Técnico</strong></td><td>Auditar site para SEO industrial — keywords com alto volume orgânico</td><td>60-90 dias</td></tr>
+        <tr><td><strong>SEO de Conteúdo</strong></td><td>Cluster de conteúdo "power generation equipment" e "portable air compressors"</td><td>60-90 dias</td></tr>
+        <tr><td><strong>Bing Ads</strong></td><td>Expandir para Bing Ads (CPC 30-50% menor que Google no segmento industrial)</td><td>60-90 dias</td></tr>
+        <tr><td><strong>Dealer Locator</strong></td><td>Campanhas locais para concessionárias com extensões de local</td><td>60-90 dias</td></tr>
+        <tr><td><strong>Lead Nurture</strong></td><td>Email sequence para leads que não converteram</td><td>90+ dias</td></tr>
+      </tbody>
+    </table>
+
+    <h3>📊 Timeline Consolidada</h3>
+    <div style="background:#f7f9fc;border:1px solid #e0e5ee;border-radius:6px;padding:20px;margin-bottom:16px;font-size:13px;line-height:1.8;">
+      <pre style="font-family:monospace;font-size:12px;color:#333;white-space:pre-wrap;">
+Dias 1-30         Dias 30-60           Dias 60-90+
+╔═══════════╗     ╔═══════════════╗    ╔══════════════════╗
+║ FASE 1    ║     ║   FASE 2      ║    ║   FASE 3         ║
+║ Otimização ║  →  ║ Expansão de   ║ →  ║ Expansão de      ║
+║ Campanhas  ║     ║ Canais        ║    ║ Funil            ║
+╚═══════════╝     ╚═══════════════╝    ╚══════════════════╝
+     │                   │                      │
+     ├ Tracking fix      ├ Remarketing          ├ SEO
+     ├ Target CPA        ├ Marca + YouTube      ├ Bing Ads
+     ├ Exact Match       ├ PMax + LinkedIn      ├ Dealer Ads
+     ├ Ad Strength       ├                      ├ Lead Nurture
+     ├ Sitelinks         ├                      ├ TOF/MOF Content
+     └ Negatives         └                      └
+      </pre>
+    </div>
+
+    <h3>💰 Projeção de Budget (Mensal)</h3>
+    <table>
+      <thead>
+        <tr><th>Fase</th><th>Canais</th><th class="num">Budget Mensal</th><th class="num">vs. Atual</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Atual</td><td>Search (2 campanhas)</td><td class="num">US$ 1.280</td><td class="num">—</td></tr>
+        <tr><td>Fase 1</td><td>Search otimizado</td><td class="num">US$ 1.500</td><td class="num">+17%</td></tr>
+        <tr><td>Fase 2</td><td>Search + Display + Marca + YouTube + PMax + LinkedIn</td><td class="num">US$ 4.500-5.500</td><td class="num">+250-330%</td></tr>
+        <tr><td>Fase 3</td><td>+ Bing + SEO + Conteúdo + Dealers</td><td class="num">US$ 6.000-8.000</td><td class="num">+370-525%</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#888;">Budget da Fase 2 e 3 só deve ser escalado após comprovação de ROAS positivo na Fase 1. Cada novo canal deve ser testado com budget mínimo por 30 dias antes de escalar.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Relatório gerado em 18 de Junho de 2026 pelo Traffic Reporting Squad — Peretto &amp; Co.<br>
+    Dados: Google Ads &nbsp;|&nbsp; Período: 1 a 17 de Junho de 2026 &nbsp;|&nbsp; Cliente: Atlas Copco (Squad: Prime)
+  </div>
+
+</div>
+
+</body>
+</html>
