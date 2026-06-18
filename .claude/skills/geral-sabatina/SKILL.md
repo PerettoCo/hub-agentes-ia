@@ -1,0 +1,1 @@
+../../../.agents/skills/geral-sabatina/SKILL.md

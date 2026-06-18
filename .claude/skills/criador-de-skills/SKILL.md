@@ -1,0 +1,1 @@
+../../../.agents/skills/criador-de-skills/SKILL.md

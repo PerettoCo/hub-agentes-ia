@@ -1,0 +1,1 @@
+../../../.agents/skills/geral-frontend-design/SKILL.md

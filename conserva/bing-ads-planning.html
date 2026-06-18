@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conserva Irrigation — Bing Ads Planning · Jun–Set 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0A0A0A;color:#fff;font-family:'Barlow',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+
+.topbar{background:#E31919;padding:12px 64px;display:flex;align-items:center;justify-content:space-between;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.topbar span:last-child{opacity:.7;font-size:11px}
+
+header{background:#111;border-bottom:1px solid #2E2E2E;padding:24px 64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo img{height:36px;width:auto;display:block;object-fit:contain}
+.nav{display:flex;gap:40px;list-style:none}
+.nav a{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#C8C8C8;text-decoration:none;transition:color .2s;position:relative}
+.nav a:hover{color:#E31919}
+.nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:#E31919;transition:width .2s}
+.nav a:hover::after{width:100%}
+
+.hero{padding:100px 64px 80px;background:linear-gradient(135deg,#111 0%,#0A0A0A 100%);border-bottom:4px solid #008373;position:relative;overflow:hidden}
+.hero::before{content:'BING ADS';position:absolute;right:-40px;top:50%;transform:translateY(-50%);font-family:'Barlow Condensed',sans-serif;font-size:280px;font-weight:900;color:rgba(255,255,255,.03);line-height:1;pointer-events:none;white-space:nowrap}
+.hero::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 80% 50%,rgba(0,131,115,.08) 0%,transparent 60%);pointer-events:none}
+.hero-tag{display:inline-block;background:#008373;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 16px;margin-bottom:28px}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(64px,9vw,120px);font-weight:900;line-height:.88;letter-spacing:-.03em;text-transform:uppercase;margin-bottom:28px;position:relative;z-index:1}
+.hero h1 span{color:#008373}
+.hero-sub{font-size:18px;color:#C8C8C8;max-width:700px;line-height:1.55;margin-bottom:48px;position:relative;z-index:1}
+
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:#2E2E2E;max-width:960px;position:relative;z-index:1}
+.hero-stat{background:#1A1A1A;padding:28px 32px;border-right:1px solid #2E2E2E;position:relative;overflow:hidden}
+.hero-stat:last-child{border-right:none}
+.hero-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#008373;opacity:0;transition:opacity .3s}
+.hero-stat:hover::before{opacity:1}
+.stat-number{font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;color:#008373;line-height:1;display:block}
+.stat-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#C8C8C8;margin-top:8px;display:block}
+
+section{padding:96px 64px;border-bottom:1px solid #2E2E2E}
+section:nth-child(even){background:#111}
+
+.section-label{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#008373;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.section-label::before{content:'';display:block;width:28px;height:2px;background:#008373}
+.section-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(42px,6vw,64px);font-weight:900;line-height:.92;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:56px}
+.section-title span{color:#008373}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#2E2E2E}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#2E2E2E}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:#2E2E2E}
+
+.card{background:#1A1A1A;padding:40px;position:relative;transition:all .3s;cursor:default}
+.card:hover{background:#222;transform:translateY(-2px)}
+.card-number{font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:900;color:rgba(0,131,115,.12);position:absolute;top:12px;right:24px;line-height:1;pointer-events:none}
+.card-tag{display:inline-block;background:#008373;color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;margin-bottom:20px}
+.card-tag.gray{background:#2E2E2E}
+.card-tag.green{background:#16A34A}
+.card-tag.amber{background:#D97706}
+.card h3{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin-bottom:14px;line-height:1.1}
+.card p{font-size:15px;color:#C8C8C8;line-height:1.6}
+.card-metric{font-family:'Barlow Condensed',sans-serif;font-size:42px;font-weight:900;color:#008373;margin-top:18px;display:block}
+
+.chart-row{display:grid;grid-template-columns:2fr 1fr;gap:24px;margin-bottom:24px}
+.chart-card{background:#1A1A1A;border:1px solid #2E2E2E;padding:32px;position:relative;overflow:hidden}
+.chart-card h3{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin-bottom:20px}
+.chart-wrap{position:relative;height:260px;width:100%}
+.chart-wrap canvas{display:block!important;width:100%!important;height:100%!important;max-width:100%;max-height:100%}
+
+.camp-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.camp-card{background:#1A1A1A;border-top:4px solid #008373;padding:36px;position:relative;transition:all .3s}
+.camp-card:hover{background:#222;transform:translateY(-2px)}
+.camp-card.green{border-top-color:#22C55E}
+.camp-card.amber{border-top-color:#F59E0B}
+.camp-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px}
+.camp-header h3{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;text-transform:uppercase;letter-spacing:.02em}
+.camp-badge{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px}
+.camp-badge.teal{background:#008373;color:#fff}
+.camp-badge.dark{background:#2E2E2E;color:#fff}
+.camp-badge.green{background:#16A34A;color:#fff}
+.camp-body{font-size:14px;color:#C8C8C8;line-height:1.6;margin-bottom:20px}
+.camp-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#2E2E2E;margin-top:16px}
+.camp-metric{background:#222;padding:16px 20px}
+.camp-metric-val{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;color:#fff;display:block}
+.camp-metric-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-top:4px}
+
+.kw-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:16px}
+.kw-table thead th{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;padding:14px 16px;text-align:left;border-bottom:1px solid #2E2E2E;background:#111}
+.kw-table tbody tr{border-bottom:1px solid #2E2E2E;transition:background .15s}
+.kw-table tbody tr:hover{background:#222}
+.kw-table tbody td{padding:14px 16px;color:#C8C8C8}
+.kw-name{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:#fff}
+.txt-green{color:#22C55E}
+.txt-red{color:#EF4444}
+.txt-amber{color:#F59E0B}
+
+.phase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#2E2E2E;margin-top:48px}
+.phase{background:#1A1A1A;padding:40px;position:relative}
+.phase-label{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#008373;margin-bottom:4px}
+.phase-title{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;text-transform:uppercase;margin-bottom:6px}
+.phase-period{font-size:13px;color:#888;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:24px}
+.phase ul{list-style:none;padding:0}
+.phase ul li{font-size:14px;color:#C8C8C8;padding:8px 0;border-bottom:1px solid #2E2E2E;display:flex;align-items:flex-start;gap:10px;line-height:1.4}
+.phase ul li::before{content:'—';color:#008373;font-weight:700;flex-shrink:0;margin-top:1px}
+
+.budget-box{background:#1A1A1A;border:1px solid #2E2E2E;padding:40px;margin-top:48px;border-left:4px solid #008373;position:relative}
+.budget-box h3{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;text-transform:uppercase;margin-bottom:14px}
+.budget-box p{font-size:15px;color:#C8C8C8;line-height:1.6}
+.budget-box .kpi{font-size:12px;color:#888;margin-top:16px}
+
+.budget-table{width:100%;border-collapse:collapse;font-size:14px;margin:16px 0}
+.budget-table thead th{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;padding:14px 16px;text-align:left;border-bottom:1px solid #2E2E2E;background:#111}
+.budget-table tbody tr{border-bottom:1px solid #2E2E2E;transition:background .15s}
+.budget-table tbody tr:hover{background:#222}
+.budget-table tbody td{padding:14px 16px;color:#C8C8C8}
+.budget-table tfoot td{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;padding:14px 16px;border-top:2px solid #008373;color:#fff}
+
+.summary-box{background:#1A1A1A;border:1px solid #2E2E2E;padding:40px;margin-top:48px;border-left:4px solid #008373;position:relative}
+.summary-box h3{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;text-transform:uppercase;margin-bottom:14px}
+.summary-box p{font-size:15px;color:#C8C8C8;line-height:1.6}
+.summary-box .kpi{font-size:12px;color:#888;margin-top:16px}
+
+.insight-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px}
+.insight-card{background:#1A1A1A;border-left:4px solid #008373;padding:36px;position:relative;overflow:hidden;transition:all .3s}
+.insight-card:hover{background:#222;transform:translateY(-2px)}
+.insight-card.green{border-left-color:#22C55E}
+.insight-card.amber{border-left-color:#F59E0B}
+.insight-num{position:absolute;bottom:-8px;right:16px;font-family:'Barlow Condensed',sans-serif;font-size:100px;font-weight:900;color:rgba(255,255,255,.03);line-height:1;pointer-events:none}
+.insight-card h3{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:900;text-transform:uppercase;margin-bottom:8px;color:#fff}
+.insight-card .sub{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#008373;margin-bottom:16px;display:block}
+.insight-card.green .sub{color:#22C55E}
+.insight-card.amber .sub{color:#F59E0B}
+.insight-card p{font-size:14px;color:#C8C8C8;line-height:1.6;margin-bottom:12px}
+.insight-tags{display:flex;flex-wrap:wrap;gap:6px}
+.insight-tag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border:1px solid #2E2E2E;color:#C8C8C8}
+.insight-tag.teal{border-color:#008373;color:#008373}
+.insight-tag.green{border-color:#22C55E;color:#22C55E}
+
+footer{padding:48px 64px;background:#111;border-top:1px solid #2E2E2E;display:flex;justify-content:space-between;align-items:center}
+footer p{font-size:13px;color:#888}
+
+@media(max-width:900px){
+  .hero{padding:60px 24px 40px}
+  header{padding:16px 24px}
+  section{padding:56px 24px}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .chart-row{grid-template-columns:1fr}
+  .camp-grid{grid-template-columns:1fr}
+  .phase-grid{grid-template-columns:1fr}
+  .insight-grid{grid-template-columns:1fr}
+  footer{padding:32px 24px;flex-direction:column;gap:12px;text-align:center}
+  .nav{gap:16px}
+  .nav a{font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span>PLANNING · BING ADS</span>
+  <span>CONSERVA IRRIGATION · JUN–SET 2026</span>
+</div>
+
+<header>
+  <div class="logo">
+    <img src="../../../assets/images/v4-logo.png" alt="V4 Company" onerror="this.style.display='none'">
+  </div>
+  <ul class="nav">
+    <li><a href="#resumo">Resumo</a></li>
+    <li><a href="#estrategia">Estratégia</a></li>
+    <li><a href="#campanhas">Campanhas</a></li>
+    <li><a href="#budget">Budget</a></li>
+    <li><a href="#cronograma">Cronograma</a></li>
+  </ul>
+</header>
+
+<section class="hero">
+  <div class="hero-tag">Novo Canal · Planejamento</div>
+  <h1>Bing <span>Ads</span></h1>
+  <p class="hero-sub">Planejamento completo de abertura de canal Bing Ads para Conserva Irrigation. Estrutura de campanhas, orçamento faseado e projeção de performance para os próximos 3 meses.</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="stat-number">US$ 500</span>
+      <span class="stat-label">Teste Inicial</span>
+    </div>
+    <div class="hero-stat">
+      <span class="stat-number">US$ 1,50</span>
+      <span class="stat-label">CPC Estimado</span>
+    </div>
+    <div class="hero-stat">
+      <span class="stat-number">3</span>
+      <span class="stat-label">Campanhas</span>
+    </div>
+    <div class="hero-stat">
+      <span class="stat-number">90</span>
+      <span class="stat-label">Dias</span>
+    </div>
+  </div>
+</section>
+
+<section id="resumo">
+  <div class="section-label">Por que Bing Ads</div>
+  <h2 class="section-title">Oportunidade <span>Conserva</span></h2>
+
+  <div class="grid-4">
+    <div class="card">
+      <span class="card-number">01</span>
+      <span class="card-tag gray">Público</span>
+      <h3>Perfil Bing</h3>
+      <p>Usuário Bing tem renda 30% maior que média da web — ideal para serviços de irrigação residencial com poder aquisitivo</p>
+    </div>
+    <div class="card">
+      <span class="card-number">02</span>
+      <span class="card-tag gray">CPC</span>
+      <h3>Custo 40% Menor</h3>
+      <p>CPC médio no Bing é 30-50% menor que Google Ads no segmento de serviços domésticos — mais cliques pelo mesmo budget</p>
+    </div>
+    <div class="card">
+      <span class="card-number">03</span>
+      <span class="card-tag gray">Concorrência</span>
+      <h3>Menos Disputa</h3>
+      <p>Poucos concorrentes de irrigação anunciando no Bing — opportunity capture com search impression share potencial acima de 60%</p>
+    </div>
+    <div class="card">
+      <span class="card-number">04</span>
+      <span class="card-tag gray">Sinergia</span>
+      <h3>Reforço Google</h3>
+      <p>Bing captura usuários que não estão no ecossistema Google — amplia cobertura sem canibalizar a campanha atual</p>
+    </div>
+  </div>
+</section>
+
+<section id="estrategia">
+  <div class="section-label">Estrutura Planejada</div>
+  <h2 class="section-title">Arquitetura de <span>Campanhas</span></h2>
+
+  <div class="camp-grid">
+    <div class="camp-card green">
+      <div class="camp-header">
+        <h3>Search · Irrigation Services</h3>
+        <span class="camp-badge teal">Fase 1 — Teste</span>
+      </div>
+      <div class="camp-body">
+        Campanha principal com palavras-chave de reparo, instalação e manutenção de sistemas de irrigação. Foco em <strong>Exact Match e Phrase Match</strong> — sem Broad Match para proteger o budget de teste.
+      </div>
+      <div class="camp-metrics">
+        <div class="camp-metric"><span class="camp-metric-val">35</span><span class="camp-metric-label">Keywords</span></div>
+        <div class="camp-metric"><span class="camp-metric-val">US$ 1,20</span><span class="camp-metric-label">CPC Máx.</span></div>
+        <div class="camp-metric"><span class="camp-metric-val">US$ 8</span><span class="camp-metric-label">Budget/dia</span></div>
+      </div>
+      <table class="kw-table">
+        <thead><tr><th>Grupo</th><th>Keywords</th><th>Match</th><th>CPC Max</th></tr></thead>
+        <tbody>
+          <tr><td class="kw-name">Reparo</td><td>irrigation repair, sprinkler repair, irrigation system repair, irrigation repair near me</td><td>Phrase</td><td>US$ 1,50</td></tr>
+          <tr><td class="kw-name">Instalação</td><td>sprinkler installation, irrigation system installation, lawn sprinkler system install</td><td>Phrase</td><td>US$ 1,20</td></tr>
+          <tr><td class="kw-name">Sazonal</td><td>summer irrigation tune up, sprinkler winterization, spring sprinkler startup</td><td>Phrase</td><td>US$ 1,00</td></tr>
+          <tr><td class="kw-name">Alta Intenção</td><td>"irrigation repair near me", "sprinkler company near me", "irrigation service near me"</td><td>Exact</td><td>US$ 2,00</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="camp-card">
+      <div class="camp-header">
+        <h3>Search · Emergency & Inspection</h3>
+        <span class="camp-badge teal">Fase 2 — Escala</span>
+      </div>
+      <div class="camp-body">
+        Campanha dedicada a palavras de urgência (emergency repair, same day service) e inspeção sazonal (SES inspection, system tune-up). Lançamento na semana 3 após validação do Search principal.
+      </div>
+      <div class="camp-metrics">
+        <div class="camp-metric"><span class="camp-metric-val">20</span><span class="camp-metric-label">Keywords</span></div>
+        <div class="camp-metric"><span class="camp-metric-val">US$ 1,80</span><span class="camp-metric-label">CPC Máx.</span></div>
+        <div class="camp-metric"><span class="camp-metric-val">US$ 5</span><span class="camp-metric-label">Budget/dia</span></div>
+      </div>
+      <table class="kw-table">
+        <thead><tr><th>Grupo</th><th>Keywords</th><th>Match</th><th>CPC Max</th></tr></thead>
+        <tbody>
+          <tr><td class="kw-name">Emergência</td><td>emergency irrigation repair, same day sprinkler repair, 24 hour irrigation service</td><td>Phrase</td><td>US$ 2,00</td></tr>
+          <tr><td class="kw-name">Inspeção</td><td>sprinkler inspection, irrigation system evaluation, free sprinkler inspection</td><td>Phrase</td><td>US$ 1,50</td></tr>
+          <tr><td class="kw-name">Manutenção</td><td>lawn sprinkler maintenance, irrigation system tune up, sprinkler system check</td><td>Phrase</td><td>US$ 1,20</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:24px">
+    <div class="card">
+      <span class="card-number">+</span>
+      <span class="card-tag gray">Fase 3 — Expansão</span>
+      <h3>Dynamic Search Ads</h3>
+      <p>Captura tráfego de cauda longa automaticamente com base no conteúdo do site da Conserva. Ativar na semana 6 após acúmulo de dados de conversão nas campanhas Search.</p>
+      <span class="card-metric" style="color:#008373">Budget: US$ 3/dia</span>
+    </div>
+    <div class="card">
+      <span class="card-number">+</span>
+      <span class="card-tag gray">Fase 3 — Expansão</span>
+      <h3>Audience Ads (Native)</h3>
+      <p>Anúncios visuais na rede nativa do Bing (Microsoft Audience Network). Ideal para remarketing e prospecção de novos clientes com base em intenção de compra.</p>
+      <span class="card-metric" style="color:#008373">Budget: US$ 4/dia</span>
+    </div>
+  </div>
+</section>
+
+<section id="budget">
+  <div class="section-label">Investimento</div>
+  <h2 class="section-title">Plano de <span>Budget</span></h2>
+  <p style="font-size:16px;color:#C8C8C8;max-width:800px;margin-bottom:48px;">Estrutura de investimento faseada em 3 meses. Começamos com US$ 500 de teste para validar o canal antes de escalar.</p>
+
+  <div class="chart-card" style="margin-bottom:32px">
+    <h3>Budget × Consumo Mensal</h3>
+    <div class="chart-wrap"><canvas id="budgetChart"></canvas></div>
+  </div>
+
+  <table class="budget-table">
+    <thead>
+      <tr><th>Fase</th><th>Período</th><th>Canal</th><th>Budget Semanal</th><th>Budget Mensal</th><th>Gasto Total</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="kw-name" style="color:#008373">Teste & Aprendizado</td>
+        <td>Sem 1–2</td>
+        <td>Search Services</td>
+        <td>US$ 56</td>
+        <td>US$ 240</td>
+        <td>US$ 240</td>
+      </tr>
+      <tr>
+        <td class="kw-name" style="color:#008373">Validação & Ajuste</td>
+        <td>Sem 3–4</td>
+        <td>Search Services + Emergency</td>
+        <td>US$ 91</td>
+        <td>US$ 260</td>
+        <td>US$ 500</td>
+      </tr>
+      <tr>
+        <td class="kw-name" style="color:#22C55E">Escala Controlada</td>
+        <td>Mês 2 (Jul)</td>
+        <td>Search ×2 + DSA</td>
+        <td>US$ 140</td>
+        <td>US$ 600</td>
+        <td>US$ 1.100</td>
+      </tr>
+      <tr>
+        <td class="kw-name" style="color:#22C55E">Expansão</td>
+        <td>Mês 3 (Ago/Set)</td>
+        <td>Search ×2 + DSA + Audience</td>
+        <td>US$ 175</td>
+        <td>US$ 750</td>
+        <td>US$ 1.850</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr><td colspan="2"><strong>Total Planejado</strong></td><td>3 campanhas</td><td>—</td><td>—</td><td><strong>US$ 1.850</strong></td></tr>
+    </tfoot>
+  </table>
+
+  <div class="budget-box">
+    <h3>Fase de Teste — US$ 500</h3>
+    <p><strong>Objetivo:</strong> Validar custo por lead no Bing antes de escalar. Com US$ 500 em 30 dias (~US$ 17/dia), projetamos <strong>80–120 cliques</strong> e <strong>4–7 leads</strong> a um CPA estimado de US$ 70–125. Se o CPA ficar abaixo de US$ 100 na fase de teste, o canal é viável para escala.</p>
+    <div class="kpi"><strong>Meta de aprovação:</strong> CPA &lt; US$ 100 · CTR &gt; 3% · Custos de ativação (30 dias) → US$ 500</div>
+  </div>
+
+  <div class="insight-grid">
+    <div class="insight-card green">
+      <span class="insight-num">01</span>
+      <h3>Diferencial Bing</h3>
+      <span class="sub">Vantagem competitiva</span>
+      <p>Bing Ads tem integração direta com Microsoft Advertising + LinkedIn — dados de perfil profissional e renda para segmentar proprietários de imóveis com maior precisão que o Google.</p>
+      <div class="insight-tags"><span class="insight-tag green">Público qualificado</span></div>
+    </div>
+    <div class="insight-card">
+      <span class="insight-num">02</span>
+      <h3>Extensões de Anúncio</h3>
+      <span class="sub">Otimização Obrigatória</span>
+      <p>Ativar desde o lançamento: Sitelinks (páginas de serviço), Call Extension (telefone), Location Extension (endereço), Review Extension (avaliações) e Image Extension (fotos de serviços realizados).</p>
+      <div class="insight-tags"><span class="insight-tag teal">5 extensões</span></div>
+    </div>
+    <div class="insight-card amber">
+      <span class="insight-num">03</span>
+      <h3>Remarketing</h3>
+      <span class="sub">A partir do mês 2</span>
+      <p>Configurar UET (Universal Event Tracking) desde o dia 1 para acumular audiência. Remarketing para visitantes do site + LinkedIn matched audiences para proprietários de imóveis nos bairros atendidos.</p>
+      <div class="insight-tags"><span class="insight-tag teal">UET obrigatório</span></div>
+    </div>
+    <div class="insight-card">
+      <span class="insight-num">04</span>
+      <h3>Palavras Negativas</h3>
+      <span class="sub">Desde o lançamento</span>
+      <p>Bloquear termos sem intenção de compra: "DIY", "how to", "free", "rental", "parts", "supplies", "tutorial", "YouTube". Estima-se economia de 15-20% no budget evitando cliques frios.</p>
+      <div class="insight-tags"><span class="insight-tag teal">8 negativas iniciais</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="cronograma">
+  <div class="section-label">Linha do Tempo</div>
+  <h2 class="section-title">Cronograma <span>3 Meses</span></h2>
+  <p style="font-size:16px;color:#C8C8C8;max-width:800px;margin-bottom:48px;">Planejamento completo para abertura e maturação do canal Bing Ads. Cada fase tem métricas de go/no-go para avançar.</p>
+
+  <div class="phase-grid">
+    <div class="phase">
+      <div class="phase-label">Mês 1 · Jun</div>
+      <div class="phase-title">Teste & Validação</div>
+      <div class="phase-period">US$ 500 · 30 dias</div>
+      <ul>
+        <li>Configuração da conta Bing Ads + UET</li>
+        <li>Campanha Search Services (35 keywords)</li>
+        <li>Ativar 5 extensões de anúncio</li>
+        <li>Lista de palavras negativas aplicada</li>
+        <li>Semana 3: lançar campanha Emergency</li>
+        <li>Revisão semanal de search terms</li>
+        <li>Meta: CPA &lt; US$ 100</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <div class="phase-label">Mês 2 · Jul</div>
+      <div class="phase-title">Escala</div>
+      <div class="phase-period">US$ 600 · 30 dias</div>
+      <ul>
+        <li>Lançar Dynamic Search Ads</li>
+        <li>Remarketing para visitantes do site</li>
+        <li>Aumentar budget das campanhas validadas</li>
+        <li>Testar alterações de headline por grupo</li>
+        <li>Ativar Image Extensions com fotos reais</li>
+        <li>Otimizar lances por dispositivo</li>
+        <li>Relatório de performance quinzenal</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <div class="phase-label">Mês 3 · Ago/Set</div>
+      <div class="phase-title">Expansão</div>
+      <div class="phase-period">US$ 750 · 60 dias</div>
+      <ul>
+        <li>Lançar Microsoft Audience Network</li>
+        <li>Segmentação por dados de localização</li>
+        <li>Testar campanha de chamadas (Call Ads)</li>
+        <li>Expansão geográfica se CPA saudável</li>
+        <li>Comparativo Google vs Bing Performance</li>
+        <li>Revisão de budget para Q4 (verão)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <h3>Resumo para Aprovação</h3>
+    <p>A <strong>Conserva Irrigation</strong> tem uma oportunidade real de capturar leads de alto valor no Bing Ads com investimento inicial baixo. A concorrência no segmento de irrigação é praticamente inexistente no Bing — search impression share potencial acima de 60%. O CPC estimado 40% menor que Google permite testar o canal com apenas <strong>US$ 500</strong> e, se validado, escalar para <strong>US$ 1.850 nos primeiros 3 meses</strong> com CPA projetado entre US$ 55–100.</p>
+    <div class="kpi"><strong>Métricas de sucesso:</strong> CPA &lt; US$ 100 · CTR &gt; 3% · ROI positivo em 60 dias · Gasto total máximo: US$ 1.850 em 3 meses</div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <p>Conserva Irrigation — Bing Ads Planning</p>
+    <p style="margin-top:4px;opacity:.6">Elaborado em 17 de Junho de 2026 · V4 Company</p>
+  </div>
+  <p style="text-align:right;">V4 Company · Peretto<br>Planejamento para aprovação do cliente</p>
+</footer>
+
+<script>
+(function() {
+document.addEventListener('DOMContentLoaded', function(){
+  var labels = ['Sem 1–2', 'Sem 3–4', 'Mês 2 (Jul)', 'Mês 3 (Ago/Set)'];
+  var el = document.getElementById('budgetChart');
+  if (!el) return;
+  var parent = el.parentElement;
+  if (parent) { el.width = parent.clientWidth || 300; el.height = parent.clientHeight || 260; }
+  new Chart(el.getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Search Services',
+          data: [240, 130, 280, 300],
+          backgroundColor: '#008373',
+          borderRadius: 3,
+          borderSkipped: false
+        },
+        {
+          label: 'Search Emergency',
+          data: [0, 130, 160, 180],
+          backgroundColor: '#0D9488',
+          borderRadius: 3,
+          borderSkipped: false
+        },
+        {
+          label: 'DSA + Audience',
+          data: [0, 0, 160, 270],
+          backgroundColor: '#5EEAD4',
+          borderRadius: 3,
+          borderSkipped: false
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: { color: '#C8C8C8', font: { size: 11 }, boxWidth: 12, padding: 12 }
+        }
+      },
+      scales: {
+        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,.06)' }, ticks: { color: '#888', callback: function(v) { return 'US$ ' + v; } } },
+        x: { grid: { display: false }, ticks: { color: '#888', font: { size: 11 } } }
+      }
+    }
+  });
+});
+})();
+</script>
+
+</body>
+</html>

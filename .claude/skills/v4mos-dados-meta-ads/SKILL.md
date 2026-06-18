@@ -1,0 +1,1 @@
+../../../.agents/skills/v4mos-dados-meta-ads/SKILL.md

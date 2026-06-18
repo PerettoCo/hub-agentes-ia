@@ -1,0 +1,1 @@
+../../../.agents/skills/geral-brainstormar-sobre-minha-funcao/SKILL.md
