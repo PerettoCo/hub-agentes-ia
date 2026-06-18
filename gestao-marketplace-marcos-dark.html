@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pattern Detection — Gestão de Marketplace | Marcos Luciano</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #E31919;
+  --red-dark: #B80F0F;
+  --red-light: #FF2424;
+  --red-gradient: linear-gradient(135deg, #E31919 0%, #FF4D4D 100%);
+  --black: #0A0A0A;
+  --black2: #0E0E0E;
+  --black3: #141414;
+  --black4: #1C1C1C;
+  --black5: #252525;
+  --gray: #2A2A2A;
+  --gray2: #383838;
+  --gray3: #505050;
+  --gray4: #6B6B6B;
+  --white: #FFFFFF;
+  --white2: #E8E8E8;
+  --white3: #B0B0B0;
+  --text-muted: #787878;
+  --green: #22C55E;
+  --amber: #D97706;
+  --purple: #A855F7;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+::selection { background: var(--red); color: var(--white); }
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; font-size: 17px; line-height: 1.7; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 24px rgba(227,25,25,0.1); } 50% { box-shadow: 0 0 48px rgba(227,25,25,0.25); } }
+.animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+
+.topbar { background: var(--red); padding: 10px 64px; display: flex; align-items: center; justify-content: space-between; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+.topbar-logo img { height: 40px; width: auto; display: block; }
+header { background: rgba(14,14,14,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--gray); padding: 18px 64px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+.logo { display: flex; align-items: center; gap: 14px; }
+.logo img { height: 36px; width: auto; display: block; }
+.logo-text { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+.logo-text span { color: var(--red); }
+.nav { display: flex; gap: 36px; list-style: none; align-items: center; }
+.nav a { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white3); text-decoration: none; transition: color 0.2s; position: relative; }
+.nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--red-gradient); transition: width 0.3s; }
+.nav a:hover { color: var(--white); }
+.nav a:hover::after { width: 100%; }
+
+.hero { padding: 80px 64px 48px; background: linear-gradient(160deg, var(--black2) 0%, var(--black) 40%, var(--black3) 100%); border-bottom: 1px solid var(--gray); position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -50%; right: -10%; width: 800px; height: 800px; background: radial-gradient(circle, rgba(227,25,25,0.06) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+.hero-content { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+.hero-tag { display: inline-flex; align-items: center; gap: 10px; background: rgba(227,25,25,0.12); border: 1px solid rgba(227,25,25,0.25); color: var(--red-light); font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 8px 18px; margin-bottom: 28px; }
+.hero-tag-dot { width: 6px; height: 6px; background: var(--red); border-radius: 50%; box-shadow: 0 0 12px var(--red); }
+
+.hero-main { display: flex; align-items: center; gap: 56px; margin-bottom: 32px; }
+.hero-main-text { flex: 1; min-width: 0; }
+.hero-main-text h1 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(52px, 7.5vw, 96px); font-weight: 900; line-height: 0.88; letter-spacing: -0.03em; text-transform: uppercase; margin-bottom: 20px; }
+.hero-main-text h1 span { background: var(--red-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-main-text .hero-sub { font-size: 18px; color: var(--white3); line-height: 1.6; max-width: 620px; }
+.hero-main-text .hero-sub strong { color: var(--white); font-weight: 500; }
+.hero-main-image { flex-shrink: 0; width: 360px; }
+.hero-main-image img { width: 100%; height: auto; border-radius: 18px; display: block; border: 1px solid var(--gray); box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+
+.hero-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--gray); max-width: 100%; }
+.hero-stat { background: var(--black3); padding: 24px 22px; text-align: center; }
+.hero-stat-num { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 900; background: var(--red-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-stat-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-top: 3px; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 64px; }
+.section { padding: 80px 0; border-bottom: 1px solid var(--gray); }
+.section:last-of-type { border-bottom: none; }
+.section-label { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+.section h2 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(38px, 5vw, 56px); font-weight: 900; line-height: 0.93; letter-spacing: -0.02em; text-transform: uppercase; margin-bottom: 10px; }
+.section h2 span { background: var(--red-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.section h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 0.02em; color: var(--white); margin-bottom: 14px; padding-left: 16px; border-left: 3px solid var(--red); }
+.section h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 0.02em; color: var(--white2); margin-bottom: 10px; }
+.section-desc { font-size: 16px; color: var(--white3); max-width: 720px; margin-bottom: 32px; line-height: 1.65; }
+
+.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px; }
+.card-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 32px; }
+.card-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+.card-grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 32px; }
+
+.card { background: var(--black3); border: 1px solid var(--gray); padding: 28px; transition: border-color 0.3s, transform 0.3s; position: relative; overflow: hidden; }
+.card:hover { border-color: var(--gray2); transform: translateY(-3px); }
+.card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--red-gradient); opacity: 0; transition: opacity 0.3s; }
+.card:hover::before { opacity: 1; }
+.card-red { border-left: 3px solid var(--red); }
+.card-red::before { display: none; }
+.card-dim { border-top: 3px solid var(--red); }
+.card-dim::before { display: none; }
+.card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; color: var(--white); margin-bottom: 8px; }
+.card-text { font-size: 15px; color: var(--white3); line-height: 1.55; }
+.card-text strong { color: var(--white2); }
+.card-tag { display: inline-block; background: rgba(227,25,25,0.1); color: var(--red-light); font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; margin-bottom: 8px; }
+
+.table-wrap { overflow-x: auto; margin-bottom: 32px; }
+table { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid var(--gray); }
+thead { background: var(--black4); }
+th { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: 14px 20px; text-align: left; border-bottom: 1px solid var(--gray); }
+td { padding: 13px 20px; font-size: 15px; color: var(--white2); border-bottom: 1px solid var(--gray); background: var(--black3); }
+tr:last-child td { border-bottom: none; }
+td:first-child { font-weight: 600; color: var(--white); }
+td.highlight { color: var(--red-light); }
+td.ok { color: var(--green); }
+
+.alert { display: flex; align-items: flex-start; gap: 14px; padding: 22px 28px; background: rgba(227,25,25,0.06); border: 1px solid rgba(227,25,25,0.2); margin-bottom: 28px; }
+.alert-icon { width: 30px; height: 30px; background: var(--red); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; color: white; font-weight: 700; }
+.alert p { font-size: 15px; color: var(--white2); line-height: 1.55; }
+.alert strong { color: var(--red-light); }
+
+.quote-block { background: var(--black4); border-left: 3px solid var(--red); padding: 24px 28px; margin-bottom: 24px; }
+.quote-block p { font-size: 15px; color: var(--white2); line-height: 1.6; font-style: italic; }
+.quote-block .quote-author { display: block; margin-top: 12px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); font-style: normal; }
+
+.board-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 36px; }
+.board-card { background: var(--black3); border: 1px solid var(--gray); padding: 28px; position: relative; }
+.board-card::after { content: ''; position: absolute; top: 0; right: 0; width: 40px; height: 3px; background: var(--red-gradient); }
+.board-role { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+.board-name { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: var(--white); margin-bottom: 10px; }
+.board-text { font-size: 14px; color: var(--white3); line-height: 1.55; font-style: italic; }
+
+.flow-row { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
+.flow-step { background: var(--black3); border: 1px solid var(--gray); padding: 14px 22px; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.04em; color: var(--white); }
+.flow-step span { color: var(--red); }
+.flow-arrow { color: var(--gray3); font-size: 20px; font-weight: 700; }
+
+.pattern-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+.pattern-card { background: var(--black3); border: 1px solid var(--gray); padding: 24px; }
+.pattern-name { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; color: var(--red-light); margin-bottom: 5px; }
+.pattern-where { font-size: 12px; color: var(--text-muted); margin-bottom: 5px; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
+.pattern-cure { font-size: 14px; color: var(--white3); line-height: 1.5; }
+
+.tag-gold { background: rgba(217,119,6,0.12); color: var(--amber); }
+.tag-green { background: rgba(34,197,94,0.12); color: var(--green); }
+.tag-purple { background: rgba(168,85,247,0.12); color: var(--purple); }
+
+.numbered-list { list-style: none; counter-reset: item; margin-bottom: 24px; }
+.numbered-list li { counter-increment: item; padding: 10px 0 10px 36px; position: relative; font-size: 15px; color: var(--white2); line-height: 1.5; border-bottom: 1px solid var(--gray); }
+.numbered-list li::before { content: counter(item); position: absolute; left: 0; top: 10px; width: 26px; height: 26px; background: var(--red); color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+
+footer { padding: 40px 64px; border-top: 1px solid var(--gray); display: flex; align-items: center; justify-content: space-between; }
+footer img { height: 30px; width: auto; }
+footer span { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; color: var(--text-muted); }
+
+@media (max-width: 1024px) {
+  .card-grid, .card-grid-4, .card-grid-5, .board-grid, .pattern-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-stats { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .hero-main { flex-direction: column; gap: 28px; }
+  .hero-main-image { width: 100%; max-width: 360px; }
+  .card-grid, .card-grid-2, .card-grid-4, .card-grid-5, .board-grid, .pattern-grid { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  .hero { padding: 48px 24px; }
+  header, .container, footer { padding-left: 24px; padding-right: 24px; }
+  .section { padding: 48px 0; }
+  .topbar { padding: 8px 24px; }
+  .flow-row { gap: 6px; }
+  .flow-step { font-size: 13px; padding: 10px 16px; }
+  .nav { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">
+    <img src="logo-v4-white.png" alt="V4 Company">
+  </div>
+  <span style="font-weight:500;color:rgba(255,255,255,0.8);">MARCOS LUCIANO — GESTÃO DE MARKETPLACE</span>
+</div>
+
+<header>
+  <div class="logo">
+    <img src="logo-v4-white.png" alt="Peretto&Co.">
+    <div class="logo-text">Gestão de <span>Marketplace</span></div>
+  </div>
+  <ul class="nav">
+    <li><a href="#dimensoes">Dimensões</a></li>
+    <li><a href="#caso">Caso BRG</a></li>
+    <li><a href="#padroes">Padrões</a></li>
+    <li><a href="#playbook">Playbook</a></li>
+    <li><a href="#perguntas">Perguntas</a></li>
+  </ul>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag animate-on-scroll">
+      <span class="hero-tag-dot"></span>
+      <span>Framework Pessoal · Padrões · Cases Reais</span>
+    </div>
+    <div class="hero-main animate-on-scroll delay-1">
+      <div class="hero-main-text">
+        <h1>Pattern<br>Detection —<br><span>Marketplace</span></h1>
+        <p class="hero-sub">
+          Como eu penso, avalio e opero gestão de marketplace no Brasil.<br>
+          <strong>5 marcas · 10+ canais · 3 movimentos · 8 padrões</strong>
+        </p>
+      </div>
+      <div class="hero-main-image">
+        <img src="19-marketplace.png.webp" alt="Pattern Detection Marketplace">
+      </div>
+    </div>
+    <div class="hero-stats animate-on-scroll delay-2">
+      <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-label">Dimensões de Gestão</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">8</div><div class="hero-stat-label">Padrões Detectados</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">237</div><div class="hero-stat-label">URLs Auditadas</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">3</div><div class="hero-stat-label">Movimentos 90 Dias</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">11</div><div class="hero-stat-label">Agentes</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+
+<!-- MANIFESTO -->
+<section class="section">
+  <div class="section-label animate-on-scroll">Manifesto</div>
+  <h2 class="animate-on-scroll delay-1">Como eu vejo <span>Marketplace</span></h2>
+  <div class="section-desc animate-on-scroll" style="max-width:100%;font-size:17px;">
+    <p style="margin-bottom:16px;">Marketplace no Brasil não é sobre estar em todos os canais. É sobre <strong>integração entre ecossistemas</strong>. A maior alavanca de GMV e margem não está dentro dos marketplaces — está na conexão entre o D2C e a operação 3P. Cliente pesquisa no Google antes de comprar no MELI. Se a marca não existe na busca, não existe no marketplace.</p>
+    <p style="margin-bottom:16px;">Opero com uma premissa: <strong>fundação digital primeiro, canais depois</strong>. Já vi operações queimarem verba de mídia em marketplace enquanto 83% do catálogo estava invisível para busca. O problema não é demanda — é descoberta e conversão.</p>
+    <p>No Brasil, a complexidade é maior: 5+ marketplaces com regras diferentes, dezenas de marcas no mesmo grupo competindo entre si por palavras-chave, operadores logísticos com SLA variável, e uma regulação (ANVISA) que pode derrubar qualquer operação desatenta. Meu framework existe para isso: <strong>identificar padrões, organizar a gestão e separar o urgente do importante</strong>.</p>
+  </div>
+</section>
+
+<!-- PRECEDÊNCIA -->
+<section class="section">
+  <div class="section-label animate-on-scroll">Ordem de Inspeção</div>
+  <h2 class="animate-on-scroll delay-1">Hierarquia de <span>Sobrevivência</span></h2>
+  <p class="section-desc animate-on-scroll delay-2">A ordem importa. Não pule dimensões.</p>
+  <div class="flow-row animate-on-scroll">
+    <div class="flow-step"><span>1</span> Unidade Econômica</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span>2</span> Catálogo & Descoberta</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span>3</span> Operação & Reputação</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span>4</span> Mídia & Aquisição</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span>5</span> Governança & BI</div>
+  </div>
+</section>
+
+<!-- DIMENSÃO 1 -->
+<section class="section" id="dimensoes">
+  <div class="section-label animate-on-scroll">Dimensão 1</div>
+  <h2 class="animate-on-scroll delay-1">Unidade Econômica<br><span>por Canal</span></h2>
+  <p class="section-desc animate-on-scroll delay-2">Pergunta que eu faço: <strong>qual a margem real depois de taxas, logística, mídia e devoluções?</strong></p>
+
+  <div class="table-wrap animate-on-scroll">
+    <table>
+      <thead>
+        <tr><th>O que eu olho</th><th>Indicador Saudável</th><th>Alerta</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Taxa efetiva por marketplace</td><td>Conhecida por canal (MELI ~18-25%, Amazon ~15-22%, Shopee ~12-18%)</td><td>Taxa desconhecida ou só a "cheia" sem deduções</td></tr>
+        <tr><td>Margem de Contribuição Líquida</td><td>>25% pós taxas + logística + mídia</td><td>Margem negativa ou desconhecida</td></tr>
+        <tr><td>ROAS por frente 1P vs 3P</td><td>Separado por modelo (não consolidado)</td><td>ROAS >4.0 consolidado mascara canibalização</td></tr>
+        <tr><td>LTV:CAC com payback</td><td>>3:1, payback <12 meses</td><td><1:1 (queima caixa)</td></tr>
+        <tr><td>Custo de devolução/troca</td><td>Conhecido e provisionado</td><td>Desconhecido — surpresa no fechamento</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert animate-on-scroll">
+    <div class="alert-icon">!</div>
+    <p><strong>Padrão que mais vejo:</strong> ROAS consolidado >4.0 que esconde que o 1P (margem menor) está canibalizando o 3P (margem maior). Decisão de mídia destrói margem líquida.</p>
+  </div>
+
+  <h4>Métrica composta que criei — RMPE</h4>
+  <div class="card card-red" style="margin-bottom:0;">
+    <div class="card-text style="font-size:16px;"><strong style="color:var(--red-light);">RMPE</strong> = (Receita × Margem Bruta) / (Mídia + Taxas MKTP + Logística) — unifica rentabilidade real entre canais em um índice comparável.</div>
+  </div>
+</section>
+
+<!-- DIMENSÃO 2 -->
+<section class="section">
+  <div class="section-label animate-on-scroll">Dimensão 2</div>
+  <h2 class="animate-on-scroll delay-1">Catálogo & <span>Descoberta</span></h2>
+  <p class="section-desc animate-on-scroll delay-2">Pergunta que eu faço: <strong>o produto é encontrável antes de ser vendável?</strong></p>
+
+  <div class="table-wrap animate-on-scroll">
+    <table>
+      <thead>
+        <tr><th>O que eu olho</th><th>Indicador Saudável</th><th>Alerta</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Crawl & Indexação</td><td>>70% das URLs indexáveis</td><td><30% = conteúdo invisível</td></tr>
+        <tr><td>Structured Data</td><td>JSON-LD server-side em 100% dos produtos</td><td>Zero structured data = zero feed</td></tr>
+        <tr><td>301 vs 302</td><td>301 em todos os produtos</td><td>302 não passa link equity</td></tr>
+        <tr><td>Duplicatas 3P</td><td>Resolvidas na base antes de escalar</td><td>Sellers geram duplicata infinita</td></tr>
+        <tr><td>SEO por marca</td><td>Autoridade tópica por marca (sem canibalização)</td><td>5 marcas brigando pela mesma keyword</td></tr>
+        <tr><td>AI Visibility</td><td>Citado em ChatGPT, Perplexity, Gemini</td><td>Zero citação em LLMs</td></tr>
+        <tr><td>Core Web Vitals</td><td>LCP <2.5s, CLS <0.1, INP <200ms</td><td>Homepage 12s de resposta</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert animate-on-scroll">
+    <div class="alert-icon">!</div>
+    <p><strong>Padrão operação invisível:</strong> a marca existe mas não é descoberta. Structured data zero, confiança cega em mídia paga como única fonte de tráfego.</p>
+  </div>
+</section>
+
+<!-- DIMENSÃO 3 -->
+<section class="section">
+  <div class="section-label animate-on-scroll">Dimensão 3</div>
+  <h2 class="animate-on-scroll delay-1">Operação & <span>Reputação</span></h2>
+  <p class="section-desc animate-on-scroll delay-2">Pergunta que eu faço: <strong>o cliente recebe o que comprou, no prazo, e fala bem?</strong></p>
+
+  <div class="table-wrap animate-on-scroll">
+    <table>
+      <thead>
+        <tr><th>O que eu olho</th><th>Indicador Saudável</th><th>Alerta</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Buy Box</td><td>>85% de permanência</td><td>Perdendo Buy Box por preço ou reputação</td></tr>
+        <tr><td>Reputação (Review Score)</td><td>>4.5 em todos os canais</td><td><4.0 = perde conversão</td></tr>
+        <tr><td>SLA de entrega</td><td>Conhecido e cumprido por canal</td><td>Avaria ou atraso recorrente</td></tr>
+        <tr><td>SAC</td><td>Respondido em <24h (negativas)</td><td>Sem SLA de resposta</td></tr>
+        <tr><td>FULL</td><td>Operacional com estoque reconciliado</td><td>FULL sem integração = ruptura</td></tr>
+        <tr><td>Devolução</td><td>Taxa conhecida e dentro do esperado</td><td>>10% = problema de descrição</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- DIMENSÃO 4 -->
+<section class="section">
+  <div class="section-label animate-on-scroll">Dimensão 4</div>
+  <h2 class="animate-on-scroll delay-1">Mídia & <span>Aquisição</span></h2>
+  <p class="section-desc animate-on-scroll delay-2">Pergunta que eu faço: <strong>o investimento está indo para o lugar certo?</strong></p>
+
+  <h3>Arquitetura de Mídia por Canal</h3>
+  <div class="table-wrap animate-on-scroll">
+    <table>
+      <thead>
+        <tr><th>Canal</th><th>Formato</th><th>Alavanca</th><th>Estratégia</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Mercado Livre</td><td>Mercado Ads + Display</td><td>FULL + reputação</td><td>FULL desde go-live. SP marcas próprias. Conquest concorrência</td></tr>
+        <tr><td>Amazon</td><td>Sponsored + Brands + DSP</td><td>Buy Box + reviews</td><td>A+ Content. SB busca de marca. Retargeting</td></tr>
+        <tr><td>Shopee</td><td>Shopee Ads + Live</td><td>Preço + gamificação</td><td>Cashback + frete grátis. Top 20 SKUs</td></tr>
+        <tr><td>Magalu</td><td>Magalu Ads + VIP</td><td>FULL + reputação</td><td>Foco marcas de distribuição</td></tr>
+        <tr><td>Google</td><td>Shopping + YouTube + PMax</td><td>Jornada completa</td><td>60%+ das jornadas começam em busca</td></tr>
+        <tr><td>Netshoes/Centauro</td><td>Programática + Parceria</td><td>Exclusividade</td><td>Cross-sell equipamentos</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card-grid-2 animate-on-scroll">
+    <div class="card card-red">
+      <div class="card-tag">Orçamento</div>
+      <div class="card-title">Defesa 60% · Conquista 40%</div>
+      <div class="card-text"><strong>Defesa:</strong> Lances agressivos em branded keywords. Sponsored Brands ocupando topo da SERP. <strong>Conquista:</strong> Product targeting em concorrentes. Display conquest.</div>
+    </div>
+    <div class="card card-red">
+      <div class="card-tag">Timing</div>
+      <div class="card-title">Dayparting por Canal</div>
+      <div class="card-text"><strong>MELI + Amazon:</strong> Sexta a domingo. <strong>Shopee:</strong> Segunda e terça. <strong>Magalu:</strong> Quarta e quinta. Suplemento tem comportamento sazonal por dia da semana.</div>
+    </div>
+  </div>
+
+  <div class="alert animate-on-scroll">
+    <div class="alert-icon">!</div>
+    <p><strong>Maior desperdício:</strong> manter criativo no ar após o pico de fadiga — CPM sobe, CTR cai, CPA dobra, mas ninguém pausa porque "ainda está dando resultado". <strong>Canal mais subestimado:</strong> YouTube Ads. Suplemento vende por credibilidade — vídeos de atletas e reviews são o ativo de maior prova social.</p>
+  </div>
+</section>
+
+<!-- DIMENSÃO 5 -->
+<section class="section">
+  <div class="section-label animate-on-scroll">Dimensão 5</div>
+  <h2 class="animate-on-scroll delay-1">Governança & <span>BI</span></h2>
+  <p class="section-desc animate-on-scroll delay-2">Pergunta que eu faço: <strong>quem faz o quê? E como sabemos se está funcionando?</strong></p>
+
+  <h3>Documento de Fronteiras (Semana 1)</h3>
+  <div class="table-wrap animate-on-scroll">
+    <table>
+      <thead>
+        <tr><th>Frente</th><th>Dono</th><th>SLA</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Cadastro de Produto</td><td>Operação</td><td>24h</td></tr>
+        <tr><td>Precificação</td><td>Comercial + Operação</td><td>Dinâmica (hub)</td></tr>
+        <tr><td>Mídia</td><td>Marketing</td><td>Diário</td></tr>
+        <tr><td>Reputação</td><td>SAC + Operação</td><td>24h (negativas)</td></tr>
+        <tr><td>Pedidos/Entrega</td><td>Operador Logístico</td><td>Tempo real</td></tr>
+        <tr><td>Estoque</td><td>Operador + Hub</td><td>Diário</td></tr>
+        <tr><td>Dados/BI</td><td>Analytics</td><td>Tempo real</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>KPIs que eu monitoro</h4>
+  <div class="card-grid-4 animate-on-scroll">
+    <div class="card"><div class="card-title">GMV por Canal</div><div class="card-text">Baseline +20% em 90 dias</div></div>
+    <div class="card"><div class="card-title">ROAS por Canal</div><div class="card-text">Separado 1P/3P, >4.0</div></div>
+    <div class="card"><div class="card-title">Margem Líquida</div><div class="card-text">Contribuição >25%</div></div>
+    <div class="card"><div class="card-title">Share of Search</div><div class="card-text">Marca >40% vs concorrência</div></div>
+    <div class="card"><div class="card-title">Buy Box</div><div class="card-text">>85% de permanência</div></div>
+    <div class="card"><div class="card-title">Review Score</div><div class="card-text">>4.5 em todos os canais</div></div>
+    <div class="card"><div class="card-title">Velocidade de Venda</div><div class="card-text">Top 10 na categoria</div></div>
+    <div class="card"><div class="card-title">NPS</div><div class="card-text">>75</div></div>
+  </div>
+
+  <div class="alert animate-on-scroll">
+    <div class="alert-icon">!</div>
+    <p><strong>Padrão tracking decorativo:</strong> coleta dados ricos (eventos, leads, vendas), mas eles morrem no silo — nenhum pipeline conecta a uma decisão em tempo real.</p>
+  </div>
+</section>
+
+<!-- CASO BRG -->
+<section class="section" id="caso" style="border-bottom:2px solid var(--red);">
+  <div class="section-label animate-on-scroll">Estudo de Caso Real</div>
+  <h2 class="animate-on-scroll delay-1">BRG — A Auditoria<br><span>que Eu Fiz</span></h2>
+  <p class="section-desc animate-on-scroll delay-2" style="max-width:100%;font-size:17px;">
+    Em 2024, recebi o desafio de avaliar a operação de marketplace do Grupo BRG (Integralmedica, Nutrify, Darkness, Optimum Nutrition, BSN) — 5 marcas, 10+ canais, setor de suplementos. <strong>Antes de propor qualquer movimento, eu auditei de verdade.</strong> Abri o site no Screaming Frog, crawlei 237 URLs e cruzei com dados públicos da operação.
+  </p>
+
+  <h3>Achados Críticos</h3>
+  <div class="table-wrap animate-on-scroll">
+    <table>
+      <thead>
+        <tr><th>Métrica</th><th>Status</th><th>Impacto</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Structured data</td><td class="highlight">ZERO em 100% das páginas</td><td>Sem schema = sem rich snippets, sem feed de marketplace</td></tr>
+        <tr><td>Homepage</td><td class="highlight">1,17 MB de HTML, 12s de resposta</td><td>Core Web Vitals reprovado, SEO penalizado</td></tr>
+        <tr><td>Meta descriptions</td><td class="highlight">16 páginas duplicadas</td><td>CTR orgânico baixo</td></tr>
+        <tr><td>Páginas indexáveis</td><td class="highlight">Apenas 40 de 237 (16,9%)</td><td>83% do conteúdo invisível</td></tr>
+        <tr><td>302 redirects em produtos</td><td class="highlight">100% das páginas</td><td>302 não passa link equity</td></tr>
+        <tr><td>Imagens >100KB</td><td class="highlight">89 imagens (45,88%)</td><td>Lentidão em página de produto</td></tr>
+        <tr><td>H1 ausente</td><td class="highlight">10 páginas sem H1</td><td>Heading perdido</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>O Diagnóstico</h4>
+  <p style="font-size:16px;color:var(--white3);margin-bottom:24px;line-height:1.6;">A operação tinha uma <strong>âncora digital frágil</strong>. Os problemas técnicos do site D2C se multiplicavam em marketplace: sem structured data, produtos não aparecem com rich snippets. 302 nos produtos = link building e mídia perdem autoridade. Catálogo com 16,9% indexável = portfólio invisível. SEO inexistente no D2C enfraquece a marca como um todo — e marca fraca em busca vende menos em marketplace.</p>
+
+  <h4>Os 3 Movimentos que Eu Propu</h4>
+  <div class="card-grid animate-on-scroll">
+    <div class="card card-red"><div class="card-tag">S1-30</div><div class="card-title">Fundação Digital</div><div class="card-text">Correção de 302 → 301. JSON-LD structured data em todos os produtos. Meta descriptions únicas. Otimização de imagens. Crawl semanal.</div></div>
+    <div class="card card-red"><div class="card-tag">S2-60</div><div class="card-title">Governança & Catálogo</div><div class="card-text">Documento de fronteiras com operador logístico. Dashboard consolidado (PowerBI). Setup de hub de automação. Monitoramento de reputação 24h.</div></div>
+    <div class="card card-red"><div class="card-tag">S3-90</div><div class="card-title">Canais & Mídia</div><div class="card-text">Go-live FULL MELI. Brandstores por marca. Primeira rodada de Mercado Ads e Amazon Ads. JBP trimestral com top 3 canais.</div></div>
+  </div>
+</section>
+
+<!-- DETECTOR DE PADRÕES -->
+<section class="section" id="padroes">
+  <div class="section-label animate-on-scroll">Radar</div>
+  <h2 class="animate-on-scroll delay-1">Detector de <span>Padrões BR</span></h2>
+  <p class="section-desc animate-on-scroll delay-2">8 padrões que eu identifico em operações de marketplace no Brasil.</p>
+
+  <div class="pattern-grid animate-on-scroll">
+    <div class="pattern-card"><div class="pattern-name">💰 Receita Fantasma</div><div class="pattern-where">Unidade Econômica</div><div class="pattern-cure">Decompor ROAS por frente 1P/3P. Margem de Contribuição Líquida por SKU por canal.</div></div>
+    <div class="pattern-card"><div class="pattern-name">👻 Operação Invisível</div><div class="pattern-where">Catálogo & Descoberta</div><div class="pattern-cure">Crawl + schema + conteúdo antes de mídia. Structured data em 100% dos produtos.</div></div>
+    <div class="pattern-card"><div class="pattern-name">🔁 Catálogo Canibalizado</div><div class="pattern-where">SEO por Marca</div><div class="pattern-cure">Hub-and-spoke com intenções de busca dedicadas por marca. Linking estratégico entre elas.</div></div>
+    <div class="pattern-card"><div class="pattern-name">⭐ Reputação Negligenciada</div><div class="pattern-where">Operação</div><div class="pattern-cure">SLA 24h para negativas. Dashboard de reputação em tempo real. Sem monitoramento, sem recuperação.</div></div>
+    <div class="pattern-card"><div class="pattern-name">📊 Tracking Decorativo</div><div class="pattern-where">BI & Dados</div><div class="pattern-cure">Pipeline Captura → Orquestração → Ativação. Dado sem ação é ruído.</div></div>
+    <div class="pattern-card"><div class="pattern-name">🤝 JBP sem Baseline</div><div class="pattern-where">Negociação</div><div class="pattern-cure">30 dias de baseline antes de qualquer JBP. Negociar de posição de força.</div></div>
+    <div class="pattern-card"><div class="pattern-name">🌫️ Governança Difusa</div><div class="pattern-where">Eficiência</div><div class="pattern-cure">Documento de fronteiras na semana 1. Dono único por frente. SLA claro.</div></div>
+    <div class="pattern-card"><div class="pattern-name">🎯 Mídia sem Atribuição</div><div class="pattern-where">Aquisição</div><div class="pattern-cure">Modelo de atribuição funcional antes de escalar verba. Sem atribuição = decisão cega.</div></div>
+  </div>
+</section>
+
+<!-- PLAYBOOK -->
+<section class="section" id="playbook">
+  <div class="section-label animate-on-scroll">Playbook</div>
+  <h2 class="animate-on-scroll delay-1">Meu Playbook <span>90 Dias</span></h2>
+
+  <h3>Semana 1 — Fundação</h3>
+  <ol class="numbered-list animate-on-scroll">
+    <li>Crawl completo do ecossistema D2C</li>
+    <li>Documento de fronteiras (quem faz o quê)</li>
+    <li>Baseline de todos os KPIs por canal</li>
+  </ol>
+
+  <h3>S1-30 — Fundação Digital</h3>
+  <ol class="numbered-list animate-on-scroll" start="4">
+    <li>Structured data em 100% das páginas de produto (JSON-LD server-side)</li>
+    <li>301 redirects em todos os produtos (eliminar 302)</li>
+    <li>Correção de meta descriptions e H1</li>
+    <li>Otimização de imagens e Core Web Vitals</li>
+    <li>Setup de tracking e atribuição funcional</li>
+  </ol>
+
+  <h3>S2-60 — Governança</h3>
+  <ol class="numbered-list animate-on-scroll" start="9">
+    <li>Dashboard consolidado (Métrica × Meta × Atingido)</li>
+    <li>Rotina semanal com operador logístico</li>
+    <li>Monitoramento de reputação em tempo real</li>
+    <li>Setup de hub de automação (ANYMARKET ou similar)</li>
+    <li>Regras de precificação dinâmica por marketplace</li>
+  </ol>
+
+  <h3>S3-90 — Canais & Mídia</h3>
+  <ol class="numbered-list animate-on-scroll" start="14">
+    <li>Ativação FULL no MELI</li>
+    <li>Brandstores no MELI, Amazon e Shopee (uma por marca)</li>
+    <li>Primeira rodada de mídia com split Defesa 60% / Conquista 40%</li>
+    <li>JBP trimestral com top 3 canais</li>
+    <li>Relatório de resultados vs baseline</li>
+  </ol>
+</section>
+
+<!-- MATRIZ -->
+<section class="section">
+  <div class="section-label animate-on-scroll">Ferramenta</div>
+  <h2 class="animate-on-scroll delay-1">Matriz de <span>Diagnóstico</span></h2>
+  <p class="section-desc animate-on-scroll delay-2">Para cada dimensão, onde sua operação se encontra?</p>
+
+  <div class="table-wrap animate-on-scroll">
+    <table>
+      <thead>
+        <tr><th>Dimensão</th><th>Saúde</th><th>Alerta</th><th>Crítico</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1. Unidade Econômica</td><td>Margem + ROAS conhecidos por canal, LTV:CAC >3:1</td><td>Uma métrica desconhecida</td><td>Queima caixa sem saber</td></tr>
+        <tr><td>2. Catálogo & Descoberta</td><td>>70% indexável, schema 100%, 301 ok</td><td>Schema parcial, crawl <50%</td><td><30% indexável, zero schema</td></tr>
+        <tr><td>3. Operação & Reputação</td><td>Review >4.5, Buy Box >85%, SLA conhecido</td><td>Review caindo, SLA não medido</td><td>Review <4.0, Buy Box perdida</td></tr>
+        <tr><td>4. Mídia & Aquisição</td><td>CPA estável, 3+ canais, atribuição OK</td><td>Dependência >70% de 1 canal</td><td>Atribuição zero</td></tr>
+        <tr><td>5. Governança & BI</td><td>Fronteiras claras, dashboard consolidado</td><td>Fronteiras existem mas não são seguidas</td><td>"Cada um faz do seu jeito"</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PERGUNTAS -->
+<section class="section" id="perguntas">
+  <div class="section-label animate-on-scroll">Roteiro</div>
+  <h2 class="animate-on-scroll delay-1">As Perguntas que<br><span>Eu Faço</span></h2>
+  <p class="section-desc animate-on-scroll delay-2">Toda reunião que eu entro para avaliar uma operação de marketplace, eu levo estas perguntas.</p>
+
+  <ol class="numbered-list animate-on-scroll">
+    <li><strong>Qual a margem real</strong> depois de taxas, logística, mídia e devolução? <em>— Se não sabem, a operação é cega.</em></li>
+    <li><strong>Quantas URLs do D2C estão indexadas?</strong> <em>— Se <30%, o conteúdo é invisível.</em></li>
+    <li><strong>Tem structured data nos produtos?</strong> <em>— Se não, o feed do marketplace não enxerga.</em></li>
+    <li><strong>Quem é o dono de cada frente?</strong> <em>— Se todo mundo é dono de nada, a operação trava.</em></li>
+    <li><strong>O ROAS é separado por canal e por modelo (1P/3P)?</strong> <em>— Se consolidado, tem receita fantasma.</em></li>
+    <li><strong>Qual o SLA de resposta para avaliação negativa?</strong> <em>— Se não tem, a reputação é reativa.</em></li>
+    <li><strong>O tracking conecta a alguma ação ou é decorativo?</strong> <em>— Se decorativo, os dados são ruído.</em></li>
+    <li><strong>Qual decisão, se revertida, derrubaria a operação?</strong> <em>— Se não sabem, não conhecem o próprio negócio.</em></li>
+  </ol>
+</section>
+
+<!-- AGENTES -->
+<section class="section" style="border-bottom:none;">
+  <div class="section-label animate-on-scroll">Gabinete</div>
+  <h2 class="animate-on-scroll delay-1">Contribuições dos <span>11 Agentes</span></h2>
+  <p class="section-desc animate-on-scroll delay-2">Cada agente analisou o framework e contribuiu com seu olhar sobre gestão de marketplace.</p>
+
+  <div class="board-grid animate-on-scroll">
+    <div class="board-card"><div class="board-role">CMO · Arquitetura</div><div class="board-name">5 Dimensões</div><div class="board-text">"5 dimensões universais para marketplace. Precedência importa — sem economia viável, nada sustenta."</div></div>
+    <div class="board-card"><div class="board-role">Estratégia · Sabatina</div><div class="board-name">Pergunta Ápice</div><div class="board-text">"Qual decisão, se revertida, derrubaria a operação? Em marketplace, muitas vezes é o SLA com o operador logístico."</div></div>
+    <div class="board-card"><div class="board-role">Revenue Ops</div><div class="board-name">Financeiro</div><div class="board-text">"Receita fantasma é o padrão mais letal — ROAS consolidado esconde canibalização 1P vs 3P."</div></div>
+    <div class="board-card"><div class="board-role">Account</div><div class="board-name">Saúde</div><div class="board-text">"3 sinais: combinados sem execução, queda de avaliação sem plano, SLA de entrega desconhecido."</div></div>
+    <div class="board-card"><div class="board-role">Dados</div><div class="board-name">Diagnóstico</div><div class="board-text">"3 camadas de maturidade: Fundação, Análise, Antecipação. Quebra de rastreabilidade é o padrão."</div></div>
+    <div class="board-card"><div class="board-role">SEO</div><div class="board-name">Visibilidade</div><div class="board-text">"3 pilares: Descoberta, Extraibilidade, Autoridade. Operação invisível: existe mas não é descoberta."</div></div>
+    <div class="board-card"><div class="board-role">CRO</div><div class="board-name">Conversão</div><div class="board-text">"3 gargalos: paralisia decisória, fricção cognitiva, déficit de confiança. PDP é onde o GMV vaza."</div></div>
+    <div class="board-card"><div class="board-role">Mídia</div><div class="board-name">Aquisição</div><div class="board-text">"3 perguntas: menor CPA? Criativo fadigado? Frequência no limiar? YouTube Ads é subestimado."</div></div>
+    <div class="board-card"><div class="board-role">Growth</div><div class="board-name">Crescimento</div><div class="board-text">"3 alavancas: Aquisição, Monetização, Retenção. Vale da inércia: empurram aquisição e ignoram retenção."</div></div>
+    <div class="board-card"><div class="board-role">Marketing</div><div class="board-name">Posicionamento</div><div class="board-text">"3 perguntas: para quem existe (e não)? O que ninguém mais faz? Sentiriam falta? Operação-coringa."</div></div>
+    <div class="board-card"><div class="board-role">Automação</div><div class="board-name">Infraestrutura</div><div class="board-text">"3 camadas: Captura, Orquestração, Ativação. Tracking decorativo: coleta tudo, não faz nada."</div></div>
+    <div class="board-card" style="border-color:var(--gray2);background:var(--black4);">
+      <div class="board-role">Tese Central</div>
+      <div class="board-name">Consenso</div>
+      <div class="board-text">"A maior alavanca não está dentro do marketplace — está na integração entre D2C e operação 3P."</div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <img src="logo-v4-white.png" alt="Peretto&Co.">
+  <span>Pattern Detection — Gestão de Marketplace · Marcos Luciano · V4 Company</span>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
