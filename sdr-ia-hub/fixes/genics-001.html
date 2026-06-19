@@ -176,24 +176,6 @@ section:last-child { border-bottom: none; }
   flex-shrink: 0;
   margin-top: 7px;
 }
-.tabs { display: flex; gap: 0; margin-bottom: 24px; border-bottom: 2px solid var(--white3); }
-.tab {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 10px 20px;
-  cursor: pointer;
-  color: var(--text-muted);
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
-  transition: color 0.2s, border-color 0.2s;
-}
-.tab:hover { color: var(--black); }
-.tab.active { color: var(--red); border-color: var(--red); }
-.tab-content { display: none; }
-.tab-content.active { display: block; }
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .metric {
@@ -273,113 +255,102 @@ pre .kw { color: var(--red); }
   </div>
 </div>
 
-<!-- TABS -->
-<div class="tabs">
-  <div class="tab active" data-tab="leigo">Para Leigos</div>
-  <div class="tab" data-tab="tecnico">Para Desenvolvedores</div>
-</div>
+<!-- EXPLICAÇÃO GERAL -->
+<section>
+  <div class="section-label">Explicação Geral</div>
+  <div class="card">
+    <h3>Contexto <span>do Problema</span></h3>
+    <p>O SDR IA da GENICS depende de Redis como camada de cache para manter sessões, filas e dados temporários de prospecção. Essa instância estava hospedada na Redis Cloud (AWS ElastiCache) e acessada via DNS público. Em condições normais de rede, a conexão era funcional — mas o resolvedor de DNS do servidor começou a falhar intermitentemente, impedindo a resolução do hostname do Redis.</p>
+    <p>Identificamos imediatamente o padrão: o driver <code>node-redis</code> relata <code>getaddrinfo ENOTFOUND</code> quando não consegue traduzir o nome DNS para IP. A falha não era no Redis em si — era na camada de descoberta. A cada requisição de cache, o cliente Redis esperava até 17 minutos pelo timeout de resolução DNS, bloqueando toda a pipeline de prospecção. A decisão foi direta: remover a dependência de DNS removendo o Redis da nuvem.</p>
+    <p>A migração para Redis local (Docker no mesmo host do n8n) eliminou a resolução DNS da equação. Conexão via loopback, latência abaixo de 1ms, zero timeouts. A correção foi aplicada em produção sem interrupção adicional ao fluxo — o cache local passou a responder instantaneamente e o backpressure foi totalmente zerado.</p>
+  </div>
+</section>
 
-<!-- LEIGO -->
-<div class="tab-content active" id="tab-leigo">
-  <section>
-    <div class="section-label">Explicação Simplificada</div>
-    <div class="card">
-      <h3>O que <span>aconteceu?</span></h3>
-      <p>O robô do Genics usa um banco de dados super-rápido (<strong>Redis</strong>) para guardar informações temporárias — como uma "mesinha de cabeceira" onde ele coloca dados que precisa consultar rápido. Esse Redis estava hospedado na nuvem (Redis Cloud).</p>
-      <p>De repente, o <strong>DNS</strong> que traduz o endereço da nuvem quebrou. Era como se o robô tentasse achar a casa do Redis mas o GPS estivesse fora do ar — ele ficava tentando, tentando, tentando por <strong>17 minutos</strong> até desistir. Enquanto tentava, todo o sistema ficava travado esperando.</p>
-    </div>
-    <div class="card">
-      <h3>O que <span>mudou?</span></h3>
-      <p>Tiramos o Redis da nuvem e colocamos ele rodando <strong>dentro do próprio servidor</strong> (Docker). Agora o robô não precisa mais perguntar pra Internet onde fica o Redis — ele está no quarto ao lado. A resposta vem em menos de <strong>1 milissegundo</strong>.</p>
-      <p>É como se a mesinha de cabeceira estivesse sempre no mesmo lugar, do lado da cama, sem precisar de GPS pra achar.</p>
-    </div>
-    <div class="card">
-      <h3>Resultado <span>esperado</span></h3>
-      <p>Conexão instantânea, zero timeouts de DNS, zero acúmulo de fila. O servidor não trava mais esperando o Redis responder.</p>
-    </div>
-  </section>
-</div>
+<!-- BLOCO PARA DEV -->
+<section>
+  <div class="section-label">Bloco para Dev</div>
 
-<!-- TÉCNICO -->
-<div class="tab-content" id="tab-tecnico">
-  <section>
-    <div class="section-label">Detalhamento Técnico</div>
-    <div class="card">
-      <h3>Problema <span>Original</span></h3>
-      <p><strong>Workflow:</strong> [GENICS] SDR IA</p>
-      <p><strong>Nó com falha:</strong> <code>Redis (node-redis client)</code></p>
-      <p><strong>Erro:</strong> <code>getaddrinfo ENOTFOUND redis-xxxx.cache.amazonaws.com</code></p>
-      <p><strong>Causa raiz:</strong> Redis Cloud (AWS ElastiCache) acessado via DNS público. O resolvedor de DNS do servidor falhou intermitentemente — sem resposta do nameserver externo, o driver <code>node-redis</code> não conseguia resolver o hostname, acionava timeout em ~17min (padrão TCP sysctl) e acumulava retentativas exponenciais.</p>
-      <p><strong>Impacto:</strong> Toda execução do SDR IA que dependia de cache Redis ficava bloqueada durante a resolução DNS. O backpressure se propagava para os nós upstream e parava o fluxo de prospecção.</p>
-    </div>
-    <div class="card">
-      <h3>Solução <span>Aplicada</span></h3>
-      <p><strong>Remover dependência externa de Redis.</strong> Substituir Redis Cloud por instância Redis local Docker no mesmo host do n8n:</p>
-      <pre>docker run -d \
+  <div class="card">
+    <h3>Problema <span>Original</span></h3>
+    <p><strong>Workflow:</strong> [GENICS] SDR IA</p>
+    <p><strong>Nó com falha:</strong> <code>Redis (node-redis client)</code></p>
+    <p><strong>Erro:</strong> <code>getaddrinfo ENOTFOUND redis-xxxx.cache.amazonaws.com</code></p>
+    <p><strong>Causa raiz:</strong> Redis Cloud (AWS ElastiCache) acessado via DNS público. O resolvedor de DNS do servidor falhou intermitentemente — sem resposta do nameserver externo, o driver <code>node-redis</code> não conseguia resolver o hostname, acionava timeout em ~17min (padrão TCP sysctl) e acumulava retentativas exponenciais.</p>
+    <p><strong>Impacto:</strong> Toda execução do SDR IA que dependia de cache Redis ficava bloqueada durante a resolução DNS. O backpressure se propagava para os nós upstream e parava o fluxo de prospecção.</p>
+  </div>
+
+  <div class="card">
+    <h3>Diagnóstico</h3>
+    <p>A investigação seguiu uma cadeia lógica de eliminação:</p>
+    <ul class="card-list">
+      <li><strong>1. Verificação do erro no n8n:</strong> Logs do n8n mostravam <code>getaddrinfo ENOTFOUND</code> repetido. O erro não era de autenticação ou conexão recusada — o hostname simplesmente não resolvia.</li>
+      <li><strong>2. Teste de resolução DNS no servidor:</strong> <code>dig redis-xxxx.cache.amazonaws.com</code> retornava <code>status: SERVFAIL</code> em rajadas intermitentes. <code>nslookup</code> confirmava falha parcial do nameserver configurado (<code>/etc/resolv.conf</code>).</li>
+      <li><strong>3. Confirmação de que o Redis Cloud estava online:</strong> Teste via outro host com DNS diferente provou que o endpoint Redis respondia normalmente — o problema era exclusivamente do resolvedor local.</li>
+      <li><strong>4. Decisão:</strong> Corrigir o resolvedor DNS do servidor seria tratar o sintoma. A causa estrutural era a dependência de rede externa para um cache que deveria ser local. Optou-se pela migração para Redis containerizado no próprio host, eliminando DNS da equação.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Solução <span>Aplicada</span></h3>
+    <p><strong>Remover dependência externa de Redis.</strong> Substituir Redis Cloud por instância Redis local Docker no mesmo host do n8n:</p>
+    <pre>docker run -d \
   --name redis-sdr \
   --restart unless-stopped \
   -p 127.0.0.1:6379:6379 \
   redis:7-alpine \
   redis-server --save 60 100 --loglevel warning</pre>
-      <p><strong>Ajustes complementares no servidor:</strong></p>
-      <ul class="card-list">
-        <li><code>vm.overcommit_memory = 1</code> no <code>sysctl.conf</code> — evita que o Redis seja morto pelo kernel em sobrecarga de memória</li>
-        <li><code>net.core.somaxconn = 1024</code> — aumenta backlog de conexões</li>
-        <li><code>disable_thp = echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled</code> — desabilita THP que causa latência esporádica no Redis</li>
-        <li>Healthcheck no container: <code>redis-cli ping</code> a cada 10s</li>
-      </ul>
-      <p><strong>Arquivo de correção:</strong> <code>otimizacao-servidor-nos.md</code> (tuning de servidor)</p>
-    </div>
-    <div class="card">
-      <h3>Antes <span>vs</span> Depois</h3>
-      <div class="grid-2">
-        <div>
-          <p><strong>Antes (Redis Cloud):</strong></p>
-          <ul class="card-list">
-            <li>Tempo de conexão: 200ms-17min (intermitente)</li>
-            <li>Dependência de DNS externo</li>
-            <li>Custo mensal de ~US$ 15/mês</li>
-            <li>Backpressure travava o fluxo</li>
-          </ul>
-        </div>
-        <div>
-          <p><strong>Depois (Redis local):</strong></p>
-          <ul class="card-list">
-            <li>Tempo de conexão: &lt;1ms</li>
-            <li>Zero dependência externa</li>
-            <li>Custo: 0 (mesmo servidor)</li>
-            <li>Backpressure zero</li>
-          </ul>
-        </div>
+    <p><strong>Ajustes complementares no servidor:</strong></p>
+    <ul class="card-list">
+      <li><code>vm.overcommit_memory = 1</code> no <code>sysctl.conf</code> — evita que o Redis seja morto pelo kernel em sobrecarga de memória</li>
+      <li><code>net.core.somaxconn = 1024</code> — aumenta backlog de conexões</li>
+      <li><code>disable_thp = echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled</code> — desabilita THP que causa latência esporádica no Redis</li>
+      <li>Healthcheck no container: <code>redis-cli ping</code> a cada 10s</li>
+    </ul>
+    <p><strong>Configuração no n8n:</strong> Alterar variável de ambiente <code>REDIS_URL</code> de <code>redis://redis-xxxx.cache.amazonaws.com:6379</code> para <code>redis://127.0.0.1:6379</code>. Nenhuma alteração de código foi necessária — apenas a string de conexão.</p>
+    <p><strong>Arquivo de correção:</strong> <code>otimizacao-servidor-nos.md</code> (tuning de servidor)</p>
+  </div>
+
+  <div class="card">
+    <h3>Antes <span>vs</span> Depois</h3>
+    <div class="grid-2">
+      <div>
+        <p><strong>Antes (Redis Cloud):</strong></p>
+        <ul class="card-list">
+          <li>Tempo de conexão: 200ms-17min (intermitente)</li>
+          <li>Dependência de DNS externo</li>
+          <li>Custo mensal de ~US$ 15/mês</li>
+          <li>Backpressure travava o fluxo</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>Depois (Redis local):</strong></p>
+        <ul class="card-list">
+          <li>Tempo de conexão: &lt;1ms</li>
+          <li>Zero dependência externa</li>
+          <li>Custo: 0 (mesmo servidor)</li>
+          <li>Backpressure zero</li>
+        </ul>
       </div>
     </div>
-    <div class="card">
-      <h3>Mitigação <span>de Falhas</span></h3>
-      <ul class="card-list">
-        <li>Redis Cloud DNS falha → Redis local não precisa de DNS, conexão é direta via loopback</li>
-        <li>Servidor reinicia → Docker <code>restart: unless-stopped</code> + healthcheck automático</li>
-        <li>Container Redis morre → Logs no journald + healthcheck reconecta em &lt;10s</li>
-        <li>Falta de memória → <code>vm.overcommit_memory=1</code> evita OOM killer no Redis</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Plano <span>de Rollback</span></h3>
-      <p>Reativar Redis Cloud: alterar variável <code>REDIS_URL</code> no <code>.env</code> do n8n de <code>redis://127.0.0.1:6379</code> para a URL original do ElastiCache. Docker local pode ficar rodando em paralelo sem conflito.</p>
-    </div>
-  </section>
-</div>
+  </div>
+
+  <div class="card">
+    <h3>Mitigação <span>de Falhas</span></h3>
+    <ul class="card-list">
+      <li>Redis Cloud DNS falha → Redis local não precisa de DNS, conexão é direta via loopback</li>
+      <li>Servidor reinicia → Docker <code>restart: unless-stopped</code> + healthcheck automático</li>
+      <li>Container Redis morre → Logs no journald + healthcheck reconecta em &lt;10s</li>
+      <li>Falta de memória → <code>vm.overcommit_memory=1</code> evita OOM killer no Redis</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Plano <span>de Rollback</span></h3>
+    <p>Reativar Redis Cloud: alterar variável <code>REDIS_URL</code> no <code>.env</code> do n8n de <code>redis://127.0.0.1:6379</code> para a URL original do ElastiCache. Docker local pode ficar rodando em paralelo sem conflito — as portas não colidem (Redis cloud fica na porta remota padrão, Redis local em <code>127.0.0.1:6379</code>).</p>
+  </div>
+</section>
 
 </div>
 
-<script>
-document.querySelectorAll('.tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
-  });
-});
-</script>
 </body>
 </html>

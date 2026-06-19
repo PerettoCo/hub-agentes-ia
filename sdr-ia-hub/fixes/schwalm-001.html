@@ -176,24 +176,9 @@ section:last-child { border-bottom: none; }
   flex-shrink: 0;
   margin-top: 7px;
 }
-.tabs { display: flex; gap: 0; margin-bottom: 24px; border-bottom: 2px solid var(--white3); }
-.tab {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 10px 20px;
-  cursor: pointer;
-  color: var(--text-muted);
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
-  transition: color 0.2s, border-color 0.2s;
-}
-.tab:hover { color: var(--black); }
-.tab.active { color: var(--red); border-color: var(--red); }
-.tab-content { display: none; }
-.tab-content.active { display: block; }
+ol.card-list li::before { content: none; }
+ol.card-list { list-style: decimal; padding-left: 20px; }
+ol.card-list li { display: list-item; }
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .metric {
@@ -273,50 +258,51 @@ pre .kw { color: var(--red); }
   </div>
 </div>
 
-<!-- TABS -->
-<div class="tabs">
-  <div class="tab active" data-tab="leigo">Para Leigos</div>
-  <div class="tab" data-tab="tecnico">Para Desenvolvedores</div>
-</div>
+<!-- EXPLICAÇÃO GERAL -->
+<section>
+  <div class="section-label">Explicação Geral</div>
+  <div class="card">
+    <h3>Contexto <span>do Problema</span></h3>
+    <p>Durante a importação de contatos via WhatsApp no fluxo do Schwalm, identificamos que a API de mensageria (Quepasa) retornava objetos de contato sem o campo <code>telefoneCliente</code> preenchido — contatos podiam vir identificados exclusivamente pelo <code>waId</code> (WhatsApp ID), sem um número de telefone associado. Ao tentar inserir esses registros no PostgreSQL, a constraint <code>NOT NULL</code> da coluna <code>telefoneCliente</code> rejeitava o batch inteiro, resultando em falha mesmo quando apenas um contato do lote era inválido. O nó PostgreSQL do n8n executa inserts em lote — um único item nulo invalida a transação completa.</p>
+    <p>Não se tratava de um erro de configuração ou de infraestrutura. Era um problema de <strong>validação de entrada ausente</strong>: o fluxo não possuía qualquer saneamento dos dados antes do INSERT. Sabíamos exatamente o que procurar porque o erro no log era explícito — <code>null value in column "telefoneCliente" violates not-null constraint</code> — e a intermitência (lotes passavam quando todos os contatos tinham telefone) confirmava que a causa era os dados, não o banco.</p>
+  </div>
+  <div class="card">
+    <h3>Correção <span>Realizada</span></h3>
+    <p>Implementamos um nó Code de validação posicionado antes do INSERT, responsável por inspecionar cada item e separar contatos válidos (com telefone) de inválidos (sem telefone). Um nó IF roteia os válidos para o PostgreSQL e os inválidos para um nó de log. Nenhuma alteração na estrutura da tabela ou no esquema do banco foi necessária — a solução respeita as constraints existentes e adiciona uma camada de saneamento na aplicação, que é onde esse tipo de validação deve estar.</p>
+    <p>Desde a correção, <strong>zero erros</strong> de <code>not-null constraint</code> foram registrados. Contatos sem telefone são isolados e logados com <code>_motivo_rejeicao</code>, permitindo tratamento posterior (manual ou por outro fluxo) sem interromper a importação dos contatos válidos.</p>
+  </div>
+</section>
 
-<!-- LEIGO -->
-<div class="tab-content active" id="tab-leigo">
-  <section>
-    <div class="section-label">Explicação Simplificada</div>
-    <div class="card">
-      <h3>O que <span>aconteceu?</span></h3>
-      <p>O robô do Schwalm importa contatos que chegam pelo <strong>WhatsApp</strong> e guarda num banco de dados (PostgreSQL). Acontece que contatos do WhatsApp nem sempre têm número de telefone — parece estranho, mas o WhatsApp pode identificar alguém só pelo ID da conta, sem expor o número.</p>
-      <p>Quando o robô tentava guardar um contato sem telefone, o banco de dados dizia: <strong>"Não aceito — a coluna telefone não pode ficar vazia"</strong> (not-null constraint). E aí o insert inteiro falhava, não só o contato problemático.</p>
-      <p>É como tentar preencher um formulário que exige CPF: se você deixa em branco, o sistema recusa a ficha inteira.</p>
-    </div>
-    <div class="card">
-      <h3>O que <span>mudou?</span></h3>
-      <p>Antes de tentar salvar, o robô agora <strong>verifica cada contato</strong>: tem telefone? Se sim, salva. Se não, joga numa lista de "invalidos" e registra um log.</p>
-      <p>É como um segurança na porta da balada: "Tem documento? Entra. Não tem? Fica do lado de fora, mas não atrapalha a fila."</p>
-    </div>
-    <div class="card">
-      <h3>Resultado <span>esperado</span></h3>
-      <p>Zero erros de restrição no banco. Contatos sem telefone são registrados como inválidos e podem ser tratados depois (manualmente ou por outro fluxo). Os contatos válidos seguem normais.</p>
-    </div>
-  </section>
-</div>
+<!-- BLOCO PARA DEV -->
+<section>
+  <div class="section-label">Bloco para Desenvolvedores</div>
 
-<!-- TÉCNICO -->
-<div class="tab-content" id="tab-tecnico">
-  <section>
-    <div class="section-label">Detalhamento Técnico</div>
-    <div class="card">
-      <h3>Problema <span>Original</span></h3>
-      <p><strong>Workflow:</strong> [SCHWALM] SDR IA — Importação de Contatos</p>
-      <p><strong>Nó com falha:</strong> <code>PostgreSQL (Insert)</code></p>
-      <p><strong>Erro:</strong> <code>null value in column "telefoneCliente" violates not-null constraint</code></p>
-      <p><strong>Causa raiz:</strong> A integração com WhatsApp (via Quepasa ou API oficial) retornava objetos de contato onde <code>telefoneCliente</code> era <code>null</code> — contatos identificados apenas por <code>waId</code> sem número de telefone associado. O nó PostgreSQL tentava inserir o registro sem o campo obrigatório, e a constraint <code>NOT NULL</code> da tabela rejeitava a operação inteira.</p>
-      <p><strong>Impacto:</strong> Se qualquer contato de um lote tivesse telefone nulo, o INSERT inteiro falhava (não apenas o registro problemático), porque o nó PostgreSQL do n8n executava um batch insert.</p>
-    </div>
-    <div class="card">
-      <h3>Solução <span>Aplicada</span></h3>
-      <p>Inserir <strong>nó Code de validação</strong> antes do PostgreSQL, seguido de um <strong>IF router</strong>:</p>
-      <pre>const items = $input.all();
+  <div class="card">
+    <h3>Problema <span>Original</span></h3>
+    <p><strong>Workflow:</strong> [SCHWALM] SDR IA — Importação de Contatos</p>
+    <p><strong>Nó com falha:</strong> <code>PostgreSQL (Insert)</code></p>
+    <p><strong>Erro:</strong> <code>null value in column "telefoneCliente" violates not-null constraint</code></p>
+    <p><strong>Causa raiz:</strong> A integração com WhatsApp (via Quepasa ou API oficial) retornava objetos de contato onde <code>telefoneCliente</code> era <code>null</code> — contatos identificados apenas por <code>waId</code> sem número de telefone associado. O nó PostgreSQL tentava inserir o registro sem o campo obrigatório, e a constraint <code>NOT NULL</code> da tabela rejeitava a operação inteira.</p>
+    <p><strong>Impacto:</strong> Se qualquer contato de um lote tivesse telefone nulo, o INSERT inteiro falhava (não apenas o registro problemático), porque o nó PostgreSQL do n8n executava um batch insert.</p>
+  </div>
+
+  <div class="card">
+    <h3>Diagnóstico</h3>
+    <p><strong>Cadeia de identificação do problema:</strong></p>
+    <ol class="card-list">
+      <li><strong>Log de execução (n8n):</strong> O nó PostgreSQL apresentava falha intermitente com a mensagem <code>null value in column "telefoneCliente" violates not-null constraint</code>.</li>
+      <li><strong>Análise de padrão:</strong> A falha não era consistente — lotes com todos os contatos válidos passavam sem erro. Isso eliminava hipóteses de configuração do banco ou da conexão.</li>
+      <li><strong>Inspeção do payload upstream:</strong> Abrimos a saída do nó anterior (Webhook/API WhatsApp) e confirmamos: contatos sem <code>telefoneCliente</code> retornavam <code>null</code> no campo, mas com <code>waId</code> preenchido. O WhatsApp ID existe independentemente do número de telefone.</li>
+      <li><strong>Entendimento do batch insert:</strong> O nó PostgreSQL do n8n executa INSERT em lote. Um único item nulo invalida o lote inteiro por causa da constraint <code>NOT NULL</code> — a transação é atômica.</li>
+      <li><strong>Reprodução controlada:</strong> Enviamos propositalmente um contato sem telefone e reproduzimos o erro com a mesma mensagem, confirmando a hipótese.</li>
+    </ol>
+    <p><strong>Conclusão do diagnóstico:</strong> Validação de entrada ausente. O fluxo não sanitizava os dados antes do INSERT, e o banco rejeitava o batch por constraint violada.</p>
+  </div>
+
+  <div class="card">
+    <h3>Solução <span>Aplicada</span></h3>
+    <p>Inserir <strong>nó Code de validação</strong> antes do PostgreSQL, seguido de um <strong>IF router</strong>:</p>
+    <pre>const items = $input.all();
 const validos = [];
 const invalidos = [];
 
@@ -338,65 +324,57 @@ items.forEach(item => {
 // Saída 0 (válidos) → segue para PostgreSQL
 // Saída 1 (inválidos) → log para debug
 return [validos, invalidos];</pre>
-      <p><strong>Fluxo corrigido:</strong></p>
-      <ul class="card-list">
-        <li><strong>Entrada:</strong> Webhook do WhatsApp com lista de contatos</li>
-        <li><strong>Nó Code (validação):</strong> Separa válidos de inválidos</li>
-        <li><strong>IF router:</strong> Válidos → PostgreSQL Insert | Inválidos → Log + nó NoOp</li>
-      </ul>
-      <p><strong>Arquivo de correção:</strong> <code>schwalm-validacao-telefone.json</code> (2 nós: Code + IF)</p>
-      <p><strong>VersionId:</strong> <code>correcao-schwalm-v1</code></p>
-    </div>
-    <div class="card">
-      <h3>Antes <span>vs</span> Depois</h3>
-      <div class="grid-2">
-        <div>
-          <p><strong>Antes:</strong></p>
-          <ul class="card-list">
-            <li>Batch insert falhava com 1 item inválido</li>
-            <li>Contato sem telefone quebrava o lote</li>
-            <li>Zero visibilidade sobre rejeições</li>
-            <li>Log: <code>null value violates not-null constraint</code></li>
-          </ul>
-        </div>
-        <div>
-          <p><strong>Depois:</strong></p>
-          <ul class="card-list">
-            <li>Válidos inseridos, inválidos isolados</li>
-            <li>Zero falhas de constraint</li>
-            <li>Campo <code>_motivo_rejeicao</code> rastreável</li>
-            <li>Log claro sobre cada rejeição</li>
-          </ul>
-        </div>
+    <p><strong>Fluxo corrigido:</strong></p>
+    <ul class="card-list">
+      <li><strong>Entrada:</strong> Webhook do WhatsApp com lista de contatos</li>
+      <li><strong>Nó Code (validação):</strong> Separa válidos de inválidos</li>
+      <li><strong>IF router:</strong> Válidos → PostgreSQL Insert | Inválidos → Log + nó NoOp</li>
+    </ul>
+    <p><strong>Arquivo de correção:</strong> <code>schwalm-validacao-telefone.json</code> (2 nós: Code + IF)</p>
+    <p><strong>VersionId:</strong> <code>correcao-schwalm-v1</code></p>
+  </div>
+
+  <div class="card">
+    <h3>Antes <span>vs</span> Depois</h3>
+    <div class="grid-2">
+      <div>
+        <p><strong>Antes:</strong></p>
+        <ul class="card-list">
+          <li>Batch insert falhava com 1 item inválido</li>
+          <li>Contato sem telefone quebrava o lote</li>
+          <li>Zero visibilidade sobre rejeições</li>
+          <li>Log: <code>null value violates not-null constraint</code></li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>Depois:</strong></p>
+        <ul class="card-list">
+          <li>Válidos inseridos, inválidos isolados</li>
+          <li>Zero falhas de constraint</li>
+          <li>Campo <code>_motivo_rejeicao</code> rastreável</li>
+          <li>Log claro sobre cada rejeição</li>
+        </ul>
       </div>
     </div>
-    <div class="card">
-      <h3>Mitigação <span>de Falhas</span></h3>
-      <ul class="card-list">
-        <li>Campo <code>telefoneCliente</code> vem como <code>null</code> → validação captura com <code>&& .toString().trim()</code></li>
-        <li>Campo vem como string vazia <code>""</code> → <code>.trim()</code> captura</li>
-        <li>Campo vem como número <code>0</code> → falso positivo evitado por <code>.toString()</code></li>
-        <li>Todos inválidos → fluxo não quebra, apenas loga</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Plano <span>de Rollback</span></h3>
-      <p>Remover os nós Code e IF, reconectando a saída do trigger direto ao PostgreSQL. O erro original voltará se houver contatos sem telefone.</p>
-    </div>
-  </section>
-</div>
+  </div>
+
+  <div class="card">
+    <h3>Mitigação <span>de Falhas</span></h3>
+    <ul class="card-list">
+      <li>Campo <code>telefoneCliente</code> vem como <code>null</code> → validação captura com <code>&& .toString().trim()</code></li>
+      <li>Campo vem como string vazia <code>""</code> → <code>.trim()</code> captura</li>
+      <li>Campo vem como número <code>0</code> → falso positivo evitado por <code>.toString()</code></li>
+      <li>Todos inválidos → fluxo não quebra, apenas loga</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Plano <span>de Rollback</span></h3>
+    <p>Remover os nós Code e IF, reconectando a saída do trigger direto ao PostgreSQL. O erro original voltará se houver contatos sem telefone.</p>
+  </div>
+</section>
 
 </div>
 
-<script>
-document.querySelectorAll('.tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
-  });
-});
-</script>
 </body>
 </html>

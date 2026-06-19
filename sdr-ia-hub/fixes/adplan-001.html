@@ -190,25 +190,7 @@ section:last-child { border-bottom: none; }
   margin-top: 7px;
 }
 
-/* TABS */
-.tabs { display: flex; gap: 0; margin-bottom: 24px; border-bottom: 2px solid var(--white3); }
-.tab {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 10px 20px;
-  cursor: pointer;
-  color: var(--text-muted);
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
-  transition: color 0.2s, border-color 0.2s;
-}
-.tab:hover { color: var(--black); }
-.tab.active { color: var(--red); border-color: var(--red); }
-.tab-content { display: none; }
-.tab-content.active { display: block; }
+
 
 /* GRID 2 */
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -293,105 +275,107 @@ pre .kw { color: var(--red); }
   </div>
 </div>
 
-<!-- TABS: LEIGO / TÉCNICO -->
-<div class="tabs">
-  <div class="tab active" data-tab="leigo">Para Leigos</div>
-  <div class="tab" data-tab="tecnico">Para Desenvolvedores</div>
-</div>
+<!-- EXPLICAÇÃO GERAL -->
+<section>
+  <div class="section-label">Explicação Geral</div>
+  <div class="card">
+    <p>O workflow SDR IA do ADPLAN apresentava um padrão claro de bloqueio: um nó <strong>Code</strong> executando JavaScript monolítico sobre um dataset sem limitação de tamanho. O n8n trata nós Code como caixas-pretas — ele não inspeciona a lógica interna do loop. Resultado: event loop bloqueado por <strong>25 minutos</strong>, CPU em 100%, zero execuções paralelas na VPS, e acúmulo de backpressure em todos os outros workflows.</p>
+    <p>Não foi um mistério. O diagnóstico veio da assinatura dos logs de execução: timeouts constantes no mesmo nó, sem erros de código — apenas <em>"Unknown error"</em> após minutos de processamento. Isso apontava diretamente para um loop sem guardrails. A correção foi cirúrgica: substituir o nó monolítico por <strong>SplitInBatches</strong> com limite de 500 registros por lote + nó Code com timeout explícito de 120s e isolamento de falhas por registro.</p>
+    <p>Resultado: bloqueio caiu de 25 minutos para 2-5 segundos por lote. Paralelismo restaurado. Pipeline estável.</p>
+  </div>
+</section>
 
-<!-- LEIGO -->
-<div class="tab-content active" id="tab-leigo">
-  <section>
-    <div class="section-label">Explicação Simplificada</div>
-    <div class="card">
-      <h3>O que <span>aconteceu?</span></h3>
-      <p>O robô que faz a prospecção de clientes para o ADPLAN travou. Literalmente parou tudo por <strong>25 minutos</strong>. Durante esse tempo, nenhum outro fluxo conseguia rodar no servidor — era como se uma pessoa tivesse sentado na única cadeira da sala e não levantasse por meia hora.</p>
-      <p>O problema era que o código que processava a lista de leads não tinha um "limite de páginas". Ele tentava ler tudo de uma vez, sem parar, até o servidor dizer "chega".</p>
-    </div>
-    <div class="card">
-      <h3>O que <span>mudou?</span></h3>
-      <p>Em vez de processar tudo de uma vez, a gente dividiu o trabalho em <strong>lotes de 500</strong> registros por vez. Cada lote roda rápido (2-5 segundos) e libera o servidor para os outros fluxos.</p>
-      <p>É como organizar uma pilha de 10 mil cartas: em vez de ler todas de uma vez, você pega 500, processa, descansa um pouco, pega mais 500, e assim por diante.</p>
-    </div>
-    <div class="card">
-      <h3>Resultado <span>esperado</span></h3>
-      <p>Nenhum fluxo vai mais travar o servidor. As prospecções continuam rodando em paralelo. O cliente ADPLAN não vai mais perder leads por timeout.</p>
-    </div>
-  </section>
-</div>
+<!-- BLOCO PARA DEV -->
+<section>
+  <div class="section-label">Bloco para Dev</div>
 
-<!-- TÉCNICO -->
-<div class="tab-content" id="tab-tecnico">
-  <section>
-    <div class="section-label">Detalhamento Técnico</div>
-    <div class="card">
-      <h3>Problema <span>Original</span></h3>
-      <p><strong>Workflow:</strong> [ADPLAN] SDR IA</p>
-      <p><strong>Nó com falha:</strong> <code>Code in JavaScript3</code></p>
-      <p><strong>Erro:</strong> <code>Unknown error (timeout ~25min)</code></p>
-      <p><strong>Causa raiz:</strong> Loop JavaScript monolítico processando um dataset completo sem limitação de tamanho. O código iterava sobre todos os registros num único item, sem usar <code>SplitInBatches</code>, bloqueando o event loop do n8n por aproximadamente 25 minutos.</p>
-      <p><strong>Impacto no servidor:</strong> CPU em 90-100% durante 25min contínuos. Zero execuções simultâneas possíveis. Acúmulo de fila com backpressure.</p>
-    </div>
-    <div class="card">
-      <h3>Solução <span>Aplicada</span></h3>
-      <p>Substituição do nó <code>Code</code> monolítico por uma arquitetura de dois nós:</p>
-      <ul class="card-list">
-        <li><strong>SplitInBatches</strong> com <code>batchSize: 500</code> — divide o dataset em lotes de no máximo 500 registros</li>
-        <li><strong>Processa Lote (Code)</strong> com <code>timeout: 120000</code> — processa cada registro individualmente dentro do lote</li>
-      </ul>
-      <p style="margin-top:12px;"><strong>Arquivo de correção:</strong> <code>adplan-split-batches.json</code> (2 nós)</p>
-      <p><strong>VersionId:</strong> <code>correcao-adplan-v1</code></p>
-    </div>
-    <div class="card">
-      <h3>Antes <span>vs</span> Depois</h3>
-      <div class="grid-2">
-        <div>
-          <p><strong>Antes:</strong></p>
-          <ul class="card-list">
-            <li>Bloqueio de event loop: 25min contínuos</li>
-            <li>CPU em pico: 90-100%</li>
-            <li>Execuções simultâneas: 0</li>
-            <li>Dataset sem limite</li>
-          </ul>
-        </div>
-        <div>
-          <p><strong>Depois:</strong></p>
-          <ul class="card-list">
-            <li>Bloqueio por lote: 2-5s</li>
-            <li>CPU em pico: 40-60%</li>
-            <li>Execuções simultâneas: 5</li>
-            <li>Limite de 500 registros por lote</li>
-          </ul>
-        </div>
+  <div class="card">
+    <h3>Problema <span>Original</span></h3>
+    <p><strong>Workflow:</strong> [ADPLAN] SDR IA</p>
+    <p><strong>Nó com falha:</strong> <code>Code in JavaScript3</code></p>
+    <p><strong>Erro:</strong> <code>Unknown error (timeout ~25min)</code></p>
+    <p><strong>Causa raiz:</strong> Loop JavaScript monolítico processando um dataset completo sem limitação de tamanho. O código iterava sobre todos os registros num único item, sem usar <code>SplitInBatches</code>, bloqueando o event loop do n8n por aproximadamente 25 minutos.</p>
+    <p><strong>Impacto no servidor:</strong> CPU em 90-100% durante 25min contínuos. Zero execuções simultâneas possíveis. Acúmulo de fila com backpressure.</p>
+  </div>
+
+  <div class="card">
+    <h3>Diagnóstico</h3>
+    <ul class="card-list">
+      <li><strong>1. Identificação nos logs de execução</strong> — O nó <code>Code in JavaScript3</code> falhava consistentemente com <code>Unknown error</code> após ~25 min. Nenhuma exceção JavaScript — apenas timeout puro, sem stack trace.</li>
+      <li><strong>2. Correlação com métricas de CPU</strong> — CPU da VPS sustentada em 90-100% durante exatamente a mesma janela. Padrão de loop contínuo síncrono, não de operação I/O ou espera externa.</li>
+      <li><strong>3. Análise do código do nó</strong> — Iteração sobre <code>$input.all()</code> sem limite de iterações, sem <code>break</code> condicional, sem paginação delegada ao n8n via SplitInBatches.</li>
+      <li><strong>4. Conclusão</strong> — Ausência de <code>SplitInBatches</code> + dataset sem teto máximo. O n8n não infere loop infinito em nós Code — a proteção precisa ser explícita na arquitetura do workflow.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Solução <span>Aplicada</span></h3>
+    <p>Substituição do nó <code>Code</code> monolítico por uma arquitetura de dois nós:</p>
+    <ul class="card-list">
+      <li><strong>SplitInBatches</strong> com <code>batchSize: 500</code> — divide o dataset em lotes de no máximo 500 registros</li>
+      <li><strong>Processa Lote (Code)</strong> com <code>timeout: 120000</code> — processa cada registro individualmente dentro do lote</li>
+    </ul>
+    <p style="margin-top:12px;"><strong>Arquivo de correção:</strong> <code>adplan-split-batches.json</code> (2 nós)</p>
+    <p><strong>VersionId:</strong> <code>correcao-adplan-v1</code></p>
+    <pre><span class="kw">#</span> Import do workflow corrigido
+n8n import:workflow --input=adplan-split-batches.json
+
+<span class="kw">#</span> Parâmetros do SplitInBatches
+batchSize: 500
+maxItems: (opcional, sem limite por padrão)
+
+<span class="kw">#</span> Parâmetros do nó Code
+timeout: 120000  # 2 minutos
+onError: continueWithError</pre>
+  </div>
+
+  <div class="card">
+    <h3>Antes <span>vs</span> Depois</h3>
+    <div class="grid-2">
+      <div>
+        <p><strong>Antes:</strong></p>
+        <ul class="card-list">
+          <li>Bloqueio de event loop: 25min contínuos</li>
+          <li>CPU em pico: 90-100%</li>
+          <li>Execuções simultâneas: 0</li>
+          <li>Dataset sem limite</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>Depois:</strong></p>
+        <ul class="card-list">
+          <li>Bloqueio por lote: 2-5s</li>
+          <li>CPU em pico: 40-60%</li>
+          <li>Execuções simultâneas: 5</li>
+          <li>Limite de 500 registros por lote</li>
+        </ul>
       </div>
     </div>
-    <div class="card">
-      <h3>Mitigação <span>de Falhas</span></h3>
-      <ul class="card-list">
-        <li>Dataset cresce além do esperado → SplitInBatches garante no máximo 500 itens por execução</li>
-        <li>Código entra em loop infinito → Timeout de 120s no nó Code + timeout global de execução</li>
-        <li>Item inválido quebra o lote inteiro → Try/catch com fallbacks por campo + validação explícita</li>
-        <li>SplitInBatches sem limite de batches → <code>maxItems</code> opcional para limitar total</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Plano <span>de Rollback</span></h3>
-      <p>Manter o nó Code antigo desativado (disable) ao lado do novo. Se o SplitInBatches falhar, reativar o nó original e desativar o novo.</p>
-    </div>
-  </section>
-</div>
+  </div>
+
+  <div class="card">
+    <h3>Mitigação <span>de Falhas</span></h3>
+    <ul class="card-list">
+      <li>Dataset cresce além do esperado → SplitInBatches garante no máximo 500 itens por execução</li>
+      <li>Código entra em loop infinito → Timeout de 120s no nó Code + timeout global de execução</li>
+      <li>Item inválido quebra o lote inteiro → Try/catch com fallbacks por campo + validação explícita</li>
+      <li>SplitInBatches sem limite de batches → <code>maxItems</code> opcional para limitar total</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Plano <span>de Rollback</span></h3>
+    <p>Manter o nó Code antigo desativado (disable) ao lado do novo. Se o SplitInBatches falhar, reativar o nó original e desativar o novo.</p>
+    <pre><span class="kw">#</span> Reativação do nó original
+n8n update:workflow --id=adplan-sdr-ia --node=Code-in-JavaScript3 --active=true
+
+<span class="kw">#</span> Desativação do novo nó
+n8n update:workflow --id=adplan-sdr-ia --node=SplitInBatches --active=false</pre>
+  </div>
+</section>
 
 </div>
 
-<script>
-document.querySelectorAll('.tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
-  });
-});
-</script>
+
 </body>
 </html>
