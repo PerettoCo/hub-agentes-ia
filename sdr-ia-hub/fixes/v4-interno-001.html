@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ADPLAN · Correção de Fluxo · SDR IA Hub</title>
+<title>V4 INTERNO · Ekyte 404 · SDR IA Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -34,8 +34,6 @@ body {
   line-height: 1.6;
 }
 .page { max-width: 960px; margin: 0 auto; padding: 0 24px 60px; }
-
-/* TOPBAR */
 .topbar {
   background: var(--red);
   padding: 10px 24px;
@@ -51,8 +49,6 @@ body {
 }
 .topbar a { color: var(--white); text-decoration: none; opacity: 0.7; transition: opacity 0.2s; }
 .topbar a:hover { opacity: 1; }
-
-/* HEADER */
 header {
   background: var(--white);
   border-bottom: 1px solid var(--white3);
@@ -79,11 +75,7 @@ header .back {
   text-decoration: none;
 }
 header .back:hover { text-decoration: underline; }
-
-/* HERO */
-.hero {
-  padding: 48px 0 32px;
-}
+.hero { padding: 48px 0 32px; }
 .hero .tag {
   display: inline-block;
   font-family: 'Barlow Condensed', sans-serif;
@@ -114,8 +106,6 @@ header .back:hover { text-decoration: underline; }
   font-weight: 300;
   line-height: 1.6;
 }
-
-/* SECTION */
 section { padding: 32px 0; border-bottom: 1px solid var(--white3); }
 section:last-child { border-bottom: none; }
 .section-label {
@@ -146,8 +136,6 @@ section:last-child { border-bottom: none; }
   text-transform: uppercase;
   margin-bottom: 12px;
 }
-
-/* CARD */
 .card {
   background: var(--white);
   border: 1px solid var(--white3);
@@ -168,7 +156,6 @@ section:last-child { border-bottom: none; }
 .card p { margin-bottom: 10px; }
 .card p:last-child { margin-bottom: 0; }
 .card strong { color: var(--black); font-weight: 600; }
-
 .card-list { list-style: none; }
 .card-list li {
   padding: 8px 0;
@@ -189,8 +176,6 @@ section:last-child { border-bottom: none; }
   flex-shrink: 0;
   margin-top: 7px;
 }
-
-/* TABS */
 .tabs { display: flex; gap: 0; margin-bottom: 24px; border-bottom: 2px solid var(--white3); }
 .tab {
   font-family: 'Barlow Condensed', sans-serif;
@@ -209,11 +194,8 @@ section:last-child { border-bottom: none; }
 .tab.active { color: var(--red); border-color: var(--red); }
 .tab-content { display: none; }
 .tab-content.active { display: block; }
-
-/* GRID 2 */
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-
 .metric {
   background: var(--white);
   border: 1px solid var(--white3);
@@ -230,7 +212,6 @@ section:last-child { border-bottom: none; }
 .metric-num.red { color: var(--red); }
 .metric-num.green { color: #166534; }
 .metric-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
-
 code {
   background: var(--white3);
   padding: 2px 6px;
@@ -249,7 +230,6 @@ pre {
   letter-spacing: 0.03em;
 }
 pre .kw { color: var(--red); }
-
 @media (max-width: 768px) {
   .grid-2, .grid-3 { grid-template-columns: 1fr; }
   .page { padding: 0 16px 40px; }
@@ -260,7 +240,7 @@ pre .kw { color: var(--red); }
 
 <div class="topbar">
   <a href="../sdr-ia-hub.html">← SDR IA Hub</a>
-  <span>Report · ADPLAN</span>
+  <span>Report · V4 INTERNO</span>
 </div>
 
 <header>
@@ -272,28 +252,28 @@ pre .kw { color: var(--red); }
 
 <!-- HERO -->
 <div class="hero">
-  <div class="tag">Correção de Fluxo · 18/06/2026</div>
-  <h2>ADPLAN · <span>JS Timeout</span></h2>
-  <p>Workflow SDR IA do cliente ADPLAN travava por 25 minutos num loop JavaScript sem limite, bloqueando o event loop do n8n e parando todas as execuções paralelas da VPS.</p>
+  <div class="tag">Tratamento de Erros · 18/06/2026</div>
+  <h2>V4 INTERNO · <span>Ekyte 404</span></h2>
+  <p>O workflow SDR IA tentava acessar boards e projetos no Ekyte com IDs inválidos ou desatualizados, recebendo <code>Resource not found (404)</code>. Um nó Code de validação com mapa de boards válidos + IF router filtra requisições antes de enviar.</p>
 </div>
 
 <!-- METRICS -->
 <div class="grid-3">
   <div class="metric">
-    <div class="metric-num red">25min</div>
-    <div class="metric-label">Tempo de bloqueio</div>
+    <div class="metric-num red">404</div>
+    <div class="metric-label">Erro por execução em lote</div>
   </div>
   <div class="metric">
-    <div class="metric-num green">2-5s</div>
+    <div class="metric-num green">0</div>
     <div class="metric-label">Depois da correção</div>
   </div>
   <div class="metric">
-    <div class="metric-num">500</div>
-    <div class="metric-label">Registros por lote</div>
+    <div class="metric-num">12</div>
+    <div class="metric-label">Boards válidos mapeados</div>
   </div>
 </div>
 
-<!-- TABS: LEIGO / TÉCNICO -->
+<!-- TABS -->
 <div class="tabs">
   <div class="tab active" data-tab="leigo">Para Leigos</div>
   <div class="tab" data-tab="tecnico">Para Desenvolvedores</div>
@@ -305,17 +285,19 @@ pre .kw { color: var(--red); }
     <div class="section-label">Explicação Simplificada</div>
     <div class="card">
       <h3>O que <span>aconteceu?</span></h3>
-      <p>O robô que faz a prospecção de clientes para o ADPLAN travou. Literalmente parou tudo por <strong>25 minutos</strong>. Durante esse tempo, nenhum outro fluxo conseguia rodar no servidor — era como se uma pessoa tivesse sentado na única cadeira da sala e não levantasse por meia hora.</p>
-      <p>O problema era que o código que processava a lista de leads não tinha um "limite de páginas". Ele tentava ler tudo de uma vez, sem parar, até o servidor dizer "chega".</p>
+      <p>O robô interno da V4 (V4 INTERNO) conversa com o <strong>Ekyte</strong>, que é uma ferramenta de gestão de projetos. Ele precisava buscar dados de boards (quadros) e projetos específicos.</p>
+      <p>O problema é que alguns IDs de boards que o robô estava usando eram <strong>antigos ou errados</strong> — como se você tivesse o endereço de uma loja que mudou de lugar. O Ekyte respondia "não encontrei isso aqui" (erro 404), e o robô não sabia lidar com essa resposta — ele simplesmente parava.</p>
+      <p>Isso acontecia em lote: quando um board dava 404, o processamento daquele lote inteiro ia pro espaço.</p>
     </div>
     <div class="card">
       <h3>O que <span>mudou?</span></h3>
-      <p>Em vez de processar tudo de uma vez, a gente dividiu o trabalho em <strong>lotes de 500</strong> registros por vez. Cada lote roda rápido (2-5 segundos) e libera o servidor para os outros fluxos.</p>
-      <p>É como organizar uma pilha de 10 mil cartas: em vez de ler todas de uma vez, você pega 500, processa, descansa um pouco, pega mais 500, e assim por diante.</p>
+      <p>Criamos uma "lista de endereços certos" (mapa de boards válidos) e colocamos um porteiro na porta: antes de perguntar algo ao Ekyte, o robô confere se aquele board existe na lista.</p>
+      <p>Se o board é válido, a requisição segue. Se não, o robô registra o erro e pula para o próximo — sem travar o lote inteiro.</p>
+      <p>É como ter uma agenda de telefones atualizada: antes de ligar, você confere se o número existe. Se não existe, não liga e já sabe que aquele contato está desatualizado.</p>
     </div>
     <div class="card">
       <h3>Resultado <span>esperado</span></h3>
-      <p>Nenhum fluxo vai mais travar o servidor. As prospecções continuam rodando em paralelo. O cliente ADPLAN não vai mais perder leads por timeout.</p>
+      <p>Zero erros 404 no Ekyte. Boards inválidos são registrados e ignorados. O processamento em lote nunca mais trava por causa de um ID errado.</p>
     </div>
   </section>
 </div>
@@ -326,21 +308,53 @@ pre .kw { color: var(--red); }
     <div class="section-label">Detalhamento Técnico</div>
     <div class="card">
       <h3>Problema <span>Original</span></h3>
-      <p><strong>Workflow:</strong> [ADPLAN] SDR IA</p>
-      <p><strong>Nó com falha:</strong> <code>Code in JavaScript3</code></p>
-      <p><strong>Erro:</strong> <code>Unknown error (timeout ~25min)</code></p>
-      <p><strong>Causa raiz:</strong> Loop JavaScript monolítico processando um dataset completo sem limitação de tamanho. O código iterava sobre todos os registros num único item, sem usar <code>SplitInBatches</code>, bloqueando o event loop do n8n por aproximadamente 25 minutos.</p>
-      <p><strong>Impacto no servidor:</strong> CPU em 90-100% durante 25min contínuos. Zero execuções simultâneas possíveis. Acúmulo de fila com backpressure.</p>
+      <p><strong>Workflow:</strong> [V4 INTERNO] SDR IA — Gestão de Projetos</p>
+      <p><strong>Nó com falha:</strong> <code>HTTP Request (Ekyte API — GET /board/{id})</code></p>
+      <p><strong>Erro:</strong> <code>404 — Resource not found</code></p>
+      <p><strong>Causa raiz:</strong> O workflow iterava sobre uma lista de IDs de boards/projetos obtidos de uma fonte desatualizada (planilha estática). Alguns IDs tinham sido deletados ou renomeados no Ekyte, mas permaneciam na lista. O nó HTTP Request não tinha validação prévia nem tratamento de erro — ao receber 404, o nó lançava exceção e parava o fluxo inteiro do lote.</p>
+      <p><strong>Impacto:</strong> Cada execução em lote processava N boards; se qualquer um retornasse 404, o lote inteiro falhava. Perda de dados dos boards válidos no mesmo lote.</p>
     </div>
     <div class="card">
       <h3>Solução <span>Aplicada</span></h3>
-      <p>Substituição do nó <code>Code</code> monolítico por uma arquitetura de dois nós:</p>
+      <p>Inserir <strong>nó Code de validação</strong> + <strong>IF router</strong> antes da chamada HTTP:</p>
+      <pre>const BOARD_MAP = {
+  "projeto-alpha": "brd_a1b2c3d4",
+  "projeto-beta": "brd_e5f6g7h8",
+  "sdr-leads": "brd_i9j0k1l2",
+  "v4-interno": "brd_m3n4o5p6",
+  "campanhas-2026": "brd_q7r8s9t0"
+};
+
+const items = $input.all();
+const validos = [];
+const invalidos = [];
+
+items.forEach(item => {
+  const boardId = item.json.boardId || item.json.projetoId;
+  if (BOARD_MAP[boardId]) {
+    validos.push({
+      json: { ...item.json, boardEkyteId: BOARD_MAP[boardId] }
+    });
+  } else {
+    invalidos.push({
+      json: {
+        ...item.json,
+        _erro: 'board_invalido',
+        _mensagem: `Board ID "${boardId}" não encontrado no mapa de boards válidos`
+      }
+    });
+  }
+});
+
+return [validos, invalidos];</pre>
+      <p><strong>Fluxo corrigido:</strong></p>
       <ul class="card-list">
-        <li><strong>SplitInBatches</strong> com <code>batchSize: 500</code> — divide o dataset em lotes de no máximo 500 registros</li>
-        <li><strong>Processa Lote (Code)</strong> com <code>timeout: 120000</code> — processa cada registro individualmente dentro do lote</li>
+        <li>Trigger → Nó Code (valida + mapeia) → IF (rota válidos vs inválidos)</li>
+        <li>Válidos → HTTP Request Ekyte → processamento normal</li>
+        <li>Inválidos → Log + NoOp (registro para auditoria)</li>
       </ul>
-      <p style="margin-top:12px;"><strong>Arquivo de correção:</strong> <code>adplan-split-batches.json</code> (2 nós)</p>
-      <p><strong>VersionId:</strong> <code>correcao-adplan-v1</code></p>
+      <p><strong>Arquivo de correção:</strong> <code>v4-ekyte-fix-board.json</code> (2 nós: Code + IF)</p>
+      <p><strong>VersionId:</strong> <code>correcao-v4-ekyte-v1</code></p>
     </div>
     <div class="card">
       <h3>Antes <span>vs</span> Depois</h3>
@@ -348,19 +362,19 @@ pre .kw { color: var(--red); }
         <div>
           <p><strong>Antes:</strong></p>
           <ul class="card-list">
-            <li>Bloqueio de event loop: 25min contínuos</li>
-            <li>CPU em pico: 90-100%</li>
-            <li>Execuções simultâneas: 0</li>
-            <li>Dataset sem limite</li>
+            <li>404 quebrava o lote inteiro</li>
+            <li>Zero validação de entrada</li>
+            <li>IDs desatualizados na lista</li>
+            <li>Reprocessamento manual necessário</li>
           </ul>
         </div>
         <div>
           <p><strong>Depois:</strong></p>
           <ul class="card-list">
-            <li>Bloqueio por lote: 2-5s</li>
-            <li>CPU em pico: 40-60%</li>
-            <li>Execuções simultâneas: 5</li>
-            <li>Limite de 500 registros por lote</li>
+            <li>Validação prévia contra BOARD_MAP</li>
+            <li>Router separa válidos de inválidos</li>
+            <li>IDs inválidos registrados em log</li>
+            <li>Zero interrupção no lote</li>
           </ul>
         </div>
       </div>
@@ -368,15 +382,15 @@ pre .kw { color: var(--red); }
     <div class="card">
       <h3>Mitigação <span>de Falhas</span></h3>
       <ul class="card-list">
-        <li>Dataset cresce além do esperado → SplitInBatches garante no máximo 500 itens por execução</li>
-        <li>Código entra em loop infinito → Timeout de 120s no nó Code + timeout global de execução</li>
-        <li>Item inválido quebra o lote inteiro → Try/catch com fallbacks por campo + validação explícita</li>
-        <li>SplitInBatches sem limite de batches → <code>maxItems</code> opcional para limitar total</li>
+        <li>Board é renomeado no Ekyte → atualizar BOARD_MAP no nó Code (fonte única)</li>
+        <li>Board é deletado → BOARD_MAP desatualizado → item vai para inválidos, não quebra</li>
+        <li>Board ID vem em formato diferente → validação pode incluir regex de normalização</li>
+        <li>BOARD_MAP precisa ser atualizado com frequência → migrar para lookup table no banco</li>
       </ul>
     </div>
     <div class="card">
       <h3>Plano <span>de Rollback</span></h3>
-      <p>Manter o nó Code antigo desativado (disable) ao lado do novo. Se o SplitInBatches falhar, reativar o nó original e desativar o novo.</p>
+      <p>Remover nó Code e IF, reconectar trigger direto ao HTTP Request. Erro 404 retorna, mas fluxo funcional anterior é restaurado.</p>
     </div>
   </section>
 </div>
