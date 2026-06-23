@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diamond Tint & Wraps — Google Ads · Relatório de Otimizações · Jun 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0A0A0A;color:#fff;font-family:'Barlow',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+
+.topbar{background:#E31919;padding:12px 48px;display:flex;align-items:center;justify-content:space-between;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.topbar span:last-child{opacity:.7;font-size:11px}
+
+header{background:#111;border-bottom:1px solid #2E2E2E;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+header h2{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#E31919}
+.nav{display:flex;gap:24px;list-style:none}
+.nav a{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#C8C8C8;text-decoration:none;transition:color .2s}
+.nav a:hover{color:#E31919}
+
+.hero{padding:80px 48px 64px;background:linear-gradient(135deg,#111 0%,#0A0A0A 100%);border-bottom:4px solid #E31919;position:relative;overflow:hidden}
+.hero::before{content:'TINT & WRAPS';position:absolute;right:-30px;top:50%;transform:translateY(-50%);font-family:'Barlow Condensed',sans-serif;font-size:220px;font-weight:900;color:rgba(255,255,255,.03);line-height:1;pointer-events:none;white-space:nowrap}
+.hero-tag{display:inline-block;background:#E31919;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 16px;margin-bottom:24px}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(48px,8vw,96px);font-weight:900;line-height:.88;letter-spacing:-.03em;text-transform:uppercase;margin-bottom:20px;position:relative;z-index:1}
+.hero h1 span{color:#E31919}
+.hero-sub{font-size:17px;color:#C8C8C8;max-width:650px;line-height:1.55;margin-bottom:32px;position:relative;z-index:1}
+
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:#2E2E2E;max-width:860px;position:relative;z-index:1}
+.hero-stat{background:#1A1A1A;padding:24px 28px;position:relative}
+.hero-stat:not(:last-child){border-right:1px solid #2E2E2E}
+.stat-number{font-family:'Barlow Condensed',sans-serif;font-size:44px;font-weight:900;line-height:1;display:block}
+.stat-number.green{color:#1A7D36}
+.stat-number.red{color:#E31919}
+.stat-number.yellow{color:#B8860B}
+.stat-number.gray{color:#666}
+.stat-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#C8C8C8;margin-top:6px;display:block}
+
+section{padding:72px 48px;border-bottom:1px solid #2E2E2E}
+section:nth-child(even){background:#111}
+
+.section-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E31919;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.section-label::before{content:'';display:block;width:24px;height:2px;background:#E31919}
+.section-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(36px,5vw,52px);font-weight:900;line-height:.92;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:40px}
+.section-title span{color:#E31919}
+.section-sub{font-size:18px;color:#C8C8C8;max-width:700px;margin-bottom:48px}
+
+.phase-card{background:#1A1A1A;border:1px solid #2E2E2E;border-radius:8px;padding:32px;margin-bottom:24px}
+.phase-card:last-child{margin-bottom:0}
+.phase-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.phase-header h3{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.phase-status{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border-radius:4px}
+.phase-status.done{background:#1A7D36;color:#fff}
+.phase-status.partial{background:#B8860B;color:#fff}
+.phase-status.pending{background:#3A3A3A;color:#999}
+.phase-status.skipped{background:#3A1A1A;color:#E31919}
+
+.item-row{display:flex;align-items:flex-start;gap:16px;padding:16px 0;border-bottom:1px solid #2E2E2E}
+.item-row:last-child{border-bottom:none}
+.item-number{flex-shrink:0;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900}
+.item-number.done{background:#1A7D36;color:#fff}
+.item-number.skipped{background:#3A1A1A;color:#E31919}
+.item-number.pending{background:#2E2E2E;color:#999}
+.item-body{flex:1}
+.item-title{font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.item-desc{color:#C8C8C8;font-size:14px}
+.item-detail{color:#888;font-size:13px;margin-top:4px}
+.item-icon{font-size:16px}
+
+.tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:.06em;text-transform:uppercase}
+.tag.done{background:#1A7D36;color:#fff}
+.tag.skipped{background:#3A1A1A;color:#E31919}
+.tag.pending{background:#2E2E2E;color:#999}
+.tag.impact-high{background:#E31919;color:#fff}
+.tag.impact-med{background:#B8860B;color:#fff}
+.tag.impact-low{background:#555;color:#ccc}
+
+.step-card{background:#151515;border:1px solid #2E2E2E;border-radius:8px;padding:28px;margin-bottom:20px}
+.step-card:last-child{margin-bottom:0}
+.step-number{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#E31919;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;margin-bottom:14px}
+.step-card h4{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
+.step-card .desc{color:#C8C8C8;font-size:14px}
+.step-card .desc strong{color:#fff}
+
+.screenshot-box{background:#0D0D0D;border:1px dashed #3A3A3A;border-radius:6px;padding:16px 20px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:#aaa;line-height:1.7}
+.screenshot-box .path{color:#E31919;font-weight:600}
+
+code{background:#2E2E2E;color:#fff;padding:2px 8px;border-radius:4px;font-size:13px}
+
+.alert-card{background:#1E1414;border:1px solid #E31919;border-radius:8px;padding:20px 24px;margin:16px 0}
+.alert-card .title{font-weight:700;color:#E31919;margin-bottom:8px}
+
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+th{background:#1A1A1A;color:#E31919;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-align:left;padding:10px 14px;border-bottom:2px solid #E31919}
+td{padding:10px 14px;border-bottom:1px solid #2E2E2E;color:#C8C8C8}
+tr:hover td{background:#1A1A1A}
+
+footer{padding:32px 48px;text-align:center;color:#666;font-size:13px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span>Google Ads — Relatório de Otimizações</span>
+  <span>V4 Company · Jun 2026</span>
+</div>
+
+<header>
+  <h2>Diamond Tint & Wraps</h2>
+  <ul class="nav">
+    <li><a href="#resumo">Resumo</a></li>
+    <li><a href="#alta">4.1 Alta</a></li>
+    <li><a href="#media">4.2 Média</a></li>
+    <li><a href="#baixa">4.3 Baixa</a></li>
+  </ul>
+</header>
+
+<div class="hero">
+  <div class="hero-tag">Relatório Consolidado · Jun 2026</div>
+  <h1>Otimizações Google Ads<br><span>Diamond Tint & Wraps</span></h1>
+  <p class="hero-sub">Plano completo de 12 otimizações. Fase imediata (4.1) e fase atual (4.2 — itens 6-8) concluídas. Pendente: baixa prioridade (4.3).</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="stat-number green">8</span>
+      <span class="stat-label">Concluídas</span>
+    </div>
+    <div class="hero-stat">
+      <span class="stat-number yellow">1</span>
+      <span class="stat-label">Skipped</span>
+    </div>
+    <div class="hero-stat">
+      <span class="stat-number gray">4</span>
+      <span class="stat-label">Pendentes</span>
+    </div>
+    <div class="hero-stat">
+      <span class="stat-number red">12</span>
+      <span class="stat-label">Total</span>
+    </div>
+  </div>
+</div>
+
+<section id="resumo">
+  <div class="section-label">Status Geral</div>
+  <h2 class="section-title">Resumo das<br><span>Otimizações</span></h2>
+  <div class="section-sub">Abaixo o status consolidado de todas as ações do plano, organizadas por fase.</div>
+
+  <table>
+    <tr><th style="width:40px">#</th><th>Ação</th><th>Fase</th><th>Impacto</th><th>Status</th></tr>
+    <tr>
+      <td style="text-align:center">1</td>
+      <td>Corrigir sitelinks reprovados</td>
+      <td>4.1 Alta</td>
+      <td><span class="tag impact-med">Médio</span></td>
+      <td><span class="tag done">✔ Feito</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">2</td>
+      <td>Bid adjustment +20% para chamadas</td>
+      <td>4.1 Alta</td>
+      <td><span class="tag impact-high">Alto</span></td>
+      <td><span class="tag done">✔ Feito</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">3</td>
+      <td>Pausar keywords com zero impressões</td>
+      <td>4.1 Alta</td>
+      <td><span class="tag impact-med">Médio</span></td>
+      <td><span class="tag done">✔ Feito</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">4</td>
+      <td>Location bid adjustment +15% CEP 89052</td>
+      <td>4.1 Alta</td>
+      <td><span class="tag impact-high">Alto</span></td>
+      <td><span class="tag done">✔ Feito</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">5</td>
+      <td>Aumentar budget para $100/dia</td>
+      <td>4.2 Média</td>
+      <td><span class="tag impact-high">Muito Alto</span></td>
+      <td><span class="tag skipped">✖ Skipped</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">6</td>
+      <td>Criar campanha separada de Marca</td>
+      <td>4.2 Média</td>
+      <td><span class="tag impact-med">Médio</span></td>
+      <td><span class="tag done">✔ Feito</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">7</td>
+      <td>Extensões de callout e snippet</td>
+      <td>4.2 Média</td>
+      <td><span class="tag impact-med">Médio-Alto</span></td>
+      <td><span class="tag done">✔ Feito</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">8</td>
+      <td>Remarketing + bid adjustment +25%</td>
+      <td>4.2 Média</td>
+      <td><span class="tag impact-high">Alto</span></td>
+      <td><span class="tag done">✔ Feito</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">9</td>
+      <td>Landing pages dedicadas por serviço</td>
+      <td>4.3 Baixa</td>
+      <td><span class="tag impact-high">Alto</span></td>
+      <td><span class="tag pending">Pendente</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">10</td>
+      <td>Palavras-chave negativas</td>
+      <td>4.3 Baixa</td>
+      <td><span class="tag impact-med">Médio</span></td>
+      <td><span class="tag pending">Pendente</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">11</td>
+      <td>Dividir campanha por serviço</td>
+      <td>4.3 Baixa</td>
+      <td><span class="tag impact-high">Alto</span></td>
+      <td><span class="tag pending">Pendente</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">12</td>
+      <td>Agendar anúncios por horário</td>
+      <td>4.3 Baixa</td>
+      <td><span class="tag impact-med">Médio</span></td>
+      <td><span class="tag pending">Pendente</span></td>
+    </tr>
+  </table>
+</section>
+
+<section id="alta">
+  <div class="section-label">Fase 4.1 · Concluída</div>
+  <h2 class="section-title">Alta Prioridade<br><span>48h</span></h2>
+  <div class="section-sub">As 4 otimizações de alta prioridade foram executadas dentro do prazo de 48h.</div>
+
+  <div class="phase-card">
+    <div class="phase-header">
+      <h3>#1 — Corrigir sitelinks reprovados</h3>
+      <span class="phase-status done">✔ Concluído</span>
+    </div>
+    <div class="item-desc">Anúncio de Marca com sitelinks reprovados ("One or more of your sitelinks are disapproved") reduzindo ad strength para "Average" mesmo com QS 8-10. Revisados os 4 sitelinks, corrigida a aprovação e reenviados.</div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-header">
+      <h3>#2 — Bid adjustment +20% para chamadas</h3>
+      <span class="phase-status done">✔ Concluído</span>
+    </div>
+    <div class="item-desc">82,44% das interações são ligações com CPA de $17,94 vs $22,21 da conta. Adicionado +20% de bid adjustment em "Calls" conforme report.</div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-header">
+      <h3>#3 — Pausar keywords com zero impressões</h3>
+      <span class="phase-status done">✔ Concluído</span>
+    </div>
+    <div class="item-desc">Pausadas todas as keywords com 0 impressões no período (>30 dias), incluindo "satin car wrap las vegas", "car color change las vegas", "tesla ppf las vegas", "matte car wrap las vegas", "ppf near me", "clear bra las vegas" e demais.</div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-header">
+      <h3>#4 — Location bid adjustment +15% CEP 89052</h3>
+      <span class="phase-status done">✔ Concluído</span>
+    </div>
+    <div class="item-desc">CEP 89052 (Henderson) com taxa de conversão de 45,45% e CPA de $9,07. Adicionado +15% para esse CEP. CEP 89141 mantido sem ajuste (CPA $27,14).</div>
+  </div>
+</section>
+
+<section id="media">
+  <div class="section-label">Fase 4.2 · Parcial</div>
+  <h2 class="section-title">Média Prioridade<br><span>Esta Semana</span></h2>
+  <div class="section-sub">3 das 4 otimizações concluídas. Item #5 (aumento de budget) foi skipped por decisão do time — sem aumento de budget.</div>
+
+  <div class="phase-card">
+    <div class="phase-header">
+      <h3>#5 — Aumentar budget para $100/dia</h3>
+      <span class="phase-status skipped">✖ Skipped</span>
+    </div>
+    <div class="item-desc">Lost IS por budget em 23,80%. Subir de $65 para $100/dia geraria ~47 conversões/mês adicionais. Decidido não aumentar o budget neste momento.</div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-header">
+      <h3>#6 — Criar campanha separada de Marca</h3>
+      <span class="phase-status done">✔ Concluído</span>
+    </div>
+    <div class="item-desc">Campanha Search de marca criada com $7/dia (redistribuído do budget atual), CPC max $1,00, keywords de marca em frase. Negativas exatas adicionadas na campanha principal para evitar canibalização.</div>
+    <div class="item-detail" style="margin-top:8px">
+      <strong>Detalhes:</strong> Search — Marca — Diamond Tint · Budget $7/dia · CPC max $1,00 · RSA com 5 headlines e 2 descrições · 4 keywords de marca em frase
+    </div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-header">
+      <h3>#7 — Extensões de callout e snippet</h3>
+      <span class="phase-status done">✔ Concluído</span>
+    </div>
+    <div class="item-desc">Adicionados 7 callouts (20+ Years Experience, 200+ 5-Star Reviews, Mobile Service, Snap Finance Available, Master Installer Certified, Free Consultation, Lifetime Warranty) e 2 structured snippets (Services + Vehicle Types) em nível de conta. Call extension verificada.</div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-header">
+      <h3>#8 — Remarketing + bid adjustment +25%</h3>
+      <span class="phase-status done">✔ Concluído</span>
+    </div>
+    <div class="item-desc">Audiência "Site Visitors — All — 30d" criada via Google Ads tag. Bid adjustment de +25% aplicado na campanha principal. Remarketing NÃO aplicado na campanha de marca.</div>
+  </div>
+</section>
+
+<section id="baixa" style="border-bottom:none">
+  <div class="section-label">Fase 4.3 · Pendente</div>
+  <h2 class="section-title">Baixa Prioridade<br><span>Próximas 2 Semanas</span></h2>
+  <div class="section-sub">4 otimizações ainda não executadas. Recomendação: começar pelo item #10 (negativas) por ser mais rápido, depois #9 (landing pages) pelo impacto em QS.</div>
+
+  <div class="phase-card">
+    <div class="phase-header">
+      <h3>#9 — Landing pages dedicadas por serviço</h3>
+      <span class="phase-status pending">Pendente</span>
+    </div>
+    <div class="item-desc">Criar páginas específicas no site para cada grupo de anúncios com conteúdo relevante, depoimentos, fotos e formulário. Vai melhorar o Quality Score diretamente.</div>
+    <div class="item-detail" style="margin-top:8px">
+      <strong>Prioridade:</strong> Wraps (QS 3-7) &gt; PPF (QS 3-5) &gt; Ceramic (QS 3-6) · <strong>Impacto:</strong> Alto (mas depende de dev)
+    </div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-header">
+      <h3>#10 — Palavras-chave negativas</h3>
+      <span class="phase-status pending">Pendente</span>
+    </div>
+    <div class="item-desc">Revisar termos de pesquisa para identificar buscas irrelevantes. Sugestão inicial de negativas: free, diy, how to, jobs, career, rental, parts, repair.</div>
+    <div class="item-detail" style="margin-top:8px">
+      <strong>Caminho:</strong> Google Ads &gt; Campanha &gt; Keywords &gt; Termos de pesquisa &gt; Revisar &gt; Adicionar como negativa
+    </div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-header">
+      <h3>#11 — Dividir campanha por serviço</h3>
+      <span class="phase-status pending">Pendente</span>
+    </div>
+    <div class="item-desc">Separar Window Tint e Car Wraps em campanhas próprias para controle de budget independente.</div>
+    <div class="item-detail" style="margin-top:8px">
+      <strong>Sugestão:</strong> Window Tint $50/dia · Wraps $40/dia · PPF+Ceramic $10/dia · <strong>Impacto:</strong> Alto (exige replanejamento)
+    </div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-header">
+      <h3>#12 — Agendar anúncios por horário</h3>
+      <span class="phase-status pending">Pendente</span>
+    </div>
+    <div class="item-desc">82% das interações são ligações. Analisar horários de atendimento e agendar anúncios para funcionamento comercial se o telefone não funciona 24h.</div>
+    <div class="item-detail" style="margin-top:8px">
+      <strong>Caminho:</strong> Google Ads &gt; Campanha &gt; Configurações &gt; Agenda de anúncios
+    </div>
+  </div>
+
+  <div class="step-card" style="margin-top:32px">
+    <h4>Recomendação de ordem para os pendentes</h4>
+    <div class="desc">
+      <ol style="padding-left:20px;line-height:2">
+        <li><strong>#10 (negativas)</strong> — 15 minutos, libera budget imediatamente de buscas irrelevantes</li>
+        <li><strong>#9 (landing pages)</strong> — Maior impacto em QS, mas depende de dev. Começar o mais cedo possível</li>
+        <li><strong>#12 (horário)</strong> — Rápido de implementar se souber o horário de funcionamento</li>
+        <li><strong>#11 (divisão por serviço)</strong> — Requer replanejamento maior. Fazer por último</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Diamond Tint & Wraps — Google Ads Relatório de Otimizações · Jun 2026 · V4 Company
+</footer>
+
+</body>
+</html>
