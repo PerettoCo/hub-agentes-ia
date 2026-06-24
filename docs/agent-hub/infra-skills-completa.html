@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infraestrutura Inteligente — 11 Skills Técnicas · Hub de Agentes V4 Peretto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<style>
+:root {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --accent: #e50914;
+  --accent-hover: #ff222d;
+  --accent-dark: #d4070f;
+  --accent-subtle: rgba(229, 9, 20, 0.07);
+  --accent-gradient: linear-gradient(135deg, #e50914 0%, #ff222d 100%);
+  --sidebar-bg: #0a0a0f;
+  --sidebar-border: #1a1a26;
+  --sidebar-text: #9494a8;
+  --sidebar-heading: #e4e4ec;
+  --sidebar-hover: #1a1a22;
+  --content-bg: #ffffff;
+  --content-text: #1a1a2e;
+  --content-muted: #6a6a84;
+  --content-border: #e2e2ec;
+  --card-bg: #f8f8fc;
+  --card-hover: #f0f0f8;
+  --card-border: #e2e2ec;
+  --tag-bg: rgba(229, 9, 20, 0.06);
+  --tag-border: rgba(229, 9, 20, 0.15);
+  --code-bg: #f5f5f7;
+  --table-border: #e2e2ec;
+  --sidebar-width: 280px;
+  --header-height: 64px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+  --green: #15803d; --green-light: #f0fdf4;
+  --purple: #6d28d9; --purple-light: #f5f3ff;
+  --amber: #d97706; --amber-light: #fef3c7;
+  --teal: #0e7490; --teal-light: #ecfeff;
+  --pink: #be185d; --pink-light: #fdf2f8;
+  --orange: #ea580c; --orange-light: #fff7ed;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans); font-size: 15.5px; line-height: 1.75;
+  color: var(--content-text); background: var(--content-bg); display: flex;
+  min-height: 100vh; -webkit-font-smoothing: antialiased;
+}
+.header {
+  position: fixed; top: 0; left: var(--sidebar-width); right: 0;
+  height: var(--header-height);
+  background: var(--sidebar-bg); border-bottom: 1px solid var(--sidebar-border);
+  display: flex; align-items: center; padding: 0 36px; z-index: 100; gap: 16px;
+}
+.header h1 { font-size: 15px; font-weight: 700; color: var(--sidebar-heading); }
+.header .subtitle { font-size: 13px; color: var(--sidebar-text); }
+.header-badge {
+  margin-left: auto; font-size: 11px; font-weight: 600; color: #fff;
+  background: var(--accent); padding: 4px 12px; border-radius: 20px;
+  text-transform: uppercase; letter-spacing: 0.3px;
+}
+.header a[data-section] {
+  font-size: 12px; font-weight: 600;
+  color: var(--sidebar-text); text-decoration: none;
+  border: 1px solid var(--sidebar-border); padding: 4px 12px; border-radius: 20px;
+  transition: all 0.2s;
+}
+.header a[data-section]:hover { border-color: var(--accent); color: var(--sidebar-heading); }
+.sidebar {
+  position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-width);
+  background: var(--sidebar-bg); border-right: 1px solid var(--sidebar-border);
+  overflow-y: auto; z-index: 200;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: #2a2a3e; border-radius: 4px; }
+.sidebar-logo {
+  padding: 24px 20px 20px; border-bottom: 1px solid var(--sidebar-border);
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.sidebar-logo .logo-img { width: 150px; height: 150px; object-fit: contain; margin-bottom: 10px; }
+.sidebar-logo .version {
+  font-size: 10.5px; color: var(--sidebar-text); font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.sidebar nav ul { list-style: none; padding: 0; margin: 0; }
+.sidebar nav ul li { margin: 0; }
+.sidebar .nav-link {
+  display: block; padding: 8px 20px; font-size: 13px; font-weight: 500;
+  color: var(--sidebar-text); text-decoration: none;
+  transition: all 0.2s ease; border-left: 3px solid transparent;
+  line-height: 1.4; cursor: pointer;
+}
+.sidebar .nav-link:hover { background: var(--sidebar-hover); color: var(--sidebar-heading); border-left-color: var(--accent); padding-left: 22px; }
+.sidebar .nav-link.level-0 {
+  font-weight: 600; font-size: 12.5px; padding: 10px 20px 6px;
+  color: var(--accent); text-transform: uppercase; letter-spacing: 0.4px;
+  cursor: default;
+}
+.sidebar .nav-link.level-0:hover { background: none; padding-left: 20px; }
+.sidebar .nav-link.nav-sub { padding-left: 32px; font-size: 12px; }
+.main {
+  margin-left: var(--sidebar-width); margin-top: var(--header-height);
+  flex: 1; min-width: 0;
+}
+.main > section {
+  padding: 20px 48px 0 40px;
+  margin-bottom: 32px;
+  scroll-margin-top: calc(var(--header-height) + 16px);
+}
+.main h1.section-title {
+  font-size: 24px; font-weight: 700; color: var(--accent);
+  margin-bottom: 20px; padding-bottom: 12px;
+  border-bottom: 3px solid var(--accent); letter-spacing: -0.4px;
+  display: flex; align-items: center; gap: 10px;
+}
+.main h1.section-title::before {
+  content: ''; display: inline-block; width: 4px; height: 26px;
+  background: var(--accent-gradient); border-radius: 2px; flex-shrink: 0;
+}
+.main h2 { font-size: 18px; font-weight: 600; margin-top: 28px; margin-bottom: 10px; color: var(--content-text); }
+.main h3 { font-size: 15.5px; font-weight: 600; margin-top: 24px; margin-bottom: 8px; }
+.main p { margin-bottom: 12px; color: var(--content-text); }
+.main strong { font-weight: 700; }
+.main code {
+  font-family: var(--font-mono); font-size: 13px; background: var(--code-bg);
+  padding: 2px 7px; border-radius: 4px; color: var(--accent); border: 1px solid var(--content-border);
+}
+.main pre {
+  background: #0d1117; color: #e6edf3; padding: 20px 24px; border-radius: var(--radius-md);
+  overflow-x: auto; margin: 16px 0; font-size: 13px; line-height: 1.6; border: 1px solid #21262d;
+}
+.main pre code { background: none; color: inherit; padding: 0; border: none; }
+.main ul, .main ol { margin: 8px 0 14px 24px; }
+.main li { margin-bottom: 5px; line-height: 1.6; }
+.main li::marker { color: var(--accent); }
+.main table {
+  width: 100%; border-collapse: separate; border-spacing: 0; margin: 16px 0;
+  font-size: 13px; border-radius: var(--radius-sm); overflow: hidden;
+  border: 1px solid var(--table-border);
+  transition: box-shadow 0.2s ease;
+}
+.main th {
+  background: var(--accent); font-weight: 600; text-align: left;
+  padding: 10px 14px; font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.5px; color: #fff;
+  border-bottom: 1px solid var(--accent-dark);
+}
+.main th:not(:last-child) { border-right: 1px solid rgba(255,255,255,0.12); }
+.main td {
+  padding: 8px 12px; border-bottom: 1px solid var(--table-border);
+  vertical-align: top; background: var(--content-bg);
+}
+.main tr:last-child td { border-bottom: none; }
+.main tr:nth-child(even) td { background: var(--card-bg); }
+.main tr:hover td { background: var(--accent-subtle); }
+.main blockquote {
+  border-left: 4px solid var(--accent); padding: 14px 18px; margin: 16px 0;
+  background: var(--accent-subtle); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 14px;
+}
+.main a { color: var(--accent); text-decoration: none; font-weight: 500; border-bottom: 1.5px solid transparent; }
+.main a:hover { border-bottom-color: var(--accent); color: var(--accent-dark); }
+
+/* Infra-specific styles */
+.skill-card {
+  border: 1px solid var(--content-border); border-radius: var(--radius-lg);
+  padding: 28px 32px; background: #fff; box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s, border-color 0.2s;
+  margin-bottom: 24px;
+}
+.skill-card:hover { box-shadow: var(--shadow-md); border-color: var(--accent); }
+.skill-card h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 10px; }
+.skill-card h2 .tag {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 2px 8px; border-radius: 4px; margin-left: 8px;
+}
+.skill-card .subtitle { font-size: 13px; color: var(--content-muted); margin-bottom: 14px; }
+.skill-card .desc { font-size: 14.5px; line-height: 1.6; color: var(--content-text); margin-bottom: 14px; }
+.skill-card .code-block {
+  background: #0d1117; color: #e6edf3; padding: 16px 20px; border-radius: var(--radius-md);
+  font-family: var(--font-mono); font-size: 12.5px; line-height: 1.6; overflow-x: auto; margin: 12px 0;
+  border: 1px solid #21262d;
+}
+.skill-card .code-block .comment { color: #8b949e; }
+.skill-card .code-block .kw { color: #ff7b72; }
+.skill-card .code-block .fn { color: #d2a8ff; }
+.skill-card .code-block .str { color: #a5d6ff; }
+.skill-card .props { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
+.skill-card .prop { font-size: 13px; display: flex; gap: 6px; }
+.skill-card .prop .label { color: var(--content-muted); min-width: 80px; }
+.skill-card .prop .value { color: var(--content-text); font-weight: 500; }
+.diagram-box {
+  background: #fff; border: 1px solid var(--content-border); border-radius: var(--radius-lg);
+  padding: 16px; margin: 16px 0; overflow-x: auto; box-shadow: var(--shadow-sm);
+}
+.metrics { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin: 14px 0; }
+.metric {
+  background: var(--card-bg); border: 1px solid var(--content-border); border-radius: var(--radius-md);
+  padding: 14px 16px; text-align: center;
+}
+.metric .num { font-size: 22px; font-weight: 800; color: var(--accent); }
+.metric .label { font-size: 11px; color: var(--content-muted); text-transform: uppercase; letter-spacing: 0.3px; }
+.tag-red { background: var(--accent-subtle); color: var(--accent); border: 1px solid rgba(229,9,20,0.15); }
+.tag-accent { background: var(--accent-subtle); color: var(--accent); border: 1px solid rgba(229,9,20,0.15); }
+.tag-green { background: var(--green-light); color: var(--green); border: 1px solid #bbf7d0; }
+.tag-purple { background: var(--purple-light); color: var(--purple); border: 1px solid #ddd6fe; }
+.tag-amber { background: var(--amber-light); color: var(--amber); border: 1px solid #fde68a; }
+.tag-teal { background: var(--teal-light); color: var(--teal); border: 1px solid #a5f3fc; }
+.tag-pink { background: var(--pink-light); color: var(--pink); border: 1px solid #fbcfe8; }
+.tag-orange { background: var(--orange-light); color: var(--orange); border: 1px solid #fed7aa; }
+.quote {
+  border-left: 4px solid var(--accent); padding: 16px 20px; margin: 16px 0;
+  background: var(--accent-subtle); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 14.5px; font-style: italic; color: var(--content-text);
+}
+.quote strong { color: var(--accent); font-style: normal; }
+
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .header { left: 0; }
+  .main { margin-left: 0; padding: 20px 16px 60px; }
+  .main > section { padding: 20px; }
+  .metrics { grid-template-columns: 1fr 1fr; }
+  .skill-card .props { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Hub de Agentes V4 Peretto</h1>
+  <span class="subtitle">Infraestrutura inteligente · 11 skills técnicas</span>
+  <span class="header-badge">v1.0 · Junho 2026</span>
+</div>
+
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <img class="logo-img" src="../../logo-peretto-red.png" alt="Peretto & Co.">
+    <div class="version">v1.0 · Infraestrutura</div>
+  </div>
+  <nav><ul>
+    <li><a class="nav-link level-0">Infraestrutura</a></li>
+    <li><a class="nav-link" href="#intro">00 · Visão Geral</a></li>
+    <li><a class="nav-link" href="#creating-opencode-agents">01 · Criação de Agentes</a></li>
+    <li><a class="nav-link" href="#supabase-postgres">02 · Supabase Postgres</a></li>
+    <li><a class="nav-link" href="#temporal">03 · Temporal Testing</a></li>
+    <li><a class="nav-link" href="#mcp">04 · MCP Optimization</a></li>
+    <li><a class="nav-link" href="#hqq">05 · HQQ Quantization</a></li>
+    <li><a class="nav-link" href="#harness">06 · LLM Harness</a></li>
+    <li><a class="nav-link" href="#testing">07 · Testing Python</a></li>
+    <li><a class="nav-link" href="#deep-integration">08 · Deep Integration</a></li>
+    <li><a class="nav-link" href="#flow">09 · Flow Pipeline</a></li>
+    <li><a class="nav-link" href="#trl">10 · Fine-Tuning TRL</a></li>
+    <li><a class="nav-link level-0">Navegação</a></li>
+    <li><a class="nav-link" href="../../agents-hub.html">← Voltar ao Hub</a></li>
+  </ul></nav>
+</div>
+
+<div class="main">
+
+<section id="intro">
+  <h1 class="section-title">Infraestrutura Inteligente</h1>
+
+  <p style="font-size:17px;color:var(--content-muted);margin-bottom:16px">11 skills técnicas que formam a espinha dorsal do Hub de Agentes V4 Peretto — da criação de agentes à quantização de modelos, passando por banco, testes e integração profunda.</p>
+
+  <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:20px">
+    <div style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--content-muted)"><strong style="color:var(--accent)">11</strong> skills</div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--content-muted)"><strong style="color:var(--accent)">4</strong> camadas de infra</div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--content-muted)"><strong style="color:var(--accent)">100%</strong> open-source</div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--content-muted)"><strong style="color:var(--accent)">stack</strong> Python · Postgres · Temporal · MCP · TRL</div>
+  </div>
+
+  <div class="quote">
+  <strong>🧠 O que você vai ver aqui:</strong> Cada skill abaixo foi baixada, estudada e embedada no hub. Elas resolvem problemas reais de infraestrutura de IA — não é teoria, é o que está rodando agora nos 37 agentes do hub.
+  </div>
+
+<!-- Architecture overview SVG -->
+<div class="diagram-box">
+<svg viewBox="0 0 1050 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+  <defs>
+    <filter id="sd"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.1"/></filter>
+    <marker id="ar" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#e50914"/></marker>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e50914"/><stop offset="100%" stop-color="#ff222d"/></linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e50914"/><stop offset="100%" stop-color="#ff222d"/></linearGradient>
+    <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6d28d9"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
+    <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#15803d"/><stop offset="100%" stop-color="#22c55e"/></linearGradient>
+  </defs>
+
+  <rect x="30" y="10" width="230" height="100" rx="10" fill="url(#g1)" filter="url(#sd)"/>
+  <text x="145" y="45" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">👤 Criação de Agentes</text>
+  <text x="145" y="63" fill="rgba(255,255,255,0.8)" font-size="10" text-anchor="middle">creating-opencode-agents</text>
+  <text x="145" y="80" fill="rgba(255,255,255,0.6)" font-size="9" text-anchor="middle">37 agentes modelados</text>
+  <text x="145" y="95" fill="rgba(255,255,255,0.6)" font-size="9" text-anchor="middle">frontmatter · tools · permissões</text>
+
+  <rect x="300" y="10" width="230" height="100" rx="10" fill="url(#g2)" filter="url(#sd)"/>
+  <text x="415" y="45" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">🗄️ Banco + Workflows</text>
+  <text x="415" y="63" fill="rgba(255,255,255,0.8)" font-size="10" text-anchor="middle">supabase-postgres + temporal</text>
+  <text x="415" y="80" fill="rgba(255,255,255,0.6)" font-size="9" text-anchor="middle">Postgres otimizado + testes</text>
+  <text x="415" y="95" fill="rgba(255,255,255,0.6)" font-size="9" text-anchor="middle">≥80% cobertura · time-skipping</text>
+
+  <rect x="570" y="10" width="230" height="100" rx="10" fill="url(#g3)" filter="url(#sd)"/>
+  <text x="685" y="45" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">⚡ Performance MCP</text>
+  <text x="685" y="63" fill="rgba(255,255,255,0.8)" font-size="10" text-anchor="middle">v3-mcp-optimization</text>
+  <text x="685" y="80" fill="rgba(255,255,255,0.6)" font-size="9" text-anchor="middle">connection pooling · O(1) lookup</text>
+  <text x="685" y="95" fill="rgba(255,255,255,0.6)" font-size="9" text-anchor="middle">sub-100ms · cache multi-nível</text>
+
+  <rect x="840" y="10" width="180" height="100" rx="10" fill="url(#g4)" filter="url(#sd)"/>
+  <text x="930" y="45" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">🧠 Modelos</text>
+  <text x="930" y="63" fill="rgba(255,255,255,0.8)" font-size="10" text-anchor="middle">hqq · harness · trl</text>
+  <text x="930" y="80" fill="rgba(255,255,255,0.6)" font-size="9" text-anchor="middle">quantização 4-bit</text>
+  <text x="930" y="95" fill="rgba(255,255,255,0.6)" font-size="9" text-anchor="middle">eval 60+ benchmarks</text>
+
+  <line x1="260" y1="60" x2="295" y2="60" stroke="#e50914" stroke-width="1.5" marker-end="url(#ar)"/>
+  <line x1="530" y1="60" x2="565" y2="60" stroke="#e50914" stroke-width="1.5" marker-end="url(#ar)"/>
+  <line x1="800" y1="60" x2="835" y2="60" stroke="#e50914" stroke-width="1.5" marker-end="url(#ar)"/>
+
+  <rect x="130" y="135" width="780" height="34" rx="8" fill="#fafafa" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="4,3" filter="url(#sd)"/>
+  <text x="520" y="156" fill="#444" font-size="11" font-weight="600" text-anchor="middle">Camada de Integração: deep-integration · flow-plan · flow-interview · testing-python · fine-tuning</text>
+
+  <rect x="190" y="180" width="660" height="30" rx="8" fill="#fff" stroke="#e50914" stroke-width="1.5" filter="url(#sd)"/>
+  <text x="520" y="199" fill="#e50914" font-size="12" font-weight="700" text-anchor="middle">↓ 37 Agentes · 102 Skills · CEO @dener-lippert ↓</text>
+</svg>
+</div>
+</section>
+
+<!-- ═══ SKILL 1: CREATING OPENCODE AGENTS ═══ -->
+<section id="creating-opencode-agents">
+
+
+<div class="skill-card">
+<h2><span>👤</span> creating-opencode-agents <span class="tag tag-red">FUNDACIONAL</span></h2>
+<div class="subtitle">Skill que deu origem a todos os 37 agentes do hub</div>
+<div class="desc">
+<strong>O que resolve:</strong> Sem ela, cada agente seria um arquivo solto sem padrão — modelos diferentes, permissões inconsistentes, sem controle de ferramentas. Ela define o contrato de como um agente OpenCode é escrito, configurado e permissionado.
+</div>
+
+<!-- Infographic: how an agent is built -->
+<div class="diagram-box">
+<svg viewBox="0 0 1040 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+  <rect x="20" y="10" width="200" height="110" rx="8" fill="#fceaea" stroke="#e50914" stroke-width="1.5"/>
+  <text x="120" y="35" fill="#e50914" font-size="11" font-weight="700" text-anchor="middle">1. FRONTMATTER</text>
+  <text x="120" y="55" fill="#333" font-size="9.5" text-anchor="middle">description: obrigatório</text>
+  <text x="120" y="70" fill="#333" font-size="9.5" text-anchor="middle">mode: primary|subagent|all</text>
+  <text x="120" y="85" fill="#333" font-size="9.5" text-anchor="middle">model: override opcional</text>
+  <text x="120" y="100" fill="#333" font-size="9.5" text-anchor="middle">temperature: 0.0 a 1.0</text>
+
+  <line x1="220" y1="65" x2="255" y2="65" stroke="#e50914" stroke-width="1.5" marker-end="url(#ar)"/>
+
+  <rect x="260" y="10" width="200" height="110" rx="8" fill="#fceaea" stroke="#e50914" stroke-width="1.5"/>
+  <text x="360" y="35" fill="#e50914" font-size="11" font-weight="700" text-anchor="middle">2. TOOLS</text>
+  <text x="360" y="55" fill="#333" font-size="9.5" text-anchor="middle">read · write · edit · bash</text>
+  <text x="360" y="70" fill="#333" font-size="9.5" text-anchor="middle">grep · glob · webfetch</text>
+  <text x="360" y="85" fill="#333" font-size="9.5" text-anchor="middle">websearch · task · skill</text>
+  <text x="360" y="105" fill="#666" font-size="9" text-anchor="middle">habilita/desabilita por agente</text>
+
+  <line x1="460" y1="65" x2="495" y2="65" stroke="#e50914" stroke-width="1.5" marker-end="url(#ar)"/>
+
+  <rect x="500" y="10" width="200" height="110" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
+  <text x="600" y="35" fill="#15803d" font-size="11" font-weight="700" text-anchor="middle">3. PERMISSIONS</text>
+  <text x="600" y="55" fill="#333" font-size="9.5" text-anchor="middle">ask: pede confirmação</text>
+  <text x="600" y="70" fill="#333" font-size="9.5" text-anchor="middle">allow: permite direto</text>
+  <text x="600" y="85" fill="#333" font-size="9.5" text-anchor="middle">deny: bloqueia</text>
+  <text x="600" y="105" fill="#666" font-size="9" text-anchor="middle">ex: bash: { "git push": ask }</text>
+
+  <line x1="700" y1="65" x2="735" y2="65" stroke="#e50914" stroke-width="1.5" marker-end="url(#ar)"/>
+
+  <rect x="740" y="10" width="270" height="110" rx="8" fill="#fff" stroke="#d97706" stroke-width="2"/>
+  <text x="875" y="35" fill="#d97706" font-size="11" font-weight="700" text-anchor="middle">4. AGENTE PRONTO 🎯</text>
+  <text x="875" y="55" fill="#333" font-size="9.5" text-anchor="middle">@dener-lippert (temp 0.1, CEO)</text>
+  <text x="875" y="70" fill="#333" font-size="9.5" text-anchor="middle">@account-orchestrator (0.2, orquestrador)</text>
+  <text x="875" y="85" fill="#333" font-size="9.5" text-anchor="middle">@flag-churn (0.1, read-only)</text>
+  <text x="875" y="100" fill="#333" font-size="9.5" text-anchor="middle">@copy-content (0.3, write/edit)</text>
+</svg>
+</div>
+
+<div class="metrics">
+  <div class="metric"><div class="num">37</div><div class="label">agentes criados</div></div>
+  <div class="metric"><div class="num">5</div><div class="label">tipos de permissão</div></div>
+  <div class="metric"><div class="num">11</div><div class="label">ferramentas configuráveis</div></div>
+  <div class="metric"><div class="num">100%</div><div class="label">padronizados</div></div>
+</div>
+
+<div class="code-block">
+<span class="comment"># Exemplo real: agente flag-churn (read-only, sem bash)</span>
+<span class="kw">---</span>
+description: <span class="str">"Diagnóstico de risco de churn quando NPS + CSAT caem juntos"</span>
+mode: subagent
+temperature: <span class="str">0.1</span>
+tools:
+  read: <span class="kw">true</span>
+  grep: <span class="kw">true</span>
+  glob: <span class="kw">true</span>
+  bash: <span class="kw">false</span>
+  write: <span class="kw">false</span>
+  edit: <span class="kw">false</span>
+<span class="kw">---</span>
+</div>
+
+<div class="props">
+  <div class="prop"><span class="label">Modo mais usado:</span><span class="value">subagent (89% dos agentes)</span></div>
+  <div class="prop"><span class="label">Temperatura média:</span><span class="value">0.18 (precisão analítica)</span></div>
+  <div class="prop"><span class="label">Modelo padrão:</span><span class="value">deepseek-v4-flash-free</span></div>
+  <div class="prop"><span class="label">Arquivos gerados:</span><span class="value">37 · 100% em .opencode/agents/</span></div>
+</div>
+</div>
+</section>
+
+<!-- ═══ SKILL 2: SUPABASE POSTGRES ═══ -->
+<section id="supabase-postgres">
+
+
+<div class="skill-card">
+<h2><span>🗄️</span> supabase-postgres-best-practices <span class="tag tag-accent">BANCO</span></h2>
+<div class="subtitle">Otimização de performance Postgres — 8 categorias priorizadas por impacto</div>
+<div class="desc">
+<strong>O que resolve:</strong> Postgres mal otimizado é o gargalo #1 de qualquer stack de IA. Essa skill compila décadas de expertise do Supabase em 60+ regras práticas, cada uma com SQL errado → SQL certo → EXPLAIN → métricas de impacto. Toda query do SDR IA e dos dashboards segue essas regras.
+</div>
+
+<!-- Priority pyramid SVG -->
+<div class="diagram-box">
+<svg viewBox="0 0 1040 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+  <rect x="20" y="10" width="300" height="38" rx="6" fill="#dc2626"/>
+  <text x="170" y="34" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">🔴 PRIORIDADE 1: Query Performance</text>
+  <rect x="20" y="52" width="300" height="26" rx="6" fill="#ef4444"/>
+  <text x="170" y="69" fill="#fff" font-size="10" text-anchor="middle">missing indexes · partial · composite · covering</text>
+
+  <rect x="340" y="20" width="300" height="38" rx="6" fill="#ea580c"/>
+  <text x="490" y="44" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">🟠 PRIORIDADE 2: Connection Management</text>
+  <rect x="340" y="62" width="300" height="26" rx="6" fill="#f97316"/>
+  <text x="490" y="79" fill="#fff" font-size="10" text-anchor="middle">pool sizing · timeouts · PgBouncer · max_connections</text>
+
+  <rect x="660" y="30" width="300" height="38" rx="6" fill="#d97706"/>
+  <text x="810" y="54" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">🟡 PRIORIDADE 3: Security & RLS</text>
+  <rect x="660" y="72" width="300" height="26" rx="6" fill="#f59e0b"/>
+  <text x="810" y="89" fill="#fff" font-size="10" text-anchor="middle">Row-Level Security · RBAC · policies</text>
+
+  <rect x="130" y="100" width="280" height="34" rx="6" fill="#e50914"/>
+  <text x="270" y="121" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">🔴 PRIORIDADE 4-5: Schema + Concurrency</text>
+  <rect x="430" y="100" width="280" height="34" rx="6" fill="#6366f1"/>
+  <text x="570" y="121" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">🟣 PRIORIDADE 6-7: Data Access + Monitoring</text>
+  <rect x="730" y="100" width="280" height="34" rx="6" fill="#8b5cf6"/>
+  <text x="870" y="121" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">🟤 PRIORIDADE 8: Advanced Features</text>
+
+  <line x1="170" y1="90" x2="270" y2="100" stroke="#999" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="490" y1="90" x2="570" y2="100" stroke="#999" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="810" y1="100" x2="870" y2="100" stroke="#999" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <text x="520" y="168" fill="#666" font-size="10" text-anchor="middle">Cada regra tem: explicação · SQL incorreto · SQL correto · análise EXPLAIN · métricas de impacto</text>
+</svg>
+</div>
+
+<div class="code-block">
+<span class="comment"># Antes (full table scan — 12s)</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> orders <span class="kw">WHERE</span> status = <span class="str">'pending'</span> <span class="kw">AND</span> created_at > now() - interval <span class="str">'7 days'</span>;
+
+<span class="comment"># Depois (index scan — 40ms)</span>
+<span class="kw">CREATE INDEX CONCURRENTLY IF NOT EXISTS</span> idx_orders_status_date
+  <span class="kw">ON</span> orders(status, created_at <span class="kw">DESC</span>);
+
+<span class="kw">SELECT</span> id, client_id, total <span class="kw">FROM</span> orders
+  <span class="kw">WHERE</span> status = <span class="str">'pending'</span> <span class="kw">AND</span> created_at > now() - interval <span class="str">'7 days'</span>;
+<span class="comment">-- 12s → 40ms (300x mais rápido)</span>
+</div>
+</div>
+</section>
+
+<!-- ═══ SKILL 3: TEMPORAL PYTHON TESTING ═══ -->
+<section id="temporal">
+
+
+<div class="skill-card">
+<h2><span>⏱️</span> temporal-python-testing <span class="tag tag-teal">WORKFLOWS</span></h2>
+<div class="subtitle">Testes de workflows Temporal com time-skipping, mocking e replay</div>
+<div class="desc">
+<strong>O que resolve:</strong> Workflows que rodam por dias/meses são impossíveis de testar no tempo real. Temporal testing permite simular meses em segundos com time-skipping, mockar atividades para testar lógica pura, e validar determinismo com replay testing. Cobertura mínima de 80%.
+</div>
+
+<div class="diagram-box">
+<svg viewBox="0 0 1040 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+  <rect x="40" y="10" width="300" height="110" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="1.5"/>
+  <text x="190" y="32" fill="#0e7490" font-size="11" font-weight="700" text-anchor="middle">🧪 1. UNIT TEST</text>
+  <text x="190" y="52" fill="#333" font-size="9.5" text-anchor="middle">WorkflowEnvironment.time_skipping()</text>
+  <text x="190" y="68" fill="#333" font-size="9.5" text-anchor="middle">Workflow de 30 dias → 2 segundos</text>
+  <text x="190" y="84" fill="#666" font-size="9" text-anchor="middle">Sem Temporal server real</text>
+  <text x="190" y="98" fill="#666" font-size="9" text-anchor="middle">Ideal para CI/CD</text>
+
+  <line x1="340" y1="65" x2="375" y2="65" stroke="#0e7490" stroke-width="1.5" marker-end="url(#ar)"/>
+
+  <rect x="380" y="10" width="300" height="110" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
+  <text x="530" y="32" fill="#15803d" font-size="11" font-weight="700" text-anchor="middle">🔌 2. INTEGRATION TEST</text>
+  <text x="530" y="52" fill="#333" font-size="9.5" text-anchor="middle">Worker + mocked activities</text>
+  <text x="530" y="68" fill="#333" font-size="9.5" text-anchor="middle">Isola lógica do workflow</text>
+  <text x="530" y="84" fill="#666" font-size="9" text-anchor="middle">Mocka APIs externas</text>
+  <text x="530" y="98" fill="#666" font-size="9" text-anchor="middle">Testa fluxos críticos</text>
+
+  <line x1="680" y1="65" x2="715" y2="65" stroke="#0e7490" stroke-width="1.5" marker-end="url(#ar)"/>
+
+  <rect x="720" y="10" width="280" height="110" rx="8" fill="#fceaea" stroke="#e50914" stroke-width="1.5"/>
+  <text x="860" y="32" fill="#e50914" font-size="11" font-weight="700" text-anchor="middle">🔄 3. REPLAY TEST</text>
+  <text x="860" y="52" fill="#333" font-size="9.5" text-anchor="middle">Valida determinismo</text>
+  <text x="860" y="68" fill="#333" font-size="9.5" text-anchor="middle">Contra production histories</text>
+  <text x="860" y="84" fill="#666" font-size="9" text-anchor="middle">Antes de TODO deploy</text>
+  <text x="860" y="98" fill="#666" font-size="9" text-anchor="middle">≥80% coverage target</text>
+</svg>
+</div>
+
+<div class="code-block">
+<span class="comment"># Teste com time-skipping: workflow de 30 dias em 2 segundos</span>
+<span class="kw">import</span> pytest
+<span class="kw">from</span> temporalio.testing <span class="kw">import</span> WorkflowEnvironment
+
+@pytest.mark.asyncio
+<span class="kw">async def</span> <span class="fn">test_onboarding_workflow</span>():
+    env = <span class="kw">await</span> WorkflowEnvironment.start_time_skipping()
+    <span class="kw">async with</span> Worker(env.client, task_queue=<span class="str">"test"</span>,
+        workflows=[OnboardingWorkflow], activities=[mock_activity]):
+        result = <span class="kw">await</span> env.client.execute_workflow(
+            OnboardingWorkflow.run, <span class="str">"cliente-X"</span>,
+            id=<span class="str">"test-onboarding"</span>, task_queue=<span class="str">"test"</span>)
+        <span class="kw">assert</span> result.status == <span class="str">"completed"</span>
+    <span class="kw">await</span> env.shutdown()
+</div>
+</div>
+</section>
+
+<!-- ═══ SKILL 4: V3 MCP OPTIMIZATION ═══ -->
+<section id="mcp">
+
+
+<div class="skill-card">
+<h2><span>⚡</span> v3-mcp-optimization <span class="tag tag-purple">PERFORMANCE</span></h2>
+<div class="subtitle">Otimização de servidores MCP — sub-100ms com connection pooling e cache</div>
+<div class="desc">
+<strong>O que resolve:</strong> O Ekyte MCP expõe 65 ferramentas. Sem otimização, cada tool lookup era O(n) — 65 iterações por chamada. Essa skill implementa tool registry O(1), connection pool com health checking, cache L1→L2→L3 e load balancing. Startup caiu de 1.8s para <400ms.
+</div>
+
+<div class="diagram-box">
+<svg viewBox="0 0 1040 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+  <rect x="30" y="10" width="220" height="90" rx="8" fill="#fff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="140" y="35" fill="#6d28d9" font-size="11" font-weight="700" text-anchor="middle">🔌 Connection Pool</text>
+  <text x="140" y="53" fill="#333" font-size="9.5" text-anchor="middle">Conexões pré-aquecidas</text>
+  <text x="140" y="68" fill="#333" font-size="9.5" text-anchor="middle">Health checking</text>
+  <text x="140" y="83" fill="#333" font-size="9.5" text-anchor="middle">Eviction policy</text>
+
+  <line x1="250" y1="55" x2="280" y2="55" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#ar)"/>
+
+  <rect x="285" y="10" width="220" height="90" rx="8" fill="#fff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="395" y="35" fill="#6d28d9" font-size="11" font-weight="700" text-anchor="middle">⚙️ Tool Registry</text>
+  <text x="395" y="53" fill="#333" font-size="9.5" text-anchor="middle">O(1) hash table</text>
+  <text x="395" y="68" fill="#333" font-size="9.5" text-anchor="middle">Fuzzy matching</text>
+  <text x="395" y="83" fill="#333" font-size="9.5" text-anchor="middle">LRU cache</text>
+
+  <line x1="505" y1="55" x2="535" y2="55" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#ar)"/>
+
+  <rect x="540" y="10" width="220" height="90" rx="8" fill="#fff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="650" y="35" fill="#6d28d9" font-size="11" font-weight="700" text-anchor="middle">💾 Cache Multi-Nível</text>
+  <text x="650" y="53" fill="#333" font-size="9.5" text-anchor="middle">L1: in-memory</text>
+  <text x="650" y="68" fill="#333" font-size="9.5" text-anchor="middle">L2: LRU</text>
+  <text x="650" y="83" fill="#333" font-size="9.5" text-anchor="middle">L3: disk</text>
+
+  <line x1="760" y1="55" x2="790" y2="55" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#ar)"/>
+
+  <rect x="795" y="10" width="210" height="90" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="900" y="35" fill="#6d28d9" font-size="11" font-weight="700" text-anchor="middle">📊 Monitor</text>
+  <text x="900" y="53" fill="#333" font-size="9.5" text-anchor="middle">p50/p95/p99 latency</text>
+  <text x="900" y="68" fill="#333" font-size="9.5" text-anchor="middle">Error rates</text>
+  <text x="900" y="83" fill="#333" font-size="9.5" text-anchor="middle">Pool hit rates</text>
+</svg>
+</div>
+
+<div class="metrics">
+  <div class="metric"><div class="num">1.8s → 400ms</div><div class="label">startup</div></div>
+  <div class="metric"><div class="num">O(n) → O(1)</div><div class="label">tool lookup</div></div>
+  <div class="metric"><div class="num">&lt;100ms p95</div><div class="label">resposta</div></div>
+  <div class="metric"><div class="num">-50%</div><div class="label">memória</div></div>
+</div>
+</div>
+</section>
+
+<!-- ═══ SKILL 5: HQQ QUANTIZATION ═══ -->
+<section id="hqq">
+
+
+<div class="skill-card">
+<h2><span>📦</span> hqq-quantization <span class="tag tag-amber">MODELOS</span></h2>
+<div class="subtitle">Half-Quadratic Quantization — 4/3/2-bit sem dados de calibração</div>
+<div class="desc">
+<strong>O que resolve:</strong> Modelos grandes não cabem em GPU sem quantização. HQQ é a única técnica que permite 4/3/2-bit SEM precisar de dataset de calibração. Diferente de GPTQ e AWQ que exigem centenas de amostras, HQQ faz a quantização na hora. Essencial para rodar modelos locais no LiteLLM da VPS.
+</div>
+
+<div class="diagram-box">
+<svg viewBox="0 0 1040 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+  <rect x="40" y="10" width="220" height="70" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="150" y="35" fill="#d97706" font-size="11" font-weight="700" text-anchor="middle">🔢 4-bit</text>
+  <text x="150" y="52" fill="#333" font-size="9.5" text-anchor="middle">75% menos memória · qualidade alta</text>
+  <text x="150" y="67" fill="#666" font-size="9" text-anchor="middle">Ideal para produção</text>
+
+  <rect x="290" y="10" width="220" height="70" rx="8" fill="#fde68a" stroke="#d97706" stroke-width="1.5"/>
+  <text x="400" y="35" fill="#d97706" font-size="11" font-weight="700" text-anchor="middle">🔢 3-bit</text>
+  <text x="400" y="52" fill="#333" font-size="9.5" text-anchor="middle">87% menos memória · qualidade média</text>
+  <text x="400" y="67" fill="#666" font-size="9" text-anchor="middle">Para testes e protótipos</text>
+
+  <rect x="540" y="10" width="220" height="70" rx="8" fill="#fef08a" stroke="#d97706" stroke-width="1.5"/>
+  <text x="650" y="35" fill="#d97706" font-size="11" font-weight="700" text-anchor="middle">🔢 2-bit</text>
+  <text x="650" y="52" fill="#333" font-size="9.5" text-anchor="middle">93% menos memória · qualidade baixa</text>
+  <text x="650" y="67" fill="#666" font-size="9" text-anchor="middle">Casos extremos</text>
+
+  <rect x="790" y="10" width="210" height="70" rx="8" fill="#fff" stroke="#d97706" stroke-width="2"/>
+  <text x="895" y="35" fill="#d97706" font-size="11" font-weight="700" text-anchor="middle">⚡ Sem calibração!</text>
+  <text x="895" y="52" fill="#333" font-size="9.5" text-anchor="middle">HQQ ≠ GPTQ/AWQ</text>
+  <text x="895" y="67" fill="#666" font-size="9" text-anchor="middle">Zero calibration data</text>
+</svg>
+</div>
+</div>
+</section>
+
+<!-- ═══ SKILL 6: EVALUATING LLMS HARNESS ═══ -->
+<section id="harness">
+
+
+<div class="skill-card">
+<h2><span>📊</span> evaluating-llms-harness <span class="tag tag-accent">AVALIAÇÃO</span></h2>
+<div class="subtitle">Benchmark de LLMs em 60+ métricas acadêmicas — padrão EleutherAI</div>
+<div class="desc">
+<strong>O que resolve:</strong> Antes de definir qual modelo usar em cada agente, precisamos saber o que cada um realmente entrega. Essa skill roda MMLU (raciocínio), HumanEval (código), GSM8K (matemática), TruthfulQA (factualidade) e HellaSwag (senso comum) — e compara os resultados. Foi usada para escolher as temperaturas e modelos dos 37 agentes.
+</div>
+
+<div class="diagram-box">
+<svg viewBox="0 0 1040 110" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+  <rect x="30" y="10" width="180" height="38" rx="6" fill="#e50914"/><text x="120" y="34" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">MMLU</text>
+  <rect x="30" y="52" width="180" height="22" rx="4" fill="#fceaea"/><text x="120" y="67" fill="#e50914" font-size="9" text-anchor="middle">Raciocínio (57 disciplinas)</text>
+
+  <rect x="230" y="10" width="180" height="38" rx="6" fill="#e50914"/><text x="320" y="34" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">HumanEval</text>
+  <rect x="230" y="52" width="180" height="22" rx="4" fill="#fceaea"/><text x="320" y="67" fill="#e50914" font-size="9" text-anchor="middle">Geração de código</text>
+
+  <rect x="430" y="10" width="180" height="38" rx="6" fill="#15803d"/><text x="520" y="34" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">GSM8K</text>
+  <rect x="430" y="52" width="180" height="22" rx="4" fill="#f0fdf4"/><text x="520" y="67" fill="#15803d" font-size="9" text-anchor="middle">Matemática</text>
+
+  <rect x="630" y="10" width="180" height="38" rx="6" fill="#d97706"/><text x="720" y="34" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">TruthfulQA</text>
+  <rect x="630" y="52" width="180" height="22" rx="4" fill="#fef3c7"/><text x="720" y="67" fill="#d97706" font-size="9" text-anchor="middle">Factualidade</text>
+
+  <rect x="830" y="10" width="180" height="38" rx="6" fill="#6d28d9"/><text x="920" y="34" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">HellaSwag</text>
+  <rect x="830" y="52" width="180" height="22" rx="4" fill="#f5f3ff"/><text x="920" y="67" fill="#6d28d9" font-size="9" text-anchor="middle">Senso comum</text>
+
+  <text x="520" y="102" fill="#666" font-size="10" text-anchor="middle">Suporta HuggingFace, vLLM, APIs — usado por OpenAI, Anthropic, Google</text>
+</svg>
+</div>
+</div>
+</section>
+
+<!-- ═══ SKILL 7: TESTING PYTHON ═══ -->
+<section id="testing">
+
+
+<div class="skill-card">
+<h2><span>🧪</span> testing-python <span class="tag tag-green">QUALIDADE</span></h2>
+<div class="subtitle">Testes Python com pytest — atômico, autossuficiente, mock na fronteira</div>
+<div class="desc">
+<strong>O que resolve:</strong> Base de todos os testes do SDR IA, dashboards e pipelines n8n. Define o padrão: cada test testa UMA coisa, nomes descritivos, `@pytest.mark.parametrize` para variações, mock de serviços externos (não de classes internas), fixtures async para Temporal.
+</div>
+
+<div class="code-block">
+<span class="comment"># Padrão usado em todo o hub</span>
+<span class="kw">import</span> pytest
+<span class="kw">from</span> unittest.mock <span class="kw">import</span> patch, AsyncMock
+
+<span class="comment"># Mock na fronteira: mocka API externa, não classe interna</span>
+<span class="kw">async def</span> <span class="fn">test_external_api_call</span>():
+    <span class="kw">with</span> patch(<span class="str">"mymodule.external_client.fetch"</span>, new_callable=AsyncMock) <span class="kw">as</span> mock:
+        mock.return_value = {<span class="str">"data"</span>: <span class="str">"test"</span>}
+        result = <span class="kw">await</span> my_function()
+        <span class="kw">assert</span> result == {<span class="str">"data"</span>: <span class="str">"test"</span>}
+
+<span class="comment"># Teste atômico: nome conta a história</span>
+<span class="kw">def</span> <span class="fn">test_login_fails_with_invalid_password</span>():
+    <span class="kw">with</span> pytest.raises(ValueError, match=<span class="str">"must be positive"</span>):
+        calculate(-1)
+</div>
+</div>
+</section>
+
+<!-- ═══ SKILL 8: V3 DEEP INTEGRATION ═══ -->
+<section id="deep-integration">
+
+
+<div class="skill-card">
+<h2><span>🔗</span> v3-deep-integration <span class="tag tag-red">ARQUITETURA</span></h2>
+<div class="subtitle">Transforma implementações paralelas em extensões especializadas</div>
+<div class="desc">
+<strong>O que resolve:</strong> Cada skill nasce como uma implementação isolada. O risco é virar código duplicado. Essa skill força uma camada de adaptador unificada — cada subsistema vira extensão do core, não uma implementação paralela. A arquitetura de 5 camadas do hub (CEO → Opensquad → Times → Agentes → Skills) foi desenhada com esse princípio.
+</div>
+
+<div class="diagram-box">
+<svg viewBox="0 0 1040 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+  <text x="520" y="20" fill="#e50914" font-size="11" font-weight="700" text-anchor="middle">ANTES: Implementações paralelas = 10.000+ linhas duplicadas</text>
+  <rect x="40" y="30" width="220" height="34" rx="6" fill="#fceaea" stroke="#e50914" stroke-width="1"/>
+  <text x="150" y="51" fill="#e50914" font-size="10" font-weight="600" text-anchor="middle">SwarmCoordinator</text>
+  <rect x="290" y="30" width="220" height="34" rx="6" fill="#fceaea" stroke="#e50914" stroke-width="1"/>
+  <text x="400" y="51" fill="#e50914" font-size="10" font-weight="600" text-anchor="middle">AgentManager</text>
+  <rect x="540" y="30" width="220" height="34" rx="6" fill="#fceaea" stroke="#e50914" stroke-width="1"/>
+  <text x="650" y="51" fill="#e50914" font-size="10" font-weight="600" text-anchor="middle">TaskScheduler</text>
+  <rect x="790" y="30" width="210" height="34" rx="6" fill="#fceaea" stroke="#e50914" stroke-width="1"/>
+  <text x="895" y="51" fill="#e50914" font-size="10" font-weight="600" text-anchor="middle">SessionManager</text>
+
+  <text x="520" y="80" fill="#15803d" font-size="11" font-weight="700" text-anchor="middle">DEPOIS: Todas viram extensões do core</text>
+  <rect x="40" y="88" width="960" height="26" rx="6" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
+  <text x="520" y="106" fill="#15803d" font-size="10" font-weight="600" text-anchor="middle">Adapter Layer → SwarmExtension · AgentExtension · TaskExtension · SessionExtension (todos extendem Core)</text>
+</svg>
+</div>
+</div>
+</section>
+
+<!-- ═══ SKILL 9-10: FLOW PLAN + INTERVIEW ═══ -->
+<section id="flow">
+
+
+<div class="skill-card">
+<h2><span>📋</span> flow-next-opencode-plan + flow-next-opencode-interview <span class="tag tag-purple">PIPELINE</span></h2>
+<div class="subtitle">Duas skills que formam o pipeline de feature: entrevista profunda → plano estruturado → implementação</div>
+<div class="desc">
+<strong>O que resolve:</strong> Toda feature nova no hub passa por esse pipeline. A `interview` extrai requisitos com 40+ perguntas em 7 categorias (problema, personas, constraints, edge cases, performance, segurança, dependências). A `plan` transforma o resultado em épico com tasks em `.flow/`. O agente Dener Lippert foi criado exatamente assim.
+</div>
+
+<div class="diagram-box">
+<svg viewBox="0 0 1040 90" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+  <rect x="30" y="10" width="300" height="60" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="180" y="32" fill="#6d28d9" font-size="11" font-weight="700" text-anchor="middle">🎤 flow-next-opencode-interview</text>
+  <text x="180" y="50" fill="#333" font-size="9.5" text-anchor="middle">40+ perguntas · 7 categorias · extrai requisitos</text>
+
+  <line x1="330" y1="40" x2="370" y2="40" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#ar)"/>
+
+  <rect x="375" y="10" width="300" height="60" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="525" y="32" fill="#d97706" font-size="11" font-weight="700" text-anchor="middle">📐 flow-next-opencode-plan</text>
+  <text x="525" y="50" fill="#333" font-size="9.5" text-anchor="middle">Epic + tasks em .flow/ · research · review</text>
+
+  <line x1="675" y1="40" x2="715" y2="40" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#ar)"/>
+
+  <rect x="720" y="10" width="290" height="60" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
+  <text x="865" y="32" fill="#15803d" font-size="11" font-weight="700" text-anchor="middle">⚡ flow-next-opencode-work</text>
+  <text x="865" y="50" fill="#333" font-size="9.5" text-anchor="middle">Implementa · testa · commita · QA checks</text>
+</svg>
+</div>
+</div>
+</section>
+
+<!-- ═══ SKILL 11: FINE-TUNING WITH TRL ═══ -->
+<section id="trl">
+
+
+<div class="skill-card">
+<h2><span>🧠</span> fine-tuning-with-trl <span class="tag tag-pink">MODELOS</span></h2>
+<div class="subtitle">Fine-tuning de LLMs com Reinforcement Learning — SFT, DPO, PPO</div>
+<div class="desc">
+<strong>O que resolve:</strong> Quando os modelos base não são suficientes — precisamos fine-tunar com dados reais dos clientes (transcripts de check-in, campanhas que converteram, etc). TRL oferece SFT (instrução), DPO (preferência) e PPO/GRPO (recompensa). A stack completa open-source: TRL + HuggingFace + HQQ (quantização pós-treino) = sem depender de API paga.
+</div>
+
+<div class="diagram-box">
+<svg viewBox="0 0 1040 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+  <rect x="40" y="10" width="220" height="70" rx="8" fill="#fdf2f8" stroke="#be185d" stroke-width="1.5"/>
+  <text x="150" y="35" fill="#be185d" font-size="11" font-weight="700" text-anchor="middle">🎯 SFT</text>
+  <text x="150" y="52" fill="#333" font-size="9.5" text-anchor="middle">Instruction Tuning</text>
+  <text x="150" y="67" fill="#666" font-size="9" text-anchor="middle">Ensina o modelo a seguir instruções</text>
+
+  <rect x="290" y="10" width="220" height="70" rx="8" fill="#fce7f3" stroke="#be185d" stroke-width="1.5"/>
+  <text x="400" y="35" fill="#be185d" font-size="11" font-weight="700" text-anchor="middle">👍 DPO</text>
+  <text x="400" y="52" fill="#333" font-size="9.5" text-anchor="middle">Preference Alignment</text>
+  <text x="400" y="67" fill="#666" font-size="9" text-anchor="middle">Preferência sem reward model</text>
+
+  <rect x="540" y="10" width="220" height="70" rx="8" fill="#fbcfe8" stroke="#be185d" stroke-width="1.5"/>
+  <text x="650" y="35" fill="#be185d" font-size="11" font-weight="700" text-anchor="middle">💰 PPO/GRPO</text>
+  <text x="650" y="52" fill="#333" font-size="9.5" text-anchor="middle">Reward Optimization</text>
+  <text x="650" y="67" fill="#666" font-size="9" text-anchor="middle">Otimização por recompensa</text>
+
+  <rect x="790" y="10" width="210" height="70" rx="8" fill="#fff" stroke="#be185d" stroke-width="2"/>
+  <text x="895" y="35" fill="#be185d" font-size="11" font-weight="700" text-anchor="middle">🔗 Stack Completa</text>
+  <text x="895" y="52" fill="#333" font-size="9.5" text-anchor="middle">TRL + HF + HQQ</text>
+  <text x="895" y="67" fill="#666" font-size="9" text-anchor="middle">100% open-source</text>
+</svg>
+</div>
+</div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<section style="padding:32px 48px 0 40px;margin-bottom:32px;text-align:center">
+<p style="margin-top:14px;font-size:12px;color:var(--content-muted)">Hub de Agentes V4 Peretto · 11 skills de infraestrutura inteligente · v1.0</p>
+</section>
+
+</div><!-- /main -->
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init({duration:600,easing:'ease-out-quad',once:true})</script>
+</body>
+</html>
