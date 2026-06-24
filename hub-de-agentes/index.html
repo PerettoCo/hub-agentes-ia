@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <style>
 :root {
   --color-bg: #ffffff;
@@ -145,6 +146,16 @@ body {
 .team-spec-item .spec-desc { color: var(--color-text-secondary); font-size: 12px; }
 
 .doc-ref { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--color-border); font-size: 12.5px; color: var(--color-text-secondary); }
+.main section { transition: box-shadow 0.3s ease, transform 0.2s ease; }
+.main section:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+.agent-card { transition: all 0.25s cubic-bezier(0.4,0,0.2,1); }
+.agent-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+.flow-card { transition: all 0.25s ease; }
+.flow-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.08); }
+table { transition: box-shadow 0.2s ease; }
+tr { transition: background 0.15s ease; }
+.section-divider { width: 60px; height: 3px; background: var(--color-accent-gradient); border-radius: 2px; margin: 8px 0 20px; }
+.main h1.section-title::after { display: none; }
 
 @media (max-width: 768px) {
   .sidebar { display: none; }
@@ -160,7 +171,7 @@ body {
 <div class="header">
   <h1>Hub de Agentes V4 Peretto</h1>
   <span class="subtitle">37 agentes · 102 skills · 8 times · Opensquad · CEO @dener-lippert</span>
-  <a href="#" data-section="downloads" style="margin-left:auto;font-size:12px;font-weight:600;color:var(--color-text-secondary);text-decoration:none;border:1px solid var(--color-border);padding:4px 12px;border-radius:20px;transition:all 0.2s">Downloads</a>
+  <a href="#" data-section="infraestrutura" style="margin-left:auto;font-size:12px;font-weight:600;color:var(--color-text-secondary);text-decoration:none;border:1px solid var(--color-border);padding:4px 12px;border-radius:20px;transition:all 0.2s">Infraestrutura</a>
   <span class="header-badge">v1.0 · Junho 2026</span>
 </div>
 
@@ -196,8 +207,8 @@ body {
     <li><a class="nav-link" href="#" data-section="governanca">08 · Governança</a></li>
     <li><a class="nav-link level-0">Evolução</a></li>
     <li><a class="nav-link" href="#" data-section="validacao">09 · Validação pelo Time</a></li>
-    <li><a class="nav-link level-0">Downloads</a></li>
-    <li><a class="nav-link" href="#" data-section="downloads">10 · Baixar Skills + Docs</a></li>
+    <li><a class="nav-link level-0">Infraestrutura</a></li>
+    <li><a class="nav-link" href="#" data-section="infraestrutura">10 · Infraestrutura</a></li>
   </ul></nav>
 </div>
 
@@ -206,7 +217,7 @@ body {
 <!-- ═══════════════════════════════════════════════ -->
 <!-- 00 · PREMISSAS -->
 <!-- ═══════════════════════════════════════════════ -->
-<section id="premissas">
+<section id="premissas" data-aos="fade-up">
 <h1 class="section-title">Premissas Arquiteturais</h1>
 
 <p>Estas 12 premissas guiaram cada decisao de design do Hub de Agentes — desde a estrutura de pastas ate a hierarquia de agentes. Nao sao regras arbitrarias: sao principios testados que garantem que o sistema escala sem quebrar.</p>
@@ -283,7 +294,7 @@ body {
 <!-- ═══════════════════════════════════════════════ -->
 <!-- 01 · O ECOSSISTEMA -->
 <!-- ═══════════════════════════════════════════════ -->
-<section id="visao">
+<section id="visao" data-aos="fade-up">
 <h1 class="section-title">O Ecossistema: 37 Agentes · 102 Skills · CEO @dener-lippert</h1>
 
 <p>O <strong>Hub de Agentes V4 Peretto</strong> transforma o <strong>Builders Hub da V4 Matriz</strong> em uma força de trabalho orquestrada. Cada skill é um instrumento, cada agente é um músico, o Opensquad é o maestro, e o <strong>@dener-lippert</strong> é o CEO — o cérebro estratégico que diagnostica gargalos e delega para os orquestradores.</p>
@@ -362,7 +373,7 @@ body {
 <!-- ═══════════════════════════════════════════════ -->
 <!-- 02 · OPENSQUAD -->
 <!-- ═══════════════════════════════════════════════ -->
-<section id="opensquad">
+<section id="opensquad" data-aos="fade-up">
 <h1 class="section-title">Opensquad — O Backbone de Orquestração</h1>
 
 <p>O Opensquad é o gestor dos squads. Ele recebe diagnósticos do CEO @dener-lippert e orquestra a execução. Ele cria, configura, executa pipelines e mantém memória entre sessões. Cada squad Opensquad tem seu pipeline (<code>squad.yaml</code>), seus membros (<code>squad-party.csv</code>) e sua memória (<code>memories.md</code>).</p>
@@ -399,7 +410,7 @@ body {
 <!-- ═══════════════════════════════════════════════ -->
 <!-- 03 · CEO DENER LIPPERT -->
 <!-- ═══════════════════════════════════════════════ -->
-<section id="ceo">
+<section id="ceo" data-aos="fade-up">
 <h1 class="section-title">CEO @dener-lippert — Cientista do Marketing</h1>
 
 <p>O <strong>@dener-lippert</strong> é o CEO do Hub de Agentes V4 Peretto — um clone estratégico do fundador da V4, <strong>Dener Lippert</strong>, o Cientista do Marketing (Forbes Under 30, autor do método). Ele é a Camada 5 da arquitetura, acima de todos os orquestradores.</p>
@@ -434,7 +445,7 @@ body {
 <!-- ═══════════════════════════════════════════════ -->
 <!-- 04 · 8 TIMES -->
 <!-- ═══════════════════════════════════════════════ -->
-<section id="times">
+<section id="times" data-aos="fade-up">
 <h1 class="section-title">8 Times Orquestrados</h1>
 <p>Cada orquestrador comanda um time de especialistas. Clique para expandir.</p>
 
@@ -543,7 +554,7 @@ body {
 <!-- ═══════════════════════════════════════════════ -->
 
 <!-- ACCOUNT -->
-<section id="skills-account">
+<section id="skills-account" data-aos="fade-up">
 <h1 class="section-title">Skills de Account — Gestão do Cliente (5)</h1>
 <table>
 <tr><th>Skill</th><th>Descrição</th><th>Trigger</th></tr>
@@ -556,7 +567,7 @@ body {
 </section>
 
 <!-- GT -->
-<section id="skills-gt">
+<section id="skills-gt" data-aos="fade-up">
 <h1 class="section-title">Skills de GT — Gestão de Tráfego (5)</h1>
 <table>
 <tr><th>Skill</th><th>Descrição</th><th>Trigger</th></tr>
@@ -597,7 +608,7 @@ body {
 </section>
 
 <!-- BASE -->
-<section id="skills-base">
+<section id="skills-base" data-aos="fade-up">
 <h1 class="section-title">Funções Nativas do Builders Hub — Base (13)</h1>
 
 <div class="callout callout-warn">
@@ -695,7 +706,7 @@ body {
 </section>
 
 <!-- DEV -->
-<section id="skills-dev">
+<section id="skills-dev" data-aos="fade-up">
 <h1 class="section-title">Skills de Dev, IA e Ferramentas (20+)</h1>
 <table>
 <tr><th>Skill</th><th>Descrição</th></tr>
@@ -736,7 +747,7 @@ body {
 <!-- ═══════════════════════════════════════════════ -->
 <!-- 05 · 37 AGENTES -->
 <!-- ═══════════════════════════════════════════════ -->
-<section id="agentes">
+<section id="agentes" data-aos="fade-up">
 <h1 class="section-title">37 Agentes — Catálogo Completo</h1>
 
 <p>Cada agente é um subagente OpenCode (<code>.opencode/agents/*.md</code>) com modelo, temperatura e permissões próprias.</p>
@@ -864,7 +875,7 @@ body {
 <!-- ═══════════════════════════════════════════════ -->
 <!-- 06 · FORMAÇÕES DE TIME -->
 <!-- ═══════════════════════════════════════════════ -->
-<section id="formacoes">
+<section id="formacoes" data-aos="fade-up">
 <h1 class="section-title">Formações de Time — Party Compositions</h1>
 <p>Os agentes se combinam em formações especializadas. Cada formação tem um líder e uma missão clara.</p>
 
@@ -890,7 +901,7 @@ body {
 <!-- ═══════════════════════════════════════════════ -->
 <!-- 07 · DOCUMENTOS ORIGINAIS -->
 <!-- ═══════════════════════════════════════════════ -->
-<section id="fontes">
+<section id="fontes" data-aos="fade-up">
 <h1 class="section-title">Documentos Originais que Baseiam as Skills</h1>
 <p>Skills e squads criados a partir de documentos reais enviados pelo time.</p>
 
@@ -923,7 +934,7 @@ body {
 <!-- ═══════════════════════════════════════════════ -->
 <!-- 08 · GOVERNANÇA -->
 <!-- ═══════════════════════════════════════════════ -->
-<section id="governanca">
+<section id="governanca" data-aos="fade-up">
 <h1 class="section-title">Governança do Sistema de Times</h1>
 
 <h2>Mecanismos de Quality Gate</h2>
@@ -967,89 +978,112 @@ body {
 </section>
 
 <!-- ═══════════════════════════════════════════════ -->
-<!-- 09 · VALIDAÇÃO PELO TIME -->
+<!-- 09 · PROCESSO DE CONSTRUCAO -->
 <!-- ═══════════════════════════════════════════════ -->
-<section id="validacao">
-<h1 class="section-title">Validação — Time Valida no Uso</h1>
+<section id="validacao" data-aos="fade-up">
+<h1 class="section-title">Processo de Construcao — Refinamento Tecnico</h1>
 
-<p>O refinamento técnico das skills foi <strong>entregue</strong>. As skills estão embedadas com a metodologia V4 e prontas para uso. Agora o time <strong>valida no uso</strong> — cada squad testa no dia a dia e o feedback ajusta o que precisar.</p>
+<p>O Hub de Agentes V1.0 foi construido em 6 fases de engenharia reversa e reescrita. Cada skill foi lida, dissecada, diagnosticada e reescrita com frameworks V4 embedados na logica de execucao — nao como consulta externa, mas como parte do fluxo de decisao do agente.</p>
 
-<h2>O que foi refinado tecnicamente</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:20px 0">
+
+<div style="background:#fafafa;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:16px 20px;border-top:3px solid #b91c1c">
+<h3 style="font-size:14px;font-weight:700;margin-bottom:6px;color:#b91c1c">Fase 1 — Mapeamento e Leitura</h3>
+<p style="font-size:12px;color:var(--color-text-secondary);margin:0;line-height:1.6">Leitura completa de <strong>102 skills</strong> em <code>.agents/skills/</code> e <code>.claude/skills/</code>, mais <strong>37 agentes</strong> em <code>.opencode/agents/</code>, mais documentos fundacionais (PIA, descritivos GT, fluxos Design, operacional Base). Diagnostico do estado de cada skill: generica, especifica, desatualizada ou ausente.</p>
+</div>
+
+<div style="background:#fafafa;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:16px 20px;border-top:3px solid #555">
+<h3 style="font-size:14px;font-weight:700;margin-bottom:6px;color:#555">Fase 2 — Analise Estrutural</h3>
+<p style="font-size:12px;color:var(--color-text-secondary);margin:0;line-height:1.6">Identificacao do padrao de camadas: skills soltas sem hierarquia, agentes sem orquestradores, duplo-write inconsistente. Definicao da arquitetura CEO -> Opensquad -> Orquestradores -> Especialistas -> Skills -> MCPs. Cada skill recebeu um papel na cadeia.</p>
+</div>
+
+<div style="background:#fafafa;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:16px 20px;border-top:3px solid #b91c1c">
+<h3 style="font-size:14px;font-weight:700;margin-bottom:6px;color:#b91c1c">Fase 3 — Embedagem de Frameworks V4</h3>
+<p style="font-size:12px;color:var(--color-text-secondary);margin:0;line-height:1.6">Insercao de <strong>TOC</strong> (gargalo como prioridade), <strong>4Vs</strong> (Volume, Velocidade, Variedade, Valor), <strong>4 Pilares</strong> (Trafego, Engajamento, Conversao, Retencao), <strong>FPA</strong> (Fe, Pesquisa, Atitude), <strong>Medico vs Garcom</strong>, <strong>Logical Thinking</strong> e <strong>Dale Carnegie</strong> como logica interna de cada skill.</p>
+</div>
+
+<div style="background:#fafafa;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:16px 20px;border-top:3px solid #555">
+<h3 style="font-size:14px;font-weight:700;margin-bottom:6px;color:#555">Fase 4 — Reescrita de Skills</h3>
+<p style="font-size:12px;color:var(--color-text-secondary);margin:0;line-height:1.6">Cada SKILL.md reescrito com: descricao inequivoca (sem ambiguiade para o runtime), trigger phrases reais, workflow passo-a-passo, input esperado vs output gerado, integracoes MCP/API. Skills que eram "escreva copy boa" viraram sistemas executaveis.</p>
+</div>
+
+<div style="background:#fafafa;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:16px 20px;border-top:3px solid #b91c1c">
+<h3 style="font-size:14px;font-weight:700;margin-bottom:6px;color:#b91c1c">Fase 5 — Criacao de Novos Agentes</h3>
+<p style="font-size:12px;color:var(--color-text-secondary);margin:0;line-height:1.6">Construcao do <strong>@dener-lippert</strong> (clone do CEO com 8 frameworks, cascade de 3 fases, 17+ agentes orquestrados), <strong>@evolucao-checkins</strong> (score de saude, taxa de combinados, ciclo de apostas), <strong>account-pesquisa-profunda-cliente</strong> (4 prompts Deep Research), skills de CEO.</p>
+</div>
+
+<div style="background:#fafafa;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:16px 20px;border-top:3px solid #555">
+<h3 style="font-size:14px;font-weight:700;margin-bottom:6px;color:#555">Fase 6 — Consolidacao e Duplo-Write</h3>
+<p style="font-size:12px;color:var(--color-text-secondary);margin:0;line-height:1.6">Verificacao de que toda skill existe identica em <code>.agents/skills/</code> e <code>.claude/skills/</code>. Geracao do <strong>skills-export.zip</strong> em 13 categorias. Criacao da pagina do Hub (v1.0), documentacao de infraestrutura, manual operacional e governanca. Atualizacao do REGISTRY.</p>
+</div>
+
+</div>
+
+<h2>Refinamento Skill a Skill</h2>
+
+<p>Cada squad teve suas skills reescritas com frameworks V4 embedados. O antes-e-depois de cada uma:</p>
 
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px;margin:12px 0">
 
-<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius-md);padding:14px 18px">
-<h3 style="font-size:14px;font-weight:600;margin-bottom:4px;color:#b91c1c">📋 Account</h3>
-<p style="font-size:12px;color:var(--color-text-secondary)"><code>account-checkin-roleplay</code> — ROPRE V4 embedado: perguntas de aquecimento, roteiro de call, roleplay com personas reais e 4Vs como framework de cobertura. Antes era genérico, agora segue a estrutura de reunião V4 com Logical Thinking.<br><br>
-<code>account-checkin-review</code> — Análise pós-call com métricas V4: apostas vivas/mortas/novas, diagnóstico ROPRE-by-ROPRE, 3 ataques que o account defendeu mal. Antes era um resumo solto, agora gera entrada de check-in no Mission Control.<br><br>
-<code>account-evolucao-checkins</code> — Score de saúde da relaçãoV4: taxa de cumprimento de combinados, ciclo de vida das apostas, evolução de personas. Antes não existia.<br><br>
-<code>account-handoff</code> — Novo CLAUDE.md embedado com as 6 perguntas do kickoff V4, deck interativo com modo Account/Cliente. Antes não mapeava promessas e riscos de vendas.<br><br>
-<code>account-pesquisa-profunda-cliente</code> — 4 prompts sequenciais pro Deep Research do Gemini mapeando cliente+digital, produto+setor, consumidor e concorrência. Novo.</p>
+<div style="background:#fafafa;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:14px 18px;border-left:3px solid #b91c1c">
+<h3 style="font-size:13px;font-weight:700;margin-bottom:4px;color:#b91c1c">Account</h3>
+<p style="font-size:12px;color:var(--color-text-secondary)"><code>account-checkin-roleplay</code> — ROPRE V4 embedado: perguntas de aquecimento, roteiro de call, roleplay com personas reais e 4Vs como framework de cobertura. Antes era generico, agora segue a estrutura de reuniao V4 com Logical Thinking.<br><br>
+<code>account-checkin-review</code> — Analise pos-call com metricas V4: apostas vivas/mortas/novas, diagnostico ROPRE-by-ROPRE, 3 ataques que o account defendeu mal. Antes era um resumo solto, agora gera entrada de check-in no Mission Control.<br><br>
+<code>account-evolucao-checkins</code> — Score de saude da relacao V4: taxa de cumprimento de combinados, ciclo de vida das apostas, evolucao de personas. Antes nao existia.<br><br>
+<code>account-handoff</code> — Novo CLAUDE.md embedado com as 6 perguntas do kickoff V4, deck interativo com modo Account/Cliente. Antes nao mapeava promessas e riscos de vendas.<br><br>
+<code>account-pesquisa-profunda-cliente</code> — 4 prompts sequenciais pro Deep Research do Gemini mapeando cliente+digital, produto+setor, consumidor e concorrencia. Novo.</p>
 </div>
 
-<div style="background:#fefce8;border:1px solid #fde68a;border-radius:var(--radius-md);padding:14px 18px">
-<h3 style="font-size:14px;font-weight:600;margin-bottom:4px;color:#a16207">🎯 GT / Tráfego</h3>
-<p style="font-size:12px;color:var(--color-text-secondary)"><code>gt-media-buyer-completo</code> — Refinada com TOC para encontrar gargalo real da conta (não otimizar o que não é restrição), regra 80/20 embedada no workflow, análise preditiva de ROAS baseada em pace real. Antes era checklist genérico.<br><br>
-<code>gt-relatorios-trafego</code> — Detecção de anomalias embedada, pace de verba calculado automaticamente, comparativo entre períodos com significância estatística.<br><br>
-<code>v4mos-dados-meta-ads</code> — Agora aceita linguagem natural completa e pergunta COMO o usuário quer consumir (conversa, HTML, CSV, PDF). Antes era fetch bruto.<br><br>
+<div style="background:#fafafa;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:14px 18px;border-left:3px solid #555">
+<h3 style="font-size:13px;font-weight:700;margin-bottom:4px;color:#555">GT / Trafego</h3>
+<p style="font-size:12px;color:var(--color-text-secondary)"><code>gt-media-buyer-completo</code> — Refinada com TOC para encontrar gargalo real da conta (nao otimizar o que nao e restricao), regra 80/20 embedada no workflow, analise preditiva de ROAS baseada em pace real. Antes era checklist generico.<br><br>
+<code>gt-relatorios-trafego</code> — Deteccao de anomalias embedada, pace de verba calculado automaticamente, comparativo entre periodos com significancia estatistica.<br><br>
+<code>v4mos-dados-meta-ads</code> — Agora aceita linguagem natural completa e pergunta COMO o usuario quer consumir (conversa, HTML, CSV, PDF). Antes era fetch bruto.<br><br>
 <code>analytics-tracking</code> — Audit template com os 6 pontos cegos mais comuns do mercado (cross-domain, UTMs inconsistentes, trigger race, etc).<br><br>
-<code>paid-ads</code> — Frameworks de estratégia por canal embedados, não apenas dicas soltas.</p>
+<code>paid-ads</code> — Frameworks de estrategia por canal embedados, nao apenas dicas soltas.</p>
 </div>
 
-<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--radius-md);padding:14px 18px">
-<h3 style="font-size:14px;font-weight:600;margin-bottom:4px;color:#15803d">✍️ Copy / Conteúdo</h3>
-<p style="font-size:12px;color:var(--color-text-secondary)"><code>copywriting</code> — Novos frameworks de headline (4Us, Fórmula Mafalda, PAS embedados), CTA matrix por estágio do funil. Antes era "escreva copy boa".<br><br>
-<code>copy-editing</code> — Seven Sweeps Framework: 7 passes focados em uma dimensão cada (clareza, persuasão, concisão, tom, prova social, SEO, CTA). Novo.<br><br>
-<code>copy-pipeline-conteudo</code> — Fluxo completo de aprovação no Drive com notificação por email e geração de JSONs finais. Pipeline fechado.<br><br>
-<code>email-sequence</code> — Buyer stage mapping embedado: cada email mapeado pro estágio de decisão do lead. Antes era sequência linear.<br><br>
-<code>social-content</code> — Estratégia por plataforma embedada com formatos específicos (carrossel LinkedIn vs thread Twitter vs Reels), hook matrix e schedule ideal.<br><br>
-<code>seo-audit</code> — Critérios de severidade embedados (P0/P1/P2), priorização por impacto estimado.<br><br>
-<code>ai-seo</code> — Extractability score embedado, técnica de citation optimization com markdown estruturado.</p>
+<div style="background:#fafafa;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:14px 18px;border-left:3px solid #b91c1c">
+<h3 style="font-size:13px;font-weight:700;margin-bottom:4px;color:#b91c1c">Copy / Conteudo</h3>
+<p style="font-size:12px;color:var(--color-text-secondary)"><code>copywriting</code> — Novos frameworks de headline (4Us, Formula Mafalda, PAS embedados), CTA matrix por estagio do funil. Antes era "escreva copy boa".<br><br>
+<code>copy-editing</code> — Seven Sweeps Framework: 7 passes focados em uma dimensao cada (clareza, persuasao, concisao, tom, prova social, SEO, CTA). Novo.<br><br>
+<code>copy-pipeline-conteudo</code> — Fluxo completo de aprovacao no Drive com notificacao por email e geracao de JSONs finais. Pipeline fechado.<br><br>
+<code>email-sequence</code> — Buyer stage mapping embedado: cada email mapeado pro estagio de decisao do lead. Antes era sequencia linear.<br><br>
+<code>social-content</code> — Estrategia por plataforma embedada com formatos especificos (carrossel LinkedIn vs thread Twitter vs Reels), hook matrix e schedule ideal.<br><br>
+<code>seo-audit</code> — Criterios de severidade embedados (P0/P1/P2), priorizacao por impacto estimado.<br><br>
+<code>ai-seo</code> — Extractability score embedado, tecnica de citation optimization com markdown estruturado.</p>
 </div>
 
-<div style="background:#fdf4ff;border:1px solid #e9d5ff;border-radius:var(--radius-md);padding:14px 18px">
-<h3 style="font-size:14px;font-weight:600;margin-bottom:4px;color:#a21caf">🎨 Design</h3>
-<p style="font-size:12px;color:var(--color-text-secondary)"><code>geral-frontend-design</code> — Design tokens V4 embedados (cores, tipografia, spacing), mobile-first como padrão, micro-interações com CSS puro. Antes era "faça bonito".<br><br>
-<code>image</code> — Guia de specs por plataforma embedado, otimização automática de formato (WebP, AVIF), alt text com SEO.<br><br>
-<code>video</code> — Script template V4 embedado gancho→problema→solução→CTA, specs técnicas por canal. Novo.<br><br>
-<code>ad-creative</code> — Headline matrix embedada (4 tipos × 3 tons), RSA expansion framework, teste de desgaste por frequência. Antes era "gere variações".</p>
+<div style="background:#fafafa;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:14px 18px;border-left:3px solid #555">
+<h3 style="font-size:13px;font-weight:700;margin-bottom:4px;color:#555">Design</h3>
+<p style="font-size:12px;color:var(--color-text-secondary)"><code>geral-frontend-design</code> — Design tokens V4 embedados (cores, tipografia, spacing), mobile-first como padrao, micro-interacoes com CSS puro. Antes era "faca bonito".<br><br>
+<code>image</code> — Guia de specs por plataforma embedado, otimizacao automatica de formato (WebP, AVIF), alt text com SEO.<br><br>
+<code>video</code> — Script template V4 embedado gancho->problema->solucao->CTA, specs tecnicas por canal. Novo.<br><br>
+<code>ad-creative</code> — Headline matrix embedada (4 tipos x 3 tons), RSA expansion framework, teste de desgaste por frequencia. Antes era "gere variacoes".</p>
 </div>
 
-<div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:var(--radius-md);padding:14px 18px">
-<h3 style="font-size:14px;font-weight:600;margin-bottom:4px;color:#6d28d9">🧠 Base / Infra</h3>
-<p style="font-size:12px;color:var(--color-text-secondary)"><code>dener-lippert</code> — Skill nova: clone estratégico do CEO com 8 frameworks (4Vs, 4 Pilares, FPA, TOC, Médico vs Garçom, Dale Carnegie, PNL, Logical Thinking). CEO cascade em 3 fases: diagnóstico, execução, revisão.<br><br>
-<code>geral-sabatina</code> — Refinada com framework V4: TOC (qual o gargalo?), 4Vs (Volume, Velocidade, Variedade, Valor), 4 Pilares (Op, Fin, Cli, Apr), Médico vs Garçom, Logical Thinking e Dale Carnegie. Antes era sabatina sem método.<br><br>
-<code>criador-de-skills</code> — Nova seção obrigatória "Princípios V4" (4Vs, 4 Pilares, Médico vs Garçom, TOC, Cientista do Marketing) consultada antes de criar qualquer skill.<br><br>
-<code>contexto</code> — Alinhamento V4 embedado no Mission Control: 4 Pilares como eixos de OKRs, TOC para apostas, Médico vs Garçom no diagnóstico de check-in.</p>
+<div style="background:#fafafa;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:14px 18px;border-left:3px solid #b91c1c">
+<h3 style="font-size:13px;font-weight:700;margin-bottom:4px;color:#b91c1c">Base / Infra</h3>
+<p style="font-size:12px;color:var(--color-text-secondary)"><code>dener-lippert</code> — Skill nova: clone estrategico do CEO com 8 frameworks (4Vs, 4 Pilares, FPA, TOC, Medico vs Garcom, Dale Carnegie, PNL, Logical Thinking). CEO cascade em 3 fases: diagnostico, execucao, revisao.<br><br>
+<code>geral-sabatina</code> — Refinada com framework V4: TOC (qual o gargalo?), 4Vs (Volume, Velocidade, Variedade, Valor), 4 Pilares (Op, Fin, Cli, Apr), Medico vs Garcom, Logical Thinking e Dale Carnegie. Antes era sabatina sem metodo.<br><br>
+<code>criador-de-skills</code> — Nova secao obrigatoria "Principios V4" (4Vs, 4 Pilares, Medico vs Garcom, TOC, Cientista do Marketing) consultada antes de criar qualquer skill.<br><br>
+<code>contexto</code> — Alinhamento V4 embedado no Mission Control: 4 Pilares como eixos de OKRs, TOC para apostas, Medico vs Garcom no diagnostico de check-in.</p>
 </div>
 
 </div>
 
-<h2>Próximo passo: validar no uso</h2>
-
-<table>
-<tr><th>Fase</th><th>O Que Acontece</th><th>Quem Valida</th><th>Duração</th></tr>
-<tr><td><strong>Uso real</strong></td><td>Cada squad usa as skills no dia a dia. Roam /dener, /contexto, /sabatina, account-checkin-roleplay, gt-media-buyer-completo. O feedback vira issue no GitHub.</td><td>Account, GT, Copy, Design</td><td>Contínuo</td></tr>
-<tr><td><strong>Agentes no OpenCode</strong></td><td>Testa agentes de Account e CSM no OpenCode. Ciclo completo: roleplay → call → review → flag.</td><td>Account + CSM</td><td>Semana 1-2</td></tr>
-<tr><td><strong>Ajustes por feedback</strong></td><td>Com base no uso real, ajusta trigger, workflow ou input de skills específicas.</td><td>Agentes de IA</td><td>Contínuo</td></tr>
-</table>
-
-<div class="callout callout-warn">
-<strong>⚠️ As skills já foram refinadas.</strong> O refinamento técnico está entregue — frameworks V4 embedados, workflows reescritos, triggers mapeados. Agora o time <strong>valida no uso</strong>: testa, quebra, dá feedback. O que precisar de ajuste, a gente ajusta.
-</div>
-
-<div class="callout callout-info">
-<strong>📖 Metodologia V4:</strong> Skills refinadas com os princípios do Builders Hub V4 (4Vs, 4 Pilares, FPA, TOC, Médico vs Garçom, Logical Thinking). Consulte <code>docs/PRINCIPIOS-V4.md</code> para o documento central.
+<div style="background:#f5f5f5;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:16px 20px;font-size:12.5px;color:var(--color-text-secondary);margin-top:12px">
+<strong>Skill count:</strong> 102 skills refinadas ou criadas. 37 agentes configurados. 8 orquestradores. 1 CEO. Duplo-write mantido em .agents/ e .claude/. Documentacao em docs/agent-hub/.
 </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════ -->
-<!-- 10 · DOWNLOADS -->
+<!-- 10 · INFRAESTRUTURA -->
 <!-- ═══════════════════════════════════════════════ -->
-<section id="downloads">
-<h1 class="section-title">Downloads — Skills Export + Documentos</h1>
+<section id="infraestrutura" data-aos="fade-up">
+<h1 class="section-title">Infraestrutura — Skills Export + Documentos</h1>
 
-<p>Baixe todo o ecossistema de skills e agentes para usar offline, compartilhar com o time ou integrar em outros projetos.</p>
+<p>Infraestrutura completa de skills, agentes e automações — exporte, integre e consulte a documentação técnica.</p>
 
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:16px 0">
 
@@ -1063,9 +1097,9 @@ body {
 </div>
 
 <div style="background:#fafafa;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:20px 24px">
-<h3 style="font-size:15px;font-weight:600;margin-bottom:6px">📘 Manual Operacional v1.0</h3>
-<p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:10px">Guia completo: CEO @dener-lippert, 8 times, 37 agentes, playbooks reais, cadeia de valor e governança.</p>
-<a href="manual-operacional-times.html" style="display:inline-flex;align-items:center;gap:6px;background:var(--color-accent);color:#fff;padding:8px 16px;border-radius:var(--radius-sm);text-decoration:none;font-size:13px;font-weight:600">📄 Abrir Manual v1.0</a>
+<h3 style="font-size:15px;font-weight:600;margin-bottom:6px">📘 Infraestrutura</h3>
+<p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:10px">Documentação de infraestrutura AI: skills base, APIs, setup do Builders Hub, n8n-as-code, automações e conectores.</p>
+<a href="infra-skills-completa.html" style="display:inline-flex;align-items:center;gap:6px;background:var(--color-accent);color:#fff;padding:8px 16px;border-radius:var(--radius-sm);text-decoration:none;font-size:13px;font-weight:600">📄 Abrir Infraestrutura</a>
 </div>
 
 <div style="background:#fafafa;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:20px 24px">
@@ -1083,7 +1117,9 @@ body {
 
 </div>
 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+AOS.init({ duration: 600, once: true, offset: 80, easing: 'ease-out-cubic' });
 function showTab(group, tabId, btn) {
   document.querySelectorAll('[id^="' + group + '-"]').forEach(function(el) { el.classList.remove('active'); });
   var el = document.getElementById(group + '-' + tabId);
