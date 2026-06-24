@@ -13,7 +13,7 @@
   --border: #e2e6f0; --border2: #d0d5e0;
   --text: #0a0a1a; --text2: #4a4a6a; --text3: #8a8aaa;
   --red: #b91c1c; --red-dark: #7f1d1d; --red-light: #fef2f2;
-  --blue: #b91c1c; --blue-light: #fef2f2;
+  --accent: #b91c1c; --accent-light: #fef2f2;
   --green: #15803d; --green-light: #f0fdf4;
   --purple: #6d28d9; --purple-light: #f5f3ff;
   --amber: #d97706; --amber-light: #fef3c7;
@@ -124,7 +124,7 @@ body { font-family: var(--font); font-size: 16px; line-height: 1.7; color: var(-
 
 /* Tags */
 .tag-red { background: var(--red-light); color: var(--red); border: 1px solid #fecaca; }
-.tag-blue { background: var(--blue-light); color: var(--blue); border: 1px solid #fecaca; }
+.tag-accent { background: var(--accent-light); color: var(--accent); border: 1px solid #fecaca; }
 .tag-green { background: var(--green-light); color: var(--green); border: 1px solid #bbf7d0; }
 .tag-purple { background: var(--purple-light); color: var(--purple); border: 1px solid #ddd6fe; }
 .tag-amber { background: var(--amber-light); color: var(--amber); border: 1px solid #fde68a; }
@@ -329,7 +329,7 @@ tools:
 <section class="section" id="supabase-postgres">
 <div class="container">
 <div class="skill-card">
-<h2><span>🗄️</span> supabase-postgres-best-practices <span class="tag tag-blue">BANCO</span></h2>
+<h2><span>🗄️</span> supabase-postgres-best-practices <span class="tag tag-accent">BANCO</span></h2>
 <div class="subtitle">Otimização de performance Postgres — 8 categorias priorizadas por impacto</div>
 <div class="desc">
 <strong>O que resolve:</strong> Postgres mal otimizado é o gargalo #1 de qualquer stack de IA. Essa skill compila décadas de expertise do Supabase em 60+ regras práticas, cada uma com SQL errado → SQL certo → EXPLAIN → métricas de impacto. Toda query do SDR IA e dos dashboards segue essas regras.
@@ -538,7 +538,7 @@ tools:
 <section class="section" id="harness">
 <div class="container">
 <div class="skill-card">
-<h2><span>📊</span> evaluating-llms-harness <span class="tag tag-blue">AVALIAÇÃO</span></h2>
+<h2><span>📊</span> evaluating-llms-harness <span class="tag tag-accent">AVALIAÇÃO</span></h2>
 <div class="subtitle">Benchmark de LLMs em 60+ métricas acadêmicas — padrão EleutherAI</div>
 <div class="desc">
 <strong>O que resolve:</strong> Antes de definir qual modelo usar em cada agente, precisamos saber o que cada um realmente entrega. Essa skill roda MMLU (raciocínio), HumanEval (código), GSM8K (matemática), TruthfulQA (factualidade) e HellaSwag (senso comum) — e compara os resultados. Foi usada para escolher as temperaturas e modelos dos 37 agentes.

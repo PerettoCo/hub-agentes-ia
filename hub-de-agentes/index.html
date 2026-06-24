@@ -98,7 +98,7 @@ body {
 .main a { color: var(--color-accent); text-decoration: none; font-weight: 500; border-bottom: 1.5px solid transparent; }
 .main a:hover { border-bottom-color: var(--color-accent); color: var(--color-accent-dark); }
 .callout { padding: 12px 16px; border-radius: 8px; margin: 12px 0; font-size: 13px; border-left: 3px solid; }
-.callout-info { background: #eff6ff; border-color: #3b82f6; }
+.callout-info { background: #fef2f2; border-color: #b91c1c; }
 .callout-warn { background: #fef2f2; border-color: #b91c1c; }
 .callout-good { background: #f0fdf4; border-color: #22c55e; }
 .agent-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; }
@@ -110,7 +110,7 @@ body {
 .agent-card .meta { display: flex; flex-wrap: wrap; gap: 4px; }
 .agent-card .meta-tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; background: #fff; color: var(--color-text-secondary); border: 1px solid var(--color-border); }
 .agent-card .meta-tag.model { color: #b91c1c; border-color: #fecaca; background: #fef2f2; }
-.agent-card .meta-tag.role-orch { color: #1d4ed8; border-color: #bfdbfe; background: #eff6ff; }
+.agent-card .meta-tag.role-orch { color: #b91c1c; border-color: #fecaca; background: #fef2f2; }
 .agent-card .meta-tag.role-spec { color: #15803d; border-color: #bbf7d0; background: #f0fdf4; }
 .agent-card .meta-tag.role-flag { color: #a16207; border-color: #fef08a; background: #fefce8; }
 .agent-card .meta-tag.role-geral { color: #44403c; border-color: #e7e5e4; background: #f5f5f4; }
@@ -121,7 +121,7 @@ body {
 .flow-steps li::before { content: counter(step); position: absolute; left: 0; top: 8px; width: 22px; height: 22px; background: var(--color-accent); color: #fff; font-size: 10px; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 .flow-steps li:last-child { border: none; }
 .flow-mcp { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 4px; font-weight: 600; }
-.mcp-ekyte { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+.mcp-ekyte { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
 .mcp-drive { background: #f5f3ff; color: #6d28d9; border: 1px solid #ddd6fe; }
 .mcp-litellm { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
 .mcp-n8n { background: #ecfeff; color: #0e7490; border: 1px solid #a5f3fc; }
@@ -304,7 +304,7 @@ tr { transition: background 0.15s ease; }
 </div>
 
 <div class="callout callout-info">
-<strong>⚙️ Funções Nativas do Builders Hub:</strong> Antes das skills especializadas, existem as funções base do repositório — o "sistema operacional". <code>/onboarding</code> configura o ambiente, <code>/contexto</code> atualiza o conhecimento do agente sobre um cliente, <code>/sabatina</code> stress-test de planos, <code>/sync-hub</code> puxa skills novas do time. Use <code>/contexto</code> sempre que terminar uma seção de trabalho com um cliente — o agente precisa do contexto atualizado. <a href="#downloads" style="border-bottom:1.5px solid #3b82f6">Veja todas na seção de Base</a>.
+<strong>⚙️ Funções Nativas do Builders Hub:</strong> Antes das skills especializadas, existem as funções base do repositório — o "sistema operacional". <code>/onboarding</code> configura o ambiente, <code>/contexto</code> atualiza o conhecimento do agente sobre um cliente, <code>/sabatina</code> stress-test de planos, <code>/sync-hub</code> puxa skills novas do time. Use <code>/contexto</code> sempre que terminar uma seção de trabalho com um cliente — o agente precisa do contexto atualizado. <a href="#downloads" style="border-bottom:1.5px solid #b91c1c">Veja todas na seção de Base</a>.
 </div>
 
 <table>
@@ -343,8 +343,8 @@ tr { transition: background 0.15s ease; }
   <text x="720" y="153" fill="#a21caf" font-size="12" font-weight="700" text-anchor="middle">Squad Design</text>
   <text x="720" y="169" fill="#666" font-size="10" text-anchor="middle">4 skills · 5 agentes</text>
   <text x="720" y="183" fill="#999" font-size="9" text-anchor="middle">Criativos · Handoff · LP · Pipeline</text>
-  <rect x="230" y="205" width="240" height="65" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5" filter="url(#s2)"/>
-  <text x="350" y="228" fill="#1d4ed8" font-size="12" font-weight="700" text-anchor="middle">Squad Operações</text>
+  <rect x="230" y="205" width="240" height="65" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5" filter="url(#s2)"/>
+  <text x="350" y="228" fill="#b91c1c" font-size="12" font-weight="700" text-anchor="middle">Squad Operações</text>
   <text x="350" y="244" fill="#666" font-size="10" text-anchor="middle">3 skills · 3 agentes</text>
   <text x="350" y="258" fill="#999" font-size="9" text-anchor="middle">Task · Contexto · Briefing</text>
   <rect x="500" y="205" width="240" height="65" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5" filter="url(#s2)"/>
@@ -361,7 +361,7 @@ tr { transition: background 0.15s ease; }
   <rect x="100" y="355" width="720" height="38" rx="8" fill="#fff" stroke="#b91c1c" stroke-width="1.5" filter="url(#s2)"/>
   <text x="460" y="373" fill="#b91c1c" font-size="12" font-weight="700" text-anchor="middle">37 Agentes (OpenCode) — Execução</text>
   <text x="460" y="389" fill="#888" font-size="10" text-anchor="middle">1 CEO · 8 orquestradores · 20 especialistas · 4 flags · 4 geradores</text>
-  <rect x="100" y="410" width="160" height="26" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/><text x="180" y="427" fill="#1d4ed8" font-size="10" font-weight="600" text-anchor="middle">Ekyte MCP</text>
+  <rect x="100" y="410" width="160" height="26" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/><text x="180" y="427" fill="#b91c1c" font-size="10" font-weight="600" text-anchor="middle">Ekyte MCP</text>
   <rect x="280" y="410" width="160" height="26" rx="6" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1"/><text x="360" y="427" fill="#6d28d9" font-size="10" font-weight="600" text-anchor="middle">Drive MCP</text>
   <rect x="460" y="410" width="160" height="26" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/><text x="540" y="427" fill="#15803d" font-size="10" font-weight="600" text-anchor="middle">LiteLLM</text>
   <rect x="640" y="410" width="160" height="26" rx="6" fill="#ecfeff" stroke="#a5f3fc" stroke-width="1"/><text x="720" y="427" fill="#0e7490" font-size="10" font-weight="600" text-anchor="middle">n8n</text>
