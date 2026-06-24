@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Hub V4 — Documentação Completa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --color-bg: #ffffff;
+  --color-sidebar: #fafafa;
+  --color-border: #e8e8e8;
+  --color-text: #111111;
+  --color-text-secondary: #555555;
+  --color-accent: #b91c1c;
+  --color-accent-dark: #7f1d1d;
+  --color-accent-light: #fef2f2;
+  --color-accent-gradient: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+  --color-code-bg: #f5f5f5;
+  --color-table-border: #e5e5e5;
+  --color-table-header: #fafafa;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+  --sidebar-width: 280px;
+  --header-height: 64px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-sans);
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--color-text);
+  background: var(--color-bg);
+  display: flex;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-width);
+  right: 0;
+  height: var(--header-height);
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  padding: 0 36px;
+  z-index: 100;
+}
+.header h1 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-accent);
+  letter-spacing: -0.2px;
+}
+.header .subtitle {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin-left: 12px;
+  font-weight: 400;
+}
+.header-badge {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-accent-gradient);
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  background: var(--color-sidebar);
+  border-right: 1px solid var(--color-border);
+  overflow-y: auto;
+  z-index: 200;
+  padding-top: 0;
+}
+.sidebar-logo {
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.sidebar-logo .logo-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--color-accent-gradient);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 10px;
+  letter-spacing: -1px;
+}
+.sidebar-logo .version {
+  font-size: 10.5px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.sidebar nav ul { list-style: none; padding: 0; margin: 0; }
+.sidebar nav ul li { margin: 0; }
+.sidebar .nav-link {
+  display: block;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.sidebar .nav-link:hover {
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  border-left-color: var(--color-accent);
+  padding-left: 22px;
+}
+.sidebar .nav-link.level-0 {
+  font-weight: 600;
+  font-size: 12.5px;
+  padding: 10px 20px 6px;
+  color: var(--color-accent);
+  border-bottom: none;
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  cursor: default;
+}
+.sidebar .nav-link.level-0:hover { background: none; padding-left: 20px; }
+
+.main {
+  margin-left: var(--sidebar-width);
+  margin-top: var(--header-height);
+  flex: 1;
+  max-width: 920px;
+  padding: 44px 56px 100px;
+}
+.main section {
+  margin-bottom: 40px;
+  padding: 28px 32px 32px;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  scroll-margin-top: calc(var(--header-height) + 16px);
+}
+.main section:hover { box-shadow: var(--shadow-md); }
+
+.main h1.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--color-accent);
+  letter-spacing: -0.4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.main h1.section-title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 26px;
+  background: var(--color-accent-gradient);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.main h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 28px;
+  margin-bottom: 10px;
+  color: var(--color-text);
+  letter-spacing: -0.3px;
+}
+.main h3 {
+  font-size: 15.5px;
+  font-weight: 600;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  color: var(--color-text);
+}
+.main p { margin-bottom: 12px; color: var(--color-text); }
+.main strong { font-weight: 600; }
+.main code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--color-code-bg);
+  padding: 2px 7px;
+  border-radius: 4px;
+  color: #b91c1c;
+  border: 1px solid #eee;
+}
+.main pre {
+  background: #0d1117;
+  color: #e6edf3;
+  padding: 20px 24px;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  margin: 16px 0;
+  font-size: 13px;
+  line-height: 1.6;
+  border: 1px solid #21262d;
+}
+.main pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+  border: none;
+}
+.main ul, .main ol { margin: 8px 0 14px 24px; }
+.main li { margin-bottom: 5px; line-height: 1.6; }
+.main li::marker { color: var(--color-accent); }
+
+.main table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 16px 0;
+  font-size: 13.5px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--color-table-border);
+}
+.main th {
+  background: var(--color-accent);
+  font-weight: 600;
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #fff;
+  border-bottom: 1px solid var(--color-accent-dark);
+}
+.main th:not(:last-child) { border-right: 1px solid rgba(255,255,255,0.12); }
+.main td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-table-border);
+  vertical-align: top;
+  background: #fff;
+}
+.main tr:last-child td { border-bottom: none; }
+.main tr:nth-child(even) td { background: #fafafa; }
+.main tr:hover td { background: var(--color-accent-light); }
+
+.main blockquote {
+  border-left: 4px solid var(--color-accent);
+  padding: 14px 18px;
+  margin: 16px 0;
+  background: var(--color-accent-light);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 14px;
+}
+.main a { color: var(--color-accent); text-decoration: none; font-weight: 500; border-bottom: 1.5px solid transparent; transition: border-color 0.2s; }
+.main a:hover { border-bottom-color: var(--color-accent); color: var(--color-accent-dark); }
+
+.arch-wrapper {
+  background: #fafafa;
+  border-radius: var(--radius-md);
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  margin-bottom: 16px;
+}
+.arch-wrapper svg { width: 100%; height: auto; display: block; }
+
+.squad-section { margin-bottom: 24px; }
+.squad-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.squad-header h3 { margin: 0; font-size: 16px; }
+.squad-tag {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.tag-account { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+.tag-gt { background: #fefce8; color: #a16207; border: 1px solid #fef08a; }
+.tag-copy { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+.tag-design { background: #fdf4ff; color: #a21caf; border: 1px solid #f5d0fe; }
+.tag-csm { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+.tag-coord { background: #fefce8; color: #ca8a04; border: 1px solid #fef08a; }
+.tag-geral { background: #f5f5f4; color: #44403c; border: 1px solid #e7e5e4; }
+
+.agent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 8px;
+}
+.agent-card {
+  background: #fafafa;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.agent-card:hover { border-color: var(--color-accent); box-shadow: var(--shadow-sm); }
+.agent-card .name { font-weight: 600; font-size: 13.5px; margin-bottom: 4px; }
+.agent-card .name .at { color: var(--color-accent); }
+.agent-card .desc { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 6px; line-height: 1.4; }
+.agent-card .meta { display: flex; flex-wrap: wrap; gap: 4px; }
+.agent-card .meta-tag {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #fff;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+.agent-card .meta-tag.model { color: #b91c1c; border-color: #fecaca; background: #fef2f2; }
+.agent-card .meta-tag.temp { color: #555; border-color: #e5e5e5; }
+
+.comp-card {
+  background: #fafafa;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+.comp-card h3 { margin: 0 0 8px; font-size: 16px; color: var(--color-text); }
+.comp-card p { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 12px; }
+
+.callout {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 12px 0;
+  font-size: 13.5px;
+  border-left: 3px solid;
+}
+.callout-info { background: #eff6ff; border-color: #3b82f6; }
+.callout-warn { background: #fef2f2; border-color: #b91c1c; }
+.callout-good { background: #f0fdf4; border-color: #22c55e; }
+
+.flow-card {
+  background: #fafafa;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  margin-bottom: 12px;
+}
+.flow-card h3 { margin: 0 0 12px; font-size: 15px; }
+.flow-steps { counter-reset: step; list-style: none; padding: 0; }
+.flow-steps li {
+  counter-increment: step;
+  padding: 6px 0 6px 28px;
+  position: relative;
+  font-size: 13.5px;
+  border-bottom: 1px solid var(--color-border);
+}
+.flow-steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 20px;
+  height: 20px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flow-steps li:last-child { border: none; }
+.flow-mcp {
+  display: inline-block;
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.mcp-ekyte { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+.mcp-drive { background: #f5f3ff; color: #6d28d9; border: 1px solid #ddd6fe; }
+.mcp-litellm { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+.mcp-n8n { background: #ecfeff; color: #0e7490; border: 1px solid #a5f3fc; }
+.mcp-people { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+
+.tabs {
+  display: flex; gap: 0; margin-bottom: 0; overflow-x: auto; flex-wrap: wrap;
+}
+.tab-btn {
+  padding: 8px 16px;
+  background: var(--color-sidebar);
+  border: 1px solid var(--color-border);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 500;
+  transition: all 0.15s;
+  font-family: var(--font-sans);
+  margin-right: 2px;
+}
+.tab-btn:hover { color: var(--color-text); background: #fff; }
+.tab-btn.active {
+  background: #fff;
+  color: var(--color-accent);
+  border-color: var(--color-border);
+  position: relative;
+  font-weight: 600;
+}
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #fff;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.doc-ref {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+  font-size: 12.5px;
+  color: var(--color-text-secondary);
+}
+.doc-ref a { font-weight: 400; }
+
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .header { left: 0; }
+  .main { margin-left: 0; padding: 20px 16px 60px; }
+  .main section { padding: 20px; }
+  .agent-grid { grid-template-columns: 1fr; }
+  .header h1 { font-size: 13px; }
+  .header .subtitle { display: none; }
+}
+
+.tooltip {
+  position: fixed;
+  background: #111;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 14px;
+  max-width: 300px;
+  font-size: 12px;
+  line-height: 1.5;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 300;
+}
+.tooltip.visible { opacity: 1; }
+.tooltip strong { color: #fff; display: block; margin-bottom: 4px; }
+
+@media print {
+  .sidebar { display: none; }
+  .header { display: none; }
+  .main { margin: 0; padding: 20px; }
+  .main section { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Agent Hub V4</h1>
+  <span class="subtitle">Infraestrutura completa de agentes IA · Peretto & Co.</span>
+  <span class="header-badge">Junho 2026</span>
+</div>
+
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">AH</div>
+    <div class="version">v1.0 · Agent Hub</div>
+  </div>
+  <nav>
+    <ul>
+      <li><a class="nav-link level-0">📋 Conteúdo</a></li>
+      <li><a class="nav-link" href="#" data-section="arquitetura">🏗 Arquitetura</a></li>
+      <li><a class="nav-link" href="#" data-section="agentes">🤖 36 Agentes</a></li>
+      <li><a class="nav-link" href="#" data-section="infra">⚙️ Infraestrutura</a></li>
+      <li><a class="nav-link" href="#" data-section="fluxos">🔄 Fluxos</a></li>
+      <li><a class="nav-link" href="#" data-section="custos">💰 Custos</a></li>
+      <li><a class="nav-link" href="#" data-section="onboarding">🚀 Onboarding</a></li>
+    </ul>
+  </nav>
+</div>
+
+<div class="main">
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ARQUITETURA -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="arquitetura">
+<h1 class="section-title">Arquitetura</h1>
+<p>O <strong>Ekyte</strong> é o centro de tudo. Os agentes <strong>OpenCode</strong> usam <strong>65 tools MCP</strong> para ler e escrever no Ekyte — tarefas, projetos, tickets, horas, quadros. O <strong>Google Drive</strong> fornece documentos como contexto. O <strong>LiteLLM</strong> roteia chamadas para os modelos certos com governança por squad. O <strong>n8n</strong> automatiza workflows em background.</p>
+
+<div class="arch-wrapper">
+<svg viewBox="0 0 960 620" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="s"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.15"/></filter>
+    <marker id="arr" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <path d="M0,0 L7,2.5 L0,5" fill="#b91c1c"/>
+    </marker>
+    <radialGradient id="ekyte-grad" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#dc2626"/>
+      <stop offset="100%" stop-color="#b91c1c"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Users row -->
+  <rect x="40" y="20" width="140" height="36" rx="18" fill="#fff" stroke="#d1d5db" stroke-width="1.5" filter="url(#s)"/>
+  <text x="110" y="43" fill="#111" font-size="12" font-weight="600" text-anchor="middle">👤 Account</text>
+  <rect x="200" y="20" width="140" height="36" rx="18" fill="#fff" stroke="#d1d5db" stroke-width="1.5" filter="url(#s)"/>
+  <text x="270" y="43" fill="#111" font-size="12" font-weight="600" text-anchor="middle">👤 Copy</text>
+  <rect x="360" y="20" width="140" height="36" rx="18" fill="#fff" stroke="#d1d5db" stroke-width="1.5" filter="url(#s)"/>
+  <text x="430" y="43" fill="#111" font-size="12" font-weight="600" text-anchor="middle">👤 GT</text>
+  <rect x="520" y="20" width="140" height="36" rx="18" fill="#fff" stroke="#d1d5db" stroke-width="1.5" filter="url(#s)"/>
+  <text x="590" y="43" fill="#111" font-size="12" font-weight="600" text-anchor="middle">👤 CSM</text>
+  <rect x="680" y="20" width="150" height="36" rx="18" fill="#fff" stroke="#d1d5db" stroke-width="1.5" filter="url(#s)"/>
+  <text x="755" y="43" fill="#111" font-size="12" font-weight="600" text-anchor="middle">👤 Coord</text>
+
+  <!-- Arrows users → opencode -->
+  <path d="M200,56 L200,90" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+  <path d="M360,56 L360,90" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+  <path d="M430,56 L430,90" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+  <path d="M590,56 L590,90" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+  <path d="M755,56 L755,90" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+
+  <!-- OpenCode Web -->
+  <rect x="180" y="90" width="580" height="48" rx="10" fill="#fff" stroke="#b91c1c" stroke-width="2" filter="url(#s)"/>
+  <text x="470" y="112" fill="#b91c1c" font-size="14" font-weight="700" text-anchor="middle">OpenCode Web</text>
+  <text x="470" y="129" fill="#666" font-size="10" text-anchor="middle">36 agentes · MCPs · Session sharing</text>
+
+  <!-- OpenCode → Ekyte -->
+  <path d="M470,138 L470,210" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="480" y="180" fill="#b91c1c" font-size="10" font-weight="600">MCP (65 tools)</text>
+
+  <!-- OpenCode → Drive -->
+  <path d="M760,114 L860,180" stroke="#6d28d9" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="800" y="145" fill="#6d28d9" font-size="10" font-weight="500">Drive MCP</text>
+
+  <!-- OpenCode → LiteLLM -->
+  <path d="M470,138 L300,240" stroke="#15803d" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="340" y="180" fill="#15803d" font-size="10" font-weight="500">LiteLLM API</text>
+
+  <!-- EKYTE center -->
+  <circle cx="470" cy="290" r="85" fill="url(#ekyte-grad)" stroke="#dc2626" stroke-width="3" filter="url(#s)"/>
+  <text x="470" y="278" fill="#fff" font-size="22" font-weight="800" text-anchor="middle">EKYTE</text>
+  <text x="470" y="298" fill="#fecaca" font-size="11" text-anchor="middle">♥ Coração da Operação</text>
+
+  <!-- Ekyte labels -->
+  <rect x="380" y="370" width="80" height="20" rx="10" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+  <text x="420" y="384" fill="#b91c1c" font-size="9" text-anchor="middle">📋 Tarefas</text>
+  <rect x="470" y="370" width="80" height="20" rx="10" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+  <text x="510" y="384" fill="#b91c1c" font-size="9" text-anchor="middle">🎫 Tickets</text>
+  <rect x="400" y="215" width="80" height="20" rx="10" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+  <text x="440" y="229" fill="#b91c1c" font-size="9" text-anchor="middle">🏗 Projetos</text>
+  <rect x="490" y="215" width="80" height="20" rx="10" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+  <text x="530" y="229" fill="#b91c1c" font-size="9" text-anchor="middle">⏱ Horas</text>
+
+  <!-- n8n -->
+  <rect x="100" y="440" width="200" height="50" rx="10" fill="#fff" stroke="#0e7490" stroke-width="2" filter="url(#s)"/>
+  <text x="200" y="463" fill="#0e7490" font-size="14" font-weight="700" text-anchor="middle">n8n</text>
+  <text x="200" y="480" fill="#666" font-size="10" text-anchor="middle">Motor de Automação Headless</text>
+
+  <!-- Drive -->
+  <rect x="640" y="440" width="200" height="50" rx="10" fill="#fff" stroke="#6d28d9" stroke-width="2" filter="url(#s)"/>
+  <text x="740" y="463" fill="#6d28d9" font-size="14" font-weight="700" text-anchor="middle">Google Drive</text>
+  <text x="740" y="480" fill="#666" font-size="10" text-anchor="middle">Knowledge Base Viva</text>
+
+  <!-- LiteLLM -->
+  <rect x="100" y="240" width="200" height="50" rx="10" fill="#fff" stroke="#15803d" stroke-width="2" filter="url(#s)"/>
+  <text x="200" y="263" fill="#15803d" font-size="14" font-weight="700" text-anchor="middle">LiteLLM</text>
+  <text x="200" y="280" fill="#666" font-size="10" text-anchor="middle">Gateway de Modelos</text>
+
+  <!-- Ekyte ↔ n8n -->
+  <path d="M385,370 L300,440" stroke="#0e7490" stroke-width="1.5" fill="none"/>
+  <path d="M300,445 L385,375" stroke="#0e7490" stroke-width="1.5" fill="none"/>
+  <text x="320" y="410" fill="#0e7490" font-size="9" font-weight="500">Webhook</text>
+
+  <!-- Ekyte ↔ Drive via agent -->
+  <path d="M555,370 L640,440" stroke="#6d28d9" stroke-width="1.5" fill="none"/>
+  <path d="M640,445 L555,375" stroke="#6d28d9" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+  <text x="580" y="410" fill="#6d28d9" font-size="9" font-weight="500">Docs</text>
+
+  <!-- Bottom labels -->
+  <rect x="100" y="520" width="200" height="30" rx="6" fill="#fafafa" stroke="#e5e5e5" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="200" y="539" fill="#555" font-size="10" text-anchor="middle">🔄 Relatórios · Flags · Comitê</text>
+  <rect x="370" y="520" width="220" height="30" rx="6" fill="#fafafa" stroke="#e5e5e5" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="480" y="539" fill="#555" font-size="10" text-anchor="middle">📁 Briefings · Relatórios · Templates</text>
+  <rect x="640" y="520" width="200" height="30" rx="6" fill="#fafafa" stroke="#e5e5e5" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="740" y="539" fill="#555" font-size="10" text-anchor="middle">🤖 GPT · Claude · Gemini</text>
+
+  <!-- Legend -->
+  <rect x="320" y="575" width="8" height="8" rx="2" fill="#b91c1c"/>
+  <text x="333" y="583" fill="#555" font-size="9">Ekyte</text>
+  <rect x="400" y="575" width="8" height="8" rx="2" fill="#15803d"/>
+  <text x="413" y="583" fill="#555" font-size="9">LiteLLM</text>
+  <rect x="475" y="575" width="8" height="8" rx="2" fill="#6d28d9"/>
+  <text x="488" y="583" fill="#555" font-size="9">Drive</text>
+  <rect x="540" y="575" width="8" height="8" rx="2" fill="#0e7490"/>
+  <text x="553" y="583" fill="#555" font-size="9">n8n</text>
+</svg>
+</div>
+
+<blockquote>
+<strong>🔗 Como os componentes se conectam:</strong><br>
+<strong>OpenCode → Ekyte:</strong> via MCP (65 tools) — cria tasks, tickets, projetos<br>
+<strong>OpenCode → Drive:</strong> via MCP (8 tools) — lê briefings, salva relatórios<br>
+<strong>OpenCode → LiteLLM:</strong> via API — roteia prompts para o modelo certo<br>
+<strong>n8n ↔ Ekyte:</strong> via webhook — ouve e escreve eventos<br>
+<strong>Ekyte e Drive</strong> não se conectam diretamente — o <strong>agente</strong> ou o <strong>n8n</strong> é a ponte
+</blockquote>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 36 AGENTES -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="agentes">
+<h1 class="section-title">36 Agentes por Squad</h1>
+<p>Cada agente é um subagente OpenCode (<code>.opencode/agents/*.md</code>) com modelo, temperatura e permissões próprias.</p>
+
+<div class="tabs" id="agent-tabs">
+  <button class="tab-btn active" onclick="showTab('agents','all',this)">🔥 Todos (36)</button>
+  <button class="tab-btn" onclick="showTab('agents','account',this)">📋 Account (3)</button>
+  <button class="tab-btn" onclick="showTab('agents','gt',this)">📊 GT (5)</button>
+  <button class="tab-btn" onclick="showTab('agents','copy',this)">✍️ Copy (3)</button>
+  <button class="tab-btn" onclick="showTab('agents','design',this)">🎨 Design (4)</button>
+  <button class="tab-btn" onclick="showTab('agents','csm',this)">🛡️ CSM (2)</button>
+  <button class="tab-btn" onclick="showTab('agents','coord',this)">🎯 Coord (9)</button>
+  <button class="tab-btn" onclick="showTab('agents','geral',this)">🔧 Geral (10)</button>
+</div>
+
+<div id="agents-all" class="tab-content active">
+<div class="agent-grid" style="margin-top:12px">
+<div class="agent-card"><div class="name"><span class="at">@</span>account-orchestrator</div><div class="desc">Orquestra saúde do cliente: check-ins, mission control, flags, expansão</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span><span class="meta-tag">account</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>analista-dados</div><div class="desc">Analisa performance, OKRs, métricas e gera insights estruturados</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span><span class="meta-tag">geral</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>automacao-analytics</div><div class="desc">Arquiteto de automação e analytics — tracking, n8n, pipelines de dados</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span><span class="meta-tag">geral</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>cmoorch</div><div class="desc">CMO Orchestrator — orquestra estratégia de marketing completa</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span><span class="meta-tag">coord</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>content-studio</div><div class="desc">Content Studio — orquestra produção de conteúdo: pesquisa, copy, design, SEO</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.25</span><span class="meta-tag">copy</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>copy-content</div><div class="desc">Copywriter — escreve LPs, emails, anúncios, redes sociais, lead magnets</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.3</span><span class="meta-tag">copy</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>criacao-design</div><div class="desc">Diretor de criação e design — interfaces, imagens, vídeos, apresentações</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.3</span><span class="meta-tag">design</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>cro-lab</div><div class="desc">CRO Lab Lead — pipeline de experimentos: hipóteses, design, aprendizado</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.15</span><span class="meta-tag">coord</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>cro-otimizacao</div><div class="desc">Especialista CRO — otimiza conversão em páginas, signups, formulários</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span><span class="meta-tag">gt</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>csm-orquestrador</div><div class="desc">CSM Orquestrador — setup inicial, triagem de flags, QBR, fechamento</div><div class="meta"><span class="meta-tag model">gpt-oss-120b:free</span><span class="meta-tag temp">temp 0.2</span><span class="meta-tag">csm</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>estrategia-lideranca</div><div class="desc">Conselheiro de liderança — sabatina, brainstorm, parcerias, launch</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.3</span><span class="meta-tag">geral</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>estrategia-marketing</div><div class="desc">Estrategista de marketing — pesquisa, concorrência, posicionamento</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span><span class="meta-tag">geral</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>evolucao-checkins</div><div class="desc">Analisa evolução de check-ins — histórico, combinados, progressão</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span><span class="meta-tag">account</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>executor-comite</div><div class="desc">Gera briefing do Comitê de P&EG com dados reais de OKRs e sprints</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span><span class="meta-tag">coord</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>flag-churn</div><div class="desc">Diagnóstico de risco de churn quando NPS + CSAT caem juntos</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span><span class="meta-tag">csm</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>flag-okr</div><div class="desc">Diagnóstico de desvio de OKR quando KR menor que 60% do esperado</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span><span class="meta-tag">coord</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>flag-operacao</div><div class="desc">Alerta de operação travada — sprint atrasada sem FCA ou timesheet zerado</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span><span class="meta-tag">coord</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>flag-roi</div><div class="desc">Diagnóstico de ROAS abaixo da meta — classifica tipo e gera CHAS</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span><span class="meta-tag">gt</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>gerar-doc</div><div class="desc">Gera documentos formatados: atas, relatórios, propostas no padrão V4</div><div class="meta"><span class="meta-tag model">gemini-2.5-flash</span><span class="meta-tag temp">temp 0.3</span><span class="meta-tag">geral</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>gerar-html</div><div class="desc">Gera páginas HTML completas e responsivas</div><div class="meta"><span class="meta-tag model">gemini-2.5-flash</span><span class="meta-tag temp">temp 0.3</span><span class="meta-tag">design</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>gerar-pdf</div><div class="desc">Gera PDFs estilizados no padrão visual V4/Peretto</div><div class="meta"><span class="meta-tag model">gemini-2.5-flash</span><span class="meta-tag temp">temp 0.3</span><span class="meta-tag">design</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>gerar-ppt</div><div class="desc">Gera apresentações em PPT/HTML no padrão visual V4</div><div class="meta"><span class="meta-tag model">gemini-2.5-flash</span><span class="meta-tag temp">temp 0.3</span><span class="meta-tag">design</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>growth-team</div><div class="desc">Growth Team Lead — orquestra growth: CRO, mídia, SEO, conteúdo, receita</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span><span class="meta-tag">coord</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>launch-pad</div><div class="desc">Launch Pad — orquestra lançamentos: estratégia, conteúdo, mídia, SEO</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.25</span><span class="meta-tag">coord</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>media-buyer</div><div class="desc">Media Buyer — arquitetura de contas, análise preditiva, ROAS/CPA</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span><span class="meta-tag">gt</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>midia-paga</div><div class="desc">Estrategista de mídia paga — Meta, Google, LinkedIn, TikTok</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.15</span><span class="meta-tag">gt</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>n8n-automator</div><div class="desc">Arquiteto n8n — cria, edita, valida e sincroniza workflows</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span><span class="meta-tag">geral</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>pesquisador</div><div class="desc">Pesquisa profundidade — minera dados públicos, reviews, concorrentes</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.15</span><span class="meta-tag">geral</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>pipeline-conteudo</div><div class="desc">Pipeline editorial — calendário, blog, email marketing, aprovação</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.25</span><span class="meta-tag">copy</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>receita-crescimento</div><div class="desc">Receita e crescimento — pricing, retenção, referrals, RevOps</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span><span class="meta-tag">coord</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>relatorios-trafego</div><div class="desc">Relatórios de tráfego multicanal — Google Ads, Meta, Bing</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.15</span><span class="meta-tag">gt</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>revenue-ops</div><div class="desc">Revenue Operations Lead — orquestra engrenagem de receita</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.15</span><span class="meta-tag">coord</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>revisor</div><div class="desc">Valida outputs de agentes — confere números, formata saída</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span><span class="meta-tag">geral</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>sdr-tech</div><div class="desc">Comandante técnico das SDRs IA — n8n, Supabase, Lovable</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span><span class="meta-tag">geral</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>seo-visibilidade</div><div class="desc">SEO e AI Visibility — audit, otimiza, faz marcas aparecerem em IAs</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.15</span><span class="meta-tag">geral</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>vendas-account</div><div class="desc">Vendas — collaterais, scripts de demo, handoff, pesquisa de cliente</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span><span class="meta-tag">account</span></div></div>
+</div>
+</div>
+
+<div id="agents-account" class="tab-content"><div class="agent-grid" style="margin-top:12px">
+<div class="agent-card"><div class="name"><span class="at">@</span>account-orchestrator</div><div class="desc">Orquestra saúde do cliente: check-ins, mission control, flags, expansão</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>evolucao-checkins</div><div class="desc">Analisa evolução de check-ins — histórico, combinados, progressão</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>vendas-account</div><div class="desc">Vendas — collaterais, scripts de demo, handoff, pesquisa de cliente</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span></div></div>
+</div></div>
+
+<div id="agents-gt" class="tab-content"><div class="agent-grid" style="margin-top:12px">
+<div class="agent-card"><div class="name"><span class="at">@</span>cro-otimizacao</div><div class="desc">Especialista CRO — otimiza conversão em páginas, signups, formulários</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>flag-roi</div><div class="desc">Diagnóstico de ROAS abaixo da meta — classifica tipo e gera CHAS</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>media-buyer</div><div class="desc">Media Buyer — arquitetura de contas, análise preditiva, ROAS/CPA</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>midia-paga</div><div class="desc">Estrategista de mídia paga — Meta, Google, LinkedIn, TikTok</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.15</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>relatorios-trafego</div><div class="desc">Relatórios de tráfego multicanal — Google Ads, Meta, Bing</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.15</span></div></div>
+</div></div>
+
+<div id="agents-copy" class="tab-content"><div class="agent-grid" style="margin-top:12px">
+<div class="agent-card"><div class="name"><span class="at">@</span>content-studio</div><div class="desc">Content Studio — orquestra produção de conteúdo: pesquisa, copy, design, SEO</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.25</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>copy-content</div><div class="desc">Copywriter — escreve LPs, emails, anúncios, redes sociais, lead magnets</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.3</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>pipeline-conteudo</div><div class="desc">Pipeline editorial — calendário, blog, email marketing, aprovação</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.25</span></div></div>
+</div></div>
+
+<div id="agents-design" class="tab-content"><div class="agent-grid" style="margin-top:12px">
+<div class="agent-card"><div class="name"><span class="at">@</span>criacao-design</div><div class="desc">Diretor de criação e design — interfaces, imagens, vídeos, apresentações</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.3</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>gerar-html</div><div class="desc">Gera páginas HTML completas e responsivas</div><div class="meta"><span class="meta-tag model">gemini-2.5-flash</span><span class="meta-tag temp">temp 0.3</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>gerar-pdf</div><div class="desc">Gera PDFs estilizados no padrão visual V4/Peretto</div><div class="meta"><span class="meta-tag model">gemini-2.5-flash</span><span class="meta-tag temp">temp 0.3</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>gerar-ppt</div><div class="desc">Gera apresentações em PPT/HTML no padrão visual V4</div><div class="meta"><span class="meta-tag model">gemini-2.5-flash</span><span class="meta-tag temp">temp 0.3</span></div></div>
+</div></div>
+
+<div id="agents-csm" class="tab-content"><div class="agent-grid" style="margin-top:12px">
+<div class="agent-card"><div class="name"><span class="at">@</span>csm-orquestrador</div><div class="desc">CSM Orquestrador — setup inicial, triagem de flags, QBR, fechamento</div><div class="meta"><span class="meta-tag model">gpt-oss-120b:free</span><span class="meta-tag temp">temp 0.2</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>flag-churn</div><div class="desc">Diagnóstico de risco de churn quando NPS + CSAT caem juntos</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span></div></div>
+</div></div>
+
+<div id="agents-coord" class="tab-content"><div class="agent-grid" style="margin-top:12px">
+<div class="agent-card"><div class="name"><span class="at">@</span>cmoorch</div><div class="desc">CMO Orchestrator — orquestra estratégia de marketing completa</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>cro-lab</div><div class="desc">CRO Lab Lead — pipeline de experimentos: hipóteses, design, aprendizado</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.15</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>executor-comite</div><div class="desc">Gera briefing do Comitê de P&EG com dados reais de OKRs e sprints</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>flag-okr</div><div class="desc">Diagnóstico de desvio de OKR quando KR menor que 60% do esperado</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>flag-operacao</div><div class="desc">Alerta de operação travada — sprint atrasada sem FCA ou timesheet zerado</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>growth-team</div><div class="desc">Growth Team Lead — orquestra growth: CRO, mídia, SEO, conteúdo, receita</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>launch-pad</div><div class="desc">Launch Pad — orquestra lançamentos: estratégia, conteúdo, mídia, SEO</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.25</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>receita-crescimento</div><div class="desc">Receita e crescimento — pricing, retenção, referrals, RevOps</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>revenue-ops</div><div class="desc">Revenue Operations Lead — orquestra engrenagem de receita</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.15</span></div></div>
+</div></div>
+
+<div id="agents-geral" class="tab-content"><div class="agent-grid" style="margin-top:12px">
+<div class="agent-card"><div class="name"><span class="at">@</span>analista-dados</div><div class="desc">Analisa performance, OKRs, métricas e gera insights estruturados</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>automacao-analytics</div><div class="desc">Arquiteto de automação e analytics — tracking, n8n, pipelines de dados</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>estrategia-lideranca</div><div class="desc">Conselheiro de liderança — sabatina, brainstorm, parcerias, launch</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.3</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>estrategia-marketing</div><div class="desc">Estrategista de marketing — pesquisa, concorrência, posicionamento</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>gerar-doc</div><div class="desc">Gera documentos formatados: atas, relatórios, propostas no padrão V4</div><div class="meta"><span class="meta-tag model">gemini-2.5-flash</span><span class="meta-tag temp">temp 0.3</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>n8n-automator</div><div class="desc">Arquiteto n8n — cria, edita, valida e sincroniza workflows</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>pesquisador</div><div class="desc">Pesquisa profundidade — minera dados públicos, reviews, concorrentes</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.15</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>revisor</div><div class="desc">Valida outputs de agentes — confere números, formata saída</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.1</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>sdr-tech</div><div class="desc">Comandante técnico das SDRs IA — n8n, Supabase, Lovable</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.2</span></div></div>
+<div class="agent-card"><div class="name"><span class="at">@</span>seo-visibilidade</div><div class="desc">SEO e AI Visibility — audit, otimiza, faz marcas aparecerem em IAs</div><div class="meta"><span class="meta-tag model">deepseek-v4-flash-free</span><span class="meta-tag temp">temp 0.15</span></div></div>
+</div></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- INFRAESTRUTURA -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="infra">
+<h1 class="section-title">Infraestrutura</h1>
+<p>Cada componente da stack: o que faz, como os agentes usam, como configurar.</p>
+
+<div class="tabs" id="infra-tabs">
+  <button class="tab-btn active" onclick="showTab('infra','ekyte',this)">📋 Ekyte MCP</button>
+  <button class="tab-btn" onclick="showTab('infra','opencode',this)">💻 OpenCode</button>
+  <button class="tab-btn" onclick="showTab('infra','litellm',this)">🔀 LiteLLM</button>
+  <button class="tab-btn" onclick="showTab('infra','drive',this)">📁 Drive MCP</button>
+  <button class="tab-btn" onclick="showTab('infra','n8n',this)">⚡ n8n</button>
+</div>
+
+<div id="infra-ekyte" class="tab-content active">
+<div class="comp-card">
+<h3>Ekyte — ♥ Coração da Operação</h3>
+<p>65 tools MCP expostas para os agentes. Tudo que é operacional passa por aqui.</p>
+<table>
+<tr><th>Grupo</th><th>Tools</th><th>O Que os Agentes Fazem</th></tr>
+<tr><td>📋 Tarefas</td><td>15</td><td>Criar, listar, atualizar, comentar, mover fases, trocar responsáveis</td></tr>
+<tr><td>🎫 Tickets</td><td>11</td><td>Abrir, atualizar, transferir, comentar, avançar fases</td></tr>
+<tr><td>📊 Projetos</td><td>8</td><td>Criar, compartilhar cronograma, enviar por email</td></tr>
+<tr><td>📌 Quadros</td><td>9</td><td>Criar notas, categorias, gerenciar kanban</td></tr>
+<tr><td>📎 Artefatos</td><td>4</td><td>Upload e gestão de arquivos na biblioteca</td></tr>
+<tr><td>⏱ Apontamento</td><td>1</td><td>Consultar horas apontadas por período</td></tr>
+<tr><td>👥 Squads</td><td>3</td><td>Listar squads, usuários, perfis</td></tr>
+</table>
+<div class="callout callout-info"><strong>Token:</strong> Gerar em Configurações > Usuário no Ekyte. Cada usuário tem o próprio token.</div>
+</div>
+</div>
+
+<div id="infra-opencode" class="tab-content">
+<div class="comp-card">
+<h3>OpenCode Web — Interface de Agentes</h3>
+<p>36 agentes rodando no browser. Cada squad acessa via URL compartilhada. MCPs conectados: Ekyte, Drive, People, Calendar.</p>
+<table>
+<tr><th>Funcionalidade</th><th>Detalhe</th></tr>
+<tr><td>Acesso</td><td>OpenCode Web no VPS Hostinger (navegador)</td></tr>
+<tr><td>Agentes</td><td>36 subagentes em <code>.opencode/agents/</code></td></tr>
+<tr><td>MCPs conectados</td><td>Ekyte (65 tools), Drive (8), People (3), Calendar (8)</td></tr>
+<tr><td>Session sharing</td><td>Compartilhável entre membros do mesmo squad</td></tr>
+<tr><td>Modo híbrido</td><td>Interação em tempo real no Web + workflows headless no n8n</td></tr>
+</table>
+</div>
+</div>
+
+<div id="infra-litellm" class="tab-content">
+<div class="comp-card">
+<h3>LiteLLM — Gateway de Modelos</h3>
+<p>Proxy unificado OpenAI + Anthropic + DeepSeek + Gemini em API única. Chave virtual por squad com rate limit e budget.</p>
+<table>
+<tr><th>Squad</th><th>Modelos Liberados</th><th>Budget/mês</th></tr>
+<tr><td>Account</td><td>deepseek-v4-flash, gemini-2.5-flash, claude-sonnet-4</td><td>$50</td></tr>
+<tr><td>Copy</td><td>deepseek-v4-flash, gemini-2.5-flash, gpt-4o-mini</td><td>$30</td></tr>
+<tr><td>GT</td><td>deepseek-v4-flash, gemini-2.5-flash, gpt-4o-mini</td><td>$30</td></tr>
+<tr><td>Design</td><td>deepseek-v4-flash, claude-sonnet-4, gpt-4o</td><td>$80</td></tr>
+<tr><td>CSM</td><td>deepseek-v4-flash, gemini-2.5-flash, gpt-4o-mini</td><td>$20</td></tr>
+<tr><td>Coord</td><td>deepseek-v4-flash, gemini-2.5-flash, claude-sonnet-4, gpt-4o</td><td>$100</td></tr>
+</table>
+</div>
+</div>
+
+<div id="infra-drive" class="tab-content">
+<div class="comp-card">
+<h3>Google Drive MCP — Knowledge Base</h3>
+<p>8 tools que permitem ao agente ler e escrever no Drive como se fosse arquivo local.</p>
+<table>
+<tr><th>Tool</th><th>O que o Agente Faz</th></tr>
+<tr><td><code>search_files</code></td><td>Busca arquivos por nome, tipo, pasta</td></tr>
+<tr><td><code>read_file_content</code></td><td>Lê conteúdo de qualquer arquivo</td></tr>
+<tr><td><code>create_file</code></td><td>Cria novos documentos markdown/texto</td></tr>
+<tr><td><code>create_folder</code></td><td>Cria estrutura de pastas</td></tr>
+<tr><td><code>list_folder_contents</code></td><td>Navega na estrutura do cliente</td></tr>
+<tr><td><code>get_file_metadata</code></td><td>Metadados: data, autor, tamanho</td></tr>
+<tr><td><code>copy_file</code></td><td>Duplica arquivos (templates)</td></tr>
+<tr><td><code>download_file</code></td><td>Exporta como PDF/docx</td></tr>
+</table>
+<div class="callout callout-info"><strong>OAuth:</strong> Cada usuário autoriza na primeira tool call. Escopos mínimos: <code>drive.readonly</code> + <code>drive.file</code>.</div>
+</div>
+</div>
+
+<div id="infra-n8n" class="tab-content">
+<div class="comp-card">
+<h3>n8n — Motor de Automação Headless</h3>
+<p>Workflows que rodam 24/7 sem intervenção: relatórios, comitê, flags, sync.</p>
+<table>
+<tr><th>Workflow</th><th>Disparo</th><th>O que Faz</th></tr>
+<tr><td>Briefing do Comitê</td><td>Cron (dom 20h)</td><td>Puxa Ekyte (tasks, tickets, horas) + Drive → gera briefing</td></tr>
+<tr><td>Relatório Semanal</td><td>Cron (seg 8h)</td><td>Compila tasks concluídas, gera PDF, envia email</td></tr>
+<tr><td>Flag CSM</td><td>Webhook Ekyte</td><td>Cria ticket automático se NPS+CSAT caem</td></tr>
+<tr><td>Flag ROI</td><td>Webhook Ekyte</td><td>Classifica ROAS abaixo da meta, cria CHAS</td></tr>
+<tr><td>Criar Pasta Drive</td><td>Webhook Ekyte</td><td>Cria estrutura de pastas para novo cliente</td></tr>
+</table>
+</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- FLUXOS -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="fluxos">
+<h1 class="section-title">Fluxos</h1>
+<p>Como os agentes e o Ekyte trabalham juntos nos fluxos reais de cada squad.</p>
+
+<div class="tabs" id="flow-tabs">
+  <button class="tab-btn active" onclick="showTab('flow','account',this)">📋 Account</button>
+  <button class="tab-btn" onclick="showTab('flow','copy',this)">✍️ Copy</button>
+  <button class="tab-btn" onclick="showTab('flow','gt',this)">📊 GT</button>
+  <button class="tab-btn" onclick="showTab('flow','coord',this)">🎯 Coordenação</button>
+</div>
+
+<div id="flow-account" class="tab-content active">
+<div class="flow-card">
+<h3>Pós-Call: Processar Check-in</h3>
+<ol class="flow-steps">
+<li>Usuário cola o transcript da call no agente <span class="flow-mcp mcp-ekyte">Ekyte</span></li>
+<li>@account-orchestrator extrai combinados e prazos</li>
+<li>Para cada combinado: <span class="flow-mcp mcp-ekyte">create_task</span> + <span class="flow-mcp mcp-ekyte">create_task_comment</span></li>
+<li>Se detectou risco: <span class="flow-mcp mcp-ekyte">create_ticket</span> (flag)</li>
+<li>Drive MCP: <span class="flow-mcp mcp-drive">create_file</span> com resumo da call</li>
+<li>Retorna: "3 tarefas criadas, 1 flag aberta, resumo salvo no Drive"</li>
+</ol>
+</div>
+<div class="flow-card">
+<h3>Pré-Call: Preparar Check-in</h3>
+<ol class="flow-steps">
+<li>@account-checkin-roleplay: "Me prepara pro check-in com cliente X"</li>
+<li><span class="flow-mcp mcp-ekyte">list_tasks</span> → tasks pendentes do cliente</li>
+<li><span class="flow-mcp mcp-drive">search_files</span> → pauta anterior no Drive</li>
+<li><span class="flow-mcp mcp-ekyte">list_tickets</span> → flags e pendências</li>
+<li>Gera resumo: pauta, tasks, histórico, perguntas sugeridas</li>
+</ol>
+</div>
+</div>
+
+<div id="flow-copy" class="tab-content">
+<div class="flow-card">
+<h3>Criação de Conteúdo com Aprovação</h3>
+<ol class="flow-steps">
+<li>Account cria task no Ekyte: "Produzir LP Campanha Verão" <span class="flow-mcp mcp-ekyte">create_task</span></li>
+<li>@copy-content lê briefing: <span class="flow-mcp mcp-drive">search_files</span> + <span class="flow-mcp mcp-drive">read_file_content</span></li>
+<li>Gera rascunho via <span class="flow-mcp mcp-litellm">gpt-4o-mini</span></li>
+<li><span class="flow-mcp mcp-drive">create_file</span> → salva rascunho v1 no Drive</li>
+<li><span class="flow-mcp mcp-ekyte">create_task_comment</span> + <span class="flow-mcp mcp-ekyte">update_task_phase</span> → avança para revisão</li>
+<li>Ciclo de revisão até aprovação, então <span class="flow-mcp mcp-ekyte">update_task</span> como concluída</li>
+</ol>
+</div>
+</div>
+
+<div id="flow-gt" class="tab-content">
+<div class="flow-card">
+<h3>Análise de Tráfego com Ação</h3>
+<ol class="flow-steps">
+<li>GT cria task: "Analisar ROAS cliente X" <span class="flow-mcp mcp-ekyte">create_task</span></li>
+<li>@media-buyer puxa dados reais via V4mos API</li>
+<li><span class="flow-mcp mcp-ekyte">list_tasks</span> → histórico de campanhas do cliente</li>
+<li><span class="flow-mcp mcp-ekyte">get_detailed_project</span> → orçamento disponível</li>
+<li>Se ROAS abaixo da meta: @flag-roi → <span class="flow-mcp mcp-ekyte">create_ticket</span></li>
+<li>Drive: <span class="flow-mcp mcp-drive">create_file</span> com relatório</li>
+<li>Ekyte: <span class="flow-mcp mcp-ekyte">create_task_comment</span> + <span class="flow-mcp mcp-ekyte">update_task_phase</span></li>
+</ol>
+</div>
+</div>
+
+<div id="flow-coord" class="tab-content">
+<div class="flow-card">
+<h3>Comitê de P&EG Automatizado</h3>
+<ol class="flow-steps">
+<li>n8n (cron domingo 20h): <span class="flow-mcp mcp-ekyte">list_tasks</span> + <span class="flow-mcp mcp-ekyte">list_tickets</span> + <span class="flow-mcp mcp-ekyte">list_time_trackings</span> por squad <span class="flow-mcp mcp-n8n">n8n</span></li>
+<li>n8n consolida em JSON e salva no Drive</li>
+<li>@executor-comite "Gera briefing do comitê"</li>
+<li>Lê dados do Drive <span class="flow-mcp mcp-drive">read_file_content</span></li>
+<li>Convoca @analista-dados e @revisor</li>
+<li>Drive: salva briefing .md + .html</li>
+<li>n8n envia briefing por email</li>
+</ol>
+</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- CUSTOS -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="custos">
+<h1 class="section-title">Custos</h1>
+
+<h2>Custos Fixos</h2>
+<table>
+<tr><th>Item</th><th>Valor</th></tr>
+<tr><td>VPS Hostinger (4 vCPU, 16GB)</td><td>~R$ 120/mês</td></tr>
+<tr><td>Domínio</td><td>~R$ 5/mês</td></tr>
+<tr><td>Google Workspace</td><td>~R$ 30/mês por usuário</td></tr>
+<tr><td><strong>Total fixo</strong></td><td><strong>~R$ 155/mês</strong></td></tr>
+</table>
+
+<h2>Custos Variáveis por Squad</h2>
+<table>
+<tr><th>Squad</th><th>Modelo Principal</th><th>Conservador</th><th>Moderado</th></tr>
+<tr><td>Account</td><td>deepseek-v4-flash + gemini-2.5-flash</td><td>$0</td><td>$3</td></tr>
+<tr><td>Copy</td><td>deepseek-v4-flash + gpt-4o-mini</td><td>$1</td><td>$4</td></tr>
+<tr><td>GT</td><td>deepseek-v4-flash + gpt-4o-mini</td><td>$0</td><td>$6</td></tr>
+<tr><td>Design</td><td>gemini-2.5-flash + claude-sonnet-4</td><td>$7</td><td>$18</td></tr>
+<tr><td>CSM</td><td>deepseek-v4-flash + gpt-4o-mini</td><td>$0</td><td>$2</td></tr>
+<tr><td>Coord</td><td>claude-sonnet-4 + gpt-4o</td><td>$18</td><td>$33</td></tr>
+<tr><td>Geral</td><td>deepseek-v4-flash + gpt-4o-mini</td><td>$0</td><td>$2</td></tr>
+<tr><td><strong>Total</strong></td><td></td><td><strong>~$26/mês</strong></td><td><strong>~$68/mês</strong></td></tr>
+</table>
+
+<blockquote>
+<strong>💰 Custo total estimado: R$ 305–545/mês</strong> (infra + modelos).<br>
+4-6x mais barato que ChatGPT Team ($25/pessoa) ou Claude Pro ($20/pessoa).<br>
+Inclui 36 agentes, 5+ modelos, 65 tools Ekyte, Drive MCP e n8n.
+</blockquote>
+
+<h2>Estratégia de Otimização</h2>
+<ul>
+<li><strong>DeepSeek V4 Flash como padrão</strong> — gratuito, usado em 70% das operações</li>
+<li><strong>Gemini 2.5 Flash gratuito</strong> — para análise de documentos grandes</li>
+<li><strong>GPT-4o Mini</strong> — tarefas em português que exigem mais precisão</li>
+<li><strong>Claude Sonnet 4</strong> — apenas Design e Coordenação (tarefas estratégicas)</li>
+<li><strong>Budget por squad</strong> no LiteLLM para evitar estouro de custos</li>
+</ul>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ONBOARDING -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="onboarding">
+<h1 class="section-title">Onboarding</h1>
+<p>Checklist para configurar um novo membro no Agent Hub em ~30 minutos.</p>
+
+<table>
+<tr><th>#</th><th>Passo</th><th>Detalhe</th></tr>
+<tr><td>1</td><td>Google Drive MCP — OAuth</td><td>1ª tool do Drive → browser abre autorização → membro autoriza</td></tr>
+<tr><td>2</td><td>Ekyte MCP — Token</td><td>Configurações > Usuário > Gerar Token MCP → configurar no .env</td></tr>
+<tr><td>3</td><td>LiteLLM — Chave Virtual</td><td>Admin cria chave para o squad com modelos e budget</td></tr>
+<tr><td>4</td><td>OpenCode Web — Acesso</td><td>URL do VPS + squad selecionado</td></tr>
+<tr><td>5</td><td>Builders Hub — Git</td><td><code>git clone</code> + skills + agentes disponíveis</td></tr>
+<tr><td>6</td><td>Teste Rápido</td><td>"Liste tarefas do squad" + "Busque briefing no Drive" + "Crie tarefa de teste"</td></tr>
+</table>
+
+<h2>Verificação Final</h2>
+<p>Ao final, o membro deve conseguir:</p>
+<ul>
+<li>Listar tasks do squad no Ekyte</li>
+<li>Buscar documentos no Drive via agente</li>
+<li>Rodar o agente principal do squad</li>
+<li>Criar tarefas no Ekyte via agente</li>
+<li>Salvar arquivos no Drive via agente</li>
+</ul>
+
+<h2>Troubleshooting</h2>
+<table>
+<tr><th>Problema</th><th>Causa</th><th>Solução</th></tr>
+<tr><td>"Token inválido"</td><td>Token Ekyte expirou</td><td>Regenerar em Configurações > Usuário</td></tr>
+<tr><td>"Drive não autorizado"</td><td>OAuth pendente</td><td>Rodar tool do Drive para disparar OAuth</td></tr>
+<tr><td>"Modelo não encontrado"</td><td>Chave LiteLLM sem acesso</td><td>Admin verificar virtual key</td></tr>
+<tr><td>"Rate limit"</td><td>Muitas requisições</td><td>Aguardar 60s ou aumentar rpm</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="doc-ref">
+<strong>Documentos relacionados:</strong><br>
+<a href="../AGENT-HUB-OPERACIONAL.md">docs/AGENT-HUB-OPERACIONAL.md</a> — Manual operacional completo<br>
+<a href="../INFRAESTRUTURA-AI.md">docs/INFRAESTRUTURA-AI.md</a> — Setup técnico, Docker Compose<br>
+<a href="index.md">docs/agent-hub/index.md</a> — Centro de documentação<br>
+<a href="01-fundacional/01-ekyte-coracao.md">01-fundacional/01-ekyte-coracao.md</a> — Ekyte como centro<br>
+<a href="02-componentes/04-ekyte-mcp.md">02-componentes/04-ekyte-mcp.md</a> — 65 tools Ekyte<br>
+<br>
+<strong>36 agentes em:</strong> <code>.opencode/agents/*.md</code><br>
+<strong>Stack:</strong> OpenCode + LiteLLM + Google Drive MCP + Ekyte MCP + n8n<br>
+<strong>Unidade:</strong> Peretto & Co. / V4 Company — Junho 2026
+</div>
+
+</div>
+
+<script>
+function showTab(group, tabId, btn) {
+  document.querySelectorAll('[id^="' + group + '-"]').forEach(el => el.classList.remove('active'));
+  document.getElementById(group + '-' + tabId).classList.add('active');
+  var parent = btn.closest('.tabs') || document.getElementById(group + '-tabs');
+  if (parent) {
+    parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  }
+  btn.classList.add('active');
+}
+
+document.querySelectorAll('.sidebar .nav-link[data-section]').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    var sectionId = this.getAttribute('data-section');
+    var section = document.getElementById(sectionId);
+    if (section) { section.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+</script>
+
+</body>
+</html>
