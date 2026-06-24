@@ -203,7 +203,8 @@ body {
       <li><a class="nav-link" href="#" data-section="valor">06 · Cadeia de Valor</a></li>
       <li><a class="nav-link" href="#" data-section="playbooks">07 · Playbooks</a></li>
       <li><a class="nav-link" href="#" data-section="governanca">08 · Governança</a></li>
-      <li><a class="nav-link" href="#" data-section="downloads">09 · Downloads</a></li>
+      <li><a class="nav-link" href="#" data-section="validacao">09 · Validação & Refinamento</a></li>
+      <li><a class="nav-link" href="#" data-section="downloads">10 · Downloads</a></li>
     </ul>
   </nav>
 </div>
@@ -1021,7 +1022,41 @@ Salva como .md e .html no Drive.
 </section>
 
 <!-- ═══════════════════════════════════════════════ -->
-<!-- 09 · DOWNLOADS -->
+<!-- 09 · VALIDAÇÃO & REFINAMENTO -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="validacao">
+<h1 class="section-title">Validação & Refinamento — Ajuste Fino das Skills</h1>
+
+<p>O Hub v2.0 foi construído a partir dos documentos originais do time e do mapeamento de skills existentes. As skills e agentes descritos neste manual são a <strong>versão rascunho</strong>. O próximo passo obrigatório é validar com cada squad e refinar a lógica.</p>
+
+<h2>Por Que Refinar?</h2>
+<p>Cada skill em <code>.agents/skills/{nome}/SKILL.md</code> precisa ter:</p>
+<ul>
+<li><strong>Descrição</strong> clara para o OpenCode saber quando invocar (sem ambiguidade)</li>
+<li><strong>Trigger phrases</strong> com os termos que o time realmente usa</li>
+<li><strong>Workflow</strong> que reflita a realidade — não o que achamos que acontece</li>
+<li><strong>Input esperado</strong> explícito — o usuário sabe o que fornecer?</li>
+<li><strong>Output gerado</strong> no formato certo — task, documento, relatório?</li>
+<li><strong>Integrações</strong> com os MCPs/APIs certos — Ekyte, Drive, Meta, Google?</li>
+</ul>
+
+<h2>Checklist da Sessão de Validação (30 min por squad)</h2>
+<ul>
+<li>[ ] Fluxo proposto faz sentido para o time?</li>
+<li>[ ] Skills listadas cobrem as necessidades?</li>
+<li>[ ] Faltou alguma skill?</li>
+<li>[ ] Fontes de dados estão corretas?</li>
+<li>[ ] Output esperado é útil?</li>
+<li>[ ] O que mudar nos SKILL.md?</li>
+</ul>
+
+<div class="callout callout-warn">
+<strong>⚠️ Lembrete:</strong> Skills base (onboarding, contexto, sabatina, sync-hub) são funções nativas do repositório e não entram neste ciclo de validação. O refinamento é só para skills especializadas por função.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 10 · DOWNLOADS -->
 <!-- ═══════════════════════════════════════════════ -->
 <section id="downloads">
 <h1 class="section-title">Downloads — Skills Export + Documentos</h1>

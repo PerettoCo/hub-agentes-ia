@@ -189,8 +189,10 @@ body {
     <li><a class="nav-link" href="#" data-section="agentes">04 · Catálogo Completo</a></li>
     <li><a class="nav-link" href="#" data-section="formacoes">05 · Formações de Time</a></li>
     <li><a class="nav-link" href="#" data-section="fontes">06 · Documentos Originais</a></li>
+    <li><a class="nav-link level-0">Evolução</a></li>
+    <li><a class="nav-link" href="#" data-section="validacao">07 · Validação & Refinamento</a></li>
     <li><a class="nav-link level-0">Downloads</a></li>
-    <li><a class="nav-link" href="#" data-section="downloads">07 · Baixar Skills + Docs</a></li>
+    <li><a class="nav-link" href="#" data-section="downloads">08 · Baixar Skills + Docs</a></li>
   </ul></nav>
 </div>
 
@@ -789,7 +791,64 @@ body {
 </section>
 
 <!-- ═══════════════════════════════════════════════ -->
-<!-- 07 · DOWNLOADS -->
+<!-- 07 · VALIDAÇÃO & REFINAMENTO -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="validacao">
+<h1 class="section-title">Validação & Refinamento — Próximos Passos</h1>
+
+<p>O Hub v2.0 foi construído a partir dos documentos originais do time (PIA, Stefanny, Samuel, GT) e do mapeamento completo de skills existentes. O próximo passo é <strong>validar com cada squad</strong> o que foi mapeado e <strong>refinar a lógica de cada skill</strong> com base no feedback real de quem usa.</p>
+
+<h2>Fluxo de Validação</h2>
+
+<table>
+<tr><th>Fase</th><th>O Que Acontece</th><th>Quem Envolve</th><th>Duração</th></tr>
+<tr><td><strong>Task 1 — Sessões de Validação</strong></td><td>30min com cada squad mostrando o fluxo, skills e agentes mapeados. Valida se está certo, pergunta o que falta.</td><td>Account, GT, Copy, Design</td><td>Semana 1-2</td></tr>
+<tr><td><strong>Task 2 — Refinamento dos SKILL.md</strong></td><td>Ajusta descrição, triggers, workflow e input/output de cada skill com base no feedback da validação</td><td>Agentes de IA</td><td>Semana 2-3</td></tr>
+<tr><td><strong>Task 3 — Agentes no OpenCode</strong></td><td>Configura e testa agentes de Account e CSM no OpenCode. Ciclo completo: roleplay → call → review → flag.</td><td>Account + CSM</td><td>Semana 3-4</td></tr>
+<tr><td><strong>Task 4 — VPS + Opensquad</strong></td><td>Sobe infra na VPS: OpenCode Web, LiteLLM, n8n. Configura squads no Opensquad.</td><td>Infra</td><td>Semana 3-4</td></tr>
+</table>
+
+<h2>Skills a Refinar por Squad</h2>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin:12px 0">
+<div style="background:#fef2f2;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:14px 18px">
+<h3 style="font-size:14px;font-weight:600;margin-bottom:4px;color:#b91c1c">📋 Account (5 skills)</h3>
+<p style="font-size:12px;color:var(--color-text-secondary)"><code>account-checkin-roleplay</code> · <code>account-checkin-review</code> · <code>account-evolucao-checkins</code> · <code>account-handoff</code> · <code>account-pesquisa-profunda-cliente</code></p>
+</div>
+<div style="background:#fefce8;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:14px 18px">
+<h3 style="font-size:14px;font-weight:600;margin-bottom:4px;color:#a16207">🎯 GT / Tráfego (5 skills)</h3>
+<p style="font-size:12px;color:var(--color-text-secondary)"><code>gt-media-buyer-completo</code> · <code>gt-relatorios-trafego</code> · <code>v4mos-dados-meta-ads</code> · <code>analytics-tracking</code> · <code>paid-ads</code></p>
+</div>
+<div style="background:#f0fdf4;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:14px 18px">
+<h3 style="font-size:14px;font-weight:600;margin-bottom:4px;color:#15803d">✍️ Copy (8 skills)</h3>
+<p style="font-size:12px;color:var(--color-text-secondary)"><code>copywriting</code> · <code>copy-editing</code> · <code>copy-pipeline-conteudo</code> · <code>content-strategy</code> · <code>email-sequence</code> · <code>social-content</code> · <code>seo-audit</code> · <code>ai-seo</code></p>
+</div>
+<div style="background:#fdf4ff;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:14px 18px">
+<h3 style="font-size:14px;font-weight:600;margin-bottom:4px;color:#a21caf">🎨 Design (4 skills)</h3>
+<p style="font-size:12px;color:var(--color-text-secondary)"><code>geral-frontend-design</code> · <code>image</code> · <code>video</code> · <code>ad-creative</code></p>
+</div>
+</div>
+
+<h2>O Que Esperar do Refinamento</h2>
+
+<p>Cada skill em <code>.agents/skills/{nome}/SKILL.md</code> será ajustada nos seguintes aspectos:</p>
+
+<ol>
+<li><strong>Descrição</strong> — está clara para o OpenCode saber quando invocar?</li>
+<li><strong>Triggers</strong> — adicionar termos que o time usa no dia a dia</li>
+<li><strong>Workflow</strong> — o passo-a-passo reflete a realidade da área?</li>
+<li><strong>Input esperado</strong> — o que o usuário precisa fornecer?</li>
+<li><strong>Output gerado</strong> — formato correto?</li>
+<li><strong>Integrações</strong> — quais MCPs/APIs precisa acessar?</li>
+</ol>
+
+<div class="callout callout-warn">
+<strong>⚠️ Estado atual:</strong> As skills estão na versão <strong>rascunho v1</strong> — construídas a partir de documentos, não de validação com os times. O refinamento pós-sessões é <strong>obrigatório</strong> antes de considerar qualquer skill como "pronta". Consulte <code>docs/agents-hub/TASKS.md</code> para o plano completo.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 08 · DOWNLOADS -->
 <!-- ═══════════════════════════════════════════════ -->
 <section id="downloads">
 <h1 class="section-title">Downloads — Skills Export + Documentos</h1>
