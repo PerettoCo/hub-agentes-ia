@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metal Indianápolis — SEO & Conteúdo | v4perettoco</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #E31919; --red-gradient: linear-gradient(135deg, #E31919 0%, #FF4D4D 100%);
+  --white: #FFFFFF; --off-white: #F8F8F8;
+  --g50: #F2F2F2; --g100: #E0E0E0; --g200: #B0B0B0;
+  --g300: #808080; --g400: #606060; --g500: #404040; --g600: #303030; --g700: #202020;
+  --green: #22C55E; --amber: #D97706; --red-status: #DC2626;
+  --radius: 8px;
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body: 'Barlow', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+::selection { background: var(--red); color: var(--white); }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--white); color: var(--g600);
+  font-family: var(--font-body); font-size: 15px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.topbar {
+  background: var(--g700); padding: 14px 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+}
+.topbar-l { display: flex; align-items: center; gap: 14px; }
+.topbar-l img { height: 28px; }
+.topbar-d { width: 1px; height: 20px; background: var(--g400); }
+.topbar-t {
+  font-family: var(--font-display); font-size: 14px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--g200);
+}
+.topbar-t span { color: var(--red); }
+.topbar-r { display: flex; gap: 20px; align-items: center; }
+.topbar-r a {
+  font-family: var(--font-display); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--g200);
+  text-decoration: none; transition: color 0.2s;
+}
+.topbar-r a:hover { color: var(--white); }
+.topbar-cta {
+  background: var(--red-gradient); color: var(--white) !important;
+  padding: 7px 16px; font-size: 10px; letter-spacing: 0.12em;
+}
+.hero {
+  padding: 60px 56px 48px;
+  background: linear-gradient(180deg, var(--off-white) 0%, var(--white) 100%);
+  border-bottom: 1px solid var(--g100);
+}
+.hero-inner { max-width: 1120px; margin: 0 auto; }
+.hero-meta {
+  font-family: var(--font-display); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--g300);
+  margin-bottom: 4px;
+}
+.hero-meta strong { color: var(--g600); }
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5vw, 52px); font-weight: 900;
+  line-height: 0.9; letter-spacing: -0.03em; text-transform: uppercase;
+  margin-bottom: 4px; color: var(--g700);
+}
+.hero h1 span { color: var(--red); }
+.hero-sub {
+  font-size: 15px; font-weight: 300; color: var(--g300);
+  max-width: 700px; line-height: 1.55; margin: 12px 0 28px;
+}
+.hero-sub strong { color: var(--g500); font-weight: 500; }
+section { padding: 48px 56px; border-bottom: 1px solid var(--g100); }
+.section-inner { max-width: 1120px; margin: 0 auto; }
+.section-alt { background: var(--off-white); }
+.stag {
+  font-family: var(--font-display); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--g300);
+  margin-bottom: 4px;
+}
+.stitle {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 32px); font-weight: 900;
+  line-height: 0.92; letter-spacing: -0.02em; text-transform: uppercase;
+  margin-bottom: 20px; color: var(--g700);
+}
+.stitle span { color: var(--red); }
+.sdesc {
+  font-size: 14px; color: var(--g300); font-weight: 300;
+  max-width: 660px; line-height: 1.55; margin-bottom: 24px;
+}
+.metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 32px; }
+.metric-card {
+  background: var(--white); border: 1px solid var(--g100);
+  border-radius: var(--radius); padding: 20px; text-align: center;
+}
+.metric-n {
+  font-family: var(--font-display); font-size: 28px; font-weight: 900;
+  color: var(--red); line-height: 1;
+}
+.metric-l {
+  font-size: 9px; color: var(--g300); text-transform: uppercase;
+  letter-spacing: 0.06em; font-weight: 600; margin-top: 4px;
+}
+.metric-d {
+  font-size: 12px; color: var(--g400); font-weight: 300; margin-top: 4px;
+}
+.link-block {
+  background: var(--white); border: 1px solid var(--g100);
+  border-radius: var(--radius); padding: 20px 24px; margin-bottom: 10px;
+  text-decoration: none; display: block; transition: border-color 0.15s;
+}
+.link-block:hover { border-color: var(--red); }
+.link-h {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 2px;
+}
+.link-arrow {
+  font-family: var(--font-mono); font-size: 12px; color: var(--red);
+  font-weight: 500;
+}
+.link-title {
+  font-family: var(--font-display); font-size: 14px; font-weight: 800;
+  text-transform: uppercase; color: var(--g700);
+}
+.link-block:hover .link-title { color: var(--red); }
+.link-desc { font-size: 12px; color: var(--g300); font-weight: 300; margin-left: 22px; }
+.badge {
+  display: inline-block; font-size: 9px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 2px 10px; border-radius: 3px;
+}
+.badge-red { background: rgba(227,25,25,0.08); color: var(--red); }
+.badge-green { background: rgba(34,197,94,0.08); color: var(--green); }
+.badge-amber { background: rgba(217,119,6,0.08); color: var(--amber); }
+.badge-gray { background: var(--g50); color: var(--g400); }
+.impact-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 24px; }
+.impact-table th {
+  text-align: left; font-family: var(--font-display); font-size: 10px;
+  font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--g300); padding: 10px 14px;
+  border-bottom: 1px solid var(--g100);
+}
+.impact-table td {
+  padding: 12px 14px; border-bottom: 1px solid var(--g50);
+  color: var(--g500); font-weight: 300;
+}
+.impact-table td:first-child { font-weight: 500; color: var(--g700); }
+.impact-table tr:last-child td { border: none; }
+.impact-table .gain {
+  font-family: var(--font-display); font-weight: 800; color: var(--green);
+}
+.step-list { list-style: none; padding: 0; }
+.step-list li {
+  padding: 12px 0 12px 28px; position: relative;
+  border-bottom: 1px solid var(--g50);
+  font-size: 14px; color: var(--g500); font-weight: 300;
+}
+.step-list li::before {
+  content: ''; position: absolute; left: 6px; top: 18px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--red);
+}
+.step-list li:last-child { border: none; }
+.step-list li strong { color: var(--g700); font-weight: 500; }
+footer {
+  padding: 28px 56px; display: flex;
+  justify-content: space-between; align-items: center;
+  background: var(--off-white); border-top: 1px solid var(--g100);
+}
+.ft { font-size: 11px; color: var(--g300); font-weight: 300; }
+.ft-brand { display: flex; align-items: center; gap: 10px; }
+.ft-brand img { height: 22px; opacity: 0.4; }
+.ft-l a {
+  font-size: 10px; color: var(--g300); text-decoration: none;
+  font-family: var(--font-display); font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase; margin-left: 14px;
+}
+.ft-l a:hover { color: var(--g600); }
+@media (max-width: 768px) {
+  .topbar, .hero, section, footer { padding-left: 24px; padding-right: 24px; }
+  .metric-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .metric-grid { grid-template-columns: 1fr; }
+  .topbar-r a:not(.topbar-cta) { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-l">
+    <img src="logo-peretto-red.png" alt="V4">
+    <div class="topbar-d"></div>
+    <span class="topbar-t">v4perettoco <span>relatórios</span></span>
+  </div>
+  <div class="topbar-r">
+    <a href="index.html">Início</a>
+    <a href="marcosv4-blog-posts.html">Blog</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-meta">SEO & Conteúdo · <strong>Junho 2026</strong></div>
+    <h1>Metal <span>Indianápolis</span></h1>
+    <p class="hero-sub">
+      <strong>Fundição e Usinagem de Ferro Fundido — 60+ anos, ISO 9001.</strong>
+      Site em staging (preview.indianapolis.com.br). O melhor cenário para SEO de conteúdo: nicho com gap gigante de concorrência digital.
+    </p>
+  </div>
+</section>
+
+<!-- RESUMO -->
+<section>
+  <div class="section-inner">
+    <div class="stag">Resumo</div>
+    <h2 class="stitle">Tudo o que foi <span>feito</span></h2>
+    <p class="sdesc">
+      Trabalho completo de SEO on-page, conteúdo e schema markup para o lançamento do site da Metal Indianápolis — da auditoria técnica à produção de 12 posts de blog e implementação de schemas em todas as páginas.
+    </p>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-n">12</div>
+        <div class="metric-l">Posts de Blog</div>
+        <div class="metric-d">EEAT, 1500-2500 palavras c/ imagens</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-n">4</div>
+        <div class="metric-l">Páginas Otimizadas</div>
+        <div class="metric-d">Homepage + Empresa + Produtos + Contato</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-n">12</div>
+        <div class="metric-l">Schemas Implementados</div>
+        <div class="metric-d">Organization, LocalBusiness, Product, FAQ, HowTo, ItemList</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-n">16</div>
+        <div class="metric-l">Keywords Sementes</div>
+        <div class="metric-d">SEMrush, clusters por nicho e produto</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDITORIA -->
+<section class="section-alt">
+  <div class="section-inner">
+    <div class="stag">Auditoria</div>
+    <h2 class="stitle">Diagnóstico <span>Técnico</span></h2>
+    <p class="sdesc">
+      Auditoria completa da homepage identificou 12 problemas de gravidade CRÍTICA a MÉDIA. Os principais:
+    </p>
+
+    <table class="impact-table">
+      <thead>
+        <tr><th style="width:40%">Problema</th><th style="width:20%">Gravidade</th><th style="width:40%">Ação</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>H1 ausente na homepage</td><td><span class="badge badge-red">CRÍTICO</span></td><td>Hero H2 → H1 com 4 keywords principais</td></tr>
+        <tr><td>Title com nome errado (Indianópolis)</td><td><span class="badge badge-red">CRÍTICO</span></td><td>Corrigido para "Indianápolis"</td></tr>
+        <tr><td>Textos de produto muito curtos (15-25 palavras)</td><td><span class="badge badge-amber">ALTO</span></td><td>Expandidos para 60-80 palavras c/ especificações técnicas</td></tr>
+        <tr><td>6 de 7 segmentos sem descrição</td><td><span class="badge badge-amber">ALTO</span></td><td>Textos descritivos para cada segmento</td></tr>
+        <tr><td>Sem schema Organization/LocalBusiness</td><td><span class="badge badge-amber">ALTO</span></td><td>4-12 schemas por página implementados</td></tr>
+        <tr><td>H2 em topbar (telefone/email) + contadores</td><td><span class="badge badge-gray">MÉDIO</span></td><td>Convertidos para span/p</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- CONTEÚDO DAS PÁGINAS -->
+<section>
+  <div class="section-inner">
+    <div class="stag">Páginas</div>
+    <h2 class="stitle">Textos Novos + <span>Schema</span></h2>
+    <p class="sdesc">
+      Conteúdo reescrito para soar como engenheiro conversando com engenheiro — não blog genérico de SEO. Prioridade: parecer humano, com keywords embutidas.
+    </p>
+
+    <a class="link-block" href="https://preview.indianapolis.com.br/" target="_blank">
+      <div class="link-h">
+        <span class="link-arrow">&#8594;</span>
+        <span class="link-title">Homepage</span>
+      </div>
+      <div class="link-desc">H1 novo, parágrafo hero, 5 cards de produtos expandidos, processo produtivo, qualidade, CTA, 4 schemas (Organization + LocalBusiness + ItemList + HowTo)</div>
+    </a>
+    <a class="link-block" href="https://preview.indianapolis.com.br/empresa/" target="_blank">
+      <div class="link-h">
+        <span class="link-arrow">&#8594;</span>
+        <span class="link-title">Empresa</span>
+      </div>
+      <div class="link-desc">H1 novo, história completa (60+ anos), qualidade/laboratório, certificados, 3 schemas (Organization + LocalBusiness + FAQPage)</div>
+    </a>
+    <a class="link-block" href="https://preview.indianapolis.com.br/produtos/" target="_blank">
+      <div class="link-h">
+        <span class="link-arrow">&#8594;</span>
+        <span class="link-title">Produtos</span>
+      </div>
+      <div class="link-desc">H1 novo, catálogo com descrições técnicas por categoria (ferro nodular GGG40/GGG50, cinzento GG20/GG25), 2 schemas (WebPage + ItemList)</div>
+    </a>
+    <a class="link-block" href="https://preview.indianapolis.com.br/contato/" target="_blank">
+      <div class="link-h">
+        <span class="link-arrow">&#8594;</span>
+        <span class="link-title">Contato</span>
+      </div>
+      <div class="link-desc">H1 novo, formulário com CTA forte, informações de contato completas, WhatsApp, 3 schemas (Manufacturing + ContactPoint + WebPage)</div>
+    </a>
+  </div>
+</section>
+
+<!-- BLOG POSTS -->
+<section class="section-alt">
+  <div class="section-inner">
+    <div class="stag">Blog</div>
+    <h2 class="stitle">12 Artigos <span>Otimizados</span></h2>
+    <p class="sdesc">
+      Conteúdo EEAT com 1500-2500 palavras, imagens gratuitas, schema Article + FAQPage embutido. Nicho defensável: anéis de segmento.
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px">
+      <div style="background:var(--off-white);border:1px solid var(--g100);border-radius:var(--radius);padding:16px 20px">
+        <div style="font-family:var(--font-display);font-size:12px;font-weight:800;text-transform:uppercase;color:var(--red);margin-bottom:6px">01 — Ferro Fundido Cinzento</div>
+        <div style="color:var(--g400);font-weight:300">Propriedades, tipos GG20-GG40, aplicações e processo de fabricação</div>
+      </div>
+      <div style="background:var(--off-white);border:1px solid var(--g100);border-radius:var(--radius);padding:16px 20px">
+        <div style="font-family:var(--font-display);font-size:12px;font-weight:800;text-transform:uppercase;color:var(--red);margin-bottom:6px">02 — Preço do Ferro Fundido KG</div>
+        <div style="color:var(--g400);font-weight:300">Fatores (liga, molde, volume, usinagem, frete), mercado 2026</div>
+      </div>
+      <div style="background:var(--off-white);border:1px solid var(--g100);border-radius:var(--radius);padding:16px 20px">
+        <div style="font-family:var(--font-display);font-size:12px;font-weight:800;text-transform:uppercase;color:var(--red);margin-bottom:6px">03 — Fábrica de Roldanas</div>
+        <div style="color:var(--g400);font-weight:300">Como escolher fornecedor de roldanas em ferro fundido</div>
+      </div>
+      <div style="background:var(--off-white);border:1px solid var(--g100);border-radius:var(--radius);padding:16px 20px">
+        <div style="font-family:var(--font-display);font-size:12px;font-weight:800;text-transform:uppercase;color:var(--red);margin-bottom:6px">04 — Camisa para Compressor</div>
+        <div style="color:var(--g400);font-weight:300">Função, materiais (GG25/GGG50) e como especificar</div>
+      </div>
+      <div style="background:var(--off-white);border:1px solid var(--g100);border-radius:var(--radius);padding:16px 20px">
+        <div style="font-family:var(--font-display);font-size:12px;font-weight:800;text-transform:uppercase;color:var(--red);margin-bottom:6px">05 — Cabeçote para Compressor</div>
+        <div style="color:var(--g400);font-weight:300">Importância, materiais, especificação técnica</div>
+      </div>
+      <div style="background:var(--off-white);border:1px solid var(--g100);border-radius:var(--radius);padding:16px 20px">
+        <div style="font-family:var(--font-display);font-size:12px;font-weight:800;text-transform:uppercase;color:var(--red);margin-bottom:6px">06 — Anel de Segmento do Motor</div>
+        <div style="color:var(--g400);font-weight:300">Tipos, funções (vedação, lubrificação, calor), fabricação</div>
+      </div>
+      <div style="background:var(--off-white);border:1px solid var(--g100);border-radius:var(--radius);padding:16px 20px">
+        <div style="font-family:var(--font-display);font-size:12px;font-weight:800;text-transform:uppercase;color:var(--red);margin-bottom:6px">07 — Anel de Segmento Preço</div>
+        <div style="color:var(--g400);font-weight:300">Custo-benefício, fatores de preço, como cotar</div>
+      </div>
+      <div style="background:var(--off-white);border:1px solid var(--g100);border-radius:var(--radius);padding:16px 20px">
+        <div style="font-family:var(--font-display);font-size:12px;font-weight:800;text-transform:uppercase;color:var(--red);margin-bottom:6px">08 — Preço do Ferro Fundido</div>
+        <div style="color:var(--g400);font-weight:300">Fatores (minério, liga, classe, logística) que influenciam custo</div>
+      </div>
+      <div style="background:var(--off-white);border:1px solid var(--g100);border-radius:var(--radius);padding:16px 20px">
+        <div style="font-family:var(--font-display);font-size:12px;font-weight:800;text-transform:uppercase;color:var(--red);margin-bottom:6px">09 — Peças para Tratores</div>
+        <div style="color:var(--g400);font-weight:300">Como escolher fornecedor de ferro fundido agrícola</div>
+      </div>
+      <div style="background:var(--off-white);border:1px solid var(--g100);border-radius:var(--radius);padding:16px 20px">
+        <div style="font-family:var(--font-display);font-size:12px;font-weight:800;text-transform:uppercase;color:var(--red);margin-bottom:6px">10 — Fundição de Ferro</div>
+        <div style="color:var(--g400);font-weight:300">Como escolher a melhor fundição — critérios e certificações</div>
+      </div>
+      <div style="background:var(--off-white);border:1px solid var(--g100);border-radius:var(--radius);padding:16px 20px">
+        <div style="font-family:var(--font-display);font-size:12px;font-weight:800;text-transform:uppercase;color:var(--red);margin-bottom:6px">11 — Anel de Segmento (Tipos)</div>
+        <div style="color:var(--g400);font-weight:300">Tipos, aplicações (motor, compressor, hidráulico), especificação</div>
+      </div>
+      <div style="background:var(--off-white);border:1px solid var(--g100);border-radius:var(--radius);padding:16px 20px">
+        <div style="font-family:var(--font-display);font-size:12px;font-weight:800;text-transform:uppercase;color:var(--red);margin-bottom:6px">12 — Fabricante Peças Automotivas</div>
+        <div style="color:var(--g400);font-weight:300">Como escolher fornecedor de ferro fundido automotivo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JSONs -->
+<section>
+  <div class="section-inner">
+    <div class="stag">Implementação</div>
+    <h2 class="stitle">JSONs para <span>Elementor</span></h2>
+    <p class="sdesc">
+      Todos os JSONs de página e schemas estão prontos em <code>seo-json/</code> para importação direta no Elementor (template &gt; import template).
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
+      <a class="link-block" href="indianapolis-seo-audit/implantacao.html" style="margin:0">
+        <div class="link-h">
+          <span class="link-arrow">&#8594;</span>
+          <span class="link-title">Página de Implantação</span>
+        </div>
+        <div class="link-desc">Guia completo com textos e schemas por página</div>
+      </a>
+      <div style="background:var(--white);border:1px solid var(--g100);border-radius:var(--radius);padding:16px 20px">
+        <div style="font-family:var(--font-display);font-size:12px;font-weight:800;text-transform:uppercase;color:var(--g700);margin-bottom:4px">Schemas HTML</div>
+        <div style="font-size:11px;color:var(--g400)">homepage.html · empresa.html · produtos.html · contato.html</div>
+        <div style="font-size:11px;color:var(--g400);margin-top:2px">Prontos para copiar/colar no widget HTML do Elementor</div>
+      </div>
+    </div>
+
+    <div style="background:var(--off-white);border:1px solid var(--g100);border-radius:var(--radius);padding:16px 20px;font-size:12px">
+      <strong style="color:var(--g700)">JSONs disponíveis em seo-json/: </strong>
+      <span style="color:var(--g400)">00-homepage-page-v2.json · 01-empresa-page-v2.json · 02-solucoes-page.json · 03-produtos-page-v2.json · 04-contato-page-v2.json · Blog/ (12 posts individuais)</span>
+    </div>
+  </div>
+</section>
+
+<!-- KEYWORDS -->
+<section class="section-alt">
+  <div class="section-inner">
+    <div class="stag">Keywords</div>
+    <h2 class="stitle">Pesquisa <span>SEMrush</span></h2>
+    <p class="sdesc">
+      16 sementes mapeadas para extração no Keyword Magic Tool, priorizando clusters defensáveis e de alta intenção comercial B2B.
+    </p>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-n">16</div>
+        <div class="metric-l">Sementes</div>
+        <div class="metric-d">8 principais + 8 complementares</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-n">7</div>
+        <div class="metric-l">Clusters</div>
+        <div class="metric-d">fundição, ferro, usinagem, anel, peças, autopeças, geográfico</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-n">1</div>
+        <div class="metric-l">Nicho Defensável</div>
+        <div class="metric-d">Anéis de segmento — baixa concorrência digital</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUMO TASK -->
+<section>
+  <div class="section-inner">
+    <div class="stag">Task</div>
+    <h2 class="stitle">Resumo para <span>EKYTE</span></h2>
+    <p class="sdesc">Bloco de texto para copiar na task.</p>
+    <div style="background:#1A1A1A;border:1px solid #333;border-radius:var(--radius);padding:20px 24px;color:#ccc;font-size:13px;font-family:var(--font-mono);line-height:1.7">
+      <strong style="color:#00ff88">[SEO] Metal Indianápolis — Conteúdo + Schema + Blog (Junho 2026)</strong><br>
+      &gt; Auditoria SEO completa da homepage: 12 problemas encontrados (H1 ausente, title errado, textos curtos, zero schema).<br>
+      &gt; Textos reescritos para 4 páginas (homepage, empresa, produtos, contato) com tom técnico B2B e densidade semântica otimizada.<br>
+      &gt; 12 schemas implementados: Organization, LocalBusiness, Product, FAQPage, HowTo, ItemList, Manufacturing, ContactPoint.<br>
+      &gt; 12 artigos de blog produzidos (1500-2500 palavras, EEAT, c/ imagens e schema Article+FAQPage embutido).<br>
+      &gt; 16 keywords sementes mapeadas no SEMrush, priorizando clusters de anéis de segmento e peças sob especificação.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-brand">
+    <img src="logo-peretto-red.png" alt="V4">
+    <span class="ft">V4 Company · SEO</span>
+  </div>
+  <div class="ft-l">
+    <a href="index.html">Início</a>
+    <a href="marcosv4-blog-posts.html">Blog</a>
+  </div>
+  <span class="ft">Junho 2026</span>
+</footer>
+
+</body>
+</html>
