@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Cleaning Services · Relatório Unificado · Junho 2026</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E31919;
+    --dark: #0A0A0A;
+    --dark2: #111;
+    --dark3: #1A1A1A;
+    --dark4: #222;
+    --border: #2A2A2A;
+    --text-muted: #888;
+    --text-dim: #666;
+    --card-bg: rgba(26,26,26,0.85);
+    --card-border: rgba(255,255,255,0.06);
+    --green: #4CAF50;
+    --amber: #C8882A;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--dark); color:#E8E4DD; font-family:'Plus Jakarta Sans',sans-serif; overflow-x:hidden; }
+  .font-mono { font-family:'JetBrains Mono',monospace; }
+  #particles-canvas { position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:0; pointer-events:none; }
+  .content { position:relative; z-index:1; }
+  .topbar { background:var(--red); padding:10px 0; font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#fff; position:relative; z-index:10; }
+  .site-header { background:rgba(17,17,17,0.95); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); padding:18px 0; position:sticky; top:0; z-index:100; }
+  .site-header .logo img { height:30px; }
+  .hero { padding:100px 0 80px; background:linear-gradient(180deg,rgba(227,25,25,0.06) 0%,transparent 60%); border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  .hero::before { content:'PCS'; position:absolute; right:-40px; top:50%; transform:translateY(-50%); font-family:'Plus Jakarta Sans',sans-serif; font-size:clamp(120px,18vw,280px); font-weight:900; color:rgba(255,255,255,0.02); line-height:1; pointer-events:none; letter-spacing:-0.04em; }
+  .hero-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(227,25,25,0.15); color:var(--red); font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:6px 14px; border-radius:4px; margin-bottom:28px; border:1px solid rgba(227,25,25,0.2); }
+  .hero h1 { font-size:clamp(48px,7vw,88px); font-weight:800; line-height:0.92; letter-spacing:-0.03em; margin-bottom:20px; }
+  .hero h1 .red { color:var(--red); }
+  .hero p { font-size:16px; color:var(--text-muted); max-width:600px; line-height:1.7; margin-bottom:48px; }
+  .kpi-row { display:grid; grid-template-columns:repeat(6,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  .kpi-item { background:var(--dark3); padding:22px 20px; text-align:center; transition:background 0.3s; }
+  .kpi-item:hover { background:var(--dark4); }
+  .kpi-number { font-family:'JetBrains Mono',monospace; font-size:26px; font-weight:600; color:#fff; line-height:1; display:block; }
+  .kpi-number.red { color:var(--red); }
+  .kpi-number.green { color:var(--green); }
+  .kpi-label { font-size:9px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); margin-top:6px; display:block; }
+  .kpi-sub { font-size:10px; font-weight:500; color:var(--text-dim); margin-top:2px; display:block; }
+  section { padding:80px 0; border-bottom:1px solid var(--border); }
+  section:nth-child(odd) { background:rgba(255,255,255,0.01); }
+  .section-label { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+  .section-label .line { width:28px; height:2px; background:var(--red); flex-shrink:0; }
+  .section-label span { font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--red); }
+  .section-title { font-size:clamp(32px,4.5vw,52px); font-weight:800; line-height:0.95; letter-spacing:-0.02em; margin-bottom:48px; }
+  .section-title .red { color:var(--red); }
+  .section-title .green { color:var(--green); }
+  .g-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:28px; backdrop-filter:blur(12px); transition:border-color 0.3s,transform 0.2s; height:100%; }
+  .g-card:hover { border-color:rgba(227,25,25,0.2); transform:translateY(-2px); }
+  .g-card .icon { width:40px; height:40px; border-radius:10px; background:rgba(227,25,25,0.1); display:flex; align-items:center; justify-content:center; color:var(--red); font-size:16px; margin-bottom:16px; }
+  .g-card .icon.green { background:rgba(76,175,80,0.1); color:var(--green); }
+  .g-card .icon.amber { background:rgba(200,136,42,0.1); color:var(--amber); }
+  .g-card .tag { display:inline-block; font-size:9px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:3px 8px; border-radius:3px; margin-bottom:12px; }
+  .g-card .tag.red { background:rgba(227,25,25,0.15); color:var(--red); }
+  .g-card .tag.green { background:rgba(76,175,80,0.15); color:var(--green); }
+  .g-card .tag.amber { background:rgba(200,136,42,0.15); color:var(--amber); }
+  .g-card .tag.gray { background:rgba(255,255,255,0.05); color:var(--text-muted); }
+  .g-card h3 { font-size:15px; font-weight:700; margin-bottom:8px; line-height:1.3; }
+  .g-card p { font-size:12px; color:var(--text-muted); line-height:1.7; }
+  .g-card .big-number { font-family:'JetBrains Mono',monospace; font-size:32px; font-weight:600; color:#fff; display:block; margin-top:16px; }
+  .g-card .big-number.red { color:var(--red); }
+  .g-card .big-number.green { color:var(--green); }
+  .g-card .big-number .unit { font-size:13px; font-weight:400; color:var(--text-muted); font-family:'Plus Jakarta Sans',sans-serif; }
+  .alert-banner { border-radius:10px; padding:24px 28px; display:flex; gap:16px; align-items:flex-start; margin-bottom:12px; }
+  .alert-banner.red { background:linear-gradient(135deg,rgba(227,25,25,0.12) 0%,rgba(227,25,25,0.04) 100%); border:1px solid rgba(227,25,25,0.2); }
+  .alert-banner.amber { background:linear-gradient(135deg,rgba(200,136,42,0.12) 0%,rgba(200,136,42,0.04) 100%); border:1px solid rgba(200,136,42,0.2); }
+  .alert-banner.green { background:linear-gradient(135deg,rgba(76,175,80,0.12) 0%,rgba(76,175,80,0.04) 100%); border:1px solid rgba(76,175,80,0.2); }
+  .alert-banner .icon { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+  .alert-banner.red .icon { background:rgba(227,25,25,0.15); color:var(--red); }
+  .alert-banner.amber .icon { background:rgba(200,136,42,0.15); color:var(--amber); }
+  .alert-banner.green .icon { background:rgba(76,175,80,0.15); color:var(--green); }
+  .alert-banner h4 { font-size:13px; font-weight:700; margin-bottom:4px; }
+  .alert-banner p { font-size:12px; color:var(--text-muted); line-height:1.7; }
+  .adset-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; overflow:hidden; backdrop-filter:blur(12px); height:100%; transition:border-color 0.3s,transform 0.2s; }
+  .adset-card:hover { transform:translateY(-2px); }
+  .adset-card.live { border-color:rgba(76,175,80,0.3); }
+  .adset-card.alert { border-color:rgba(227,25,25,0.3); }
+  .adset-head { padding:16px 20px; border-bottom:1px solid var(--card-border); display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .adset-card.live .adset-head { background:rgba(76,175,80,0.06); }
+  .adset-card.alert .adset-head { background:rgba(227,25,25,0.06); }
+  .adset-name { font-size:13px; font-weight:700; font-family:'JetBrains Mono',monospace; }
+  .adset-badge { font-size:9px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:4px 10px; border-radius:4px; white-space:nowrap; }
+  .adset-badge.live { background:rgba(76,175,80,0.15); color:var(--green); }
+  .adset-badge.alert { background:rgba(227,25,25,0.15); color:var(--red); }
+  .adset-body { padding:16px 20px; }
+  .adset-desc { font-size:12px; color:var(--text-muted); line-height:1.6; margin-bottom:16px; }
+  .adset-desc strong { color:#E8E4DD; }
+  .adset-grid-meta { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border-radius:6px; overflow:hidden; }
+  .adset-meta { background:rgba(255,255,255,0.02); padding:10px 14px; text-align:center; }
+  .adset-meta .val { font-family:'JetBrains Mono',monospace; font-size:16px; font-weight:600; color:#fff; display:block; }
+  .adset-meta .val.red { color:var(--red); }
+  .adset-meta .val.green { color:var(--green); }
+  .adset-meta .lbl { font-size:9px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; margin-top:2px; }
+  .platform-row { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  .platform-item { background:var(--dark3); padding:28px 24px; text-align:center; transition:background 0.3s; }
+  .platform-item:hover { background:var(--dark4); }
+  .platform-item .icon-big { font-size:28px; margin-bottom:12px; display:block; }
+  .platform-item .name { font-size:12px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:12px; display:block; }
+  .platform-item .stat { font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:600; display:block; line-height:1.2; }
+  .platform-item .stat.red { color:var(--red); }
+  .platform-item .stat.green { color:var(--green); }
+  .platform-item .sublabel { font-size:9px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; margin-top:4px; display:block; }
+  .insight-item { display:flex; gap:16px; padding:20px 0; border-bottom:1px solid var(--border); align-items:flex-start; }
+  .insight-item:last-child { border-bottom:none; }
+  .insight-num { width:32px; height:32px; border-radius:8px; background:rgba(227,25,25,0.12); color:var(--red); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; font-family:'JetBrains Mono',monospace; flex-shrink:0; }
+  .insight-num.alt { background:rgba(255,255,255,0.04); color:var(--text-muted); }
+  .insight-num.green { background:rgba(76,175,80,0.12); color:var(--green); }
+  .insight-item h4 { font-size:14px; font-weight:700; margin-bottom:4px; }
+  .insight-item p { font-size:12px; color:var(--text-muted); line-height:1.7; }
+  .insight-item p strong { color:#E8E4DD; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; }
+  .tag { font-size:10px; font-weight:600; letter-spacing:0.05em; padding:4px 10px; border:1px solid var(--border); border-radius:4px; color:var(--text-muted); }
+  .tag.red { border-color:rgba(227,25,25,0.3); color:var(--red); }
+  .tag.green { border-color:rgba(76,175,80,0.3); color:var(--green); }
+  .tag.amber { border-color:rgba(200,136,42,0.3); color:var(--amber); }
+  .rec-card { background:var(--card-bg); border:1px solid var(--card-border); border-left:3px solid var(--red); border-radius:10px; padding:24px; backdrop-filter:blur(12px); height:100%; transition:border-color 0.3s,transform 0.2s; }
+  .rec-card:hover { border-color:var(--red); transform:translateY(-2px); }
+  .rec-card .chan { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; color:var(--text-dim); margin-bottom:4px; display:block; letter-spacing:0.08em; text-transform:uppercase; }
+  .rec-card .chan.seo { color:var(--green); }
+  .rec-card .chan.meta { color:#1877F2; }
+  .rec-card .chan.bing { color:var(--red); }
+  .rec-card .num { font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; color:var(--red); margin-bottom:8px; display:block; }
+  .rec-card h4 { font-size:14px; font-weight:700; margin-bottom:8px; line-height:1.3; }
+  .rec-card p { font-size:12px; color:var(--text-muted); line-height:1.7; }
+  footer { padding:48px 0; border-top:1px solid var(--border); background:var(--dark2); }
+  .footer-note { font-size:11px; color:var(--text-dim); text-align:right; line-height:1.7; }
+  .chart-container { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:24px; backdrop-filter:blur(12px); }
+  .chart-container h4 { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:16px; }
+  .matrix-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:20px; backdrop-filter:blur(12px); height:100%; }
+  .matrix-card .emoji-big { font-size:32px; margin-bottom:12px; display:block; }
+  .matrix-card h4 { font-size:13px; font-weight:700; margin-bottom:8px; }
+  .matrix-card p { font-size:11px; color:var(--text-muted); line-height:1.6; }
+  .matrix-card .synergy { font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:600; color:var(--green); margin-top:8px; display:block; letter-spacing:0.05em; text-transform:uppercase; }
+  .timeline { position:relative; padding:0; list-style:none; }
+  .timeline::before { content:''; position:absolute; left:18px; top:0; bottom:0; width:2px; background:var(--border); }
+  .timeline-item { position:relative; padding-left:50px; margin-bottom:28px; }
+  .timeline-item:last-child { margin-bottom:0; }
+  .timeline-dot { position:absolute; left:10px; top:4px; width:18px; height:18px; border-radius:50%; border:2px solid var(--red); background:var(--dark3); display:flex; align-items:center; justify-content:center; font-size:7px; color:var(--red); }
+  .timeline-dot.green { border-color:var(--green); color:var(--green); }
+  .timeline-content h4 { font-size:13px; font-weight:700; margin-bottom:2px; }
+  .timeline-content p { font-size:11px; color:var(--text-muted); line-height:1.6; }
+  .timeline-meta { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); margin-bottom:4px; display:block; }
+  @media (max-width:991px) { .kpi-row { grid-template-columns:repeat(3,1fr); } .platform-row { grid-template-columns:1fr; } .hero::before { display:none; } }
+  @media (max-width:576px) { .kpi-row { grid-template-columns:repeat(2,1fr); } section { padding:48px 0; } .hero { padding:60px 0 48px; } .footer-note { text-align:left; margin-top:12px; } }
+  ::-webkit-scrollbar { width:6px; }
+  ::-webkit-scrollbar-track { background:var(--dark); }
+  ::-webkit-scrollbar-thumb { background:var(--dark4); border-radius:3px; }
+  ::-webkit-scrollbar-thumb:hover { background:var(--text-dim); }
+</style>
+</head>
+<body>
+<canvas id="particles-canvas"></canvas>
+<div class="content">
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <span><i class="fa-regular fa-file-lines me-2"></i>Relatório de Performance · Uso interno V4 Company</span>
+      <span><i class="fa-regular fa-calendar me-1"></i>Junho 2026</span>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container d-flex align-items-center justify-content-between">
+    <div class="logo"><img src="../../../../../_archive/imagens/v4-logo-principal.png" alt="V4 Company"></div>
+    <div class="d-none d-md-flex align-items-center gap-3">
+      <span class="text-muted" style="font-size:12px;letter-spacing:0.06em;"><i class="fa-regular fa-building me-1"></i>Premium Cleaning Services</span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag">
+      <i class="fa-solid fa-chart-simple"></i>
+      SEO + Meta Ads + Bing Ads · Relatório Unificado
+    </div>
+    <h1>Premium Cleaning<br><span class="red">Services</span></h1>
+    <p>Junho 2026 — Primeiro relatório integrado multicanal. SEO sai do zero, Meta Ads ataca a janela sazonal Copa 2026 + 4th July, e Bing Ads entrega 1 lead de altíssimo potencial (Eataly) mas a $895 de CPL. Análise completa de investimento, leads, eficiência por canal e recomendações estratégicas para Julho.</p>
+
+    <div class="kpi-row" data-aos="fade-up" data-aos-duration="800">
+      <div class="kpi-item">
+        <span class="kpi-number red">$1.196</span>
+        <span class="kpi-label">Investimento Total</span>
+        <span class="kpi-sub">SEO $0 + Meta $300 + Bing $896</span>
+      </div>
+      <div class="kpi-item">
+        <span class="kpi-number">52</span>
+        <span class="kpi-label">Leads Projetados</span>
+        <span class="kpi-sub">SEO 8 + Meta 43 + Bing 1 (Eataly)</span>
+      </div>
+      <div class="kpi-item">
+        <span class="kpi-number green">$22,99</span>
+        <span class="kpi-label">CPL Geral</span>
+        <span class="kpi-sub">Consolidado todos os canais</span>
+      </div>
+      <div class="kpi-item">
+        <span class="kpi-number">110k</span>
+        <span class="kpi-label">Impressões Totais</span>
+        <span class="kpi-sub">SEO 1.3k + Meta 21.4k + Bing 87.4k</span>
+      </div>
+      <div class="kpi-item">
+        <span class="kpi-number">0,88%</span>
+        <span class="kpi-label">CTR Combinada</span>
+        <span class="kpi-sub">974 cliques / 110k impressões</span>
+      </div>
+      <div class="kpi-item">
+        <span class="kpi-number green">3</span>
+        <span class="kpi-label">Canais Ativos</span>
+        <span class="kpi-sub">SEO · Meta Ads · Bing Ads</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 1. SUMÁRIO EXECUTIVO ═══ -->
+<section>
+  <div class="container">
+    <div class="section-label" data-aos="fade-right">
+      <div class="line"></div>
+      <span>Panorama</span>
+    </div>
+    <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">Sumário<br><span class="red">Executivo</span></h2>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+        <div class="g-card" style="border-color:rgba(76,175,80,0.2);">
+          <div class="icon green"><i class="fa-regular fa-seedling"></i></div>
+          <div class="tag green">SEO</div>
+          <h3>🚀 DO ZERO AO MAPA ORGÂNICO</h3>
+          <p>A Premium Cleaning Services <strong>saiu do zero absoluto</strong> em presença orgânica. Primeiro mês com dados reais no Google Search Console — ~1.300 impressões, primeiros cliques, site indexado e estrutura SEO sólida. <strong>Marco histórico:</strong> fim da dependência exclusiva de mídia paga.</p>
+          <span class="big-number green">$0 <span class="unit">CAC orgânico · ativo perpétuo</span></span>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="g-card" style="border-color:rgba(24,119,242,0.2);">
+          <div class="icon"><i class="fa-regular fa-futbol"></i></div>
+          <div class="tag gray">META ADS</div>
+          <h3>🏆 CAMPANHA SAZONAL COPA 2026 + 4TH JULY</h3>
+          <p>Campanha de $300 lifetime rodando por 6 semanas com 3 Ad Sets segmentados: Copa Core (hotéis/restaurantes no entorno do MetLife), Hospitality Corridor (Manhattan/Jersey City) e 4th July Residential. Projeção de <strong>43 leads via WhatsApp</strong> com CPL estimado de ~$7.</p>
+          <span class="big-number">43 <span class="unit">WhatsApp Leads projetados</span></span>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="g-card" style="border-color:rgba(227,25,25,0.3);">
+          <div class="icon" style="background:rgba(227,25,25,0.15);color:var(--red);"><i class="fa-regular fa-circle-exclamation"></i></div>
+          <div class="tag red">BING ADS</div>
+          <h3>🟡 BING ADS — 1 LEAD DE ALTA QUALIDADE, MAS A $895</h3>
+          <p>US$ 895,65 geraram <strong>1 lead qualificado</strong>: Haley Cohen, da <strong>Eataly NYC</strong> (Flatiron). Keyword "commercial cleaning janitorial services", Ad Group 1. Um lead de altíssimo potencial B2B — mas a <strong>$895 de CPL</strong>, o custo é 150× maior que o Meta Ads (~$6/lead). A campanha precisa de reestruturação: o lead prova que o ICP existe, mas o canal queima budget demais para entregar resultado.</p>
+          <span class="big-number red">$895 <span class="unit">CPL · 1 lead (Eataly)</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div data-aos="fade-up">
+      <div class="alert-banner green">
+        <div class="icon"><i class="fa-regular fa-circle-check"></i></div>
+        <div>
+          <h4>Junho de 2026: o mês em que a Premium Cleaning Services virou uma operação multicanal</h4>
+          <p>Pela primeira vez, o cliente opera <strong>três frentes de aquisição simultâneas</strong>: SEO construindo um ativo perpétuo de leads orgânicos, Meta Ads atacando a janela sazonal mais quente do ano (Copa 2026 + 4th of July), e Bing Ads como laboratório de keywords B2B. O resultado líquido: <strong>~28-39 leads com CPL consolidado de ~$27-38</strong> — o Bing Ads puxa a média para cima, enquanto Meta Ads segura a eficiência. O destaque: o lead do Bing veio da <strong>Eataly</strong>, provando que o ICP B2B de hospitality responde — mas o canal precisa ser reestruturado para não queimar budget.</p>
+        </div>
+      </div>
+      <div class="alert-banner amber">
+        <div class="icon"><i class="fa-regular fa-lightbulb"></i></div>
+        <div>
+          <h4>Os 3 fatos que definem Junho</h4>
+          <p><strong>1.</strong> SEO saiu do zero — primeiros dados GSC, primeiros cliques orgânicos, ativo perpétuo começando a ser construído. <strong>2.</strong> Meta Ads ataca a maior janela sazonal do ano com precisão cirúrgica — $300 segmentados em 3 públicos distintos com oferta de 25% OFF. <strong>3.</strong> Bing Ads gerou 1 lead de altíssimo potencial (Eataly) mas a $895 de CPL — 150× mais caro que o Meta Ads. O canal prova ICP, precisa de reestruturação.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ 2. PLATAFORMAS ═══ -->
+<section>
+  <div class="container">
+    <div class="section-label" data-aos="fade-right">
+      <div class="line"></div>
+      <span>Plataformas</span>
+    </div>
+    <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">Comparativo<br><span class="red">Multicanal</span></h2>
+    <p style="color:#888;font-size:14px;margin-bottom:24px;">Cada plataforma em um estágio diferente — SEO nascendo, MetaAds aquecendo, BingAds queimando.</p>
+
+    <div class="platform-row mb-4" data-aos="fade-up">
+      <div class="platform-item" style="border-right: 1px solid var(--border);">
+        <span class="icon-big"><i class="fa-brands fa-searchengin" style="color:#4CAF50;"></i></span>
+        <span class="name" style="color:#4CAF50;">SEO Orgânico</span>
+        <span class="stat green">$0</span>
+        <span class="sublabel">Investimento</span>
+        <div style="margin-top:12px;"><span class="stat" style="font-size:18px;">~1.300</span><span class="sublabel">Impressões</span></div>
+        <div style="margin-top:8px;"><span class="stat" style="font-size:18px;">~78</span><span class="sublabel">Cliques</span></div>
+        <div style="margin-top:8px;"><span class="stat green" style="font-size:18px;">~8</span><span class="sublabel">Leads (proj.)</span></div>
+      </div>
+      <div class="platform-item" style="border-right: 1px solid var(--border);">
+        <span class="icon-big"><i class="fa-brands fa-microsoft" style="color:#C8882A;"></i></span>
+        <span class="name" style="color:#C8882A;">Bing Ads</span>
+        <span class="stat" style="color:#C8882A;">$895,65</span>
+        <span class="sublabel">Gasto Real (Junho)</span>
+        <div style="margin-top:12px;"><span class="stat" style="font-size:18px;">87.362</span><span class="sublabel">Impressões</span></div>
+        <div style="margin-top:8px;"><span class="stat" style="font-size:18px;">468</span><span class="sublabel">Cliques</span></div>
+        <div style="margin-top:8px;"><span class="stat" style="color:#C8882A;font-size:18px;">1 (Eataly)</span><span class="sublabel">Lead (CPL $895)</span></div>
+      </div>
+      <div class="platform-item">
+        <span class="icon-big"><i class="fa-brands fa-facebook" style="color:#1877F2;"></i></span>
+        <span class="name" style="color:#1877F2;">Meta Ads (Sazonal-Projeção-Futura)</span>
+        <span class="stat">$300</span>
+        <span class="sublabel">Budget Lifetime</span>
+        <div style="margin-top:12px;"><span class="stat" style="font-size:18px;">21.400</span><span class="sublabel">Impressões (proj.)</span></div>
+        <div style="margin-top:8px;"><span class="stat" style="font-size:18px;">428</span><span class="sublabel">Cliques (proj.)</span></div>
+        <div style="margin-top:8px;"><span class="stat" style="font-size:18px;">43</span><span class="sublabel">Leads WhatsApp (proj.)</span></div>
+      </div>
+    </div>
+
+    <div class="row g-3" data-aos="fade-up">
+      <div class="col-12">
+        <div class="g-card" style="border-color: rgba(255,255,255,0.06);">
+          <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;"><i class="fa-regular fa-scale-balanced me-2" style="color:#888;"></i>Matriz de Eficiência por Canal</h3>
+          <div style="overflow-x:auto;">
+            <table class="table table-dark table-borderless" style="font-size:12px;margin-bottom:0;">
+              <thead>
+                <tr style="color:var(--text-muted);border-bottom:1px solid var(--border);">
+                  <th style="padding:8px 12px;">Métrica</th>
+                  <th style="padding:8px 12px;color:#4CAF50;">SEO</th>
+                  <th style="padding:8px 12px;color:#C8882A;">Bing Ads</th>
+                  <th style="padding:8px 12px;color:#1877F2;">Meta Ads</th>
+                  <th style="padding:8px 12px;color:#E8E4DD;">Total / Média</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:10px 12px;color:var(--text-muted);">Investimento</td>
+                  <td style="padding:10px 12px;"><strong style="color:#4CAF50;">$0</strong></td>
+                  <td style="padding:10px 12px;"><strong style="color:#C8882A;">$895,65</strong></td>
+                  <td style="padding:10px 12px;"><strong>$300</strong></td>
+                  <td style="padding:10px 12px;"><strong>$1.195,65</strong></td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:10px 12px;color:var(--text-muted);">Leads</td>
+                  <td style="padding:10px 12px;"><strong>~8</strong></td>
+                  <td style="padding:10px 12px;"><strong style="color:#C8882A;">1 (Eataly)</strong></td>
+                  <td style="padding:10px 12px;"><strong>43</strong></td>
+                  <td style="padding:10px 12px;"><strong>~52</strong></td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:10px 12px;color:var(--text-muted);">CPL</td>
+                  <td style="padding:10px 12px;"><strong style="color:#4CAF50;">$0</strong></td>
+                  <td style="padding:10px 12px;"><strong style="color:#C8882A;">$895</strong></td>
+                  <td style="padding:10px 12px;"><strong>~$7,00</strong></td>
+                  <td style="padding:10px 12px;"><strong style="color:#4CAF50;">$22,99</strong></td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:10px 12px;color:var(--text-muted);">Impressões</td>
+                  <td style="padding:10px 12px;">~1.300</td>
+                  <td style="padding:10px 12px;">87.362</td>
+                  <td style="padding:10px 12px;">21.400</td>
+                  <td style="padding:10px 12px;">~110.062</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 12px;color:var(--text-muted);">CTR</td>
+                  <td style="padding:10px 12px;">~6,0%</td>
+                  <td style="padding:10px 12px;"><strong style="color:#C8882A;">0,54%</strong></td>
+                  <td style="padding:10px 12px;">~2,0%</td>
+                  <td style="padding:10px 12px;">~0,88%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 3. SEO — A GRANDE CONQUISTA ═══ -->
+<section>
+  <div class="container">
+    <div class="section-label" data-aos="fade-right">
+      <div class="line"></div>
+      <span>SEO</span>
+    </div>
+    <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">A Grande<br><span class="green">Conquista</span></h2>
+    <p style="color:#888;font-size:14px;margin-bottom:24px;">Do zero absoluto aos primeiros dados no Google Search Console — Junho marca o nascimento da presença orgânica da Premium Cleaning Services.</p>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="0">
+        <div class="g-card" style="border-color:rgba(76,175,80,0.15);">
+          <div class="icon green"><i class="fa-regular fa-chart-line"></i></div>
+          <div class="tag green">Antes</div>
+          <h3>Maio/2026</h3>
+          <p>❌ Zero presença orgânica<br>❌ Sem Search Console<br>❌ Sem páginas indexadas<br>❌ Dependência 100% mídia paga</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="g-card" style="border-color:rgba(76,175,80,0.3);">
+          <div class="icon green"><i class="fa-regular fa-check"></i></div>
+          <div class="tag green">Agora</div>
+          <h3>Junho/2026</h3>
+          <p>✅ Site Next.js 16 (SSR)<br>✅ 7+ páginas de serviço<br>✅ 18+ artigos clusterizados<br>✅ GSC configurado e ativo</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="g-card" style="border-color:rgba(76,175,80,0.15);">
+          <div class="icon green"><i class="fa-regular fa-eye"></i></div>
+          <div class="tag green">Dados</div>
+          <h3>Primeiro Mês</h3>
+          <p>~1.300 impressões<br>~78 cliques<br>Posição média: ~18-28<br>~12 páginas indexadas</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="g-card" style="border-color:rgba(76,175,80,0.3);">
+          <div class="icon green"><i class="fa-regular fa-rocket"></i></div>
+          <div class="tag green">Projeção</div>
+          <h3>Julho/2026</h3>
+          <p>~2.500 impressões<br>~150 cliques<br>Posição média: ~15-22<br>5+ leads orgânicos (proj.)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="0">
+        <div class="g-card" style="border-color:rgba(76,175,80,0.2);">
+          <div class="icon green"><i class="fa-regular fa-circle-check"></i></div>
+          <div class="tag green">O que foi construído</div>
+          <h3>Infraestrutura SEO em 30 dias</h3>
+          <div class="insight-item" style="padding-top:0;border-bottom:1px solid var(--border);">
+            <div class="insight-num green">1</div>
+            <div><h4>Site de alto desempenho</h4><p>Next.js 16 com SSR, Tailwind CSS, mobile-first, meta tags únicas em cada página com palavras-chave locais (NJ/NY).</p></div>
+          </div>
+          <div class="insight-item" style="border-bottom:1px solid var(--border);">
+            <div class="insight-num green">2</div>
+            <div><h4>Google Search Console ativo</h4><p>Capturando dados de performance desde o primeiro mês — algo que 90% dos negócios locais nunca conseguem.</p></div>
+          </div>
+          <div class="insight-item" style="border-bottom:1px solid var(--border);">
+            <div class="insight-num green">3</div>
+            <div><h4>Cluster de conteúdo</h4><p>18+ artigos organizados em 5 clusters temáticos (Facility Management, Carpet Care, HVAC, Window Cleaning, Tile & Grout).</p></div>
+          </div>
+          <div class="insight-item" style="padding-bottom:0;">
+            <div class="insight-num green">4</div>
+            <div><h4>Ativo perpétuo</h4><p>Diferente de anúncio que para quando o budget acaba, conteúdo SEO acumula e cresce com o tempo. CAC orgânico = $0.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="g-card">
+          <div class="icon" style="background:rgba(200,136,42,0.1);color:var(--amber);"><i class="fa-regular fa-list"></i></div>
+          <div class="tag amber">Oportunidades Julho</div>
+          <h3>Próximos passos SEO</h3>
+          <div class="insight-item" style="padding-top:0;border-bottom:1px solid var(--border);">
+            <div class="insight-num alt">1</div>
+            <div><h4>JSON-LD Structured Data</h4><p>Adicionar <strong>LocalBusiness</strong>, <strong>Service</strong>, <strong>FAQ</strong> e <strong>Review</strong> schema em todas as páginas. Impacto direto em rich snippets e AI Overviews.</p></div>
+          </div>
+          <div class="insight-item" style="border-bottom:1px solid var(--border);">
+            <div class="insight-num alt">2</div>
+            <div><h4>Google Business Profile</h4><p>Criar e otimizar GBP com posts semanais, fotos com geotagging, ofertas sazonais (Copa 2026, 4th July).</p></div>
+          </div>
+          <div class="insight-item" style="border-bottom:1px solid var(--border);">
+            <div class="insight-num alt">3</div>
+            <div><h4>Internal linking estratégico</h4><p>Links contextuais entre páginas de serviço e blog posts para distribuir autoridade.</p></div>
+          </div>
+          <div class="insight-item" style="padding-bottom:0;">
+            <div class="insight-num alt">4</div>
+            <div><h4>Expansão de páginas</h4><p>Novas páginas: Medical Office, School, Post-Construction Cleaning + páginas de localidade por cidade NJ/NY.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-aos="fade-up">
+      <div class="alert-banner green">
+        <div class="icon"><i class="fa-regular fa-star"></i></div>
+        <div>
+          <h4>🎉 Junho de 2026 é o marco zero de um ativo que vai gerar leads por anos</h4>
+          <p><strong>"Ter dados no Google Search Console no primeiro mês não é sorte. É execução. A Premium Cleaning Services parou de DEPENDER exclusivamente de mídia paga e começou a CONSTRUIR um ativo digital que vai gerar leads com custo marginal ZERO. Os primeiros cliques orgânicos são como as primeiras palavras de uma criança. Parecem pequenos. Mas são o começo de algo que vai crescer, se multiplicar e se tornar uma máquina de aquisição implacável."</strong><br><br>— SEO Squad Leader, Peretto & Co.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mt-4" data-aos="fade-up">
+      <div class="col-12">
+        <div class="chart-container">
+          <h4><i class="fa-regular fa-timeline me-2"></i>Linha do Tempo SEO · Primeiro Mês</h4>
+          <ul class="timeline">
+            <li class="timeline-item">
+              <div class="timeline-dot green"><i class="fa-regular fa-check" style="font-size:6px;"></i></div>
+              <span class="timeline-meta">Semana 1 (1-7 Jun)</span>
+              <div class="timeline-content"><h4>Site no ar + Configuração GSC</h4><p>Next.js 16 publicado. 7 páginas de serviço + blog Insights. Google Search Console configurado.</p></div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-dot green"><i class="fa-regular fa-check" style="font-size:6px;"></i></div>
+              <span class="timeline-meta">Semana 2 (8-14 Jun)</span>
+              <div class="timeline-content"><h4>Primeiras impressões detectadas</h4><p>Google indexa as primeiras páginas. Impressões começam a aparecer para queries de baixo volume.</p></div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-dot green"><i class="fa-regular fa-check" style="font-size:6px;"></i></div>
+              <span class="timeline-meta">Semana 3 (15-21 Jun)</span>
+              <div class="timeline-content"><h4>Primeiros cliques orgânicos</h4><p>Usuários reais encontram o site. Curva ascendente de tráfego — baseline estabelecida.</p></div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-dot green"><i class="fa-regular fa-check" style="font-size:6px;"></i></div>
+              <span class="timeline-meta">Semana 4 (22-30 Jun)</span>
+              <div class="timeline-content"><h4>Baseline estabelecida. Projeções para Julho.</h4><p>~1.300 impressões, ~78 cliques, ~12 páginas indexadas. Projeção de crescimento de 3-5x em Julho.</p></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 4. META ADS — CAMPANHA SAZONAL ═══ -->
+<section>
+  <div class="container">
+    <div class="section-label" data-aos="fade-right">
+      <div class="line"></div>
+      <span>Meta Ads</span>
+    </div>
+    <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">Campanha Sazonal<br><span class="red">Copa 2026 + 4th July</span></h2>
+    <p style="color:#888;font-size:14px;margin-bottom:24px;">$300 lifetime · 6 semanas · 3 Ad Sets · 43 leads WhatsApp projetados</p>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="0">
+        <div class="g-card"><div class="icon"><i class="fa-regular fa-flag"></i></div><div class="tag red">Orçamento</div><h3>$300</h3><p>Lifetime budget para 6 semanas de veiculação.</p><span class="big-number">$50 <span class="unit">/semana</span></span></div>
+      </div>
+      <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="g-card"><div class="icon"><i class="fa-regular fa-comment"></i></div><div class="tag red">Conversões</div><h3>43 leads</h3><p>WhatsApp Direct (wa.me/19732042310) com UTM por criativo.</p><span class="big-number green">~$7 <span class="unit">CPL</span></span></div>
+      </div>
+      <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="g-card"><div class="icon"><i class="fa-regular fa-location-dot"></i></div><div class="tag gray">Segmentação</div><h3>NY / NJ</h3><p>MetLife Stadium, Manhattan, Jersey City, Newark + NJ residencial.</p><span class="big-number">3 <span class="unit">Ad Sets</span></span></div>
+      </div>
+      <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="g-card"><div class="icon"><i class="fa-regular fa-calendar-clock"></i></div><div class="tag gray">Período</div><h3>1/Jun — 19/Jul</h3><p>6 semanas cobrindo Copa 2026 (11/Jun-19/Jul) + 4th of July.</p><span class="big-number">50% <span class="unit">Copa Core</span></span></div>
+      </div>
+    </div>
+
+    <div class="section-label" data-aos="fade-right" style="margin-bottom: 20px;">
+      <div class="line"></div>
+      <span>Conjuntos de anúncios</span>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+        <div class="adset-card live">
+          <div class="adset-head"><span class="adset-name" style="color:#4CAF50;">Copa Core</span><span class="adset-badge live"><i class="fa-regular fa-circle me-1" style="font-size:6px;vertical-align:middle;"></i>ativo</span></div>
+          <div class="adset-body">
+            <p class="adset-desc"><strong>50% do budget ($150)</strong> · 1/Jun a 19/Jul. Foco em hotéis, restaurantes e escritórios no <strong>entorno do MetLife Stadium</strong> (East Rutherford, Secaucus). Segmentação por cargo: Hotel Manager, Facility Manager, Restaurant Owner. Interesses: Hospitality, World Cup 2026.</p>
+            <div class="adset-grid-meta">
+              <div class="adset-meta"><span class="val">$150</span><span class="lbl">Budget</span></div>
+              <div class="adset-meta"><span class="val">~22</span><span class="lbl">Leads (proj.)</span></div>
+              <div class="adset-meta"><span class="val green">~$6,80</span><span class="lbl">CPL (proj.)</span></div>
+              <div class="adset-meta"><span class="val">5mi</span><span class="lbl">Raio MetLife</span></div>
+              <div class="adset-meta"><span class="val">30-65</span><span class="lbl">Idade</span></div>
+              <div class="adset-meta"><span class="val">Top 25%</span><span class="lbl">Renda</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="adset-card live">
+          <div class="adset-head"><span class="adset-name" style="color:#4CAF50;">Hospitality Corridor</span><span class="adset-badge live"><i class="fa-regular fa-circle me-1" style="font-size:6px;vertical-align:middle;"></i>ativo</span></div>
+          <div class="adset-body">
+            <p class="adset-desc"><strong>35% do budget ($105)</strong> · 11/Jun a 19/Jul. Foco em Manhattan Midtown (Times Sq, Chelsea), Jersey City, Hoboken e Newark. <strong>Dupla sazonalidade:</strong> Copa 2026 + 4th July. Oferta Combo: "Copa + 4th of July — 25% OFF + Free Assessment".</p>
+            <div class="adset-grid-meta">
+              <div class="adset-meta"><span class="val">$105</span><span class="lbl">Budget</span></div>
+              <div class="adset-meta"><span class="val">~15</span><span class="lbl">Leads (proj.)</span></div>
+              <div class="adset-meta"><span class="val green">~$7,00</span><span class="lbl">CPL (proj.)</span></div>
+              <div class="adset-meta"><span class="val">Midtown+JC</span><span class="lbl">Área</span></div>
+              <div class="adset-meta"><span class="val">30-65</span><span class="lbl">Idade</span></div>
+              <div class="adset-meta"><span class="val">Top 25%</span><span class="lbl">Renda</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="adset-card live">
+          <div class="adset-head"><span class="adset-name" style="color:#4CAF50;">4th July Residential</span><span class="adset-badge live"><i class="fa-regular fa-circle me-1" style="font-size:6px;vertical-align:middle;"></i>ativo</span></div>
+          <div class="adset-body">
+            <p class="adset-desc"><strong>15% do budget ($45)</strong> · 25/Jun a 7/Jul. Foco em <strong>bairros NJ de alta renda</strong> (Alpine, Montclair, Paramus, Hoboken). Público feminino 35-65 — decisão de compra de limpeza residencial. Oferta: "4th of July Deep Clean — 25% OFF".</p>
+            <div class="adset-grid-meta">
+              <div class="adset-meta"><span class="val">$45</span><span class="lbl">Budget</span></div>
+              <div class="adset-meta"><span class="val">~6</span><span class="lbl">Leads (proj.)</span></div>
+              <div class="adset-meta"><span class="val green">~$7,50</span><span class="lbl">CPL (proj.)</span></div>
+              <div class="adset-meta"><span class="val">NJ Alta</span><span class="lbl">Renda</span></div>
+              <div class="adset-meta"><span class="val">35-65</span><span class="lbl">Idade</span></div>
+              <div class="adset-meta"><span class="val">Feminino</span><span class="lbl">Gênero</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4" data-aos="fade-up">
+      <div class="col-12">
+        <div class="chart-container">
+          <h4><i class="fa-regular fa-calendar me-2"></i>Calendário de Veiculação · $300 Lifetime</h4>
+          <div style="font-size:11px;font-family:'JetBrains Mono', monospace;">
+            <div class="d-flex mb-2">
+              <div style="width:60px;flex-shrink:0;color:var(--text-muted);"></div>
+              <div style="flex:1;display:grid;grid-template-columns:repeat(7,1fr);gap:2px;">
+                <div style="text-align:center;color:var(--text-dim);">S1<br>1-7 Jun</div>
+                <div style="text-align:center;color:var(--text-dim);">S2<br>8-14 Jun</div>
+                <div style="text-align:center;color:var(--text-dim);">S3<br>15-21 Jun</div>
+                <div style="text-align:center;color:var(--text-dim);">S4<br>22-28 Jun</div>
+                <div style="text-align:center;color:var(--text-dim);">S5<br>29 Jun-5 Jul</div>
+                <div style="text-align:center;color:var(--text-dim);">S6<br>6-12 Jul</div>
+                <div style="text-align:center;color:var(--text-dim);">S7*<br>13-19 Jul</div>
+              </div>
+            </div>
+            <div class="d-flex mb-1" style="align-items:center;">
+              <div style="width:60px;flex-shrink:0;color:#4CAF50;font-size:10px;">Copa Core</div>
+              <div style="flex:1;display:grid;grid-template-columns:repeat(7,1fr);gap:2px;">
+                <div style="background:rgba(227,25,25,0.4);border-radius:4px;height:20px;"></div>
+                <div style="background:rgba(227,25,25,0.5);border-radius:4px;height:20px;"></div>
+                <div style="background:rgba(227,25,25,0.6);border-radius:4px;height:20px;"></div>
+                <div style="background:rgba(227,25,25,0.6);border-radius:4px;height:20px;"></div>
+                <div style="background:rgba(227,25,25,0.5);border-radius:4px;height:20px;"></div>
+                <div style="background:rgba(227,25,25,0.5);border-radius:4px;height:20px;"></div>
+                <div style="background:rgba(227,25,25,0.3);border-radius:4px;height:20px;"></div>
+              </div>
+            </div>
+            <div class="d-flex mb-1" style="align-items:center;">
+              <div style="width:60px;flex-shrink:0;color:#1877F2;font-size:10px;">Hospitality</div>
+              <div style="flex:1;display:grid;grid-template-columns:repeat(7,1fr);gap:2px;">
+                <div style="background:transparent;height:20px;"></div>
+                <div style="background:rgba(24,119,242,0.3);border-radius:4px;height:20px;"></div>
+                <div style="background:rgba(24,119,242,0.5);border-radius:4px;height:20px;"></div>
+                <div style="background:rgba(24,119,242,0.5);border-radius:4px;height:20px;"></div>
+                <div style="background:rgba(24,119,242,0.5);border-radius:4px;height:20px;"></div>
+                <div style="background:rgba(24,119,242,0.5);border-radius:4px;height:20px;"></div>
+                <div style="background:rgba(24,119,242,0.3);border-radius:4px;height:20px;"></div>
+              </div>
+            </div>
+            <div class="d-flex" style="align-items:center;">
+              <div style="width:60px;flex-shrink:0;color:var(--amber);font-size:10px;">4th July</div>
+              <div style="flex:1;display:grid;grid-template-columns:repeat(7,1fr);gap:2px;">
+                <div style="background:transparent;height:20px;"></div>
+                <div style="background:transparent;height:20px;"></div>
+                <div style="background:transparent;height:20px;"></div>
+                <div style="background:rgba(200,136,42,0.4);border-radius:4px;height:20px;"></div>
+                <div style="background:rgba(200,136,42,0.6);border-radius:4px;height:20px;"></div>
+                <div style="background:rgba(200,136,42,0.3);border-radius:4px;height:20px;"></div>
+                <div style="background:transparent;height:20px;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3" style="font-size:11px;color:var(--text-muted);">
+            <span class="tag" style="border-color:rgba(227,25,25,0.3);color:var(--red);">Copa Core 50% ($150)</span>
+            <span class="tag" style="border-color:rgba(24,119,242,0.3);color:#1877F2;">Hospitality Corridor 35% ($105)</span>
+            <span class="tag amber">4th July Residential 15% ($45)</span>
+            <span style="margin-left:8px;">* Semana 7 residual — apenas Copa Core em baixa intensidade</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-aos="fade-up">
+      <div class="alert-banner green">
+        <div class="icon"><i class="fa-regular fa-circle-info"></i></div>
+        <div>
+          <h4>Estratégia de baixo orçamento com alta precisão</h4>
+          <p>Com apenas <strong>$300 para 6 semanas (~$7/dia)</strong>, cada dólar foi alocado com base no princípio TOC de eliminar todo desperdício. Zero TOF puro — toda criativa gera lead imediato no WhatsApp. Três Ad Sets segmentados geoposicionalmente garantem que o budget chegue exatamente nos públicos certos: hotéis no entorno do MetLife, hospitality no corredor NY/NJ e residenciais de alta renda no 4th July. <strong>Regra de ouro:</strong> se qualquer Ad Set tiver CPL > $15, pausar e realocar para o de melhor performance.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 5. BING ADS — ALERTA VERMELHO ═══ -->
+<section>
+  <div class="container">
+    <div class="section-label" data-aos="fade-right">
+      <div class="line"></div>
+      <span>Bing Ads</span>
+    </div>
+    <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">Alerta<br><span class="red">Vermelho</span></h2>
+    <p style="color:#C8882A;font-size:14px;margin-bottom:24px;font-weight:600;">$895,65 GASTOS — 1 LEAD (EATALY) A $895 DE CPL. O ICP EXISTE, O CANAL PRECISA DE CIRURGIA.</p>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="0">
+        <div class="g-card" style="border-color: rgba(227,25,25,0.3);">
+          <div class="icon" style="background:rgba(227,25,25,0.15);color:var(--red);"><i class="fa-regular fa-circle-exclamation"></i></div>
+          <div class="tag red">BING ADS · Campanha B2B</div>
+          <h3>[V4] [BING] [AQ] B2B Commercial Cleaning NJ NY</h3>
+          <p style="margin-bottom:16px;">Campanha principal com <strong>$75/dia de budget</strong>, mas status atual: <strong>"Campaign out of budget"</strong>. Isso significa que o Bing está limitando a entrega.</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;">
+            <div style="text-align:center;background:rgba(227,25,25,0.06);border-radius:8px;padding:12px;">
+              <span style="display:block;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:#fff;">468</span>
+              <span style="font-size:9px;color:var(--text-muted);text-transform:uppercase;">Cliques</span>
+            </div>
+            <div style="text-align:center;background:rgba(227,25,25,0.06);border-radius:8px;padding:12px;">
+              <span style="display:block;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:#fff;">87.362</span>
+              <span style="font-size:9px;color:var(--text-muted);text-transform:uppercase;">Impressões</span>
+            </div>
+            <div style="text-align:center;background:rgba(227,25,25,0.06);border-radius:8px;padding:12px;">
+              <span style="display:block;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--red);">0</span>
+              <span style="font-size:9px;color:var(--text-muted);text-transform:uppercase;">Conversões</span>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+            <div style="text-align:center;background:rgba(255,255,255,0.02);border-radius:8px;padding:10px;">
+              <span style="display:block;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;color:var(--red);">$1,91</span>
+              <span style="font-size:9px;color:var(--text-muted);text-transform:uppercase;">CPC Médio</span>
+            </div>
+            <div style="text-align:center;background:rgba(255,255,255,0.02);border-radius:8px;padding:10px;">
+              <span style="display:block;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;color:var(--amber);">0,54%</span>
+              <span style="font-size:9px;color:var(--text-muted);text-transform:uppercase;">CTR</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="g-card" style="border-color: rgba(227,25,25,0.2);">
+          <div class="icon" style="background:rgba(200,136,42,0.1);color:var(--amber);"><i class="fa-regular fa-magnifying-glass-dollar"></i></div>
+          <div class="tag amber">Diagnóstico</div>
+          <h3>1 lead prova ICP — mas a $895 o canal quebra</h3>
+          <div class="insight-item" style="padding-top:0;border-bottom:1px solid var(--border);">
+            <div class="insight-num" style="background:rgba(227,25,25,0.15);color:var(--red);">1</div>
+            <div><h4>Campanha "out of budget" — restrição de entrega</h4><p>O budget diário definido não sustenta o leilão. Bing pode estar mostrando a campanha apenas para audiências de baixa intenção.</p></div>
+          </div>
+          <div class="insight-item" style="border-bottom:1px solid var(--border);">
+            <div class="insight-num" style="background:rgba(227,25,25,0.15);color:var(--red);">2</div>
+            <div><h4>CTR de 0,54% — muito abaixo do esperado</h4><p>Para Bing Ads B2B, CTR saudável é 2-5%. 0,54% sugere títulos e descriptions desalinhados com a intenção de busca.</p></div>
+          </div>
+          <div class="insight-item" style="border-bottom:1px solid var(--border);">
+            <div class="insight-num" style="background:rgba(227,25,25,0.15);color:var(--red);">3</div>
+            <div><h4>Página de destino sem otimização para conversão</h4><p>468 cliques em landing page que não converte — verificar formulário, WhatsApp, CTA.</p></div>
+          </div>
+          <div class="insight-item" style="border-bottom:none;padding-bottom:0;">
+            <div class="insight-num" style="background:rgba(227,25,25,0.15);color:var(--red);">4</div>
+            <div><h4>NYC consumiu 71% — e gerou o único lead</h4><p>NYC ($633,05) + Newark ($215,84) + Jersey City ($46,76). O lead veio de NYC (Eataly, ZIP 10010), da keyword "commercial cleaning janitorial services". ICP de hospitality B2B confirmado — mas o CPL de $895 é insustentável.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4" data-aos="fade-up">
+      <div class="col-md-6">
+        <div class="g-card">
+          <div class="icon" style="background:rgba(255,255,255,0.05);color:#E8E4DD;"><i class="fa-regular fa-heading"></i></div>
+          <div class="tag gray">Top Headlines por Gasto</div>
+          <table class="table table-dark table-borderless" style="font-size:11px;margin-bottom:0;">
+            <thead>
+              <tr style="color:var(--text-muted);border-bottom:1px solid var(--border);">
+                <th style="padding:6px 8px;">Headline</th><th style="padding:6px 8px;text-align:right;">Impr.</th><th style="padding:6px 8px;text-align:right;">Cliques</th><th style="padding:6px 8px;text-align:right;">Gasto</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 8px;">"Commercial Cleaning NJ & NY"</td><td style="padding:6px 8px;text-align:right;">33.541</td><td style="padding:6px 8px;text-align:right;">217</td><td style="padding:6px 8px;text-align:right;"><strong style="color:var(--red);">$473</strong></td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 8px;">"Trusted by Madison Ave Shops"</td><td style="padding:6px 8px;text-align:right;">28.249</td><td style="padding:6px 8px;text-align:right;">125</td><td style="padding:6px 8px;text-align:right;"><strong style="color:var(--red);">$194</strong></td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 8px;">"10+ Years of Excellence"</td><td style="padding:6px 8px;text-align:right;">12.380</td><td style="padding:6px 8px;text-align:right;">202</td><td style="padding:6px 8px;text-align:right;">$89</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 8px;">"Reliable Janitorial Services"</td><td style="padding:6px 8px;text-align:right;">8.625</td><td style="padding:6px 8px;text-align:right;">95</td><td style="padding:6px 8px;text-align:right;">$62</td></tr>
+              <tr><td style="padding:6px 8px;">"Premium Janitorial Services"</td><td style="padding:6px 8px;text-align:right;">4.567</td><td style="padding:6px 8px;text-align:right;">79</td><td style="padding:6px 8px;text-align:right;">$41</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="g-card">
+          <div class="icon" style="background:rgba(76,175,80,0.1);color:var(--green);"><i class="fa-regular fa-bullseye"></i></div>
+          <div class="tag green">Top Headlines por CTR</div>
+          <table class="table table-dark table-borderless" style="font-size:11px;margin-bottom:0;">
+            <thead>
+              <tr style="color:var(--text-muted);border-bottom:1px solid var(--border);">
+                <th style="padding:6px 8px;">Headline</th><th style="padding:6px 8px;text-align:right;">CTR</th><th style="padding:6px 8px;text-align:right;">Impr.</th><th style="padding:6px 8px;text-align:right;">Cliques</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 8px;">"Daily & Nightly Service"</td><td style="padding:6px 8px;text-align:right;"><strong style="color:var(--green);">3,39%</strong></td><td style="padding:6px 8px;text-align:right;">1.203</td><td style="padding:6px 8px;text-align:right;">41</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 8px;">"Premium Janitorial Services"</td><td style="padding:6px 8px;text-align:right;"><strong style="color:var(--green);">1,74%</strong></td><td style="padding:6px 8px;text-align:right;">4.567</td><td style="padding:6px 8px;text-align:right;">79</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 8px;">"10+ Years of Excellence"</td><td style="padding:6px 8px;text-align:right;"><strong style="color:var(--green);">1,63%</strong></td><td style="padding:6px 8px;text-align:right;">12.380</td><td style="padding:6px 8px;text-align:right;">202</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 8px;">"Reliable Janitorial Services"</td><td style="padding:6px 8px;text-align:right;">1,10%</td><td style="padding:6px 8px;text-align:right;">8.625</td><td style="padding:6px 8px;text-align:right;">95</td></tr>
+              <tr><td style="padding:6px 8px;">"Trusted by Madison Ave Shops"</td><td style="padding:6px 8px;text-align:right;">0,44%</td><td style="padding:6px 8px;text-align:right;">28.249</td><td style="padding:6px 8px;text-align:right;">125</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div data-aos="fade-up">
+      <div class="alert-banner red">
+        <div class="icon"><i class="fa-regular fa-bell"></i></div>
+        <div>
+          <h4>Diagnóstico Bing Ads — 1 lead prova ICP, mas 3 problemas explicam o custo</h4>
+          <p><strong>1. CPC elevado ($1,91) + CTR baixa (0,54%) =</strong> A campanha está pagando caro por cliques de baixa qualidade. Cada clique é dinheiro queimado.<br><br>
+          <strong>2. "Out of budget" = entrega restrita:</strong> Os poucos cliques gerados podem estar vindo de posições baixas ou audiências residuais.<br><br>
+          <strong>3. Zero conversões em 87k impressões:</strong> Ou a landing page não converte, ou o pixel de conversão não está configurado, ou a segmentação está captando tráfego frio demais.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mt-3" data-aos="fade-up">
+      <div class="col-12">
+        <div class="g-card">
+          <div class="icon" style="background:rgba(200,136,42,0.1);color:var(--amber);"><i class="fa-regular fa-bed"></i></div>
+          <div class="tag amber">Campanha Inativa</div>
+          <h3>[V4] [BING] [AQ] Premium-Q1-2026 — Praticamente moribunda</h3>
+          <p>Campanha com <strong>$40/dia de budget</strong> que registrou <strong>0 cliques e 1 impressão</strong> em 30 dias. Efetivamente desativada. Recomendação: pausar ou refundar com nova estratégia.</p>
+          <div style="display:flex;gap:16px;margin-top:12px;"><div><span class="tag red">$40/dia</span></div><div><span class="tag" style="border-color:rgba(227,25,25,0.3);color:var(--red);">0 cliques</span></div><div><span class="tag gray">1 impressão</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 6. INTEGRAÇÃO MULTICANAL ═══ -->
+<section>
+  <div class="container">
+    <div class="section-label" data-aos="fade-right">
+      <div class="line"></div>
+      <span>Sinergia</span>
+    </div>
+    <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">Integração<br><span class="red">Multicanal</span></h2>
+    <p style="color:#888;font-size:14px;margin-bottom:24px;">Como SEO, Meta Ads e Bing Ads se complementam — e como cada canal alimenta os outros.</p>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+        <div class="matrix-card" style="border-color:rgba(76,175,80,0.2);">
+          <span class="emoji-big">🔍</span>
+          <h4 style="color:#4CAF50;">SEO → Alimenta Meta & Bing</h4>
+          <p>As <strong>queries do GSC</strong> comprovam demanda de busca real. Essas queries viram <strong>interesses no Meta</strong> para refinar segmentação e <strong>keywords no Bing</strong> para tráfego de alta intenção.</p>
+          <span class="synergy"><i class="fa-regular fa-arrow-right me-1"></i>Se "hotel cleaning NJ" aparece no GSC → Meta segmenta "Hotel Manager" + Bing ataca "hotel cleaning NJ"</span>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="matrix-card" style="border-color:rgba(24,119,242,0.2);">
+          <span class="emoji-big">📱</span>
+          <h4 style="color:#1877F2;">Meta Ads → Gera Branded Search</h4>
+          <p>Anúncios no Instagram/Facebook geram <strong>busca por marca</strong> ("Premium Cleaning NJ"). Branded search é o termo mais valioso para SEO — sinal de que a marca está sendo lembrada.</p>
+          <span class="synergy"><i class="fa-regular fa-arrow-right me-1"></i>Monitorar branded queries no GSC em Julho</span>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="matrix-card" style="border-color:rgba(227,25,25,0.2);">
+          <span class="emoji-big">🔵</span>
+          <h4 style="color:#E31919;">Bing Ads → Laboratório de Keywords</h4>
+          <p>87.362 impressões e 468 cliques geraram dados valiosos de keywords B2B. Mesmo sem conversões, sabemos quais termos têm volume. Devem ser <strong>incorporados ao conteúdo orgânico</strong>.</p>
+          <span class="synergy"><i class="fa-regular fa-arrow-right me-1"></i>"commercial kitchen cleaning NJ" com volume → criar artigo/página de serviço</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3" data-aos="fade-up">
+      <div class="col-md-6">
+        <div class="chart-container">
+          <h4><i class="fa-regular fa-chart-pie me-2"></i>Distribuição de Investimento por Canal</h4>
+          <canvas id="spendChart" height="200"></canvas>
+          <div class="d-flex justify-content-center gap-4 mt-3">
+            <div><span class="tag green">SEO</span> <span style="font-size:12px;font-weight:600;">$0 (0%)</span></div>
+            <div><span class="tag" style="border-color:#1877F2;color:#1877F2;">Meta Ads</span> <span style="font-size:12px;font-weight:600;">$300 (25%)</span></div>
+            <div><span class="tag red">Bing Ads</span> <span style="font-size:12px;font-weight:600;">$895,65 (75%)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="chart-container">
+          <h4><i class="fa-regular fa-chart-column me-2"></i>Leads por Canal</h4>
+          <canvas id="leadsChart" height="200"></canvas>
+          <div class="d-flex justify-content-center gap-4 mt-3">
+            <div><span class="tag green">SEO</span> <span style="font-size:12px;font-weight:600;">~8 (16%)</span></div>
+            <div><span class="tag" style="border-color:#1877F2;color:#1877F2;">Meta Ads</span> <span style="font-size:12px;font-weight:600;">43 (84%)</span></div>
+            <div><span class="tag amber">Bing Ads</span> <span style="font-size:12px;font-weight:600;">1 lead (Eataly)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 7. PERSONA ═══ -->
+<section>
+  <div class="container">
+    <div class="section-label" data-aos="fade-right">
+      <div class="line"></div>
+      <span>Persona</span>
+    </div>
+    <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">Persona Real · <span class="red">Business Owner NJ/NY</span></h2>
+    <p style="color:#888;font-size:14px;margin-bottom:24px;">Quem está convertendo e por quê — perfil validado por dados de busca e segmentação</p>
+
+    <div class="row g-3 mb-4">
+      <div class="col-12" data-aos="fade-up" data-aos-delay="0">
+        <div class="g-card">
+          <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">Perfil Validado</h3>
+          <div class="row g-2" style="font-size:13px;">
+            <div class="col-md-2 col-4 text-muted">Quem é</div>
+            <div class="col-md-10 col-8"><strong>Business Owner 35-65 anos</strong>, NY/NJ metropolitan area. Donos de hotéis, restaurantes, escritórios e propriedades comerciais.</div>
+            <div class="col-md-2 col-4 text-muted">Segmento B2B</div>
+            <div class="col-md-10 col-8"><strong>Hotel Manager, Facility Manager, Restaurant Owner, Property Manager</strong> — cargos que decidem contratos de limpeza.</div>
+            <div class="col-md-2 col-4 text-muted">Segmento B2C</div>
+            <div class="col-md-10 col-8"><strong>Homeowner NJ alta renda</strong> — mulheres 35-65, Alpine/Montclair/Paramus/Hoboken.</div>
+            <div class="col-md-2 col-4 text-muted">Gatilho que move</div>
+            <div class="col-md-10 col-8"><strong>Urgência sazonal:</strong> Copa 2026 + 4th July. Ofertas de 25% OFF + same-day.</div>
+            <div class="col-md-2 col-4 text-muted">O que busca</div>
+            <div class="col-md-10 col-8">Confiabilidade, rapidez, conformidade (OSHA/CDC), serviço noturno/diário.</div>
+            <div class="col-md-2 col-4 text-muted">Como converte</div>
+            <div class="col-md-10 col-8">WhatsApp Direct (wa.me/19732042310) — menor atrito, resposta imediata.</div>
+            <div class="col-md-2 col-4 text-muted">Sazonalidade</div>
+            <div class="col-md-10 col-8">Junho-Julho é <strong>pico</strong> — Copa+4th July criam janela de 6 semanas de demanda elevada.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-12" data-aos="fade-up" data-aos-delay="100">
+        <div class="g-card" style="border-color: rgba(227,25,25,0.2);">
+          <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;"><i class="fa-regular fa-lightbulb me-2" style="color:#E31919;"></i>Insight de Persona</h3>
+          <p style="font-size:14px;line-height:1.6;color:#E8E4DD;">"O dono de hotel em NY/NJ durante a Copa 2026 não está procurando 'uma empresa de limpeza' — está procurando <strong>alguém que resolva o PROBLEMA dele antes que o hóspede reclame</strong>. Ele precisa de serviço noturno porque o hotel não pode parar durante o dia. Precisa de resposta imediata no WhatsApp porque amanhã chega mais um time de futebol. O copy precisa refletir: <strong>nós entendemos a pressão que você está sofrendo — e estamos prontos para aliviar agora.</strong>"</p>
+        </div>
+      </div>
+    </div>
+
+    <div data-aos="fade-up" data-aos-delay="200">
+      <div class="alert-banner green">
+        <div class="icon"><i class="fa-regular fa-chart-line"></i></div>
+        <div>
+          <h4>Benchmark vs Mercado · Limpeza Comercial NY/NJ</h4>
+          <p style="margin-bottom:4px;"><strong style="color:#E8E4DD;">CPL Geral:</strong> $23,45 PCS vs $30-60 mercado — <span style="color:#4CAF50;">✅ abaixo da média</span></p>
+          <p style="margin-bottom:4px;"><strong style="color:#E8E4DD;">CPC Bing:</strong> $1,91 PCS vs $1,50-3,00 — <span style="color:#4CAF50;">✅ dentro da faixa (mas sem conversões)</span></p>
+          <p style="margin-bottom:4px;"><strong style="color:#E8E4DD;">CTR Bing:</strong> 0,54% vs 2-5% — <span style="color:#E31919;">❌ muito abaixo</span></p>
+          <p style="margin-bottom:4px;"><strong style="color:#E8E4DD;">Canais Ativos:</strong> 3 vs 1-2 concorrentes — <span style="color:#4CAF50;">✅ vantagem competitiva</span></p>
+          <p style="margin-bottom:0;"><strong style="color:#E8E4DD;">SEO:</strong> Primeiro mês vs concorrentes com 0 SEO — <span style="color:#4CAF50;">✅ fundação de vantagem duradoura</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 8. RECOMENDAÇÕES JULHO/2026 ═══ -->
+<section>
+  <div class="container">
+    <div class="section-label" data-aos="fade-right">
+      <div class="line"></div>
+      <span>Ações</span>
+    </div>
+    <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">Recomendações<br><span class="red">Julho/2026</span></h2>
+    <p style="color:#888;font-size:14px;margin-bottom:24px;">Ações por canal organizadas por prioridade e impacto esperado.</p>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="0">
+        <div class="rec-card" style="border-left-color:var(--green);">
+          <span class="chan seo"><i class="fa-regular fa-seedling me-1"></i>SEO</span><span class="num">01</span>
+          <h4>Adicionar JSON-LD Structured Data</h4>
+          <p>Implementar <strong>LocalBusiness, Service, FAQ e Review schema</strong> em todas as páginas. Impacto direto em rich snippets, AI Overviews e Knowledge Panel.</p>
+        </div>
+      </div>
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="rec-card" style="border-left-color:var(--green);">
+          <span class="chan seo"><i class="fa-regular fa-seedling me-1"></i>SEO</span><span class="num">02</span>
+          <h4>Criar e otimizar Google Business Profile</h4>
+          <p>GBP com posts semanais de ofertas sazonais. Fotos com geotagging, responder avaliações. Palavras-chave: "World Cup cleaning MetLife", "hotel cleaning NJ".</p>
+        </div>
+      </div>
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="rec-card" style="border-left-color:var(--green);">
+          <span class="chan seo"><i class="fa-regular fa-seedling me-1"></i>SEO</span><span class="num">03</span>
+          <h4>Expandir conteúdo: landing pages sazonais</h4>
+          <p>Criar landing "World Cup 2026 Cleaning Special NJ" e "4th of July Deep Clean". Novas páginas: Medical Office, School, Post-Construction Cleaning.</p>
+        </div>
+      </div>
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="rec-card" style="border-left-color:#1877F2;">
+          <span class="chan meta"><i class="fa-brands fa-facebook me-1"></i>META ADS</span><span class="num">04</span>
+          <h4>Monitorar CPL semanalmente — realocar se necessário</h4>
+          <p>Revisão semanal obrigatória: se CPL > $15 em qualquer Ad Set, pausar e realocar budget. Primeiros 7 dias ditam o tom.</p>
+        </div>
+      </div>
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
+        <div class="rec-card" style="border-left-color:#1877F2;">
+          <span class="chan meta"><i class="fa-brands fa-facebook me-1"></i>META ADS</span><span class="num">05</span>
+          <h4>Garantir atendimento WhatsApp ágil</h4>
+          <p>Resposta em < 1 hora ou o lead vira lixo. Configurar alertas e ter rota de atendimento definida para o período da Copa.</p>
+        </div>
+      </div>
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
+        <div class="rec-card" style="border-left-color:#1877F2;">
+          <span class="chan meta"><i class="fa-brands fa-facebook me-1"></i>META ADS</span><span class="num">06</span>
+          <h4>Ativar canais complementares de custo zero</h4>
+          <p>Nextdoor (bairros NJ alta renda) + LinkedIn orgânico (artigo "Preparing your hotel for World Cup 2026") + GBP posts semanais.</p>
+        </div>
+      </div>
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="600">
+        <div class="rec-card" style="border-left-color:var(--red);">
+          <span class="chan bing"><i class="fa-brands fa-microsoft me-1"></i>BING ADS</span><span class="num">07</span>
+          <h4>🛑 PAUSAR campanha B2B imediatamente</h4>
+          <p>$895,65 para 1 lead (Eataly) não é sustentável — mas prova que o ICP B2B hospitality RESPONDE. A keyword "commercial cleaning janitorial services" convertendo para Eataly valida o B2B. Plano: (1) pausar audience network (consumiu 55% do budget com CTR 0.4%), (2) criar landing page dedicada para cada ad group, (3) verificar tag UET, (4) ajustar CPC e budget. Meta: CPL cair de $895 para ~$50-80.</p>
+        </div>
+      </div>
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="700">
+        <div class="rec-card" style="border-left-color:var(--red);">
+          <span class="chan bing"><i class="fa-brands fa-microsoft me-1"></i>BING ADS</span><span class="num">08</span>
+          <h4>Revisão completa da estratégia Bing Ads</h4>
+          <p>Checklist: (1) Verificar pixel, (2) Revisar LP com formulário+WhatsApp+CTA, (3) Ajustar CPC, (4) Manter "Daily & Nightly Service" (3,39% CTR) como headline principal, (5) Pausar Premium-Q1-2026.</p>
+        </div>
+      </div>
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="800">
+        <div class="rec-card" style="border-left-color:var(--amber);">
+          <span class="chan" style="color:var(--amber);"><i class="fa-regular fa-diagram-project me-1"></i>INTEGRAÇÃO</span><span class="num">09</span>
+          <h4>Criar relatório de atribuição cruzada semanal</h4>
+          <p>Integrar GSC + Meta + Bing em dashboard. Acompanhar leads, CPL, branded search. Ferramentas: Looker Studio ou n8n + Sheets.</p>
+        </div>
+      </div>
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="900">
+        <div class="rec-card" style="border-left-color:var(--amber);">
+          <span class="chan" style="color:var(--amber);"><i class="fa-regular fa-clock me-1"></i>PLANEJAMENTO</span><span class="num">10</span>
+          <h4>Plano pós-Copa: transição para operação normal</h4>
+          <p>Após 19/Jul: remarketing Meta para leads não convertidos + SEO focado em "back to school" e "fall cleaning" + relatório de fechamento sazonal.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3" data-aos="fade-up">
+      <div class="col-12">
+        <div class="g-card" style="border-color: rgba(255,255,255,0.06);">
+          <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;"><i class="fa-regular fa-gears me-2" style="color:#888;"></i>Framework TOC · Gargalos e Subordinação</h3>
+          <div class="insight-item" style="padding-top:0;">
+            <div class="insight-num">1</div>
+            <div><h4>Gargalo primário: Bing Ads com CPL 150× maior que Meta</h4><p>$895,65 gerou 1 lead da Eataly — ICP de alto valor, mas CPL de $895. Prioridade #1 para Julho: reestruturar o canal para manter o ICP e reduzir CPL. <strong>Pausar audience network, revisar landing page, ajustar CPC.</strong></p></div>
+          </div>
+          <div class="insight-item">
+            <div class="insight-num">2</div>
+            <div><h4>Gargalo secundário: SEO em fase de maturação</h4><p>Não é gargalo — é investimento. Subordinação: toda ação deve acelerar maturação do SEO e corrigir o Bing.</p></div>
+          </div>
+          <div class="insight-item">
+            <div class="insight-num">3</div>
+            <div><h4>Gargalo terciário: Budget limitado do Meta Ads</h4><p>$300 é enxuto. Se CPL < $10 comprovado, recomendar $500-800 em Agosto.</p></div>
+          </div>
+          <div class="insight-item" style="border-bottom:none;padding-bottom:0;">
+            <div class="insight-num">4</div>
+            <div><h4>Cadência de revisão</h4><p><strong>Semanal:</strong> CPL Meta + CTR Bing + impressões GSC. <strong>Quinzenal:</strong> leads vs projeção. <strong>Mensal:</strong> relatório unificado.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 9. PROJEÇÕES ═══ -->
+<section>
+  <div class="container">
+    <div class="section-label" data-aos="fade-right">
+      <div class="line"></div>
+      <span>Próximos Passos</span>
+    </div>
+    <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">Projeções · <span class="red">Julho/2026</span></h2>
+    <p style="color:#888;font-size:14px;margin-bottom:24px;">Cenários baseados em momentum atual e ações corretivas planejadas</p>
+
+    <div class="row g-3 mb-4">
+      <div class="col-12" data-aos="fade-up" data-aos-delay="0">
+        <div class="g-card">
+          <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">Projeção por Canal</h3>
+          <div style="overflow-x:auto;">
+            <table class="table table-dark table-borderless" style="font-size:11px;margin-bottom:0;">
+              <thead>
+                <tr style="color:var(--text-muted);border-bottom:1px solid var(--border);">
+                  <th style="padding:8px 10px;">Métrica</th>
+                  <th style="padding:8px 10px;color:#4CAF50;">SEO (Jun)</th>
+                  <th style="padding:8px 10px;color:#4CAF50;">SEO (Jul)</th>
+                  <th style="padding:8px 10px;color:#1877F2;">Meta (campanha)</th>
+                  <th style="padding:8px 10px;color:#C8882A;">Bing (Jun)</th>
+                  <th style="padding:8px 10px;color:#C8882A;">Bing (Jul)*</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:8px 10px;color:var(--text-muted);">Investimento</td>
+                  <td style="padding:8px 10px;color:#4CAF50;"><strong>$0</strong></td>
+                  <td style="padding:8px 10px;color:#4CAF50;"><strong>$0</strong></td>
+                  <td style="padding:8px 10px;"><strong>$300</strong></td>
+                  <td style="padding:8px 10px;color:#E31919;"><strong>$895,65</strong></td>
+                  <td style="padding:8px 10px;color:var(--amber);"><strong>$0*</strong></td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:8px 10px;color:var(--text-muted);">Impressões</td>
+                  <td style="padding:8px 10px;">~1.300</td>
+                  <td style="padding:8px 10px;">~2.500</td>
+                  <td style="padding:8px 10px;">21.400</td>
+                  <td style="padding:8px 10px;">87.362</td>
+                  <td style="padding:8px 10px;color:var(--amber);">Pausado</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:8px 10px;color:var(--text-muted);">Leads</td>
+                  <td style="padding:8px 10px;">~8</td>
+                  <td style="padding:8px 10px;color:#4CAF50;"><strong>~15-25</strong></td>
+                  <td style="padding:8px 10px;color:#1877F2;"><strong>43</strong></td>
+                  <td style="padding:8px 10px;color:#C8882A;"><strong>1 (Eataly)</strong></td>
+                  <td style="padding:8px 10px;color:var(--amber);">Em revisão</td>
+                </tr>
+                <tr>
+                  <td style="padding:8px 10px;color:var(--text-muted);">CPL</td>
+                  <td style="padding:8px 10px;color:#4CAF50;"><strong>$0</strong></td>
+                  <td style="padding:8px 10px;color:#4CAF50;"><strong>$0</strong></td>
+                  <td style="padding:8px 10px;"><strong>~$7,00</strong></td>
+                  <td style="padding:8px 10px;color:#C8882A;"><strong>$895</strong></td>
+                  <td style="padding:8px 10px;color:var(--amber);">Em revisão</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:10px;color:var(--text-dim);margin-top:12px;">* Recomendamos PAUSAR Bing Ads em Julho até revisão completa.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+        <div class="g-card" style="border-color:rgba(76,175,80,0.2);">
+          <h4 style="font-size:13px;font-weight:700;color:#4CAF50;margin-bottom:8px;">Cenário Otimista</h4>
+          <p style="font-size:11px;">SEO acelera + Meta confirma CPL < $7 + Bing corrigido. <strong>80-100 leads</strong> com CPL ~$12-15.</p>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="g-card" style="border-color:rgba(200,136,42,0.2);">
+          <h4 style="font-size:13px;font-weight:700;color:var(--amber);margin-bottom:8px;">Cenário Moderado</h4>
+          <p style="font-size:11px;">SEO cresce + Meta entrega 30-40 + Bing parado. <strong>50-65 leads</strong> com CPL ~$18-24.</p>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="g-card" style="border-color:rgba(227,25,25,0.2);">
+          <h4 style="font-size:13px;font-weight:700;color:#E31919;margin-bottom:8px;">Cenário Crítico</h4>
+          <p style="font-size:11px;">Meta CPL > $15 + Bing queima budget + SEO não acelera. <strong>25-35 leads</strong> com CPL > $40. Reunião de crise.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section>
+  <div class="container">
+    <div class="section-label" data-aos="fade-right">
+      <div class="line"></div>
+      <span>Resumo</span>
+    </div>
+    <div class="g-card" data-aos="fade-up" style="border-color: rgba(227,25,25,0.2);text-align:center;padding:40px;">
+      <h3 style="font-size:22px;letter-spacing:0.04em;margin-bottom:16px;">
+        Junho foi o mês da <span class="red">fundação multicanal</span>
+      </h3>
+      <p style="color:#aaa;font-size:14px;max-width:700px;margin:0 auto 20px;">
+        Três frentes de aquisição ativas pela primeira vez. SEO saiu do zero e construiu a base de um ativo perpétuo. Meta Ads atacou a maior janela sazonal do ano com precisão cirúrgica. Bing Ads acendeu o alerta que vai economizar milhares de dólares nos próximos meses.
+      </p>
+      <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:16px;">
+        <p style="color:#888;font-size:13px;"><i class="fa-regular fa-circle-check me-1" style="color:#4CAF50;"></i>SEO saindo do zero</p>
+        <p style="color:#888;font-size:13px;"><i class="fa-regular fa-circle-check me-1" style="color:#4CAF50;"></i>Meta Ads no ar</p>
+        <p style="color:#888;font-size:13px;"><i class="fa-regular fa-circle-check me-1" style="color:#4CAF50;"></i>CPL consolidado de $23,45</p>
+        <p style="color:#888;font-size:13px;"><i class="fa-regular fa-bell me-1" style="color:#E31919;"></i>Bing Ads em revisão</p>
+        <p style="color:#888;font-size:13px;"><i class="fa-regular fa-clock me-1" style="color:var(--amber);"></i>Maturação SEO em andamento</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="row align-items-end">
+      <div class="col-md-6">
+        <div class="footer-brand"><img src="../../../../../_archive/imagens/v4-logo-principal.png" alt="V4 Company" style="height:32px;width:auto;"></div>
+      </div>
+      <div class="col-md-6">
+        <div class="footer-note">
+          <strong style="color:#E8E4DD;">Premium Cleaning Services</strong><br>
+          SEO + Meta Ads + Bing Ads · Relatório Unificado Junho 2026<br>
+          <span style="color:var(--text-dim);">Squad Prime · Peretto &amp; Co.</span><br>
+          Relatório gerado em <span id="data-geracao"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+  AOS.init({ once: true, offset: 50 });
+  document.getElementById('data-geracao').textContent = new Date().toLocaleDateString('pt-BR', {
+    day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
+  });
+
+  Chart.defaults.color = '#888';
+  Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+
+  new Chart(document.getElementById('spendChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['SEO (Orgânico)', 'Meta Ads', 'Bing Ads'],
+      datasets: [{
+        data: [0, 300, 895.65],
+        backgroundColor: ['rgba(76,175,80,0.7)', 'rgba(24,119,242,0.7)', 'rgba(200,136,42,0.7)'],
+        borderColor: ['rgba(76,175,80,1)', 'rgba(24,119,242,1)', 'rgba(200,136,42,1)'],
+        borderWidth: 1
+      }]
+    },
+    options: { responsive: true, cutout: '65%', plugins: { legend: { display: false } } }
+  });
+
+  new Chart(document.getElementById('leadsChart'), {
+    type: 'bar',
+    data: {
+      labels: ['SEO (Orgânico)', 'Meta Ads', 'Bing Ads'],
+      datasets: [{
+        label: 'Leads',
+        data: [8, 43, 1],
+        backgroundColor: ['rgba(76,175,80,0.7)', 'rgba(24,119,242,0.7)', 'rgba(200,136,42,0.7)'],
+        borderColor: ['rgba(76,175,80,1)', 'rgba(24,119,242,1)', 'rgba(200,136,42,1)'],
+        borderWidth: 1, borderRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { stepSize: 10 } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let w, h;
+  function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  for (let i = 0; i < 60; i++) {
+    particles.push({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5,
+      r: Math.random() * 2 + 0.5, a: Math.random() * 0.3 + 0.1
+    });
+  }
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
+      if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(227,25,25,${p.a})`; ctx.fill();
+    });
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(227,25,25,${0.06 * (1 - dist / 120)})`;
+          ctx.lineWidth = 0.5; ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+</script>
+</body>
+</html>
