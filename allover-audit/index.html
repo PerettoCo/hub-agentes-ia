@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Auditoria SEO Completa — All Over Exterior Roofing</title>
 <style>
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -442,25 +443,145 @@
     .kpi-grid { grid-template-columns: repeat(2, 1fr); }
     .bar-label { width: 90px; font-size: 12px; }
   }
+
+  .tab-panel { display: none; }
+
+  .tab-nav {
+    display: flex;
+    gap: 0;
+    margin: -36px auto 0;
+    max-width: 960px;
+    position: relative;
+    z-index: 3;
+  }
+  .tab-label {
+    flex: 1;
+    padding: 16px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    cursor: pointer;
+    color: var(--gray-500);
+    background: #e8e6e2;
+    border: 1px solid var(--gold-border);
+    border-bottom: 1px solid var(--gold-border);
+    transition: all 0.2s;
+    user-select: none;
+    position: relative;
+  }
+  .tab-label:first-of-type { border-radius: 10px 0 0 0; }
+  .tab-label:last-of-type { border-radius: 0 10px 0 0; }
+  .tab-label:hover { color: var(--gray-700); background: #f0eee9; }
+  #tab1:checked ~ .tab-nav .tab-label:nth-child(1),
+  #tab2:checked ~ .tab-nav .tab-label:nth-child(2) {
+    color: var(--red);
+    background: #fff;
+    border-bottom-color: #fff;
+    position: relative;
+    z-index: 1;
+  }
+  .tab-label::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 20%;
+    right: 20%;
+    height: 2px;
+    background: transparent;
+    transition: all 0.2s;
+    border-radius: 1px;
+  }
+  #tab1:checked ~ .tab-nav .tab-label:nth-child(1)::after,
+  #tab2:checked ~ .tab-nav .tab-label:nth-child(2)::after {
+    background: var(--gold);
+  }
+  #tab1:checked ~ #panel1 { display: block; }
+  #tab2:checked ~ #panel2 { display: block; }
+
+  .kpi-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .kpi-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .progress-set { margin: 10px 0; }
+  .progress-label-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 3px; }
+  .progress-label-row span:first-child { font-weight: 600; color: var(--gray-700); }
+  .progress-label-row span:last-child { font-weight: 700; }
+  .progress-track { height: 10px; background: var(--gray-100); border-radius: 5px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 5px; }
+  .fill-red { background: linear-gradient(90deg, var(--red), var(--red-light)); }
+  .fill-orange { background: linear-gradient(90deg, #c2410c, #ea580c); }
+  .fill-green { background: linear-gradient(90deg, #2e7d32, #4caf50); }
+
+  .summary-box {
+    background: linear-gradient(135deg, #fcfaf7, #f8f7f4);
+    border: 1px solid var(--gold-border);
+    border-left: 4px solid var(--gold);
+    padding: 22px 26px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+  .summary-box strong { color: var(--gray-900); font-size: 15px; }
+  .summary-box p { font-size: 15px; color: var(--gray-700); margin: 8px 0 0; line-height: 1.7; }
+
+  .tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; margin: 2px; }
+  .tag-red { background: #fef2f2; color: var(--red); }
+  .tag-orange { background: #fff7ed; color: #c2410c; }
+  .tag-green { background: #f0fdf4; color: #2e7d32; }
+  .tag-gray { background: var(--gray-100); color: var(--gray-600); }
+
+  .evidence {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-left: 3px solid var(--gold-border);
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.6;
+    margin: 10px 0;
+    white-space: pre-wrap;
+    color: var(--gray-700);
+  }
+
+  ul, ol { margin: 12px 0 16px 22px; color: var(--gray-700); font-size: 15px; line-height: 1.7; }
+  li { margin-bottom: 6px; }
+
+  @media (max-width: 640px) {
+    .kpi-grid-4, .kpi-grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    .tab-nav { display: none; }
+    .tab-panel { display: block !important; }
+  }
 </style>
 </head>
 <body>
-
 <div class="cover">
   <div class="cover-content">
     <img src="../assets/logo-peretto.png" alt="Peretto" style="height:60px; width:auto; margin-bottom:28px; opacity:0.95;">
     <div class="label">Confidencial &bull; Julho 2026</div>
-    <h1>Auditoria SEO Completa</h1>
-    <p>All Over Exterior Roofing</p>
-    <div class="cover-meta">
-      <span>&bull; Screaming Frog SEO Spider</span>
-      <span>&bull; 413 URLs rastreadas</span>
-      <span>&bull; 35 CSVs analisados</span>
-    </div>
-  </div>
-</div>
+    
+<input type="radio" name="tabs" id="tab1" checked hidden>
+<input type="radio" name="tabs" id="tab2" hidden>
 
-<div class="container">
+<div class="tab-nav">
+  <label for="tab1" class="tab-label">Auditoria</label>
+  <label for="tab2" class="tab-label">Relat&oacute;rio Original</label>
+</div>
+<div id="panel1" class="container tab-panel">
 
   <div class="card">
     <div class="card-body">
@@ -1158,6 +1279,496 @@
   <div class="footer">
     Documento gerado em Julho de 2026 pela equipe de SEO da <strong>V4 Company</strong> &mdash; Padr&atilde;o BuiltVisible / Moz / Searchmetrics
   </div>
+
+<div id="panel2" class="container tab-panel">
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Sum&aacute;rio Executivo</h2>
+
+      <div class="summary-box">
+        <strong>Situa&ccedil;&atilde;o Cr&iacute;tica &mdash; Site Comprometido</strong>
+        <p style="margin-top: 10px;">Este site apresenta <strong>m&uacute;ltiplos problemas graves simult&acirc;neos</strong>: a p&aacute;gina /about/ foi <strong>hackeada com conte&uacute;do de gambling indon&eacute;sio</strong> (DAPURTOTO), todo o site est&aacute; configurado como <strong>idioma portugu&ecirc;s do Brasil (pt-BR)</strong> em vez de ingl&ecirc;s (en), <strong>zero structured data</strong> em todas as 156 p&aacute;ginas, e dezenas de p&aacute;ginas com <strong>conte&uacute;do extremamente fino</strong>. A p&aacute;gina inicial carrega em <strong>5,3 segundos</strong>. O site precisa de interven&ccedil;&atilde;o imediata em seguran&ccedil;a antes de qualquer otimiza&ccedil;&atilde;o.</p>
+      </div>
+
+      <div class="kpi-grid-4">
+        <div class="kpi-card">
+          <div class="value">32/100</div>
+          <div class="label">Sa&uacute;de Geral SEO</div>
+        </div>
+        <div class="kpi-card">
+          <div class="value">8</div>
+          <div class="label">Issues Cr&iacute;ticos (P0)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="value">15</div>
+          <div class="label">Issues Alto Impacto (P1)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="value">~90</div>
+          <div class="label">Dias p/ Recupera&ccedil;&atilde;o</div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <h3>O Que Est&aacute; Funcionando</h3>
+          <ul>
+            <li><strong>HTTPS/SSL</strong> &mdash; Implementado corretamente</li>
+            <li><strong>Canonicals</strong> &mdash; Autorreferentes na maioria das p&aacute;ginas</li>
+            <li><strong>Sitemap XML</strong> &mdash; Presente e indexando URLs corretas</li>
+            <li><strong>Blog ativo</strong> &mdash; 30+ artigos publicados, conte&uacute;do razo&aacute;vel (500-1200 palavras)</li>
+            <li><strong>Google Analytics + GTM</strong> &mdash; G-0LSM1YJSPZ e GTM-5RM33C63 presentes</li>
+            <li><strong>Redes Sociais</strong> &mdash; Facebook, Instagram, YouTube, BBB, Thumbtack vinculados</li>
+            <li><strong>Local SEO signals</strong> &mdash; Google Maps embed, cita&ccedil;&otilde;es locais</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Top 5 Issues Cr&iacute;ticos</h3>
+          <ol>
+            <li><strong>Site Hackeado</strong> &mdash; /about/ com conte&uacute;do de gambling ID</li>
+            <li><strong>Idioma errado</strong> &mdash; pt-BR em site americano (156 p&aacute;ginas)</li>
+            <li><strong>Zero Structured Data</strong> &mdash; Nenhum schema em 156 p&aacute;ginas</li>
+            <li><strong>Meta Desc. Duplicadas</strong> &mdash; Elementor injeta 2 descri&ccedil;&otilde;es em toda p&aacute;gina</li>
+            <li><strong>Homepage Lenta</strong> &mdash; 5.326ms de resposta</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Score Geral por Categoria</h2>
+
+      <div class="progress-set">
+        <div class="progress-label-row"><span>T&eacute;cnico</span><span class="tag tag-red">25/100</span></div>
+        <div class="progress-track"><div class="progress-fill fill-red" style="width:25%"></div></div>
+      </div>
+      <div class="progress-set">
+        <div class="progress-label-row"><span>On-Page</span><span class="tag tag-orange">35/100</span></div>
+        <div class="progress-track"><div class="progress-fill fill-orange" style="width:35%"></div></div>
+      </div>
+      <div class="progress-set">
+        <div class="progress-label-row"><span>Conte&uacute;do</span><span class="tag tag-orange">30/100</span></div>
+        <div class="progress-track"><div class="progress-fill fill-orange" style="width:30%"></div></div>
+      </div>
+      <div class="progress-set">
+        <div class="progress-label-row"><span>AI/GEO Readiness</span><span class="tag tag-red">10/100</span></div>
+        <div class="progress-track"><div class="progress-fill fill-red" style="width:10%"></div></div>
+      </div>
+      <div class="progress-set">
+        <div class="progress-label-row"><span>Perfil de Links</span><span class="tag tag-green">70/100</span></div>
+        <div class="progress-track"><div class="progress-fill fill-green" style="width:70%"></div></div>
+      </div>
+
+      <p style="margin-top: 18px; font-size: 14px; color: var(--gray-600);">
+        <strong>Proje&ccedil;&atilde;o p&oacute;s-auditoria:</strong> Com a implementa&ccedil;&atilde;o das a&ccedil;&otilde;es P0 e P1, estimamos evoluir de <strong>32 &rarr; 75+</strong> em 90 dias, com aumento de <strong>40-60% no tr&aacute;fego org&acirc;nico</strong> local.
+      </p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Issues Cr&iacute;ticos (P0)</h2>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">P0-01. Site Hackeado &mdash; /about/ Comprometida com DAPURTOTO (Gambling ID)</span></div>
+          <div><span class="severity sev-critico">Cr&iacute;tico</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">A p&aacute;gina /about/ foi completamente comprometida com conte&uacute;do de gambling indon&eacute;sio. Title tag: "DAPURTOTO", H1: "DAPURTOTO", Idioma "id" (Indon&eacute;sio), 1113 palavras sobre gambling, links externos para plazaitdotid.pages.dev, datamacau88.com, itdl.superampgoogle.com. Hreflang apontando para sites de gambling.</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">GRAV&Iacute;SSIMO. Risco de desindexa&ccedil;&atilde;o total do site pelo Google. Penalidade manual. Perda de confian&ccedil;a do usu&aacute;rio. Risco de blacklist.</span></div>
+          <div class="full"><span class="field">A&ccedil;&atilde;o Imediata:</span> <span class="value">1. Remover todo conte&uacute;do injetado. 2. Resetar senhas (admin, FTP, DB, hosting). 3. Revisar plugins e temas em busca de backdoors. 4. Remover arquivos suspeitos (wp-content/uploads/). 5. Limpar .htaccess e wp-config.php. 6. Adicionar WAF (Cloudflare, Wordfence, Sucuri). 7. Escanear site completo com Wordfence. 8. Ap&oacute;s limpeza, solicitar revis&atilde;o no GSC.</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">P0-02. Idioma Incorreto &mdash; pt-BR em Todas as 156 P&aacute;ginas</span></div>
+          <div><span class="severity sev-critico">Cr&iacute;tico</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">Todas as 156 p&aacute;ginas HTML detectadas como pt-BR em vez de en. Uma empresa de roofing em Houston, TX servindo clientes americanos est&aacute; sinalizando ao Google que seu conte&uacute;do &eacute; em portugu&ecirc;s brasileiro.</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">ALT&Iacute;SSIMO. Google pode interpretar o site como conte&uacute;do em portugu&ecirc;s, suprimindo rankings para buscas em ingl&ecirc;s ("roofers in Houston").</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">1. WordPress &rarr; Settings &rarr; Site Language: mudar para "English (United States)". 2. Garantir lang="en-US" no HTML. 3. Verificar se plugins de tradu&ccedil;&atilde;o n&atilde;o for&ccedil;am pt-BR. 4. Configurar wp-config.php com define('WPLANG', 'en_US').</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">P0-03. Zero Structured Data &mdash; Nenhuma P&aacute;gina Tem Schema Markup</span></div>
+          <div><span class="severity sev-critico">Cr&iacute;tico</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">Nenhuma das 156 p&aacute;ginas cont&eacute;m structured data (JSON-LD, Microdata, RDFa). Zero rich snippets. Perda de LocalBusiness, Service, FAQ, Review, BreadcrumbList, Article, Product schema.</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">Perda massiva de visibilidade em SERPs. Concorrentes com schema LocalBusiness aparecem com estrelas, hor&aacute;rio, endere&ccedil;o e bot&atilde;o de chamada &mdash; este site aparece como link simples. CTR estimado 20-30% inferior.</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">1. LocalBusiness schema global (JSON-LD). 2. BreadcrumbList schema. 3. Article schema em blog posts. 4. FAQ schema em p&aacute;ginas informacionais. 5. Service schema em p&aacute;ginas de servi&ccedil;o. 6. Verificar com Google Rich Results Test. Configurar via Yoast SEO ou RankMath.</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">P0-04. Meta Descriptions Duplicadas &mdash; Elementor Injetando 2 Descri&ccedil;&otilde;es</span></div>
+          <div><span class="severity sev-critico">Cr&iacute;tico</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">Cada p&aacute;gina tem DUAS meta descriptions. A primeira (300-400 chars) gerada automaticamente pelo Elementor, contendo texto repetido do corpo da p&aacute;gina. A segunda (120-155 chars) &eacute; a correta. Google usa a primeira &mdash; extremamente longa e de baixa qualidade.</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">Google ignora ambas ou gera description autom&aacute;tica. Perda de controle sobre texto exibido no SERP.</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">1. Desabilitar gera&ccedil;&atilde;o autom&aacute;tica no Elementor &rarr; Settings &rarr; SEO. 2. Ajustar template do Elementor para n&atilde;o sobrescrever Yoast/RankMath. 3. Manter meta descriptions &uacute;nicas de 120-155 chars com CTA e keyword prim&aacute;ria.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Issues T&eacute;cnicos</h2>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">Homepage com 5.326ms de Resposta &mdash; Muito Lenta</span></div>
+          <div><span class="severity sev-critico">Cr&iacute;tico</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">Tempo de resposta do servidor para a homepage &eacute; de 5.326 segundos. V&aacute;rios blog posts tamb&eacute;m excedem 5s. Tamanho da homepage: 254KB s&oacute; de HTML. O recomendado para TTFB &eacute; abaixo de 200ms.</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">Core Web Vitals reprovados. Google prioriza sites r&aacute;pidos. Usu&aacute;rios abandonam ap&oacute;s 3s.</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">1. Implementar cache de p&aacute;gina (WP Rocket, W3 Total Cache, Flying Press). 2. Habilitar compress&atilde;o Gzip/Brotli. 3. Otimizar banco de dados WordPress. 4. Implementar CDN (Cloudflare &mdash; verificar configura&ccedil;&atilde;o). 5. Reduzir n&uacute;mero de plugins (Elementor Pro + Essential Blocks + LeadConnector + GHL). 6. Considerar upgrade de hospedagem. 7. Otimizar imagens.</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">12 Imagens Acima de 300KB &mdash; Alguns Monstros de 1.7MB</span></div>
+          <div><span class="severity sev-alto">Alto</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">12 imagens com tamanhos excessivos: commercial-roofing-options-4.jpg (1.757.537 bytes / 1.7MB!), how-long-metal-roofs-last.webp (1.385.622 bytes), commercial-roofing-contractor.webp (1.177.486 bytes).</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">Impacto direto em LCP e tempo de carregamento.</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">1. Usar ShortPixel, Imagify ou Smush para compress&atilde;o em lote. 2. Redimensionar para max 1920px. 3. Converter para WebP com fallback. 4. Implementar lazy loading. Alvo: &lt;100KB para imagens de conte&uacute;do.</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">Imagens SEM Dimens&otilde;es (width/height) &mdash; Risco de CLS</span></div>
+          <div><span class="severity sev-alto">Alto</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">Nenhuma das 149 imagens auditadas tem atributos width e height definidos. Isso causa Cumulative Layout Shift (CLS) &mdash; o layout "pula" conforme as imagens carregam.</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">Adicionar width e height em todas as tags &lt;img&gt;. No Elementor, as imagens devem ter dimens&otilde;es definidas no widget. Verificar se tema ou plugin est&aacute; removendo esses atributos.</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">P&aacute;ginas Draft do Elementor Indexadas (/elementor-1774/)</span></div>
+          <div><span class="severity sev-alto">Alto</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">/elementor-1774/ e /elementor-1746/ s&atilde;o p&aacute;ginas de rascunho/template do Elementor indexadas no Google com conte&uacute;do duplicado de outras p&aacute;ginas.</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">Adicionar noindex a estas p&aacute;ginas ou redirecionar 301 para as vers&otilde;es can&ocirc;nicas.</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">GreenSky Finance &mdash; Todos os Recursos Retornando 403</span></div>
+          <div><span class="severity sev-alto">Alto</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">11 recursos do GreenSky (8 imagens de bot&otilde;es e 3 links de aplica&ccedil;&atilde;o) retornando 403 Forbidden. Impacta a p&aacute;gina /financing/.</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">Verificar contrato com GreenSky &mdash; pode ser que o programa tenha mudado ou a conta esteja inativa. Remover ou substituir recursos quebrados.</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">P&aacute;gina de Confirma&ccedil;&atilde;o Index&aacute;vel</span></div>
+          <div><span class="severity sev-medio">M&eacute;dio</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">/confirmation/ (Thank You Confirmation) est&aacute; index&aacute;vel. P&aacute;ginas de confirma&ccedil;&atilde;o n&atilde;o devem ser indexadas.</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">Adicionar meta robots noindex a esta p&aacute;gina.</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">36 P&aacute;ginas de Categoria Indexadas &mdash; Conte&uacute;do Fino</span></div>
+          <div><span class="severity sev-medio">M&eacute;dio</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">36 p&aacute;ginas de categoria indexadas. Muitas com apenas t&iacute;tulo e nenhum conte&uacute;do adicional (ex: "best gutters", "benefits of seamless gutters"). Categorias finas diluem a qualidade geral do site.</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">Adicionar noindex &agrave;s categorias com conte&uacute;do fino (&lt;100 palavras). Alternativa: adicionar descri&ccedil;&atilde;o &uacute;nica em cada categoria.</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">Duas Vers&otilde;es de /free-inspection/ &mdash; Uma Canonicalizada, Outra Index&aacute;vel</span></div>
+          <div><span class="severity sev-medio">M&eacute;dio</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">Existem duas URLs para free-inspection: /free-inspection (sem slash, canonicalizada) e /free-inspection/ (index&aacute;vel). Conte&uacute;do duplicado, ambas com apenas 18 palavras.</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">Garantir 301 redirect da vers&atilde;o sem slash para a com slash.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Issues On-Page</h2>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">6 P&aacute;ginas com Conte&uacute;do Extremamente Fino (&lt;100 palavras)</span></div>
+          <div><span class="severity sev-critico">Cr&iacute;tico</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">P&aacute;ginas afetadas:</span> <span class="value">/services/ (177), /our-work/ (18), /media-room/ (8), /contact/ (31), /service-areas/ (62), /pay-now/ (56), /free-inspection/ (18), /recent-projects-reviews/ (17 &mdash; noindex).</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">P&aacute;ginas finas s&atilde;o mal ranqueadas e podem contribuir para classifica&ccedil;&atilde;o de "conte&uacute;do de baixa qualidade" no sistema helpful content do Google.</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">/services/ &rarr; 500+ palavras. /our-work/ &rarr; portf&oacute;lio real com fotos. /media-room/ &rarr; comunicados, pr&ecirc;mios, certifica&ccedil;&otilde;es. /contact/ &rarr; info completa. /service-areas/ &rarr; hub com descri&ccedil;&otilde;es. /pay-now/ &rarr; considerar noindex.</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">P&aacute;gina /services/ com H1 Duplicado e Apenas 177 Palavras</span></div>
+          <div><span class="severity sev-alto">Alto</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">H1 "Our Services" aparece duas vezes (mesmo texto). Word count: 177. H2 gen&eacute;rico "Best Roofing Contractor Services in Your Local Area".</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">Remover H1 duplicado. Expandir para 500+ palavras descrevendo cada servi&ccedil;o com 2-3 frases.</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">H2 Gen&eacute;rico Repetido em 10+ P&aacute;ginas</span></div>
+          <div><span class="severity sev-alto">Alto</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">O H2 "Hire a Team of Roofing Professionals That Care" aparece em pelo menos 10 p&aacute;ginas diferentes &mdash; template de Elementor sendo replicado sem personaliza&ccedil;&atilde;o.</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">Personalizar H2 para cada p&aacute;gina com base no conte&uacute;do espec&iacute;fico. Evitar templates gen&eacute;ricos.</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">~45% dos Page Titles com Largura Acima de 570px (Risco de Truncamento)</span></div>
+          <div><span class="severity sev-medio">M&eacute;dio</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">Aproximadamente 45% dos page titles excedem 570px de largura em pixels, correndo risco de truncamento nos SERPs do Google. Especialmente blog posts com titles de 80-95 caracteres.</span></div>
+          <div class="full"><span class="field">Exemplo:</span> <span class="value">"How to choose the best Roofing Contractors Near Me in Houston and Surrounding Areas - All Over Exterior Roofing" (97 chars) &mdash; muito longo.</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">Revisar todos os page titles para manter entre 50-60 caracteres ou m&aacute;ximo 570px. Priorizar blog posts mais visitados.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Issues de Conte&uacute;do</h2>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">Blog Posts com T&iacute;tulos Muito Longos (80-95 chars)</span></div>
+          <div><span class="severity sev-alto">Alto</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">Muitos blog posts t&ecirc;m t&iacute;tulos que excedem 60 caracteres, com " - All Over Exterior Roofing" ocupando espa&ccedil;o precioso. Padr&atilde;o: 80-95 chars.</span></div>
+          <div class="full"><span class="field">Exemplo:</span> <span class="value">"How to choose the best Roofing Contractors Near Me in Houston and Surrounding Areas - All Over Exterior Roofing" &mdash; 97 chars. "Increasing Home Value: 7 Ways New Siding Can Make Your Home More Valuable - All Over Exterior Roofing" &mdash; 96 chars.</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">Encurtar t&iacute;tulos de blog posts para 50-60 chars. Usar " - All Over Roofing" em vez do nome completo.</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">P&aacute;gina /roofing-services/ com Title Repetitivo</span></div>
+          <div><span class="severity sev-alto">Alto</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">Title tag "All Over Exterior Roofing - All Over Exterior Roofing" &mdash; o nome da empresa aparece duas vezes.</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">Mudar para "Roofing Services Houston | All Over Exterior Roofing" ou similar.</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">P&aacute;gina /about/ Precisa Ser Restaurada</span></div>
+          <div><span class="severity sev-medio">M&eacute;dio</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">Al&eacute;m do conte&uacute;do de gambling, a p&aacute;gina /about/ tem 1113 palavras em indon&eacute;sio, Flesch Reading Ease "Hard" (35.9), hreflang apontando para sites externos de gambling.</span></div>
+          <div class="full"><span class="field">A&ccedil;&atilde;o p&oacute;s-limpeza:</span> <span class="value">Criar p&aacute;gina About rica: hist&oacute;ria da empresa (30+ anos), certifica&ccedil;&otilde;es (GAF, Owens Corning, Haag), fotos da equipe, depoimentos em v&iacute;deo, pr&ecirc;mios (BBB, Thumbtack).</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>AI/GEO &mdash; Visibilidade em IA</h2>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">Zero Presen&ccedil;a em AI Search &mdash; Sem Cita&ccedil;&otilde;es em LLMs</span></div>
+          <div><span class="severity sev-critico">Cr&iacute;tico</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Problema:</span> <span class="value">Site n&atilde;o otimizado para aparecer em respostas de IA (ChatGPT, Perplexity, Google AI Overviews, Gemini, Claude). Zero structured data, idioma pt-BR confunde AI crawlers, sem FAQ schema, conte&uacute;do n&atilde;o formatado para extra&ccedil;&atilde;o por IA.</span></div>
+          <div class="full"><span class="field">Estrat&eacute;gia 30 dias:</span> <span class="value">1. Implementar FAQ schema. 2. Criar p&aacute;gina central de perguntas frequentes sobre roofing em Houston. 3. LocalBusiness schema completo. 4. Conte&uacute;do extra&iacute;vel (bullet points, tabelas, estat&iacute;sticas). 5. Otimizar para "People Also Ask" com respostas de 40-50 palavras. 6. Corrigir idioma para en-US. 7. Adicionar cita&ccedil;&otilde;es em artigos.</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">Sem Preparo para Google AI Overviews</span></div>
+          <div><span class="severity sev-alto">Alto</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Oportunidade:</span> <span class="value">Google AI Overviews est&aacute; ativo nos EUA. Uma empresa de roofing em Houston com conte&uacute;do otimizado pode aparecer como fonte citada para perguntas como "How much does a roof replacement cost in Houston?" ou "Best roofing contractors in Houston".</span></div>
+          <div class="full"><span class="field">A&ccedil;&otilde;es:</span> <span class="value">1. Criar conte&uacute;do que responda perguntas espec&iacute;ficas de forma direta. 2. Estruturar artigos com defini&ccedil;&otilde;es, listas numeradas e tabelas. 3. Usar linguagem natural e responder &agrave; pergunta nos primeiros 100 caracteres. 4. Implementar cita&ccedil;&otilde;es de fontes confi&aacute;veis.</span></div>
+        </div>
+      </div>
+
+      <div class="kpi-grid-2" style="margin-top:20px;">
+        <div class="kpi-card">
+          <div class="value">0</div>
+          <div class="label">Cita&ccedil;&otilde;es em LLMs (atual)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="value">15+</div>
+          <div class="label">Meta 90 dias</div>
+        </div>
+      </div>
+
+      <h3>Estrat&eacute;gia de AI Visibility</h3>
+      <ol>
+        <li><strong>Schema Foundation</strong> &mdash; Implementar LocalBusiness + Service + FAQ schema</li>
+        <li><strong>FAQ Hub</strong> &mdash; Criar p&aacute;gina central de 20+ perguntas frequentes sobre roofing em Houston</li>
+        <li><strong>Conte&uacute;do Extra&iacute;vel</strong> &mdash; Estruturar artigos com bullet points, tabelas, defini&ccedil;&otilde;es, cita&ccedil;&otilde;es</li>
+        <li><strong>Corre&ccedil;&atilde;o de Idioma</strong> &mdash; Mudar de pt-BR para en-US</li>
+        <li><strong>Cita&ccedil;&otilde;es Locais</strong> &mdash; Referenciar dados locais de Houston (clima, regulations, custos)</li>
+        <li><strong>E-A-T</strong> &mdash; Adicionar biografia dos fundadores, certifica&ccedil;&otilde;es, pr&ecirc;mios, associa&ccedil;&otilde;es</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Perfil de Links</h2>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">Perfil de Links Externos &mdash; V&aacute;rios Links Quebrados</span></div>
+          <div><span class="severity sev-alto">Alto</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Links problem&aacute;ticos:</span> <span class="value">app.roofr.com/instant-estimator (404), greensky.com (403 &mdash; 11 recursos), bbb.org (403), nextdoor.com (timeout), kingwood.com (403), missouricitytx.gov (403), cityofkaty.com (403), cincoranch.com (DNS fail), brandassets.app (DNS fail), plazaitdotid.pages.dev (links de hacking &mdash; remover).</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">Links quebrados prejudicam experi&ecirc;ncia do usu&aacute;rio. Links de gambling s&atilde;o resultado do hack e devem ser removidos URGENTEMENTE.</span></div>
+          <div class="full"><span class="field">Corre&ccedil;&atilde;o:</span> <span class="value">1. Remover todos os links para plazaitdotid.pages.dev e itdl.superampgoogle.com. 2. Atualizar/remover link do Roofr. 3. Verificar contrato GreenSky. 4. Atualizar links de &aacute;reas de servi&ccedil;o que est&atilde;o 403. 5. Adicionar link do Google Maps funcional.</span></div>
+        </div>
+      </div>
+
+      <div class="finding" style="border-left-color: var(--gold);">
+        <div class="finding-header">
+          <div><span class="finding-title" style="color: var(--gold);">Pontos Positivos no Perfil de Links</span></div>
+          <div><span class="severity sev-info">Info</span></div>
+        </div>
+        <ul>
+          <li><strong>Facebook</strong> &mdash; 56 inlinks, p&aacute;gina ativa</li>
+          <li><strong>YouTube</strong> &mdash; 155 inlinks, canal com conte&uacute;do</li>
+          <li><strong>Google Maps</strong> &mdash; M&uacute;ltiplos embeds, 615 inlinks</li>
+          <li><strong>Instagram</strong> &mdash; 153 inlinks</li>
+          <li><strong>BBB</strong> &mdash; 59 inlinks</li>
+          <li><strong>Google Analytics + GTM</strong> &mdash; Instalados e funcionando</li>
+          <li><strong>Cloudflare</strong> &mdash; CDN + prote&ccedil;&atilde;o</li>
+          <li><strong>LeadConnector/GoHighLevel</strong> &mdash; CRM integrado</li>
+          <li><strong>TrustIndex</strong> &mdash; Selo de avalia&ccedil;&otilde;es</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Plano de A&ccedil;&atilde;o Priorizado</h2>
+      <p style="margin-bottom: 16px;">Prioriza&ccedil;&atilde;o por impacto vs. esfor&ccedil;o. Estima-se <strong>40-60% de aumento no tr&aacute;fego org&acirc;nico</strong> em 90 dias com implementa&ccedil;&atilde;o completa.</p>
+
+      <h3 style="color: var(--red); margin: 24px 0 14px;">P0 &mdash; Corrigir AGORA (dias 1-7)</h3>
+      <table>
+        <tr><th>A&ccedil;&atilde;o</th><th>Impacto</th><th>Esfor&ccedil;o</th></tr>
+        <tr><td>Remover conte&uacute;do hackeado da p&aacute;gina /about/, resetar senhas, escanear site</td><td><span class="badge badge-critico">Cr&iacute;tico</span></td><td>2-3 dias</td></tr>
+        <tr><td>Corrigir idioma do site de pt-BR para en-US (WordPress Settings)</td><td><span class="badge badge-critico">Cr&iacute;tico</span></td><td>30 min</td></tr>
+        <tr><td>Remover links de gambling (plazaitdotid.pages.dev, itdl.superampgoogle.com)</td><td><span class="badge badge-critico">Cr&iacute;tico</span></td><td>1 h</td></tr>
+        <tr><td>Desabilitar gera&ccedil;&atilde;o autom&aacute;tica de meta descriptions no Elementor</td><td><span class="badge badge-critico">Cr&iacute;tico</span></td><td>30 min</td></tr>
+      </table>
+
+      <h3 style="color: #c2410c; margin: 24px 0 14px;">P1 &mdash; Prioridade Alta (dias 3-14)</h3>
+      <table>
+        <tr><th>A&ccedil;&atilde;o</th><th>Impacto</th><th>Esfor&ccedil;o</th></tr>
+        <tr><td>Implementar LocalBusiness schema (JSON-LD) em todo o site</td><td><span class="badge badge-critico">Cr&iacute;tico</span></td><td>2-3 h</td></tr>
+        <tr><td>Adicionar Article schema nos blog posts + BreadcrumbList schema global</td><td><span class="badge badge-critico">Cr&iacute;tico</span></td><td>2 h</td></tr>
+        <tr><td>Configurar cache de p&aacute;gina (WP Rocket) + compress&atilde;o Gzip/Brotli</td><td><span class="badge badge-alto">Alto</span></td><td>1-2 h</td></tr>
+        <tr><td>Comprimir e redimensionar todas as imagens &mdash; foco nas &gt;300KB</td><td><span class="badge badge-alto">Alto</span></td><td>2-3 h</td></tr>
+        <tr><td>Adicionar width/height em todas as imagens para eliminar CLS</td><td><span class="badge badge-alto">Alto</span></td><td>1-2 h</td></tr>
+        <tr><td>Noindex /elementor-1774/ e /elementor-1746/ ou redirecionar 301</td><td><span class="badge badge-alto">Alto</span></td><td>30 min</td></tr>
+        <tr><td>Noindex p&aacute;ginas de categoria finas (20+ categorias sem conte&uacute;do)</td><td><span class="badge badge-medio">M&eacute;dio</span></td><td>1 h</td></tr>
+        <tr><td>Noindex /confirmation/ e /pay-now/</td><td><span class="badge badge-medio">M&eacute;dio</span></td><td>15 min</td></tr>
+      </table>
+
+      <h3 style="color: #a16207; margin: 24px 0 14px;">P2 &mdash; Prioridade M&eacute;dia (dias 7-21)</h3>
+      <table>
+        <tr><th>A&ccedil;&atilde;o</th><th>Impacto</th><th>Esfor&ccedil;o</th></tr>
+        <tr><td>Expandir /services/ de 177 para 500+ palavras com descri&ccedil;&otilde;es detalhadas</td><td><span class="badge badge-alto">Alto</span></td><td>2-3 h</td></tr>
+        <tr><td>Criar portf&oacute;lio real em /our-work/ com fotos e descri&ccedil;&otilde;es de projetos</td><td><span class="badge badge-alto">Alto</span></td><td>4-6 h</td></tr>
+        <tr><td>Expandir /service-areas/ para hub com descri&ccedil;&otilde;es de cada cidade servida</td><td><span class="badge badge-medio">M&eacute;dio</span></td><td>3-4 h</td></tr>
+        <tr><td>Revisar e encurtar page titles (especialmente blog posts com 80-95 chars)</td><td><span class="badge badge-medio">M&eacute;dio</span></td><td>2 h</td></tr>
+        <tr><td>Remover H2 gen&eacute;rico "Hire a Team..." das p&aacute;ginas, personalizar</td><td><span class="badge badge-medio">M&eacute;dio</span></td><td>2 h</td></tr>
+      </table>
+
+      <h3 style="color: #2e7d32; margin: 24px 0 14px;">P3 &mdash; Oportunidades (dias 14-60)</h3>
+      <table>
+        <tr><th>A&ccedil;&atilde;o</th><th>Impacto</th><th>Esfor&ccedil;o</th></tr>
+        <tr><td>Criar FAQ schema com perguntas frequentes sobre roofing em Houston</td><td><span class="badge badge-alto">Alto</span></td><td>2-3 h</td></tr>
+        <tr><td>Criar conte&uacute;do otimizado para AI Overviews (respostas diretas de 40-50 palavras)</td><td><span class="badge badge-alto">Alto</span></td><td>4-6 h</td></tr>
+        <tr><td>Implementar Open Graph e Twitter Cards</td><td><span class="badge badge-medio">M&eacute;dio</span></td><td>1 h</td></tr>
+        <tr><td>Criar Google Business Profile + integrar com site</td><td><span class="badge badge-alto">Alto</span></td><td>2-3 h</td></tr>
+        <tr><td>Verificar Google Search Console e tratar erros de cobertura</td><td><span class="badge badge-alto">Alto</span></td><td>1 h</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Resumo &amp; Proje&ccedil;&atilde;o</h2>
+
+      <table>
+        <tr><th>M&eacute;trica</th><th>Atual</th><th>Meta 30d</th><th>Meta 90d</th></tr>
+        <tr><td>Sa&uacute;de Geral SEO</td><td><span class="tag tag-red">32/100</span></td><td><span class="tag tag-orange">55/100</span></td><td><span class="tag tag-green">75/100</span></td></tr>
+        <tr><td>Structured Data</td><td><span class="tag tag-red">0%</span></td><td><span class="tag tag-green">100%</span></td><td><span class="tag tag-green">100%</span></td></tr>
+        <tr><td>Idioma (en-US)</td><td><span class="tag tag-red">0%</span></td><td><span class="tag tag-green">100%</span></td><td><span class="tag tag-green">100%</span></td></tr>
+        <tr><td>Meta Descriptions Duplicadas</td><td><span class="tag tag-red">100%</span></td><td><span class="tag tag-green">0%</span></td><td><span class="tag tag-green">0%</span></td></tr>
+        <tr><td>P&aacute;ginas Finas (&lt;100 palavras)</td><td><span class="tag tag-red">8 p&aacute;ginas</span></td><td><span class="tag tag-orange">3 p&aacute;ginas</span></td><td><span class="tag tag-green">0 p&aacute;ginas</span></td></tr>
+        <tr><td>Imagens Grandes (&gt;300KB)</td><td><span class="tag tag-red">12</span></td><td><span class="tag tag-orange">4</span></td><td><span class="tag tag-green">0</span></td></tr>
+        <tr><td>Homepage Response Time</td><td><span class="tag tag-red">5.326ms</span></td><td><span class="tag tag-orange">1.500ms</span></td><td><span class="tag tag-green">&lt;800ms</span></td></tr>
+        <tr><td>Cita&ccedil;&otilde;es em IA</td><td><span class="tag tag-red">0</span></td><td><span class="tag tag-orange">5</span></td><td><span class="tag tag-green">15+</span></td></tr>
+        <tr><td>Links Quebrados Externos</td><td><span class="tag tag-red">15+</span></td><td><span class="tag tag-orange">5</span></td><td><span class="tag tag-green">&lt;3</span></td></tr>
+      </table>
+
+      <div class="summary-box" style="margin-top: 20px; border-left-color: var(--red);">
+        <strong>Proje&ccedil;&atilde;o de Tr&aacute;fego:</strong>
+        <p style="margin-top: 8px;">Com a corre&ccedil;&atilde;o dos issues cr&iacute;ticos (seguran&ccedil;a, idioma, schema) + otimiza&ccedil;&atilde;o de p&aacute;ginas finas + structured data, estimamos um aumento de <strong>40-60% no tr&aacute;fego org&acirc;nico em 90 dias</strong>, especialmente para buscas locais como "roofers in Houston", "roof replacement Houston TX", "metal roofing Houston" e "commercial roofing Houston".</p>
+        <p style="margin-top: 8px;"><strong>Pr&oacute;ximo passo recomendado:</strong> Iniciar pela seguran&ccedil;a (P0-01), seguido da corre&ccedil;&atilde;o de idioma (P0-02) e implementa&ccedil;&atilde;o de schema (P1-01/P1-02). Os 3 fixos iniciais podem ser feitos em um dia e j&aacute; trar&atilde;o impacto significativo.</p>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 </body>
