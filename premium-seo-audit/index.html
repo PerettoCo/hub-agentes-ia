@@ -1,0 +1,1167 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoria SEO Premium Cleaning Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #007bff;
+            --secondary-gray: #6c757d;
+            --success-green: #28a745;
+            --danger-red: #dc3545;
+            --warning-yellow: #ffc107;
+            --info-cyan: #17a2b8;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+            --white: #ffffff;
+
+            --red: #ef4444;
+            --orange: #f97316;
+            --gold: #eab308;
+            --green: #22c55e;
+            --blue: #3b82f6;
+            --purple: #a855f7;
+            --gray-900: #111827;
+            --gray-800: #1f2937;
+            --gray-700: #374151;
+            --gray-600: #4b5563;
+            --gray-500: #6b7280;
+            --gray-400: #9ca3af;
+            --gray-300: #d1d5db;
+            --gray-200: #e5e7eb;
+            --gray-100: #f3f4f6;
+            --gray-50: #f9fafb;
+
+            --red-light: #fef2f2;
+            --orange-light: #fff7ed;
+            --gold-light: #fefce8;
+            --green-light: #f0fdf4;
+            --blue-light: #eff6ff;
+            --purple-light: #f5f3ff;
+
+            --red-border: #fca5a5;
+            --orange-border: #fdba74;
+            --gold-border: #fde68a;
+            --green-border: #a7f3d0;
+            --blue-border: #bfdbfe;
+            --purple-border: #e9d5ff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-800) 100%);
+            color: var(--white);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 5px solid var(--gold);
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header-content img {
+            max-height: 40px;
+            width: auto;
+        }
+
+        .header-info {
+            text-align: right;
+            font-size: 14px;
+            color: var(--gray-400);
+        }
+
+        .header-info strong {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .client-info {
+            text-align: left;
+            flex-grow: 1;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .client-info span {
+            display: block;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--gray-400);
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--gray-900);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        h1 { font-size: 2.5em; }
+        h2 { font-size: 2em; }
+        h3 { font-size: 1.5em; }
+        h4 { font-size: 1.2em; }
+
+        .card {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .score-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .donut-chart {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            font-weight: 800;
+            color: var(--gray-900);
+            position: relative;
+            background: conic-gradient(var(--gold) 0% var(--score-pct), var(--gray-200) var(--score-pct) 100%);
+        }
+
+        .donut-chart::before {
+            content: '';
+            position: absolute;
+            background: var(--white);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+        }
+
+        .donut-chart span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .score-details {
+            flex: 1;
+        }
+
+        .score-details p {
+            margin: 0 0 10px 0;
+            font-size: 1.1em;
+            color: var(--gray-700);
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-card {
+            background-color: var(--gray-50);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--gray-200);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .kpi-card .value {
+            font-size: 1.8em;
+            font-weight: 800;
+            color: var(--gray-900);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .kpi-card .label {
+            font-size: 0.9em;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .kpi-card.overall .value {
+            color: var(--gold);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+
+        table th, table td {
+            border: 1px solid var(--gray-200);
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: var(--gray-100);
+            font-weight: 600;
+            color: var(--gray-700);
+            white-space: nowrap;
+        }
+
+        table tr:nth-child(even) {
+            background-color: var(--gray-50);
+        }
+
+        table tr:hover {
+            background-color: var(--gray-100);
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 20px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .timeline-phase {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 40px;
+        }
+
+        .timeline-phase .dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--gray-400);
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            border: 3px solid var(--white);
+        }
+
+        .timeline-phase .phase-bar {
+            height: 10px;
+            background-color: var(--gray-300);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            position: relative;
+            width: 100%;
+            transform-origin: bottom;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-phase:nth-child(1) .phase-bar { background-color: var(--red); height: 25px; }
+        .timeline-phase:nth-child(2) .phase-bar { background-color: var(--orange); height: 40px; }
+        .timeline-phase:nth-child(3) .phase-bar { background-color: var(--gold); height: 50px; }
+        .timeline-phase:nth-child(4) .phase-bar { background-color: var(--blue); height: 55px; }
+
+
+        .timeline-phase .phase-hours {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 5px;
+        }
+
+        .timeline-phase .phase-name {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .timeline-phase .phase-pct {
+            font-size: 0.8em;
+            color: var(--gray-500);
+        }
+
+        .timeline-deliverables {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 15px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .timeline-deliverables .deliv {
+            flex: 1;
+            min-width: 150px;
+            font-size: 0.9em;
+            color: var(--gray-700);
+            background-color: var(--gray-50);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .risk-box {
+            background-color: var(--red-light);
+            border-left: 5px solid var(--red);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .risk-box h4 {
+            color: var(--red);
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.15em;
+        }
+
+        .risk-box p {
+            margin: 0;
+            color: var(--gray-700);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-critico { background-color: var(--red); color: var(--white); }
+        .badge-alto { background-color: var(--orange); color: var(--white); }
+        .badge-medio { background-color: var(--gold); color: var(--gray-900); }
+        .badge-baixo { background-color: var(--blue); color: var(--white); }
+        .badge-info { background-color: var(--gray-400); color: var(--white); }
+
+        .finding {
+            background-color: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .finding-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .finding-title {
+            font-weight: 700;
+            color: var(--gray-900);
+            font-size: 1.1em;
+        }
+
+        .finding-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .finding-grid .field {
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .finding-grid .value {
+            color: var(--gray-600);
+        }
+
+        .finding.positive {
+            background-color: var(--green-light);
+            border-left: 5px solid var(--green);
+        }
+
+        .finding.positive .finding-title {
+            color: var(--green);
+        }
+
+        .phase-summary {
+            margin-top: 20px;
+            padding: 15px 20px;
+            background-color: var(--red-light);
+            border-left: 4px solid var(--red);
+            border-radius: 8px;
+            font-size: 1.05em;
+            color: var(--gray-700);
+        }
+
+        .phase-summary strong {
+            color: var(--red);
+        }
+
+        .bar-container {
+            margin-bottom: 20px;
+        }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .bar-label {
+            width: 180px;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+
+        .bar-track {
+            flex: 1;
+            background-color: var(--gray-200);
+            height: 25px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: var(--white);
+            border-radius: 5px;
+        }
+
+        .bar-fill.red { background-color: var(--red); }
+        .bar-fill.orange { background-color: var(--orange); }
+        .bar-fill.gold { background-color: var(--gold); }
+        .bar-fill.blue { background-color: var(--blue); }
+
+        .glossary-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            color: var(--gray-700);
+        }
+
+        .glossary-row .badge {
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            font-size: 0.85em;
+            color: var(--gray-500);
+            border-top: 1px solid var(--gray-200);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .client-info, .header-info {
+                text-align: center;
+            }
+            .score-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+            .timeline {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .timeline-phase {
+                padding-bottom: 20px;
+            }
+            .timeline-phase .dot {
+                bottom: -10px;
+            }
+            .timeline-deliverables {
+                flex-direction: column;
+            }
+            .bar-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .bar-label {
+                width: auto;
+                margin-bottom: 5px;
+            }
+            .bar-track {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <img src="../assets/logo-peretto.png" alt="Peretto & Co. Logo">
+            <div class="client-info">
+                Auditoria SEO
+                <span>Premium Cleaning Services (premiumcleaningnj.com)</span>
+            </div>
+            <div class="header-info">
+                <strong>Confidencial</strong><br>Julho 2026
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <div class="score-section">
+                    <div class="donut-chart" style="--score-pct: 58%;">
+                        <span>5.8/10</span>
+                    </div>
+                    <div class="score-details">
+                        <h2>Health Score de SEO</h2>
+                        <p>A Premium Cleaning Services apresenta um score de <strong>5.8/10</strong>, indicando uma base com potencial, mas com desafios críticos em dados estruturados, canonicalização e otimização de imagens. A arquitetura SPA e a falta de headers de segurança são pontos de atenção.</p>
+                        <p>Oportunidades claras para melhorar a visibilidade em buscas orgânicas e a experiência do usuário.</p>
+                    </div>
+                </div>
+
+                <h2>Sumário</h2>
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <span class="value">1.5/2.5</span>
+                        <span class="label">SEO Técnico</span>
+                    </div>
+                    <div class="kpi-card">
+                        <span class="value">1.8/2.5</span>
+                        <span class="label">On-Page</span>
+                    </div>
+                    <div class="kpi-card">
+                        <span class="value">1.0/2.0</span>
+                        <span class="label">Conteúdo</span>
+                    </div>
+                    <div class="kpi-card">
+                        <span class="value">1.2/1.5</span>
+                        <span class="label">Performance</span>
+                    </div>
+                    <div class="kpi-card">
+                        <span class="value">0.3/1.5</span>
+                        <span class="label">Local SEO</span>
+                    </div>
+                    <div class="kpi-card overall">
+                        <span class="value">5.8/10</span>
+                        <span class="label">Score Geral</span>
+                    </div>
+                </div>
+
+                <h2>Evolução do Projeto</h2>
+                <p style="margin-bottom:20px; color:var(--gray-700);">Distribuição de esforço ao longo das 4 fases &mdash; da correção pré-lançamento à expansão de conteúdo.</p>
+
+                <div class="timeline">
+                    <div class="timeline-phase">
+                        <div class="dot red"></div>
+                        <div class="phase-bar red" style="height: 25px;"></div>
+                        <div class="phase-hours">10h</div>
+                        <div class="phase-name">Fase 0</div>
+                        <div class="phase-pct">14.7% do total</div>
+                    </div>
+                    <div class="timeline-phase">
+                        <div class="dot orange"></div>
+                        <div class="phase-bar orange" style="height: 40px;"></div>
+                        <div class="phase-hours">16h</div>
+                        <div class="phase-name">Mês 1</div>
+                        <div class="phase-pct">23.5%</div>
+                    </div>
+                    <div class="timeline-phase">
+                        <div class="dot gold"></div>
+                        <div class="phase-bar gold" style="height: 50px;"></div>
+                        <div class="phase-hours">20h</div>
+                        <div class="phase-name">Mês 2</div>
+                        <div class="phase-pct">29.4%</div>
+                    </div>
+                    <div class="timeline-phase">
+                        <div class="dot blue"></div>
+                        <div class="phase-bar blue" style="height: 55px;"></div>
+                        <div class="phase-hours">22h</div>
+                        <div class="phase-name">Mês 3</div>
+                        <div class="phase-pct">32.4%</div>
+                    </div>
+                </div>
+
+                <div class="timeline-deliverables">
+                    <div class="deliv"><strong>Fase 0</strong>Structured Data<br>Canonical Tags<br>Compressão Imagens<br>Headers Seg.</div>
+                    <div class="deliv"><strong>Mês 1</strong>Páginas de Cidade<br>Páginas Essenciais<br>Perfis Locais<br>GBP Otimização</div>
+                    <div class="deliv"><strong>Mês 2</strong>Novos Blog Posts<br>Páginas de Serviço<br>Página FAQ<br>Links Internos</div>
+                    <div class="deliv"><strong>Mês 3</strong>Mais Cidades<br>Mais Blog Posts<br>Hub Green Cleaning<br>Link Building</div>
+                </div>
+
+                <div style="margin-top:24px; background:linear-gradient(135deg, #fcfaf7, #f8f7f4); border-radius:10px; padding:18px 22px; border:1px solid var(--gold-border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+                    <div>
+                        <div style="font-size:12px; color:var(--gray-500); font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Progresso Total</div>
+                        <div style="font-size:28px; font-weight:700; color:var(--gold); letter-spacing:-0.5px;">68 h</div>
+                    </div>
+                    <div style="flex:1; max-width:400px;">
+                        <div style="height:6px; background:var(--gray-200); border-radius:3px; overflow:hidden; margin-bottom:6px;">
+                            <div style="height:100%; width:100%; background:linear-gradient(90deg, var(--red), var(--blue)); border-radius:3px;"></div>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--gray-500);">
+                            <span>Início</span>
+                            <span style="font-weight:600; color:var(--gray-700);">90 dias de execução</span>
+                            <span>Go-Live</span>
+                        </div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div style="font-size:12px; color:var(--gray-500); font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">+20% a +60%</div>
+                        <div style="font-size:16px; font-weight:700; color:var(--green);">Projeção de tráfego</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h3>Top 3 Riscos que Exigem Atenção Imediata do C-Level</h3>
+                <div class="risk-box">
+                    <h4>1. Zero Structured Data em 100% das Páginas</h4>
+                    <p>Todas as 13 páginas HTML estão sem JSON-LD ou Microdata. Concorrentes utilizam schema para rich snippets, ganhando destaque no SERP. Isso resulta em uma perda significativa de visibilidade e CTR.</p>
+                </div>
+                <div class="risk-box">
+                    <h4>2. Canonical Tags Ausentes em Todas as Páginas</h4>
+                    <p>100% das páginas HTML não possuem o elemento canonical link. O Google precisa "adivinhar" a URL canônica, o que pode levar a problemas de duplicação de conteúdo e diluição de autoridade.</p>
+                </div>
+                <div class="risk-box">
+                    <h4>3. Imagens com Tamanho Excessivo e sem Atributos</h4>
+                    <p>25 das 30 imagens (83.33%) têm mais de 100KB, com o logo principal em 1.2MB e outras 3 imagens acima de 1MB. Além disso, 28/30 imagens não possuem atributos de largura/altura, impactando negativamente o Core Web Vitals (CLS) e a velocidade de carregamento.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h2>Perfil do Site</h2>
+                <table>
+                    <tr><th>Característica</th><th>Detalhe</th></tr>
+                    <tr><td><strong>Domínio</strong></td><td>premiumcleaningnj.com</td></tr>
+                    <tr><td><strong>Segmento</strong></td><td>Commercial Cleaning Services (B2B facility maintenance)</td></tr>
+                    <tr><td><strong>CMS/Plataforma</strong></td><td>SPA built with Lovable.dev, GoHighLevel forms</td></tr>
+                    <tr><td><strong>Idioma</strong></td><td>English (correto para site nos EUA)</td></tr>
+                    <tr><td><strong>Total HTML pages</strong></td><td>13 (todas 200 OK, todas indexáveis)</td></tr>
+                    <tr><td><strong>Total URLs rastreadas</strong></td><td>45</td></tr>
+                    <tr><td><strong>Mobile</strong></td><td>Responsivo</td></tr>
+                    <tr><td><strong>Sitemap</strong></td><td>Não detectado</td></tr>
+                    <tr><td><strong>HTTPS</strong></td><td>Válido, mas faltando X-Frame-Options e CSP headers</td></tr>
+                    <tr><td><strong>Avg Response Time</strong></td><td>~0.2s (excelente)</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h2>Diagnóstico Técnico Detalhado</h2>
+
+                <h3><span class="badge badge-critico">Críticos</span> &mdash; Impedem Indexação e Ranqueamento</h3>
+
+                <div class="finding">
+                    <div class="finding-header">
+                        <div><span class="finding-title">C-01. Zero Structured Data</span></div>
+                        <div><span class="severity sev-critico">Crítico</span></div>
+                    </div>
+                    <div class="finding-grid">
+                        <div class="full"><span class="field">Evidência:</span> <span class="value">13/13 HTML pages (100%) sem qualquer JSON-LD ou Microdata. Ausência de LocalBusiness, Service, FAQ, BreadcrumbList ou Review schema.</span></div>
+                        <div class="full"><span class="field">Impacto:</span> <span class="value">Perda total de diferenciação no SERP. Concorrentes como Cleanix e Avengers Cleaning ocupam rich snippets. CTR estimado 20-30% inferior.</span></div>
+                        <div class="full"><span class="field">Recomendação:</span> <span class="value">Implementar LocalBusiness, Service e FAQ schema nas páginas relevantes.</span></div>
+                    </div>
+                </div>
+
+                <div class="finding">
+                    <div class="finding-header">
+                        <div><span class="finding-title">C-02. Missing Canonical Tags</span></div>
+                        <div><span class="severity sev-critico">Crítico</span></div>
+                    </div>
+                    <div class="finding-grid">
+                        <div class="full"><span class="field">Evidência:</span> <span class="value">13/13 HTML pages (100%) sem o elemento canonical link.</span></div>
+                        <div class="full"><span class="field">Impacto:</span> <span class="value">Google precisa adivinhar a URL canônica, podendo levar a problemas de duplicação de conteúdo e diluição de autoridade.</span></div>
+                        <div class="full"><span class="field">Recomendação:</span> <span class="value">Adicionar canonical tags em todas as páginas HTML, apontando para a versão preferencial.</span></div>
+                    </div>
+                </div>
+
+                <div class="finding">
+                    <div class="finding-header">
+                        <div><span class="finding-title">C-03. Image Bloat</span></div>
+                        <div><span class="severity sev-critico">Crítico</span></div>
+                    </div>
+                    <div class="finding-grid">
+                        <div class="full"><span class="field">Evidência:</span> <span class="value">25/30 imagens (83.33%) acima de 100KB. Logo (premium-1.png) com 1.2MB. 3 imagens acima de 1MB cada. Total de imagens ~13.7MB.</span></div>
+                        <div class="full"><span class="field">Impacto:</span> <span class="value">Velocidade de carregamento severamente comprometida, impactando Core Web Vitals e experiência do usuário.</span></div>
+                        <div class="full"><span class="field">Recomendação:</span> <span class="value">Comprimir e otimizar todas as imagens, convertendo para formatos modernos como WebP.</span></div>
+                    </div>
+                </div>
+
+                <div class="finding">
+                    <div class="finding-header">
+                        <div><span class="finding-title">C-04. SPA Architecture (Lovable.dev)</span></div>
+                        <div><span class="severity sev-critico">Crítico</span></div>
+                    </div>
+                    <div class="finding-grid">
+                        <div class="full"><span class="field">Evidência:</span> <span class="value">Site construído como Single Page Application (SPA) com Lovable.dev. Meta tags dependem de renderização JavaScript.</span></div>
+                        <div class="full"><span class="field">Impacto:</span> <span class="value">Google pode indexar, mas de forma subótima. Dificuldade em rastrear e renderizar conteúdo dinâmico.</span></div>
+                        <div class="full"><span class="field">Recomendação:</span> <span class="value">Garantir que todo o conteúdo e meta tags críticos estejam disponíveis no HTML inicial (server-side rendering ou pre-rendering).</span></div>
+                    </div>
+                </div>
+
+                <h3><span class="badge badge-alto">Alto</span> &mdash; Impactam Diretamente CTR e Experiência</h3>
+
+                <div class="finding">
+                    <div class="finding-header">
+                        <div><span class="finding-title">A-01. Page Titles Over 60 Characters</span></div>
+                        <div><span class="severity sev-alto">Alto</span></div>
+                    </div>
+                    <div class="finding-grid">
+                        <div class="full"><span class="field">Evidência:</span> <span class="value">10/12 páginas (83.33%) com page titles acima de 60 caracteres. O mais longo com 114 caracteres.</span></div>
+                        <div class="full"><span class="field">Impacto:</span> <span class="value">Titles são truncados no SERP, perdendo a mensagem completa e impactando o CTR.</span></div>
+                        <div class="full"><span class="field">Recomendação:</span> <span class="value">Reescrever page titles para ter entre 50-60 caracteres, focando nas palavras-chave mais importantes.</span></div>
+                    </div>
+                </div>
+
+                <div class="finding">
+                    <div class="finding-header">
+                        <div><span class="finding-title">A-02. Missing Security Headers</span></div>
+                        <div><span class="severity sev-alto">Alto</span></div>
+                    </div>
+                    <div class="finding-grid">
+                        <div class="full"><span class="field">Evidência:</span> <span class="value">X-Frame-Options ausente em 45/45 URLs (100%). CSP (Content Security Policy) ausente em 43/45 URLs (95.56%).</span></div>
+                        <div class="full"><span class="field">Impacto:</span> <span class="value">Vulnerabilidade a ataques como clickjacking e injeção de conteúdo, comprometendo a segurança e a confiança.</span></div>
+                        <div class="full"><span class="field">Recomendação:</span> <span class="value">Implementar X-Frame-Options e CSP headers no servidor.</span></div>
+                    </div>
+                </div>
+
+                <div class="finding">
+                    <div class="finding-header">
+                        <div><span class="finding-title">A-03. Weak Local SEO</span></div>
+                        <div><span class="severity sev-alto">Alto</span></div>
+                    </div>
+                    <div class="finding-grid">
+                        <div class="full"><span class="field">Evidência:</span> <span class="value">Apenas 5 avaliações no Google vs 300+ do principal concorrente. Ausência de perfis em Yelp, Facebook, Nextdoor. Zero páginas de destino por cidade.</span></div>
+                        <div class="full"><span class="field">Impacto:</span> <span class="value">Baixa visibilidade em buscas locais, perdendo clientes potenciais na região de atuação.</span></div>
+                        <div class="full"><span class="field">Recomendação:</span> <span class="value">Desenvolver estratégia de reviews, criar perfis em diretórios locais e construir páginas de destino por cidade.</span></div>
+                    </div>
+                </div>
+
+                <div class="finding">
+                    <div class="finding-header">
+                        <div><span class="finding-title">A-04. H1 Typo</span></div>
+                        <div><span class="severity sev-alto">Alto</span></div>
+                    </div>
+                    <div class="finding-grid">
+                        <div class="full"><span class="field">Evidência:</span> <span class="value">Página /insights/ com H1: "Industry Insights forFacility Managers" (falta espaço).</span></div>
+                        <div class="full"><span class="field">Impacto:</span> <span class="value">Erro de digitação no principal título da página, prejudicando a legibilidade e a percepção de qualidade.</span></div>
+                        <div class="full"><span class="field">Recomendação:</span> <span class="value">Corrigir o H1 para "Industry Insights for Facility Managers".</span></div>
+                    </div>
+                </div>
+
+                <div class="finding">
+                    <div class="finding-header">
+                        <div><span class="finding-title">A-05. H2 "TLKey Takeaways" Duplicated</span></div>
+                        <div><span class="severity sev-alto">Alto</span></div>
+                    </div>
+                    <div class="finding-grid">
+                        <div class="full"><span class="field">Evidência:</span> <span class="value">O mesmo H2 quebrado "TLKey Takeaways" (faltando "DR") aparece em todos os 3 artigos de insights.</span></div>
+                        <div class="full"><span class="field">Impacto:</span> <span class="value">H2s inconsistentes e com erro afetam a estrutura semântica e a experiência do leitor.</span></div>
+                        <div class="full"><span class="field">Recomendação:</span> <span class="value">Corrigir o H2 para "TL;DR: Key Takeaways" ou similar, garantindo consistência.</span></div>
+                    </div>
+                </div>
+
+                <div class="finding">
+                    <div class="finding-header">
+                        <div><span class="finding-title">A-06. Thin Content on /insights/</span></div>
+                        <div><span class="severity sev-alto">Alto</span></div>
+                    </div>
+                    <div class="finding-grid">
+                        <div class="full"><span class="field">Evidência:</span> <span class="value">A página /insights/ possui apenas 213 palavras, sendo a página mais fina do site.</span></div>
+                        <div class="full"><span class="field">Impacto:</span> <span class="value">Google pode considerar como conteúdo de baixa qualidade, dificultando o ranqueamento para termos relacionados a "knowledge hub".</span></div>
+                        <div class="full"><span class="field">Recomendação:</span> <span class="value">Expandir o conteúdo da página /insights/ para fornecer mais valor e contexto aos usuários.</span></div>
+                    </div>
+                </div>
+
+                <h3><span class="badge badge-medio">Médio</span> &mdash; Oportunidades de Melhoria</h3>
+
+                <div class="finding">
+                    <div class="finding-header">
+                        <div><span class="finding-title">M-01. No City Landing Pages</span></div>
+                        <div><span class="severity sev-medio">Médio</span></div>
+                    </div>
+                    <div class="finding-grid">
+                        <div class="full"><span class="field">Evidência:</span> <span class="value">Zero páginas de destino focadas em cidades específicas (ex: "commercial cleaning Newark", "office cleaning Clifton"). Concorrentes possuem 11+.</span></div>
+                        <div class="full"><span class="field">Impacto:</span> <span class="value">Perda de oportunidades de tráfego orgânico local e de leads qualificados em regiões específicas.</span></div>
+                        <div class="full"><span class="field">Recomendação:</span> <span class="value">Criar páginas de destino otimizadas para as principais cidades de atuação.</span></div>
+                    </div>
+                </div>
+
+                <div class="finding">
+                    <div class="finding-header">
+                        <div><span class="finding-title">M-02. No About Page</span></div>
+                        <div><span class="severity sev-medio">Médio</span></div>
+                    </div>
+                    <div class="finding-grid">
+                        <div class="full"><span class="field">Evidência:</span> <span class="value">Ausência de uma página "Sobre Nós" dedicada, com informações sobre a equipe, história ou certificações.</span></div>
+                        <div class="full"><span class="field">Impacto:</span> <span class="value">Perda de sinal E-E-A-T (Expertise, Experience, Authoritativeness, Trustworthiness), crucial para a credibilidade da marca.</span></div>
+                        <div class="full"><span class="field">Recomendação:</span> <span class="value">Criar uma página "Sobre Nós" robusta, destacando a experiência, valores e diferenciais da empresa.</span></div>
+                    </div>
+                </div>
+
+                <div class="finding">
+                    <div class="finding-header">
+                        <div><span class="finding-title">M-03. No Contact Page</span></div>
+                        <div><span class="severity sev-medio">Médio</span></div>
+                    </div>
+                    <div class="finding-grid">
+                        <div class="full"><span class="field">Evidência:</span> <span class="value">Ausência de uma página de contato dedicada com mapa, formulário e diversas opções de contato.</span></div>
+                        <div class="full"><span class="field">Impacto:</span> <span class="value">Dificulta a conversão de visitantes em leads e pode impactar a percepção de acessibilidade da empresa.</span></div>
+                        <div class="full"><span class="field">Recomendação:</span> <span class="value">Criar uma página de contato completa e de fácil acesso.</span></div>
+                    </div>
+                </div>
+
+                <div class="finding">
+                    <div class="finding-header">
+                        <div><span class="finding-title">M-04. No FAQ Page</span></div>
+                        <div><span class="severity sev-medio">Médio</span></div>
+                    </div>
+                    <div class="finding-grid">
+                        <div class="full"><span class="field">Evidência:</span> <span class="value">Ausência de uma página de Perguntas Frequentes (FAQ).</span></div>
+                        <div class="full"><span class="field">Impacto:</span> <span class="value">Perda de oportunidade para ranquear em AI Overviews e responder diretamente a dúvidas comuns dos usuários.</span></div>
+                        <div class="full"><span class="field">Recomendação:</span> <span class="value">Criar uma página FAQ com schema, abordando as principais dúvidas dos clientes.</span></div>
+                    </div>
+                </div>
+
+                <div class="finding">
+                    <div class="finding-header">
+                        <div><span class="finding-title">M-05. H2 Non-Sequential</span></div>
+                        <div><span class="severity sev-medio">Médio</span></div>
+                    </div>
+                    <div class="finding-grid">
+                        <div class="full"><span class="field">Evidência:</span> <span class="value">5 páginas (41.67%) apresentam problemas de ordem de H2.</span></div>
+                        <div class="full"><span class="field">Impacto:</span> <span class="value">Estrutura de conteúdo inconsistente, dificultando a leitura e o entendimento do Google sobre a hierarquia de tópicos.</span></div>
+                        <div class="full"><span class="field">Recomendação:</span> <span class="value">Revisar e corrigir a ordem dos H2s para garantir uma estrutura lógica e sequencial.</span></div>
+                    </div>
+                </div>
+
+                <div class="finding">
+                    <div class="finding-header">
+                        <div><span class="finding-title">M-06. Readability Difficult</span></div>
+                        <div><span class="severity sev-medio">Médio</span></div>
+                    </div>
+                    <div class="finding-grid">
+                        <div class="full"><span class="field">Evidência:</span> <span class="value">2 páginas com pontuação de legibilidade difícil (cases page 44.6, case study 49.0).</span></div>
+                        <div class="full"><span class="field">Impacto:</span> <span class="value">Conteúdo difícil de ler pode aumentar a taxa de rejeição e diminuir o tempo na página.</span></div>
+                        <div class="full"><span class="field">Recomendação:</span> <span class="value">Simplificar a linguagem e a estrutura das frases para melhorar a legibilidade.</span></div>
+                    </div>
+                </div>
+
+                <div class="finding">
+                    <div class="finding-header">
+                        <div><span class="finding-title">M-07. Limited Blog Content</span></div>
+                        <div><span class="severity sev-medio">Médio</span></div>
+                    </div>
+                    <div class="finding-grid">
+                        <div class="full"><span class="field">Evidência:</span> <span class="value">Apenas 3 posts de blog vs 15+ do principal concorrente.</span></div>
+                        <div class="full"><span class="field">Impacto:</span> <span class="value">Oportunidade perdida de atrair tráfego orgânico informacional e posicionar a marca como autoridade no setor.</span></div>
+                        <div class="full"><span class="field">Recomendação:</span> <span class="value">Desenvolver um calendário editorial e produzir mais conteúdo de blog relevante para o público-alvo.</span></div>
+                    </div>
+                </div>
+
+                <h3><span class="badge badge-info">Informativo</span> &mdash; Observações e Pontos Positivos</h3>
+
+                <div class="finding positive">
+                    <div class="finding-header">
+                        <div><span class="finding-title">✅ Todas as Páginas 200 OK e Indexáveis</span></div>
+                        <div><span class="severity sev-info">Info</span></div>
+                    </div>
+                    <p>Todas as 13 páginas HTML retornam status 200 OK e são indexáveis, indicando uma base técnica sólida para o rastreamento.</p>
+                </div>
+                <div class="finding positive">
+                    <div class="finding-header">
+                        <div><span class="finding-title">✅ Excelentes Tempos de Resposta</span></div>
+                        <div><span class="severity sev-info">Info</span></div>
+                    </div>
+                    <p>Tempos de resposta entre 0.05s e 0.49s, o que é excelente e contribui para uma boa experiência do usuário.</p>
+                </div>
+                <div class="finding positive">
+                    <div class="finding-header">
+                        <div><span class="finding-title">✅ H1s Únicos e Descritivos</span></div>
+                        <div><span class="severity sev-info">Info</span></div>
+                    </div>
+                    <p>Cada página possui um H1 único e descritivo, ajudando o Google a entender o tópico principal de cada URL.</p>
+                </div>
+                <div class="finding positive">
+                    <div class="finding-header">
+                        <div><span class="finding-title">✅ Meta Descriptions Presentes</span></div>
+                        <div><span class="severity sev-info">Info</span></div>
+                    </div>
+                    <p>Meta descriptions estão presentes em todas as páginas, oferecendo controle sobre o snippet exibido no SERP.</p>
+                </div>
+                <div class="finding positive">
+                    <div class="finding-header">
+                        <div><span class="finding-title">✅ Sem Links Internos Quebrados</span></div>
+                        <div><span class="severity sev-info">Info</span></div>
+                    </div>
+                    <p>Não foram detectados links internos quebrados, garantindo uma boa navegabilidade e fluxo de link equity.</p>
+                </div>
+                <div class="finding positive">
+                    <div class="finding-header">
+                        <div><span class="finding-title">✅ Conteúdo em Inglês</span></div>
+                        <div><span class="severity sev-info">Info</span></div>
+                    </div>
+                    <p>O conteúdo está em inglês, o que é apropriado para o público-alvo nos EUA.</p>
+                </div>
+                <div class="finding positive">
+                    <div class="finding-header">
+                        <div><span class="finding-title">✅ Clientes Premium Reais</span></div>
+                        <div><span class="severity sev-info">Info</span></div>
+                    </div>
+                    <p>A empresa atende clientes de alto nível como Marriott, Westin e Purple Style Labs, o que agrega credibilidade.</p>
+                </div>
+                <div class="finding positive">
+                    <div class="finding-header">
+                        <div><span class="finding-title">✅ Digital QA Checklists como USP</span></div>
+                        <div><span class="severity sev-info">Info</span></div>
+                    </div>
+                    <p>O uso de checklists digitais de QA é um diferencial competitivo e um forte ponto de venda.</p>
+                </div>
+                <div class="finding positive">
+                    <div class="finding-header">
+                        <div><span class="finding-title">✅ Quality Business Award 2026</span></div>
+                        <div><span class="severity sev-info">Info</span></div>
+                    </div>
+                    <p>A premiação "Quality Business Award 2026" é um excelente sinal de autoridade e confiança.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h2>Plano de Ação Trimestral</h2>
+
+                <h3>Fase 0 &mdash; Quick Wins (10h)</h3>
+                <p style="margin-bottom:16px; color:var(--gray-700);">Sprint de 2 semanas antes do go-live. Essas correções são obrigatórias para o site não ir ao ar com erros que comprometem a indexação desde o dia zero.</p>
+                <table>
+                    <tr><th>#</th><th>Ação</th><th>Horas</th><th>Resp.</th><th>Priod.</th></tr>
+                    <tr><td>1</td><td>Adicionar JSON-LD structured data (LocalBusiness + Service + FAQ)</td><td>4</td><td>Dev / SEO</td><td>1</td></tr>
+                    <tr><td>2</td><td>Adicionar canonical tags a todas as páginas HTML</td><td>1</td><td>Dev / SEO</td><td>1</td></tr>
+                    <tr><td>3</td><td>Comprimir top 5 imagens (1.2MB logo → WebP)</td><td>2</td><td>Dev</td><td>1</td></tr>
+                    <tr><td>4</td><td>Fix H1 typo "forFacility Managers"</td><td>0.5</td><td>Copy / Dev</td><td>2</td></tr>
+                    <tr><td>5</td><td>Fix H2 "TLKey Takeaways" → "TL;DR: Key Takeaways"</td><td>0.5</td><td>Copy / Dev</td><td>2</td></tr>
+                    <tr><td>6</td><td>Adicionar X-Frame-Options + CSP headers</td><td>1</td><td>Dev</td><td>1</td></tr>
+                    <tr><td>7</td><td>Adicionar width/height a todas as imagens</td><td>1</td><td>Dev</td><td>2</td></tr>
+                </table>
+                <div class="phase-summary">
+                    <p style="margin:0;"><strong>Total Fase 0: 10 h</strong> &mdash; concluir antes do go-live. O site <strong>não deve ir ao ar</strong> sem essas correções.</p>
+                </div>
+
+                <h3>Mês 1 &mdash; Fundação (16h)</h3>
+                <table>
+                    <tr><th>#</th><th>Ação</th><th>Horas</th><th>Resp.</th><th>Priod.</th></tr>
+                    <tr><td>1</td><td>Criar 6 páginas de cidade (Newark, Clifton, Paterson, Jersey City, Livingston, Bridgewater)</td><td>6</td><td>Copy / Dev</td><td>1</td></tr>
+                    <tr><td>2</td><td>Criar página /locations</td><td>1</td><td>Copy / Dev</td><td>2</td></tr>
+                    <tr><td>3</td><td>Criar página /about</td><td>3</td><td>Copy / Dev</td><td>1</td></tr>
+                    <tr><td>4</td><td>Criar página /contact</td><td>2</td><td>Copy / Dev</td><td>1</td></tr>
+                    <tr><td>5</td><td>Reivindicar perfis Yelp/Facebook/Nextdoor</td><td>2</td><td>SEO</td><td>2</td></tr>
+                    <tr><td>6</td><td>Otimização do Google Business Profile (GBP)</td><td>2</td><td>SEO</td><td>1</td></tr>
+                </table>
+
+                <h3>Mês 2 &mdash; Conteúdo (20h)</h3>
+                <table>
+                    <tr><th>#</th><th>Ação</th><th>Horas</th><th>Resp.</th><th>Priod.</th></tr>
+                    <tr><td>1</td><td>4 novos posts de blog (OSHA, carpet frequency, choosing cleaner, NFPA 96)</td><td>8</td><td>Copy</td><td>1</td></tr>
+                    <tr><td>2</td><td>Páginas de serviço especializadas (medical, post-construction, kitchen hood, window, VCT)</td><td>8</td><td>Copy / Dev</td><td>1</td></tr>
+                    <tr><td>3</td><td>Página FAQ com schema</td><td>2</td><td>Copy / Dev</td><td>2</td></tr>
+                    <tr><td>4</td><td>llms.txt para visibilidade em IA</td><td>1</td><td>SEO</td><td>2</td></tr>
+                    <tr><td>5</td><td>Otimização de links internos</td><td>1</td><td>SEO</td><td>2</td></tr>
+                </table>
+
+                <h3>Mês 3 &mdash; Expansão (22h)</h3>
+                <table>
+                    <tr><th>#</th><th>Ação</th><th>Horas</th><th>Resp.</th><th>Priod.</th></tr>
+                    <tr><td>1</td><td>3 mais páginas de cidade (Elizabeth, Parsippany, Morris County)</td><td>3</td><td>Copy / Dev</td><td>1</td></tr>
+                    <tr><td>2</td><td>4 mais posts de blog</td><td>8</td><td>Copy</td><td>1</td></tr>
+                    <tr><td>3</td><td>Criar página hub de green cleaning</td><td>3</td><td>Copy / Dev</td><td>2</td></tr>
+                    <tr><td>4</td><td>Link building (guest posts, Chamber of Commerce)</td><td>4</td><td>SEO</td><td>1</td></tr>
+                    <tr><td>5</td><td>Campanha de geração de reviews</td><td>2</td><td>SEO</td><td>1</td></tr>
+                    <tr><td>6</td><td>Relatórios mensais</td><td>2</td><td>SEO</td><td>2</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h2>Resumo de Esforço Consolidado</h2>
+                <table>
+                    <tr><th>Especialidade</th><th>Fase 0</th><th>Mês 1</th><th>Mês 2</th><th>Mês 3</th><th>Total</th></tr>
+                    <tr><td>Desenvolvedor</td><td>4 h</td><td>6 h</td><td>10 h</td><td>6 h</td><td><strong>26 h</strong></td></tr>
+                    <tr><td>SEO</td><td>2 h</td><td>4 h</td><td>4 h</td><td>8 h</td><td><strong>18 h</strong></td></tr>
+                    <tr><td>Copywriter</td><td>4 h</td><td>6 h</td><td>6 h</td><td>8 h</td><td><strong>24 h</strong></td></tr>
+                    <tr><td>Designer</td><td>0 h</td><td>0 h</td><td>0 h</td><td>0 h</td><td><strong>0 h</strong></td></tr>
+                    <tr style="font-weight:700; background:var(--gray-50);"><td><strong>Total</strong></td><td><strong>10 h</strong></td><td><strong>16 h</strong></td><td><strong>20 h</strong></td><td><strong>22 h</strong></td><td><strong>68 h</strong></td></tr>
+                </table>
+                <p style="margin-top:16px; font-size:14px; color:var(--gray-600);">* Os totais de horas por especialidade no resumo de esforço consolidado (Developer: 30h, SEO: 36h, Copywriter: 32h, Designer: 4h) são uma estimativa geral. A distribuição detalhada por fase acima (Total: 68h) reflete o plano de ação específico.</p>
+
+                <h3>Curva de Investimento (pós Fase 0)</h3>
+                <div class="bar-container">
+                    <div class="bar-row"><div class="bar-label">Fase 0 (Quick Wins)</div><div class="bar-track"><div class="bar-fill red" style="width:14.7%;">10 h (14.7%)</div></div></div>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-row"><div class="bar-label">Mês 1 (Fundação)</div><div class="bar-track"><div class="bar-fill orange" style="width:23.5%;">16 h (23.5%)</div></div></div>
+                    <div class="bar-row"><div class="bar-label">Mês 2 (Conteúdo)</div><div class="bar-track"><div class="bar-fill gold" style="width:29.4%;">20 h (29.4%)</div></div></div>
+                    <div class="bar-row"><div class="bar-label">Mês 3 (Expansão)</div><div class="bar-track"><div class="bar-fill blue" style="width:32.4%;">22 h (32.4%)</div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h2>Projeção de Impacto</h2>
+                <table>
+                    <tr><th>Métrica</th><th>Current</th><th>30d</th><th>60d</th><th>90d</th></tr>
+                    <tr><td><strong>Indexed Pages</strong></td><td>13</td><td>22</td><td>35</td><td>40+</td></tr>
+                    <tr><td><strong>Keywords Top 10</strong></td><td>~5</td><td>12</td><td>22</td><td>35+</td></tr>
+                    <tr><td><strong>Organic Traffic (est)</strong></td><td>Base</td><td>+20%</td><td>+50%</td><td>+60%</td></tr>
+                    <tr><td><strong>Google Reviews</strong></td><td>5</td><td>15</td><td>25</td><td>40+</td></tr>
+                    <tr><td><strong>City Pages</strong></td><td>0</td><td>6</td><td>9</td><td>12+</td></tr>
+                    <tr><td><strong>Blog Posts</strong></td><td>3</td><td>4</td><td>7</td><td>10+</td></tr>
+                    <tr><td><strong>Schema Types</strong></td><td>0</td><td>3</td><td>5</td><td>7+</td></tr>
+                    <tr><td><strong>Directories</strong></td><td>3</td><td>7</td><td>10</td><td>15+</td></tr>
+                </table>
+                <h3>Fatores que Influenciam a Projeção</h3>
+                <div class="risk-box" style="border-left-color:var(--green); background-color:var(--green-light);"><p>A implementação de structured data pode gerar ganho imediato de CTR de <strong>20-30%</strong> e maior visibilidade em AI Overviews.</p></div>
+                <div class="risk-box" style="border-left-color:var(--orange); background-color:var(--orange-light);"><p>A criação de páginas de cidade e otimização do GBP terá um impacto direto e rápido no <strong>SEO Local</strong>, atraindo leads qualificados.</p></div>
+                <div class="risk-box" style="border-left-color:var(--blue); background-color:var(--blue-light);"><p>O setor de limpeza comercial tem oportunidades significativas para conteúdo de qualidade. Ser um dos primeiros a estruturar um blog robusto pode gerar <strong>autoridade e tráfego</strong> a longo prazo.</p></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h2>KPIs para Acompanhamento Mensal</h2>
+                <table>
+                    <tr><th>KPI</th><th>Current</th><th>30d</th><th>60d</th><th>90d</th></tr>
+                    <tr><td>Indexed Pages</td><td>13</td><td>22</td><td>35</td><td>40+</td></tr>
+                    <tr><td>Keywords Top 10</td><td>~5</td><td>12</td><td>22</td><td>35+</td></tr>
+                    <tr><td>Organic Traffic (est)</td><td>Base</td><td>+20%</td><td>+50%</td><td>+60%</td></tr>
+                    <tr><td>Google Reviews</td><td>5</td><td>15</td><td>25</td><td>40+</td></tr>
+                    <tr><td>City Pages</td><td>0</td><td>6</td><td>9</td><td>12+</td></tr>
+                    <tr><td>Blog Posts</td><td>3</td><td>4</td><td>7</td><td>10+</td></tr>
+                    <tr><td>Schema Types</td><td>0</td><td>3</td><td>5</td><td>7+</td></tr>
+                    <tr><td>Directories</td><td>3</td><td>7</td><td>10</td><td>15+</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h2>Riscos e Mitigações</h2>
+                <table>
+                    <tr><th>Risco</th><th>Prob.</th><th>Impacto</th><th>Mitigação</th></tr>
+                    <tr><td>Dependência da equipe de desenvolvimento Lovable.dev</td><td>Alta</td><td>Alto</td><td>Briefings claros e detalhados. Acompanhamento próximo do progresso.</td></tr>
+                    <tr><td>Limitações da arquitetura SPA para SEO</td><td>Média</td><td>Médio</td><td>Garantir que o conteúdo crítico seja renderizado no HTML inicial. Monitoramento constante no GSC.</td></tr>
+                    <tr><td>Baixa adesão à campanha de reviews</td><td>Média</td><td>Médio</td><td>Incentivos para clientes satisfeitos. Automação do processo de solicitação de reviews.</td></tr>
+                    <tr><td>Concorrência intensificada em SEO Local</td><td>Média</td><td>Médio</td><td>Expansão contínua de páginas de cidade e otimização de GBP.</td></tr>
+                    <tr><td>Atualizações de algoritmo do Google</td><td>Baixa</td><td>Alto</td><td>Manter-se atualizado com as melhores práticas de SEO e adaptar a estratégia conforme necessário.</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h2>Próximos Passos</h2>
+                <div class="kpi-grid" style="grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));">
+                    <div class="kpi-card" style="text-align:left; padding:18px;">
+                        <div class="label" style="text-align:left; margin-bottom:4px;">1. Agendar Fase 0</div>
+                        <p style="font-size:15px; margin:0; color:var(--gray-700);">Priorizar a execução das "Quick Wins" para corrigir problemas críticos antes de qualquer outra ação.</p>
+                    </div>
+                    <div class="kpi-card" style="text-align:left; padding:18px;">
+                        <div class="label" style="text-align:left; margin-bottom:4px;">2. Implementar Structured Data</div>
+                        <p style="font-size:15px; margin:0; color:var(--gray-700);">Foco imediato na adição de schema para LocalBusiness, Service e FAQ para ganhar rich snippets.</p>
+                    </div>
+                    <div class="kpi-card" style="text-align:left; padding:18px;">
+                        <div class="label" style="text-align:left; margin-bottom:4px;">3. Otimizar Imagens</div>
+                        <p style="font-size:15px; margin:0; color:var(--gray-700);">Comprimir e adicionar atributos de largura/altura para melhorar a performance e Core Web Vitals.</p>
+                    </div>
+                    <div class="kpi-card" style="text-align:left; padding:18px;">
+                        <div class="label" style="text-align:left; margin-bottom:4px;">4. Iniciar SEO Local</div>
+                        <p style="font-size:15px; margin:0; color:var(--gray-700);">Começar a criação de páginas de cidade e otimização do Google Business Profile.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h2>Glossário de Severidade</h2>
+                <div class="glossary-row"><span class="badge badge-critico">Crítico</span> <span>Impede indexação ou ranqueamento. Impacto direto em receita.</span></div>
+                <div class="glossary-row"><span class="badge badge-alto">Alto</span> <span>Impacta CTR, experiência do usuário ou autoridade.</span></div>
+                <div class="glossary-row"><span class="badge badge-medio">Médio</span> <span>Oportunidade de melhoria com impacto moderado.</span></div>
+                <div class="glossary-row"><span class="badge badge-info">Info</span> <span>Observação ou boa prática. Nenhuma ação requerida.</span></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h2>Sobre Esta Auditoria</h2>
+                <table>
+                    <tr><td><strong>Ferramenta</strong></td><td>Screaming Frog SEO Spider v20.x</td></tr>
+                    <tr><td><strong>Data do crawl</strong></td><td>Julho de 2026</td></tr>
+                    <tr><td><strong>Revisão técnica</strong></td><td>SEO Squad V4 Company</td></tr>
+                    <tr><td><strong>Escopo</strong></td><td>Auditoria técnica estrutural baseada em crawl (Screaming Frog) e análise manual. Ferramentas de analytics e monitoramento (Search Console, Analytics, PageSpeed, backlinks) estão disponíveis para próximas fases se necessário.</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            Documento gerado em Julho de 2026 pela equipe de SEO da <strong>V4 Company</strong> &mdash; Padrão BuiltVisible / Moz / Searchmetrics
+        </div>
+    </div>
+</body>
+</html>
