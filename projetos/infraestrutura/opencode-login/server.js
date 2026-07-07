@@ -13,6 +13,9 @@ const PORT = process.env.PORT || 3000;
 const SESSION_SECRET = process.env.SESSION_SECRET || 'CHAVE_SESSAO_32CARACTERES_AQUI';
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
+const OPENCODE_SERVER_USERNAME = process.env.OPENCODE_SERVER_USERNAME || 'opencode';
+const OPENCODE_SERVER_PASSWORD = process.env.OPENCODE_SERVER_PASSWORD || '';
+const BASIC_AUTH = Buffer.from(`${OPENCODE_SERVER_USERNAME}:${OPENCODE_SERVER_PASSWORD}`).toString('base64');
 
 let users = [];
 let usersLoaded = false;
@@ -128,6 +131,11 @@ const opencodeProxy = createProxyMiddleware({
     const user = users.find(u => u.username === req.session?.user?.username);
     return user ? `http://${user.opencodeHost}:${user.opencodePort}` : null;
   },
+  on: {
+    proxyReq: (proxyReq) => {
+      if (BASIC_AUTH) proxyReq.setHeader('Authorization', `Basic ${BASIC_AUTH}`);
+    }
+  },
   onError: (err, req, res) => {
     if (res.writeHead) {
       res.writeHead(502, { 'Content-Type': 'text/plain' });
@@ -164,7 +172,9 @@ server.on('upgrade', (req, socket, head) => {
   const user = users.find(u => u.username === username);
   if (!user) { socket.destroy(); return; }
   const target = `http://${user.opencodeHost}:${user.opencodePort}`;
-  createProxyMiddleware({ target, changeOrigin: true, ws: true }).upgrade(req, socket, head);
+  const wsProxy = createProxyMiddleware({ target, changeOrigin: true, ws: true });
+  if (BASIC_AUTH) req.headers['authorization'] = `Basic ${BASIC_AUTH}`;
+  wsProxy.upgrade(req, socket, head);
 });
 
 function parseCookies(cookieHeader) {
