@@ -29,7 +29,16 @@ async function loadUsers() {
       }
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    users = await res.json();
+    const raw = await res.json();
+    users = raw.map(u => ({
+      username: u.username,
+      passwordHash: u.password_hash,
+      name: u.name,
+      email: u.email,
+      squad: u.squad,
+      opencodeHost: u.opencode_host,
+      opencodePort: u.opencode_port
+    }));
     usersLoaded = true;
     console.log(`[opencode-login] Loaded ${users.length} users from Supabase`);
   } catch (e) {
