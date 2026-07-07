@@ -10,7 +10,7 @@ services:
   # ─── Login Portal ───
   opencode-login:
     build:
-      context: ./opencode-login
+      context: projetos/infraestrutura/opencode-login
       dockerfile: Dockerfile
     ports:
       - '3000:3000'
@@ -25,7 +25,7 @@ services:
   # ─── OpenCode - Marcos Luciano ───
   opencode-marcos:
     build:
-      context: .
+      context: projetos/infraestrutura
       dockerfile: Dockerfile.opencode
     ports:
       - '4090:4096'
@@ -36,13 +36,13 @@ services:
       OPENCODE_DISABLE_MODELS_FETCH: "true"
     volumes:
       - opencode-data-marcos:/home/node/.local/share/opencode
-      - ./opencode-login/opencode-config/marcos.json:/home/node/.config/opencode/opencode.json:ro
+      - projetos/infraestrutura/opencode-login/opencode-config/marcos.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
 
   # ─── OpenCode - Fhelipe Aranha ───
   opencode-fhelipe:
     build:
-      context: .
+      context: projetos/infraestrutura
       dockerfile: Dockerfile.opencode
     ports:
       - '4091:4096'
@@ -53,13 +53,13 @@ services:
       OPENCODE_DISABLE_MODELS_FETCH: "true"
     volumes:
       - opencode-data-fhelipe:/home/node/.local/share/opencode
-      - ./opencode-login/opencode-config/fhelipe.json:/home/node/.config/opencode/opencode.json:ro
+      - projetos/infraestrutura/opencode-login/opencode-config/fhelipe.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
 
   # ─── OpenCode - CSM 2 ───
   opencode-csm2:
     build:
-      context: .
+      context: projetos/infraestrutura
       dockerfile: Dockerfile.opencode
     ports:
       - '4092:4096'
@@ -70,13 +70,13 @@ services:
       OPENCODE_DISABLE_MODELS_FETCH: "true"
     volumes:
       - opencode-data-csm2:/home/node/.local/share/opencode
-      - ./opencode-login/opencode-config/csm2.json:/home/node/.config/opencode/opencode.json:ro
+      - projetos/infraestrutura/opencode-login/opencode-config/csm2.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
 
   # ─── OpenCode - CSM 3 ───
   opencode-csm3:
     build:
-      context: .
+      context: projetos/infraestrutura
       dockerfile: Dockerfile.opencode
     ports:
       - '4093:4096'
@@ -87,5 +87,5 @@ services:
       OPENCODE_DISABLE_MODELS_FETCH: "true"
     volumes:
       - opencode-data-csm3:/home/node/.local/share/opencode
-      - ./opencode-login/opencode-config/csm3.json:/home/node/.config/opencode/opencode.json:ro
+      - projetos/infraestrutura/opencode-login/opencode-config/csm3.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
