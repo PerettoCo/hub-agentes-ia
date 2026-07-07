@@ -140,6 +140,21 @@ app.use(opencodeProxy);
 
 const server = app.listen(PORT, () => {
   console.log(`[opencode-login] running on port ${PORT}`);
+  // Test connectivity to each OpenCode instance
+  setTimeout(async () => {
+    for (const u of users) {
+      const target = `http://${u.opencodeHost}:${u.opencodePort}`;
+      try {
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 5000);
+        const r = await fetch(target, { signal: ctrl.signal });
+        clearTimeout(t);
+        console.log(`[opencode-login] ${u.username} -> ${target} = HTTP ${r.status}`);
+      } catch (e) {
+        console.log(`[opencode-login] ${u.username} -> ${target} = FAIL (${e.message})`);
+      }
+    }
+  }, 3000);
 });
 
 server.on('upgrade', (req, socket, head) => {
