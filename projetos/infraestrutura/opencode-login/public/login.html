@@ -340,7 +340,7 @@
   <div class="panel-right">
     <div class="login-box">
       <div class="logo">
-        <img src="logo.png" alt="V4 Company">
+        <img src="/static/logo.png" alt="V4 Company">
         <h1>Acessar plataforma</h1>
         <p>Hub de Agentes de IA</p>
       </div>
@@ -391,7 +391,7 @@
         });
         const data = await res.json();
         if (!res.ok) { showError('Usuário ou senha incorretos'); return; }
-        window.location.href = '/dashboard';
+        window.location.href = '/';
       } catch (err) { showError('Erro de conexão'); }
       finally { submitBtn.disabled = false; submitBtn.textContent = 'Entrar'; }
     });

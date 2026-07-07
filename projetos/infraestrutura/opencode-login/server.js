@@ -4,14 +4,13 @@ const path = require('path');
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const rateLimit = require('express-rate-limit');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const SESSION_SECRET = process.env.SESSION_SECRET || 'CHAVE_SESSAO_32CARACTERES_AQUI';
-const LITELLM_TARGET = process.env.LITELLM_TARGET || 'http://litellm:4000';
 const OPENCODE_HOST = process.env.OPENCODE_HOST || 'opencode-web';
-const PUBLIC_URL = process.env.PUBLIC_URL || '';
 
 const usersPath = path.join(__dirname, 'users.json');
 let users = [];
@@ -40,12 +39,13 @@ const loginLimiter = rateLimit({
   message: { error: 'Muitas tentativas. Aguarde 15 minutos.' }
 });
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/static', express.static(path.join(__dirname, 'public')));
 
-function requireAuth(req, res, next) {
-  if (req.session.user) return next();
-  res.redirect('/login.html');
-}
+app.get('/login', (req, res) => {
+  if (req.session.user) return res.redirect('/');
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+app.get('/login.html', (req, res) => res.redirect('/login'));
 
 app.get('/api/me', (req, res) => {
   if (!req.session.user) return res.status(401).json({ error: 'not authenticated' });
@@ -69,48 +69,64 @@ app.post('/api/login', loginLimiter, async (req, res) => {
     username: user.username,
     name: user.name,
     email: user.email,
-    squad: user.squad
+    squad: user.squad,
+    opencodePort: user.opencodePort
   };
+  res.cookie('opencode_user', user.username, {
+    httpOnly: true, sameSite: 'lax',
+    maxAge: 24 * 60 * 60 * 1000
+  });
   res.json({ success: true, user: req.session.user });
 });
 
 app.post('/api/logout', (req, res) => {
   req.session.destroy();
+  res.clearCookie('opencode_user');
   res.json({ success: true });
 });
 
-app.get('/api/targets', requireAuth, (req, res) => {
-  const user = users.find(u => u.username === req.session.user.username);
-  const baseUrl = PUBLIC_URL || `http://${OPENCODE_HOST}`;
-  const targets = [
-    {
-      name: 'OpenCode Web',
-      url: `${baseUrl}:${user.opencodePort}`,
-      icon: 'terminal',
-      description: 'Interface do agente de IA'
-    },
-    {
-      name: 'LiteLLM Proxy',
-      url: PUBLIC_URL ? `${PUBLIC_URL}:4000` : LITELLM_TARGET,
-      icon: 'lightbulb',
-      description: 'Proxy de modelos LLM'
+app.use((req, res, next) => {
+  if (!req.session.user) return res.redirect('/login');
+  next();
+});
+
+const opencodeProxy = createProxyMiddleware({
+  changeOrigin: true,
+  ws: true,
+  router: (req) => {
+    const user = users.find(u => u.username === req.session?.user?.username);
+    return user ? `http://${OPENCODE_HOST}:${user.opencodePort}` : null;
+  },
+  onError: (err, req, res) => {
+    if (res.writeHead) {
+      res.writeHead(502, { 'Content-Type': 'text/plain' });
+      res.end('Proxy error: OpenCode instance unavailable');
     }
-  ];
-  res.json({ targets, user: req.session.user });
+  }
 });
 
-app.get('/dashboard', requireAuth, (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
-});
+app.use(opencodeProxy);
 
-app.get('/api/opencode-proxy', requireAuth, (req, res) => {
-  const user = users.find(u => u.username === req.session.user.username);
-  res.json({
-    target: `http://${OPENCODE_HOST}:${user.opencodePort}`,
-    user: req.session.user.username
-  });
-});
-
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`[opencode-login] running on port ${PORT}`);
 });
+
+server.on('upgrade', (req, socket, head) => {
+  const cookies = parseCookies(req.headers.cookie);
+  const username = cookies.opencode_user;
+  if (!username) { socket.destroy(); return; }
+  const user = users.find(u => u.username === username);
+  if (!user) { socket.destroy(); return; }
+  const target = `http://${OPENCODE_HOST}:${user.opencodePort}`;
+  createProxyMiddleware({ target, changeOrigin: true, ws: true }).upgrade(req, socket, head);
+});
+
+function parseCookies(cookieHeader) {
+  if (!cookieHeader) return {};
+  return Object.fromEntries(
+    cookieHeader.split(';').map(c => {
+      const [k, ...v] = c.trim().split('=');
+      return [k, decodeURIComponent(v.join('='))];
+    })
+  );
+}
