@@ -99,7 +99,7 @@ app.get('/login', (req, res) => {
           <h2>${req.session.user.name}</h2>
           <div class="sub">${req.session.user.email || req.session.user.squad || req.session.user.username}</div>
           <div class="flex">
-            <a href="/" class="btn">Acessar OpenCode</a>
+            <a href="/?directory=%2Fworkspace" class="btn">Acessar OpenCode</a>
             <form action="/api/logout" method="POST" style="display:inline">
               <button type="submit" class="btn-sec">Sair</button>
             </form>
