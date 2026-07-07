@@ -2,7 +2,7 @@
   "users": [
     {
       "username": "marcos.luciano",
-      "passwordHash": "$2b$10$7V5Kr6r1CXpwBgzMD6GtW.Q0G1hSFcKQKrNjKMk8nlZ0ROuXzMZiq",
+      "passwordHash": "$2b$10$6rKcKV/rPobrDM8Vd01.DOArspYPf0f3EBauEJaKt4cue1LtP0gCO",
       "name": "Marcos Luciano",
       "email": "marcosluciano.rodrigues@v4company.com",
       "squad": "tech",
@@ -10,7 +10,7 @@
     },
     {
       "username": "fhelipe.aranha",
-      "passwordHash": "$2b$10$mN82qi94czW0Rn1wmrWfgudJlrBf7YXdrUywyq8kmLZB3IydaPkxS",
+      "passwordHash": "$2b$10$6rKcKV/rPobrDM8Vd01.DOi74Dn2CX3xi3oASOQQIDsk15Ay4iQYG",
       "name": "Fhelipe Aranha",
       "email": "fhelipe.aranha@v4company.com",
       "squad": "csm",
@@ -18,7 +18,7 @@
     },
     {
       "username": "csm.2",
-      "passwordHash": "$2b$10$lvvoiSIe8adJxDoP.DdTHeusSv/vrneh/kBRyITubgCCRRSMBK2wq",
+      "passwordHash": "$2b$10$6rKcKV/rPobrDM8Vd01.DOBSATDOiomt4yBxVGQSLXf9pxq1DLy0m",
       "name": "CSM 2",
       "email": "csm2@v4company.com",
       "squad": "csm",
@@ -26,7 +26,7 @@
     },
     {
       "username": "csm.3",
-      "passwordHash": "$2b$10$6AQJ/CZ94nAo1NVICzIxYOItZpQKx0AtFTWFWycAlh7AMA1AltVAy",
+      "passwordHash": "$2b$10$6rKcKV/rPobrDM8Vd01.DO7u8pJnB5fN3gdBTCXdUfYxtaNAap2li",
       "name": "CSM 3",
       "email": "csm3@v4company.com",
       "squad": "csm",
