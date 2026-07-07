@@ -75,7 +75,39 @@ const loginLimiter = rateLimit({
 app.use('/static', express.static(path.join(__dirname, 'public')));
 
 app.get('/login', (req, res) => {
-  if (req.session.user) return res.redirect('/');
+  if (req.session.user) {
+    return res.send(`
+      <!DOCTYPE html><html lang="pt-BR">
+      <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <title>V4 Company · Hub de Agentes</title>
+      <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:Inter,system-ui,sans-serif;background:#0a0a0c;display:flex;align-items:center;justify-content:center;min-height:100vh;color:#fff}
+        .card{background:#161618;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:48px;text-align:center;max-width:400px}
+        .avatar{width:64px;height:64px;border-radius:50%;background:#e63946;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:700;margin:0 auto 16px}
+        h2{font-size:1.2rem;font-weight:600;margin-bottom:4px}
+        .sub{color:rgba(255,255,255,0.4);font-size:0.85rem;margin-bottom:24px}
+        .btn{display:inline-block;padding:12px 32px;background:#e63946;color:#fff;border:none;border-radius:10px;font-size:0.9rem;font-weight:600;cursor:pointer;transition:background 0.2s;text-decoration:none}
+        .btn:hover{background:#d32d3a}
+        .btn-sec{background:transparent;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);margin-top:12px;display:inline-block;padding:10px 24px;border-radius:10px;font-size:0.82rem;cursor:pointer;text-decoration:none}
+        .btn-sec:hover{border-color:rgba(255,255,255,0.2)}
+        .flex{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+      </style></head>
+      <body>
+        <div class="card">
+          <div class="avatar">${req.session.user.name.charAt(0).toUpperCase()}</div>
+          <h2>${req.session.user.name}</h2>
+          <div class="sub">${req.session.user.email || req.session.user.squad || req.session.user.username}</div>
+          <div class="flex">
+            <a href="/" class="btn">Acessar OpenCode</a>
+            <form action="/api/logout" method="POST" style="display:inline">
+              <button type="submit" class="btn-sec">Sair</button>
+            </form>
+          </div>
+        </div>
+      </body></html>
+    `);
+  }
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 app.get('/login.html', (req, res) => res.redirect('/login'));
@@ -113,10 +145,15 @@ app.post('/api/login', loginLimiter, async (req, res) => {
   res.json({ success: true, user: req.session.user });
 });
 
+app.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.clearCookie('opencode_user');
+  res.redirect('/login');
+});
 app.post('/api/logout', (req, res) => {
   req.session.destroy();
   res.clearCookie('opencode_user');
-  res.json({ success: true });
+  res.redirect('/login');
 });
 
 app.use((req, res, next) => {
