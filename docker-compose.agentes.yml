@@ -1,5 +1,3 @@
-version: '3.8'
-
 volumes:
   opencode-data-marcos:
   opencode-data-fhelipe:
@@ -36,7 +34,7 @@ services:
       OPENCODE_DISABLE_MODELS_FETCH: "true"
     volumes:
       - opencode-data-marcos:/home/node/.local/share/opencode
-      - projetos/infraestrutura/opencode-login/opencode-config/marcos.json:/home/node/.config/opencode/opencode.json:ro
+      - ./projetos/infraestrutura/opencode-login/opencode-config/marcos.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
 
   # ─── OpenCode - Fhelipe Aranha ───
@@ -53,7 +51,7 @@ services:
       OPENCODE_DISABLE_MODELS_FETCH: "true"
     volumes:
       - opencode-data-fhelipe:/home/node/.local/share/opencode
-      - projetos/infraestrutura/opencode-login/opencode-config/fhelipe.json:/home/node/.config/opencode/opencode.json:ro
+      - ./projetos/infraestrutura/opencode-login/opencode-config/fhelipe.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
 
   # ─── OpenCode - CSM 2 ───
@@ -70,7 +68,7 @@ services:
       OPENCODE_DISABLE_MODELS_FETCH: "true"
     volumes:
       - opencode-data-csm2:/home/node/.local/share/opencode
-      - projetos/infraestrutura/opencode-login/opencode-config/csm2.json:/home/node/.config/opencode/opencode.json:ro
+      - ./projetos/infraestrutura/opencode-login/opencode-config/csm2.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
 
   # ─── OpenCode - CSM 3 ───
@@ -87,5 +85,5 @@ services:
       OPENCODE_DISABLE_MODELS_FETCH: "true"
     volumes:
       - opencode-data-csm3:/home/node/.local/share/opencode
-      - projetos/infraestrutura/opencode-login/opencode-config/csm3.json:/home/node/.config/opencode/opencode.json:ro
+      - ./projetos/infraestrutura/opencode-login/opencode-config/csm3.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
