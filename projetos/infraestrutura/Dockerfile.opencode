@@ -1,0 +1,17 @@
+FROM node:20-bookworm-slim
+
+RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+
+RUN npm install -g opencode-ai@latest
+
+RUN mkdir -p /home/node/.config/opencode /home/node/.local/share/opencode /workspace
+
+ENV OPENCODE_HOSTNAME=0.0.0.0
+ENV OPENCODE_PORT=4096
+
+USER node
+WORKDIR /workspace
+
+EXPOSE 4096
+
+CMD ["opencode", "web", "--hostname", "0.0.0.0", "--port", "4096"]

@@ -1,0 +1,147 @@
+version: '3.8'
+
+networks:
+  v4-infra:
+    driver: bridge
+
+volumes:
+  pgdata:
+  opencode-data-marcos:
+  opencode-data-fhelipe:
+  opencode-data-csm2:
+  opencode-data-csm3:
+
+services:
+  # ─── Banco PostgreSQL (LiteLLM) ───
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: litellm
+      POSTGRES_USER: litellm
+      POSTGRES_PASSWORD: ${LITELLM_DB_PASSWORD:-SENHA_FORTE_POSTGRES}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - v4-infra
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U litellm']
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # ─── LiteLLM Proxy ───
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    ports:
+      - '4000:4000'
+    environment:
+      DATABASE_URL: postgresql://litellm:${LITELLM_DB_PASSWORD:-SENHA_FORTE_POSTGRES}@postgres:5432/litellm
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY:-sk-litellm-master-key}
+      LITELLM_SALT_KEY: ${LITELLM_SALT_KEY:-sk-litellm-salt-key}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - v4-infra
+    restart: unless-stopped
+
+  # ─── Login Portal ───
+  opencode-login:
+    build:
+      context: ./opencode-login
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      SESSION_SECRET: ${SESSION_SECRET:-CHAVE_SESSAO_32CARACTERES_AQUI}
+      OPENCODE_HOST: opencode-web
+      LITELLM_TARGET: http://litellm:4000
+      PUBLIC_URL: ${PUBLIC_URL:-}
+      NODE_ENV: production
+    depends_on:
+      - litellm
+    networks:
+      - v4-infra
+    restart: unless-stopped
+
+  # ─── OpenCode - Marcos Luciano ───
+  opencode-marcos:
+    build:
+      context: .
+      dockerfile: Dockerfile.opencode
+    ports:
+      - '4090:4096'
+    environment:
+      OPENCODE_SERVER_USERNAME: opencode
+      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:-SENHA_FORTE_OPencode}
+      LITELLM_VIRTUAL_KEY: ${LITELLM_KEY_MARCOS:-sk-marcos-virtual-key}
+      OPENCODE_DISABLE_MODELS_FETCH: "true"
+    volumes:
+      - opencode-data-marcos:/home/node/.local/share/opencode
+      - ./opencode-login/opencode-config/marcos.json:/home/node/.config/opencode/opencode.json:ro
+    networks:
+      - v4-infra
+    restart: unless-stopped
+
+  # ─── OpenCode - Fhelipe Aranha ───
+  opencode-fhelipe:
+    build:
+      context: .
+      dockerfile: Dockerfile.opencode
+    ports:
+      - '4091:4096'
+    environment:
+      OPENCODE_SERVER_USERNAME: opencode
+      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:-SENHA_FORTE_OPencode}
+      LITELLM_VIRTUAL_KEY: ${LITELLM_KEY_FHELIPE:-sk-fhelipe-virtual-key}
+      OPENCODE_DISABLE_MODELS_FETCH: "true"
+    volumes:
+      - opencode-data-fhelipe:/home/node/.local/share/opencode
+      - ./opencode-login/opencode-config/fhelipe.json:/home/node/.config/opencode/opencode.json:ro
+    networks:
+      - v4-infra
+    restart: unless-stopped
+
+  # ─── OpenCode - CSM 2 ───
+  opencode-csm2:
+    build:
+      context: .
+      dockerfile: Dockerfile.opencode
+    ports:
+      - '4092:4096'
+    environment:
+      OPENCODE_SERVER_USERNAME: opencode
+      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:-SENHA_FORTE_OPencode}
+      LITELLM_VIRTUAL_KEY: ${LITELLM_KEY_CSM2:-sk-csm2-virtual-key}
+      OPENCODE_DISABLE_MODELS_FETCH: "true"
+    volumes:
+      - opencode-data-csm2:/home/node/.local/share/opencode
+      - ./opencode-login/opencode-config/csm2.json:/home/node/.config/opencode/opencode.json:ro
+    networks:
+      - v4-infra
+    restart: unless-stopped
+
+  # ─── OpenCode - CSM 3 ───
+  opencode-csm3:
+    build:
+      context: .
+      dockerfile: Dockerfile.opencode
+    ports:
+      - '4093:4096'
+    environment:
+      OPENCODE_SERVER_USERNAME: opencode
+      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:-SENHA_FORTE_OPencode}
+      LITELLM_VIRTUAL_KEY: ${LITELLM_KEY_CSM3:-sk-csm3-virtual-key}
+      OPENCODE_DISABLE_MODELS_FETCH: "true"
+    volumes:
+      - opencode-data-csm3:/home/node/.local/share/opencode
+      - ./opencode-login/opencode-config/csm3.json:/home/node/.config/opencode/opencode.json:ro
+    networks:
+      - v4-infra
+    restart: unless-stopped

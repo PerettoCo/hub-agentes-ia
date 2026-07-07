@@ -1,0 +1,36 @@
+{
+  "users": [
+    {
+      "username": "marcos.luciano",
+      "passwordHash": "$2b$10$7V5Kr6r1CXpwBgzMD6GtW.Q0G1hSFcKQKrNjKMk8nlZ0ROuXzMZiq",
+      "name": "Marcos Luciano",
+      "email": "marcosluciano.rodrigues@v4company.com",
+      "squad": "tech",
+      "opencodePort": 4090
+    },
+    {
+      "username": "fhelipe.aranha",
+      "passwordHash": "$2b$10$mN82qi94czW0Rn1wmrWfgudJlrBf7YXdrUywyq8kmLZB3IydaPkxS",
+      "name": "Fhelipe Aranha",
+      "email": "fhelipe.aranha@v4company.com",
+      "squad": "csm",
+      "opencodePort": 4091
+    },
+    {
+      "username": "csm.2",
+      "passwordHash": "$2b$10$lvvoiSIe8adJxDoP.DdTHeusSv/vrneh/kBRyITubgCCRRSMBK2wq",
+      "name": "CSM 2",
+      "email": "csm2@v4company.com",
+      "squad": "csm",
+      "opencodePort": 4092
+    },
+    {
+      "username": "csm.3",
+      "passwordHash": "$2b$10$6AQJ/CZ94nAo1NVICzIxYOItZpQKx0AtFTWFWycAlh7AMA1AltVAy",
+      "name": "CSM 3",
+      "email": "csm3@v4company.com",
+      "squad": "csm",
+      "opencodePort": 4093
+    }
+  ]
+}

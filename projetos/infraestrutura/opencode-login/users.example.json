@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "username": "marcos.luciano",
+      "passwordHash": "$2b$10$hash_aqui",
+      "name": "Marcos Luciano",
+      "email": "marcosluciano.rodrigues@v4company.com",
+      "squad": "tech",
+      "opencodePort": 4090
+    },
+    {
+      "username": "fhelipe.aranha",
+      "passwordHash": "$2b$10$hash_aqui",
+      "name": "Fhelipe Aranha",
+      "email": "fhelipe.aranha@v4company.com",
+      "squad": "csm",
+      "opencodePort": 4091
+    }
+  ]
+}

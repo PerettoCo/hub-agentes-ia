@@ -1,0 +1,24 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "deepseek-v4-flash-free",
+  "modelProvider": "litellm",
+  "customProviders": {
+    "litellm": {
+      "type": "openai-compatible",
+      "apiKey": "{env:LITELLM_VIRTUAL_KEY}",
+      "baseURL": "http://litellm:4000/v1"
+    }
+  },
+  "permission": {
+    "edit": "allow",
+    "bash": "allow",
+    "read": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "webfetch": "allow",
+    "websearch": "allow",
+    "skill": "allow",
+    "question": "allow",
+    "todowrite": "allow"
+  }
+}
