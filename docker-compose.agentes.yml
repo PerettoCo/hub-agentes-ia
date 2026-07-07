@@ -14,8 +14,8 @@ services:
       - '3001:3000'
     environment:
       SESSION_SECRET: ${SESSION_SECRET:-CHAVE_SESSAO_32CARACTERES_AQUI}
-      OPENCODE_HOST: 2.25.148.214
-      LITELLM_TARGET: https://litellm.fvmarketing.com.br
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY}
       PUBLIC_URL: ${PUBLIC_URL:-https://ia.fvmarketing.com.br}
       NODE_ENV: production
     restart: unless-stopped

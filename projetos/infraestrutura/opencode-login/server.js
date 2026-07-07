@@ -10,13 +10,33 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const SESSION_SECRET = process.env.SESSION_SECRET || 'CHAVE_SESSAO_32CARACTERES_AQUI';
-// Each user defines their own opencodeHost; no shared env needed.
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
 
-const usersPath = path.join(__dirname, 'users.json');
 let users = [];
-function loadUsers() {
-  users = JSON.parse(fs.readFileSync(usersPath, 'utf-8')).users;
+let usersLoaded = false;
+
+async function loadUsers() {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+    console.error('[opencode-login] SUPABASE_URL or SUPABASE_SERVICE_KEY not set');
+    return;
+  }
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/users?select=*`, {
+      headers: {
+        'apikey': SUPABASE_SERVICE_KEY,
+        'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`
+      }
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    users = await res.json();
+    usersLoaded = true;
+    console.log(`[opencode-login] Loaded ${users.length} users from Supabase`);
+  } catch (e) {
+    console.error('[opencode-login] Failed to load users from Supabase:', e.message);
+  }
 }
+
 loadUsers();
 
 app.use(express.urlencoded({ extended: true }));
@@ -70,6 +90,7 @@ app.post('/api/login', loginLimiter, async (req, res) => {
     name: user.name,
     email: user.email,
     squad: user.squad,
+    opencodeHost: user.opencodeHost,
     opencodePort: user.opencodePort
   };
   res.cookie('opencode_user', user.username, {
