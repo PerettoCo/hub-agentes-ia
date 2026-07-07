@@ -134,12 +134,12 @@ const opencodeProxy = createProxyMiddleware({
   on: {
     proxyReq: (proxyReq) => {
       if (BASIC_AUTH) proxyReq.setHeader('Authorization', `Basic ${BASIC_AUTH}`);
-    }
-  },
-  onError: (err, req, res) => {
-    if (res.writeHead) {
-      res.writeHead(502, { 'Content-Type': 'text/plain' });
-      res.end('Proxy error: OpenCode instance unavailable');
+    },
+    error: (err, req, res) => {
+      if (res.writeHead) {
+        res.writeHead(502, { 'Content-Type': 'text/plain' });
+        res.end('Proxy error: OpenCode instance unavailable');
+      }
     }
   }
 });
