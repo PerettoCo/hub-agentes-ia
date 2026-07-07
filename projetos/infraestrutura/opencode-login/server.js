@@ -10,7 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const SESSION_SECRET = process.env.SESSION_SECRET || 'CHAVE_SESSAO_32CARACTERES_AQUI';
-const OPENCODE_HOST = process.env.OPENCODE_HOST || 'opencode-web';
+// Each user defines their own opencodeHost; no shared env needed.
 
 const usersPath = path.join(__dirname, 'users.json');
 let users = [];
@@ -95,7 +95,7 @@ const opencodeProxy = createProxyMiddleware({
   ws: true,
   router: (req) => {
     const user = users.find(u => u.username === req.session?.user?.username);
-    return user ? `http://${OPENCODE_HOST}:${user.opencodePort}` : null;
+    return user ? `http://${user.opencodeHost}:${user.opencodePort}` : null;
   },
   onError: (err, req, res) => {
     if (res.writeHead) {
@@ -117,7 +117,7 @@ server.on('upgrade', (req, socket, head) => {
   if (!username) { socket.destroy(); return; }
   const user = users.find(u => u.username === username);
   if (!user) { socket.destroy(); return; }
-  const target = `http://${OPENCODE_HOST}:${user.opencodePort}`;
+  const target = `http://${user.opencodeHost}:${user.opencodePort}`;
   createProxyMiddleware({ target, changeOrigin: true, ws: true }).upgrade(req, socket, head);
 });
 
