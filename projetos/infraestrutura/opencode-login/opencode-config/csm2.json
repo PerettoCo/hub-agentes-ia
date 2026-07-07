@@ -6,7 +6,7 @@
     "litellm": {
       "type": "openai-compatible",
       "apiKey": "{env:LITELLM_VIRTUAL_KEY}",
-      "baseURL": "http://litellm:4000/v1"
+      "baseURL": "https://litellm.fvmarketing.com.br/v1"
     }
   },
   "permission": {
