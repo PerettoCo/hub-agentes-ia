@@ -6,8 +6,8 @@
       "name": "Marcos Luciano",
       "email": "marcosluciano.rodrigues@v4company.com",
       "squad": "tech",
-      "opencodeHost": "opencode-marcos",
-      "opencodePort": 4096
+      "opencodeHost": "host.docker.internal",
+      "opencodePort": 4090
     },
     {
       "username": "fhelipe.aranha",
@@ -15,8 +15,8 @@
       "name": "Fhelipe Aranha",
       "email": "fhelipe.aranha@v4company.com",
       "squad": "csm",
-      "opencodeHost": "opencode-fhelipe",
-      "opencodePort": 4096
+      "opencodeHost": "host.docker.internal",
+      "opencodePort": 4091
     },
     {
       "username": "csm.2",
@@ -24,8 +24,8 @@
       "name": "CSM 2",
       "email": "csm2@v4company.com",
       "squad": "csm",
-      "opencodeHost": "opencode-csm2",
-      "opencodePort": 4096
+      "opencodeHost": "host.docker.internal",
+      "opencodePort": 4092
     },
     {
       "username": "csm.3",
@@ -33,8 +33,8 @@
       "name": "CSM 3",
       "email": "csm3@v4company.com",
       "squad": "csm",
-      "opencodeHost": "opencode-csm3",
-      "opencodePort": 4096
+      "opencodeHost": "host.docker.internal",
+      "opencodePort": 4093
     }
   ]
 }
