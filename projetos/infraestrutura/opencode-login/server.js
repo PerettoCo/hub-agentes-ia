@@ -124,6 +124,11 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  if (BASIC_AUTH) req.headers['authorization'] = `Basic ${BASIC_AUTH}`;
+  next();
+});
+
 const opencodeProxy = createProxyMiddleware({
   changeOrigin: true,
   ws: true,
@@ -131,15 +136,10 @@ const opencodeProxy = createProxyMiddleware({
     const user = users.find(u => u.username === req.session?.user?.username);
     return user ? `http://${user.opencodeHost}:${user.opencodePort}` : null;
   },
-  on: {
-    proxyReq: (proxyReq) => {
-      if (BASIC_AUTH) proxyReq.setHeader('Authorization', `Basic ${BASIC_AUTH}`);
-    },
-    error: (err, req, res) => {
-      if (res.writeHead) {
-        res.writeHead(502, { 'Content-Type': 'text/plain' });
-        res.end('Proxy error: OpenCode instance unavailable');
-      }
+  onError: (err, req, res) => {
+    if (res.writeHead) {
+      res.writeHead(502, { 'Content-Type': 'text/plain' });
+      res.end('Proxy error: OpenCode instance unavailable');
     }
   }
 });
