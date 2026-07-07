@@ -18,7 +18,7 @@ services:
       SESSION_SECRET: ${SESSION_SECRET:-CHAVE_SESSAO_32CARACTERES_AQUI}
       OPENCODE_HOST: 2.25.148.214
       LITELLM_TARGET: https://litellm.fvmarketing.com.br
-      PUBLIC_URL: ${PUBLIC_URL:-https://login.fvmarketing.com.br}
+      PUBLIC_URL: ${PUBLIC_URL:-https://ia.fvmarketing.com.br}
       NODE_ENV: production
     restart: unless-stopped
 
