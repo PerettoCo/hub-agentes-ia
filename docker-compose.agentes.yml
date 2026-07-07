@@ -11,7 +11,7 @@ services:
       context: projetos/infraestrutura/opencode-login
       dockerfile: Dockerfile
     ports:
-      - '3000:3000'
+      - '3001:3000'
     environment:
       SESSION_SECRET: ${SESSION_SECRET:-CHAVE_SESSAO_32CARACTERES_AQUI}
       OPENCODE_HOST: 2.25.148.214
