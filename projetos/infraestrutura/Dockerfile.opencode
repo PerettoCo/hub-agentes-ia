@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g opencode-ai@latest
 
-RUN mkdir -p /home/node/.config/opencode /home/node/.local/share/opencode /workspace
+RUN mkdir -p /home/node/.config/opencode /home/node/.local/share/opencode /workspace && chown -R node:node /home/node/.config /home/node/.local /workspace
 
 ENV OPENCODE_HOSTNAME=0.0.0.0
 ENV OPENCODE_PORT=4096
