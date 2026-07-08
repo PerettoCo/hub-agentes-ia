@@ -1,10 +1,10 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "model": "litellm/sofia-daily",
-  "small_model": "litellm/deepseek-v4-flash-free",
+  "small_model": "opencode/deepseek-v4-flash-free",
   "enabled_providers": [
     "litellm",
-    "deepseek-basic"
+    "opencode"
   ],
   "provider": {
     "litellm": {
@@ -21,13 +21,9 @@
         }
       }
     },
-    "deepseek-basic": {
-      "name": "Sofia AI Basic",
-      "type": "openai-compatible",
-      "apiKey": "{env:DEEPSEEK_API_KEY}",
-      "baseURL": "https://api.deepseek.com/v1",
+    "opencode": {
       "models": {
-        "deepseek-chat": {
+        "deepseek-v4-flash-free": {
           "name": "Sofia AI Basic"
         }
       }
