@@ -1,17 +1,27 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "litellm/deepseek-v4-flash-free",
-  "small_model": "opencode/deepseek-v4-flash-free",
+  "model": "litellm/sofia-daily",
+  "small_model": "litellm/deepseek-v4-flash-free",
   "enabled_providers": [
-    "litellm",
-    "opencode"
+    "litellm"
   ],
   "provider": {
     "litellm": {
       "name": "Sofia AI",
       "type": "openai-compatible",
       "apiKey": "{env:LITELLM_VIRTUAL_KEY}",
-      "baseURL": "https://litellm.fvmarketing.com.br/v1"
+      "baseURL": "https://litellm.fvmarketing.com.br/v1",
+      "models": {
+        "sofia-daily": {
+          "name": "Sofia AI Daily"
+        },
+        "claude-sonnet-4": {
+          "name": "Sofia AI Complex"
+        },
+        "deepseek-v4-flash-free": {
+          "name": "Sofia AI Basic"
+        }
+      }
     }
   },
   "permission": {

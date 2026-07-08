@@ -1,0 +1,56 @@
+model_list:
+  - model_name: deepseek-v4-flash-free
+    litellm_params:
+      model: openai/deepseek-chat
+      api_key: ${DEEPSEEK_API_KEY}
+      api_base: https://api.deepseek.com/v1
+      rpm: 100
+      max_tokens: 128000
+
+  - model_name: gemini-2.5-flash-free
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: ${GEMINI_API_KEY}
+      rpm: 30
+      max_tokens: 1048576
+
+  - model_name: claude-sonnet-4
+    litellm_params:
+      model: anthropic/claude-sonnet-4-20250514
+      api_key: ${ANTHROPIC_API_KEY}
+      rpm: 50
+      max_tokens: 8192
+
+  - model_name: gpt-4o-mini
+    litellm_params:
+      model: openai/gpt-4o-mini
+      api_key: ${OPENAI_API_KEY}
+      rpm: 100
+      max_tokens: 16000
+
+  - model_name: gpt-4o
+    litellm_params:
+      model: openai/gpt-4o
+      api_key: ${OPENAI_API_KEY}
+      rpm: 30
+      max_tokens: 16000
+
+  - model_name: sofia-daily
+    litellm_params:
+      model: openrouter/auto
+      api_key: ${OPENROUTER_API_KEY}
+      api_base: https://openrouter.ai/api/v1
+      rpm: 100
+      max_tokens: 128000
+
+general_settings:
+  master_key: ${LITELLM_MASTER_KEY}
+  alerting: ["slack"]
+  database_url: ${LITELLM_DATABASE_URL}  # PostgreSQL p/ persistir teams, keys, uso
+
+router_settings:
+  routing_strategy: usage-based  # distribui requests entre modelos同等
+  allowed_fails: 3
+  num_retries: 1
+  fallbacks:
+    - gpt-4o-mini
