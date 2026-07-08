@@ -3,7 +3,8 @@
   "model": "litellm/sofia-daily",
   "small_model": "litellm/deepseek-v4-flash-free",
   "enabled_providers": [
-    "litellm"
+    "litellm",
+    "deepseek-basic"
   ],
   "provider": {
     "litellm": {
@@ -17,8 +18,16 @@
         },
         "claude-sonnet-4": {
           "name": "Sofia AI Complex"
-        },
-        "deepseek-v4-flash-free": {
+        }
+      }
+    },
+    "deepseek-basic": {
+      "name": "Sofia AI Basic",
+      "type": "openai-compatible",
+      "apiKey": "{env:DEEPSEEK_API_KEY}",
+      "baseURL": "https://api.deepseek.com/v1",
+      "models": {
+        "deepseek-chat": {
           "name": "Sofia AI Basic"
         }
       }
