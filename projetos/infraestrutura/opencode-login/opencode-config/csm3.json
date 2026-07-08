@@ -1,10 +1,10 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "model": "litellm/sofia-daily",
-  "small_model": "litellm/deepseek-v4-flash-free",
-  "enabled_providers": ["litellm"],
+  "small_model": "opencode/deepseek-v4-flash-free",
+  "enabled_providers": ["litellm", "opencode"],
   "disabled_providers": [
-    "opencode", "openai", "anthropic", "gemini", "google",
+    "openai", "anthropic", "gemini", "google",
     "openrouter", "amazon-bedrock", "azure", "groq",
     "fireworks", "together", "mistral", "deepseek",
     "perplexity", "replicate", "cohere", "huggingface",
@@ -20,7 +20,11 @@
       "baseURL": "https://litellm.fvmarketing.com.br/v1",
       "models": {
         "sofia-daily": { "name": "Sofia AI Daily" },
-        "claude-sonnet-4": { "name": "Sofia AI Complex" },
+        "claude-sonnet-4": { "name": "Sofia AI Complex" }
+      }
+    },
+    "opencode": {
+      "models": {
         "deepseek-v4-flash-free": { "name": "Sofia AI Basic" }
       }
     }
@@ -28,7 +32,8 @@
   "experimental": {
     "policies": [
       { "effect": "deny", "action": "provider.use", "resource": "*" },
-      { "effect": "allow", "action": "provider.use", "resource": "litellm" }
+      { "effect": "allow", "action": "provider.use", "resource": "litellm" },
+      { "effect": "allow", "action": "provider.use", "resource": "opencode" }
     ]
   },
   "permission": {
