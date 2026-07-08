@@ -1,13 +1,35 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "litellm/deepseek-v4-flash-free",
+  "model": "litellm/sofia-daily",
+  "small_model": "litellm/deepseek-v4-flash-free",
   "enabled_providers": ["litellm"],
+  "disabled_providers": [
+    "opencode", "openai", "anthropic", "gemini", "google",
+    "openrouter", "amazon-bedrock", "azure", "groq",
+    "fireworks", "together", "mistral", "deepseek",
+    "perplexity", "replicate", "cohere", "huggingface",
+    "github-copilot", "gitlab", "vertex", "cloudflare",
+    "cerebras", "baseten", "deepinfra", "moonshot",
+    "minimax", "nvidia", "ollama", "lmstudio"
+  ],
   "provider": {
     "litellm": {
+      "name": "Sofia AI",
       "type": "openai-compatible",
       "apiKey": "{env:LITELLM_VIRTUAL_KEY}",
-      "baseURL": "https://litellm.fvmarketing.com.br/v1"
+      "baseURL": "https://litellm.fvmarketing.com.br/v1",
+      "models": {
+        "sofia-daily": { "name": "Sofia AI Daily" },
+        "claude-sonnet-4": { "name": "Sofia AI Complex" },
+        "deepseek-v4-flash-free": { "name": "Sofia AI Basic" }
+      }
     }
+  },
+  "experimental": {
+    "policies": [
+      { "effect": "deny", "action": "provider.use", "resource": "*" },
+      { "effect": "allow", "action": "provider.use", "resource": "litellm" }
+    ]
   },
   "permission": {
     "edit": "allow",
