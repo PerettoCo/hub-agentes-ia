@@ -1,0 +1,25 @@
+users:
+  marcos.luciano:
+    displayname: Marcos Luciano
+    password: "$argon2id$v=19$m=65536,t=3,p=4$NLhKHecej4BW765POOwD1g$5e3S4ieTNIrcaOHtPrqGXzVSlAJkvk+U3qKMbiwIhks"
+    email: marcosluciano.rodrigues@v4company.com
+    groups:
+      - admin
+  fhelipe.aranha:
+    displayname: Fhelipe Aranha
+    password: "$argon2id$v=19$m=65536,t=3,p=4$RpphIY6pDT0rNuMjcJvjKg$4E94yyK0ICS3XENpgQnzsnWkhML2aYEgQmbgLz4YYjc"
+    email: fhelipe.aranha@v4company.com
+    groups:
+      - csm
+  csm.2:
+    displayname: CSM 2
+    password: "$argon2id$v=19$m=65536,t=3,p=4$cT9wpQNn3NRcwfXnDSSwlg$dyDRzELzj1OR5IseFmF//hWKF92jsNCitynX0o+nmmc"
+    email: csm2@v4company.com
+    groups:
+      - csm
+  csm.3:
+    displayname: CSM 3
+    password: "$argon2id$v=19$m=65536,t=3,p=4$pkWuNDteWAssoTHaMVS1Wg$iKOPsB2960ZVGi7RgQc+Y/eW6rUloFP1/i/GpJgwNm8"
+    email: csm3@v4company.com
+    groups:
+      - csm

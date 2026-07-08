@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Ops V4 — Case Mata Leão</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Montserrat',sans-serif;
+  background:#0d0d0d;
+  color:#f5f5f5;
+  overflow-x:hidden;
+  font-size:17px;
+  line-height:1.6;
+}
+h1,h2,h3,h4 { font-family:'Bebas Neue',sans-serif; letter-spacing:1px; }
+
+/* ═══ NAV ═══ */
+.nav {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:14px 40px; background:rgba(13,13,13,0.92); backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.nav-logo { display:flex; align-items:center; gap:14px; }
+.nav-logo img { height:42px; transition:transform .3s; }
+.nav-logo:hover img { transform:scale(1.05); }
+.nav-logo span { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:2px; color:#f5f5f5; }
+.nav-subtitle { font-size:12px; color:#888; letter-spacing:1px; text-transform:uppercase; margin-left:16px; padding-left:16px; border-left:1px solid rgba(255,255,255,0.1); }
+.nav-dots { display:flex; gap:8px; }
+.nav-dot {
+  width:12px; height:12px; border-radius:50%; background:rgba(255,255,255,0.1);
+  cursor:pointer; transition:all .3s; border:none;
+}
+.nav-dot.active { background:#e50914; transform:scale(1.4); box-shadow:0 0 12px rgba(229,9,20,0.5); }
+
+/* ═══ SLIDE ═══ */
+.slide {
+  min-height:100vh; display:flex; flex-direction:column;
+  justify-content:center; padding:110px 56px 60px;
+  position:relative; overflow:hidden;
+}
+.slide-inner { max-width:1100px; margin:0 auto; width:100%; }
+.slide::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(229,9,20,0.3),transparent);
+}
+
+/* ═══ HERO ═══ */
+#hero {
+  background:linear-gradient(135deg,#0d0d0d 0%,#1a0000 40%,#0d0d0d 100%);
+  text-align:center;
+}
+#hero::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(circle at 25% 40%,rgba(229,9,20,0.12) 0%,transparent 55%),
+              radial-gradient(circle at 75% 60%,rgba(229,9,20,0.06) 0%,transparent 50%);
+}
+.hero-tag {
+  display:inline-block; padding:8px 24px; border:1.5px solid #e50914;
+  border-radius:24px; font-size:13px; font-weight:600; letter-spacing:2px;
+  text-transform:uppercase; color:#e50914; margin-bottom:28px;
+  background:rgba(229,9,20,0.06);
+}
+.hero-title {
+  font-size:clamp(52px,11vw,130px); line-height:0.88;
+  margin-bottom:20px; position:relative;
+}
+.hero-title span { display:block; }
+.hero-title .outline { color:transparent; -webkit-text-stroke:2px #f5f5f5; }
+.hero-title .red { color:#e50914; text-shadow:0 0 40px rgba(229,9,20,0.3); }
+.hero-sub {
+  font-size:clamp(18px,2.2vw,26px); color:#999; font-weight:300;
+  max-width:750px; margin:0 auto 36px; line-height:1.7;
+}
+.hero-sub strong { color:#f5f5f5; font-weight:600; }
+.hero-cards {
+  display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-top:20px;
+}
+.hero-card {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px; padding:24px 32px; text-align:center;
+  min-width:155px; backdrop-filter:blur(8px); transition:all .3s;
+}
+.hero-card:hover { border-color:rgba(229,9,20,0.4); transform:translateY(-4px); background:rgba(229,9,20,0.04); }
+.hero-card-num { font-family:'Bebas Neue',sans-serif; font-size:42px; color:#e50914; line-height:1; }
+.hero-card-label { font-size:12px; color:#888; text-transform:uppercase; letter-spacing:1.5px; margin-top:6px; font-weight:500; }
+.hero-arrow {
+  position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+  animation:bounce 2s infinite; cursor:pointer; width:36px; height:36px;
+  border-right:2.5px solid #666; border-bottom:2.5px solid #666;
+  transform:translateX(-50%) rotate(45deg); opacity:0.6;
+}
+@keyframes bounce { 0%,100%{transform:translateX(-50%) rotate(45deg) translateY(0)} 50%{transform:translateX(-50%) rotate(45deg) translateY(12px)} }
+
+/* ═══ SECTION ═══ */
+.sec-tag {
+  display:inline-flex; align-items:center; gap:8px; padding:6px 18px;
+  background:rgba(229,9,20,0.12); border-radius:6px;
+  font-size:12px; font-weight:700; letter-spacing:2px;
+  text-transform:uppercase; color:#e50914; margin-bottom:14px;
+}
+.sec-tag::before { content:''; width:6px; height:6px; border-radius:50%; background:#e50914; }
+.sec-title {
+  font-size:clamp(38px,5.5vw,72px); line-height:1; margin-bottom:20px;
+}
+.sec-sub {
+  font-size:18px; color:#999; font-weight:300; max-width:650px; line-height:1.8;
+  margin-bottom:36px;
+}
+
+/* ═══ GRID ═══ */
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+.grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; }
+.grid-4 { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:20px; }
+@media(max-width:1024px) {
+  .grid-2,.grid-3,.grid-4 { grid-template-columns:1fr 1fr; }
+  .slide { padding:90px 24px 40px; }
+}
+@media(max-width:640px) {
+  .grid-2,.grid-3,.grid-4 { grid-template-columns:1fr; }
+  .slide { padding:80px 16px 32px; }
+  .nav { padding:12px 16px; }
+  .nav-logo img { height:30px; }
+  .nav-logo span { font-size:18px; }
+  .nav-subtitle { display:none; }
+}
+
+/* ═══ CARDS ═══ */
+.card {
+  background:#1a1a1a; border:1px solid rgba(255,255,255,0.06);
+  border-radius:16px; padding:28px; position:relative; overflow:hidden;
+  transition:all .3s;
+}
+.card:hover { border-color:#e50914; transform:translateY(-3px); box-shadow:0 8px 30px rgba(229,9,20,0.08); }
+.card .tag { display:inline-block; padding:2px 10px; border-radius:4px; font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin:4px 2px 0 0; }
+.tag-distrito { background:rgba(52,152,219,0.2); color:#3498db; }
+.tag-ml { background:rgba(229,9,20,0.2); color:#e50914; }
+.tag-tech { background:rgba(46,204,113,0.2); color:#2ecc71; }
+
+/* ═══ INFO CARD ═══ */
+.infocard {
+  background:#1a1a1a; border:1px solid rgba(255,255,255,0.06); border-radius:14px;
+  padding:28px 20px; text-align:center; transition:all .3s;
+}
+.infocard:hover { border-color:#e50914; transform:translateY(-2px); }
+.infocard .big { font-family:'Bebas Neue',sans-serif; font-size:54px; color:#e50914; line-height:1; }
+.infocard .label { font-size:13px; color:#888; margin-top:8px; text-transform:uppercase; letter-spacing:1.5px; font-weight:500; }
+.infocard .desc { font-size:13px; color:#666; margin-top:8px; line-height:1.5; }
+
+/* ═══ QUOTE ═══ */
+.quote {
+  background:linear-gradient(135deg,#1a1a1a,rgba(26,26,26,0.6));
+  border-left:3px solid #e50914; border-radius:14px;
+  padding:36px 40px; margin:28px 0; font-size:19px; font-style:italic;
+  line-height:1.9; color:#aaa;
+}
+.quote strong { color:#f5f5f5; font-style:normal; }
+.quote-author { margin-top:14px; font-size:14px; font-style:normal; color:#888; }
+.quote-author span { color:#e50914; font-weight:600; }
+
+/* ═══ CHECKLIST ═══ */
+.checklist { list-style:none; }
+.checklist li {
+  padding:12px 0 12px 36px; position:relative; font-size:16px; color:#999;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.checklist li::before {
+  content:'\2713'; position:absolute; left:0; top:12px;
+  color:#2ecc71; font-weight:700; font-size:18px;
+}
+.checklist li.done { color:#f5f5f5; }
+
+/* ═══ STEP CARD ═══ */
+.step-card {
+  background:#1a1a1a; border:1px solid rgba(255,255,255,0.06);
+  border-radius:16px; padding:24px; display:flex; gap:18px; align-items:flex-start;
+  transition:all .3s;
+}
+.step-card:hover { border-color:#e50914; transform:translateY(-3px); }
+.step-card .step-num {
+  font-family:'Bebas Neue',sans-serif; font-size:40px; color:#e50914;
+  line-height:1; min-width:52px; opacity:0.7;
+}
+.step-card h4 { font-size:18px; margin-bottom:6px; color:#f5f5f5; }
+.step-card p { font-size:15px; color:#999; line-height:1.6; }
+
+/* ═══ MATURITY ═══ */
+.maturity-card {
+  background:#1a1a1a; border:1px solid rgba(255,255,255,0.06); border-radius:16px;
+  padding:28px 24px; text-align:center; border-top:4px solid rgba(255,255,255,0.1);
+  transition:all .3s;
+}
+.maturity-card:hover { border-color:#e50914; transform:translateY(-3px); }
+.maturity-card .m-icon { font-size:42px; margin-bottom:10px; display:block; }
+.maturity-card h3 { font-size:20px; margin-bottom:8px; }
+.maturity-card p { font-size:14px; color:#999; line-height:1.6; }
+.maturity-card .exemplo { font-size:13px; color:#ccc; margin-top:12px; padding:12px; background:rgba(255,255,255,0.04); border-radius:8px; line-height:1.5; }
+
+/* ═══ USECASE ═══ */
+.ucard {
+  background:#1a1a1a; border:1px solid rgba(255,255,255,0.06); border-radius:16px;
+  padding:24px; transition:all .3s; position:relative; overflow:hidden;
+}
+.ucard:hover { border-color:#e50914; transform:translateY(-3px); }
+.ucard .uc-icon { font-size:28px; margin-bottom:10px; display:block; }
+.ucard h4 { font-size:18px; margin-bottom:8px; }
+.ucard p { font-size:14px; color:#999; line-height:1.6; }
+.ucard .uc-kpi { font-size:12px; color:#666; margin-top:8px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.04); }
+
+/* ═══ TABLE ═══ */
+.comp-table { width:100%; border-collapse:collapse; font-size:15px; }
+.comp-table th, .comp-table td {
+  padding:16px 18px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.comp-table th { font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:1px; color:#e50914; }
+.comp-table tr:hover td { background:rgba(255,255,255,0.02); }
+
+/* ═══ GOV CARD ═══ */
+.gov-card {
+  background:#1a1a1a; border:1px solid rgba(255,255,255,0.06);
+  border-radius:12px; padding:22px; transition:all .3s;
+  position:relative;
+}
+.gov-card:hover { border-color:#e50914; }
+.gov-card h4 { font-size:16px; margin-bottom:6px; }
+.gov-card p { font-size:13px; color:#999; line-height:1.6; }
+.gov-card .g-icon { font-size:20px; margin-bottom:4px; display:block; }
+
+/* ═══ INSIGHT ═══ */
+.insight {
+  background:linear-gradient(135deg,rgba(229,9,20,0.08),rgba(229,9,20,0.02));
+  border:1px solid rgba(229,9,20,0.15); border-radius:12px;
+  padding:24px 28px; margin:20px 0; display:flex; gap:16px; align-items:flex-start;
+}
+.insight .i-icon { font-size:24px; flex-shrink:0; }
+.insight h4 { font-size:16px; color:#e50914; margin-bottom:4px; }
+.insight p { font-size:14px; color:#aaa; line-height:1.6; }
+
+/* ═══ TIMELINE WAVE ═══ */
+.wave-box {
+  background:#1a1a1a; border:1px solid rgba(255,255,255,0.06); border-radius:16px; overflow:hidden;
+}
+.wave-head {
+  padding:18px 24px; border-bottom:1px solid rgba(255,255,255,0.06);
+  display:flex; justify-content:space-between; align-items:center;
+}
+.wave-body { padding:18px 24px; }
+.wave-body p { font-size:14px; color:#999; line-height:1.6; }
+.wave-body .grid-2 { gap:16px; }
+.wave-note {
+  padding:12px 24px; font-size:13px; color:#666;
+  border-top:1px solid rgba(255,255,255,0.04);
+}
+
+/* ═══ HOW IT WORKS ═══ */
+.flow-step {
+  display:flex; align-items:center; gap:20px; padding:12px 0;
+  position:relative;
+}
+.flow-step:not(:last-child)::after {
+  content:''; position:absolute; left:26px; top:52px; bottom:-4px;
+  width:2px; background:linear-gradient(180deg,#e50914,transparent);
+}
+.flow-dot {
+  width:54px; height:54px; border-radius:50%; background:#1a1a1a; border:2px solid #e50914;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Bebas Neue',sans-serif; font-size:22px; color:#e50914;
+  flex-shrink:0; position:relative;
+}
+.flow-content h4 { font-size:17px; margin-bottom:2px; color:#e50914; }
+.flow-content p { font-size:14px; color:#999; line-height:1.5; }
+
+/* ═══ CTA ═══ */
+#cta {
+  background:linear-gradient(135deg,#0d0d0d 0%,#1a0000 50%,#0d0d0d 100%);
+  text-align:center;
+}
+.cta-btn {
+  display:inline-block; padding:18px 56px; background:#e50914;
+  color:#fff; font-family:'Bebas Neue',sans-serif; font-size:24px;
+  letter-spacing:2px; text-decoration:none; border-radius:8px;
+  border:none; cursor:pointer; transition:all .3s;
+  margin:16px 10px;
+}
+.cta-btn:hover { background:#ff2a2a; transform:translateY(-3px); box-shadow:0 8px 30px rgba(229,9,20,0.3); }
+.cta-btn-outline {
+  background:transparent; border:2px solid #f5f5f5; color:#f5f5f5;
+}
+.cta-btn-outline:hover { background:#f5f5f5; color:#0d0d0d; }
+
+/* ═══ RODAPE ═══ */
+.rodape {
+  padding:40px 20px; text-align:center;
+  font-size:13px; color:#666;
+  border-top:1px solid rgba(255,255,255,0.04);
+}
+
+/* ═══ PROGRESS ═══ */
+.progress {
+  position:fixed; top:0; left:0; height:3px; background:#e50914;
+  z-index:1001; transition:width .4s ease; width:0%;
+  box-shadow:0 0 12px rgba(229,9,20,0.4);
+}
+
+/* ═══ UTILITIES ═══ */
+.mt-8 { margin-top:8px; }
+.mt-16 { margin-top:16px; }
+.mt-24 { margin-top:24px; }
+.mt-32 { margin-top:32px; }
+.text-center { text-align:center; }
+.flex-center { display:flex; align-items:center; justify-content:center; gap:8px; }
+.divider { width:60px; height:3px; background:#e50914; margin:20px 0; }
+
+pre {
+  background:#0d0d0d; padding:14px; border-radius:8px; font-size:13px; color:#aaa; overflow-x:auto;
+  border:1px solid rgba(255,255,255,0.04); margin-top:8px;
+}
+code { font-size:14px; background:rgba(255,255,255,0.04); padding:2px 6px; border-radius:4px; color:#ccc; }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<nav class="nav">
+  <div class="nav-logo">
+    <img src="data:image/png;base64,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" alt="Peretto & Co">
+    <span>AI OPS</span>
+    <span class="nav-subtitle">Squad Mata Leão · Case</span>
+  </div>
+  <div class="nav-dots" id="navDots"></div>
+</nav>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 1: HERO -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide" id="hero" data-index="0">
+  <div class="slide-inner">
+    <div class="hero-tag">V4 Peretto & Co · Maio 2026</div>
+    <h1 class="hero-title">
+      <span class="outline">AI OPS</span>
+      <span class="red">MATA LEÃO</span>
+    </h1>
+    <p class="hero-sub">
+      O modelo estrutural de adoção de IA agêntica aplicado à operação da
+      <strong>Squad Mata Leão</strong> — da taxonomia dos handoffs à governança
+      multiagente em escala. <strong>12 semanas do diagnóstico à autonomia.</strong>
+    </p>
+    <div class="hero-cards">
+      <div class="hero-card"><div class="hero-card-num">5</div><div class="hero-card-label">Passos de Adoção</div></div>
+      <div class="hero-card"><div class="hero-card-num">3</div><div class="hero-card-label">Estágios Maturidade</div></div>
+      <div class="hero-card"><div class="hero-card-num">4</div><div class="hero-card-label">Casos de Uso</div></div>
+      <div class="hero-card"><div class="hero-card-num">12</div><div class="hero-card-label">Semanas p/ Autonomia</div></div>
+    </div>
+  </div>
+  <div class="hero-arrow" onclick="goTo(1)"></div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 2: O PROBLEMA -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide" data-index="1">
+  <div class="slide-inner">
+    <div class="sec-tag">O Diagnóstico</div>
+    <h2 class="sec-title">O CAOS QUE<span class="red"> NÃO VOLTA</span></h2>
+    <p class="sec-sub">
+      Antes da AI Ops, a Squad Mata Leão operava no vermelho operacional:
+      handoffs manuais, planilhas dispersas, decisão no achismo.
+    </p>
+
+    <div class="grid-2 mt-24">
+      <div class="card" style="border-left:4px solid #e74c3c;">
+        <div style="font-size:20px; margin-bottom:12px;">📉 Antes (Sem AI Ops)</div>
+        <ul class="checklist">
+          <li class="done">Coleta manual de dados de anúncios — 2h/account/semana</li>
+          <li class="done">Handoffs AM → GT → Copy → Designer sem rastreabilidade</li>
+          <li class="done">Preenchimento manual do roi-week toda sexta-feira</li>
+          <li class="done">NPS/CSAT sem automação de resposta a detração</li>
+          <li class="done">Atas de rituais preenchidas à mão, fora do prazo</li>
+          <li class="done">Account atende no máximo 3-5 clientes</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:4px solid #2ecc71;">
+        <div style="font-size:20px; margin-bottom:12px;">📈 Depois (Com AI Ops)</div>
+        <ul class="checklist">
+          <li class="done">Coleta automática via API — 5 min/account</li>
+          <li class="done">Agentes orquestram handoffs com gateways HITL e checkpointing</li>
+          <li class="done">Robô de ROI preenche sistema automaticamente (erro &lt;1%)</li>
+          <li class="done">Agente de NPS detecta detração e abre FCA em segundos</li>
+          <li class="done">Agente ouvinte redige atas em tempo real durante os rituais</li>
+          <li class="done">Account escala para 15-20 clientes com mesma equipe</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid-4 mt-32">
+      <div class="infocard">
+        <div class="big">-96%</div>
+        <div class="label">Tempo de Relatório</div>
+        <div class="desc">2h → 5 min por account</div>
+      </div>
+      <div class="infocard">
+        <div class="big">5x</div>
+        <div class="label">Escala por Account</div>
+        <div class="desc">3-5 → 15-20 clientes</div>
+      </div>
+      <div class="infocard">
+        <div class="big">15%</div>
+        <div class="label">Erro → &lt;1%</div>
+        <div class="desc">Precisão na coleta de dados</div>
+      </div>
+      <div class="infocard">
+        <div class="big">24/7</div>
+        <div class="label">Disponibilidade</div>
+        <div class="desc">Agentes executam sem intervenção</div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="i-icon">💡</div>
+      <div>
+        <h4>Insight de Implementação</h4>
+        <p>O maior ganho não está em automatizar tarefas isoladas, mas em <strong>eliminar o atrito dos handoffs</strong> entre posições. Cada transição AM→GT→Copy→Designer que antes gerava retrabalho agora é um nó rastreável no grafo — com checkpointing e rollback se necessário.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 3: O CASE — SQUAD MATA LEÃO -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide" data-index="2">
+  <div class="slide-inner">
+    <div class="sec-tag">O Case</div>
+    <h2 class="sec-title">SQUAD MATA LEÃO<span class="red"> · PERETTO & CO</span></h2>
+    <p class="sec-sub">
+      Franquia V4 em Porto Alegre, RS. Operação de alta performance com 5 posições críticas em ciclo contínuo de produção — e um paradoxo: usavam IA, mas não colhiam ganho operacional.
+    </p>
+
+    <div class="quote">
+      "Profissionais usavam ferramentas generativas isoladas (chat para redação ou imagens),
+      <strong>sem alterar a eficiência dos rituais</strong> ou reduzir o tempo gasto em
+      preenchimento de ferramentas de gestão. A IA não estava integrada ao fluxo de trabalho."
+      <div class="quote-author">— <span>Paradoxo da IA Local</span> · Estudo de Caso</div>
+    </div>
+
+    <div class="grid-2 mt-24">
+      <div>
+        <div class="card" style="border-left:4px solid #e74c3c;">
+          <div style="font-size:18px; margin-bottom:10px;">🚩 Gargalos Identificados</div>
+          <ul class="checklist">
+            <li class="done">Tarefas administrativas de baixo valor cognitivo sobrecarregam o time</li>
+            <li class="done">Handoffs manuais geram retrabalho e perda de rastreabilidade</li>
+            <li class="done">Preenchimento manual de OKRs, NPS, roi-week e atas</li>
+            <li class="done">Falhas silenciosas de planejamento no topo do funil operacional</li>
+            <li class="done">Sem visibilidade em tempo real do status da operação</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="border-left:4px solid #2ecc71;">
+          <div style="font-size:18px; margin-bottom:10px;">🎯 Oportunidades Endereçadas</div>
+          <ul class="checklist">
+            <li class="done">Fluxos agênticos baseados no manual de operação real da squad</li>
+            <li class="done">4 arquétipos reutilizáveis (Content Gen, Analyzer, Knowledge, Operator)</li>
+            <li class="done">Integração via APIs com eKyte, CRM (HubSpot/Salesforce) e roi-week</li>
+            <li class="done">Human-in-the-Loop em cada ponto crítico de decisão</li>
+            <li class="done">Escala: 15-20 clientes por account com a mesma equipe</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24 text-center" style="border-left:4px solid #e50914; padding:28px;">
+      <div style="font-size:20px; margin-bottom:6px;">🧠 A Lógica Estrutural</div>
+      <p style="margin-top:8px; font-size:16px; color:#999; max-width:750px; margin-left:auto; margin-right:auto;">
+        Não é sobre "colocar IA nas tarefas". É sobre <strong style="color:#f5f5f5;">redesenvolver a operação com IA como camada de orquestração</strong>:
+        agentes que monitoram, analisam, preenchem, sugerem e disparam — enquanto o time
+        humano valida, decide e constrói o relacionamento. A IA não substitui o profissional,
+        <strong style="color:#f5f5f5;">amplifica a capacidade dele em 5x</strong>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 4: FRAMEWORK — 5 PASSOS DE ADOÇÃO -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide" data-index="3">
+  <div class="slide-inner">
+    <div class="sec-tag">Framework de Adoção</div>
+    <h2 class="sec-title">5 PASSOS<span class="red"> PARA ESCALA</span></h2>
+    <p class="sec-sub">
+      Método estruturado para transição de operação linear para fluxos agênticos autônomos.
+      Cada passo resolve um gargalo específico da squad.
+    </p>
+
+    <div class="grid-2" style="margin-top:16px;">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div>
+          <h4>Taxonomia e Mapeamento de Handoffs</h4>
+          <p>Decompor cada microtarefa do fluxo contínuo. Identificar onde o agente acelera o handoff: input do AM, entrega técnica do GT, desenvolvimento do Copy, produção do Designer, ativação e análise.</p>
+          <span class="tag tag-distrito">Discovery</span>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div>
+          <h4>Arquétipos Reutilizáveis</h4>
+          <p><strong>Content Generator</strong> (variações de copy), <strong>Analyzer</strong> (métrica e ROI), <strong>Knowledge Agent</strong> (playbooks e diretrizes), <strong>Operator</strong> (APIs eKyte, NPS, CRM). Cada um com escopo e saída definidos.</p>
+          <span class="tag tag-distrito">Afinamento</span>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div>
+          <h4>Interoperabilidade Técnica</h4>
+          <p>Conectar agentes via APIs ao ecossistema existente: eKyte (tarefas e sprints), CRM HubSpot/Salesforce, roi-week local, Slack/Teams para alertas, sistemas de métricas.</p>
+          <span class="tag tag-tech">API Layer</span>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <div>
+          <h4>Human-in-the-Loop</h4>
+          <p>Cada ação autônoma tem ponto de controle humano. Agente estrutura e sugere — validação final e gatilho para próxima etapa dependem do profissional. Coordenador é o auditor.</p>
+          <span class="tag tag-ml">Governança</span>
+        </div>
+      </div>
+      <div class="step-card" style="grid-column:span 2; border-left:4px solid #e50914;">
+        <div class="step-num">05</div>
+        <div>
+          <h4>Ondas de Implementação (12 Semanas)</h4>
+          <p><strong>Onda 1</strong> (Semanas 1-3) Assistida — infraestrutura + onboarding <strong>·</strong>
+          <strong>Onda 2</strong> (Semanas 4-8) Semiautônoma — ROI + NPS <strong>·</strong>
+          <strong>Onda 3</strong> (Semanas 9-12) Autônoma — multiagente + quality check.</p>
+          <span class="tag tag-distrito">Deployment</span>
+          <span class="tag tag-tech">Escala</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 5: COMO A INFRAESTRUTURA OPERA -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide" data-index="4">
+  <div class="slide-inner">
+    <div class="sec-tag">Infraestrutura</div>
+    <h2 class="sec-title">COMO A<span class="red"> OPERAÇÃO FUNCIONA</span></h2>
+    <p class="sec-sub">
+      O ciclo de ponta a ponta: do gatilho operacional ao output entregue — sem intervenção manual no meio.
+    </p>
+
+    <div class="grid-2" style="margin-top:16px;">
+      <div>
+        <div class="flow-step">
+          <div class="flow-dot">1</div>
+          <div class="flow-content">
+            <h4>Gatilho Chega</h4>
+            <p>Novo OKR no eKyte · Desvio de KPI · NPS &lt; 7 · Sexta-feira 7h · Reunião agenda. Cada gatilho tem um agente responsável pré-mapeado no grafo.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot">2</div>
+          <div class="flow-content">
+            <h4>Agente Executa</h4>
+            <p>Chama APIs (Meta/Google Ads · CRM · eKyte), consolida dados, aplica regras de negócio, escreve no sistema alvo. Tudo via LangGraph com checkpointing — cada nó é persistido.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot">3</div>
+          <div class="flow-content">
+            <h4>Humano Valida (HITL)</h4>
+            <p>O agente entrega — o profissional decide. O grafo pausa no nó de aprovação, notifica o responsável (Slack/Teams) e aguarda o aval para seguir. Se recusado, loop de correção.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot">4</div>
+          <div class="flow-content">
+            <h4>Output + Rastreamento</h4>
+            <p>Resultado escrito no sistema (eKyte, roi-week, ata), log enviado ao Langfuse, custo de tokens registrado, e o grafo avança para o próximo nó ou encerra o ciclo.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="border-left:4px solid #e50914;">
+          <div style="font-size:16px; margin-bottom:10px;">🔧 Como a Infra Sustenta</div>
+          <ul class="checklist">
+            <li class="done"><strong>Bifrost Gateway</strong> — cache semântico de dupla camada: reduz tokens em até 70%</li>
+            <li class="done"><strong>LangGraph</strong> — grafos direcionados com checkpointing e rollback</li>
+            <li class="done"><strong>Langfuse</strong> — tracing por nó, custo por agente, alerta de alucinação</li>
+            <li class="done"><strong>Sanitização PII</strong> — hashing criptográfico antes de qualquer chamada externa</li>
+            <li class="done"><strong>Fallback sample</strong> — se API falha, dados ilustrativos mantêm o pipeline vivo</li>
+          </ul>
+        </div>
+
+        <div class="card mt-16" style="border-left:4px solid #3498db;">
+          <div style="font-size:16px; margin-bottom:10px;">📐 Padrão de Arquitetura</div>
+          <pre style="font-size:12px; line-height:1.7;">
+Gatilho (API/webhook/cron)
+  → LangGraph (grafo de nós)
+    → Nó 1: Agente consulta fonte (API externa)
+    → Nó 2: Agente processa (regras + LLM)
+    → Nó 3: HITL (pausa p/ aprovação)
+    → Nó 4: Agente escreve destino (eKyte/CRM)
+  → Langfuse (log + tracing + custo)
+  → Bifrost (cache da chamada LLM)</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight mt-16">
+      <div class="i-icon">⚡</div>
+      <div>
+        <h4>Dica de Operação</h4>
+        <p>Comece com <strong>1 agente de propósito único</strong> (ex.: ROI Week) e valide com o time por 2 semanas antes de expandir. O erro mais comum é querer fazer os 4 casos de uso de uma vez — a maturidade vem em ondas, não em big bang.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 6: 3 ESTÁGIOS DE MATURIDADE -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide" data-index="5">
+  <div class="slide-inner">
+    <div class="sec-tag">Maturidade</div>
+    <h2 class="sec-title">3 ESTÁGIOS<span class="red"> · ASSISTIDO → MULTIAGENTE</span></h2>
+    <p class="sec-sub">
+      A squad não salta direto para autonomia total. Cada estágio tem escopo, supervisão e métricas de sucesso próprios.
+    </p>
+
+    <div class="grid-3 mt-16">
+      <div class="maturity-card" style="border-top-color:#f1c40f;">
+        <span class="m-icon">🔰</span>
+        <h3>Estágio 1<br>Assistido</h3>
+        <p><strong style="color:#f5f5f5;">IA apoia</strong> o profissional em tarefas pontuais e isoladas. O humano faz, a IA sugere.</p>
+        <div class="exemplo">Ex: Copywriter gera variantes de anúncio com IA, mas seleciona e ajusta manualmente</div>
+        <div style="margin-top:8px;"><span class="tag tag-distrito">Process Automation</span></div>
+      </div>
+      <div class="maturity-card" style="border-top-color:#e67e22;">
+        <span class="m-icon">⚡</span>
+        <h3>Estágio 2<br>Propósito Único</h3>
+        <p><strong style="color:#f5f5f5;">Agente assume</strong> um processo completo e linear. O humano só audita.</p>
+        <div class="exemplo">Ex: Robô de ROI extrai dados de Meta/Google Ads e preenche roi-week — GT só confirma</div>
+        <div style="margin-top:8px;"><span class="tag tag-distrito">Cognitive Asst.</span></div>
+      </div>
+      <div class="maturity-card" style="border-top-color:#2ecc71;">
+        <span class="m-icon">🧠</span>
+        <h3>Estágio 3<br>Sistema Multiagente</h3>
+        <p><strong style="color:#f5f5f5;">Múltiplos agentes</strong> com papéis definidos interagem para resolver problemas complexos.</p>
+        <div class="exemplo">Ex: NPS &lt; 7 → Agente notifica → Agente FCA monta diagnóstico → Agente eKyte cria tarefa</div>
+        <div style="margin-top:8px;"><span class="tag tag-distrito">Generative AI</span></div>
+      </div>
+    </div>
+
+    <div class="divider mt-32"></div>
+
+    <div class="grid-2 mt-16">
+      <div>
+        <div style="font-size:20px; margin-bottom:10px;">📊 Matriz de Evolução</div>
+        <table class="comp-table">
+          <tr><th>Estágio</th><th>Supervisão</th><th>Escopo</th><th>Quando avançar</th></tr>
+          <tr><td><strong style="color:#f1c40f;">1</strong></td><td>Total (humano faz)</td><td>Tarefa pontual</td><td>Time confortável com a ferramenta</td></tr>
+          <tr><td><strong style="color:#e67e22;">2</strong></td><td>Auditoria (humano confere)</td><td>Processo completo</td><td>95%+ de acerto por 2 semanas</td></tr>
+          <tr><td><strong style="color:#2ecc71;">3</strong></td><td>Exceção (humano só em desvio)</td><td>Ciclo multiagente</td><td>Todos os agentes estáveis por 1 mês</td></tr>
+        </table>
+      </div>
+      <div class="insight" style="margin:0;">
+        <div class="i-icon">🎯</div>
+        <div>
+          <h4>Como Saber se Está Pronto</h4>
+          <p>O estágio 2 (propósito único) é o <strong>ponto ideal para começar</strong>. Escolha o fluxo mais doloroso e repetitivo da squad — geralmente é o ROI Week — e automatize ele primeiro. O time vai sentir o ganho imediato e pedir mais.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 7: 4 CASOS DE USO -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide" data-index="6">
+  <div class="slide-inner">
+    <div class="sec-tag">Casos de Uso</div>
+    <h2 class="sec-title">4 FLUXOS<span class="red"> AGÊNTICOS</span></h2>
+    <p class="sec-sub">
+      Aplicações diretas na rotina operacional da Squad Mata Leão — do onboarding ao fechamento da semana. Cada um com gatilho, agente, ação e KPI.
+    </p>
+
+    <div class="grid-2">
+      <div class="ucard" style="border-left:4px solid #3498db;">
+        <span class="uc-icon">🚀</span>
+        <h4>1. Onboarding Inteligente</h4>
+        <p><strong>Gatilho:</strong> Novo contrato no CRM.<br>
+        <strong>Agente:</strong> vasculha transcripts de reuniões (Fathom), extrai SPICED + STEP Frame, monta rascunho do Account Planning e OKRs no eKyte.<br>
+        <strong>Ganho real:</strong> Dias de reunião → horas de revisão.</p>
+        <div class="uc-kpi">KPI: 100% dos documentos validados até o início da 1ª Sprint</div>
+      </div>
+      <div class="ucard" style="border-left:4px solid #2ecc71;">
+        <span class="uc-icon">📊</span>
+        <h4>2. ROI Week Automático</h4>
+        <p><strong>Gatilho:</strong> Sexta-feira 7h.<br>
+        <strong>Agente:</strong> chama APIs Meta/Google Ads, cruza com receita do CRM, calcula ROI de cada conta, preenche roi-week e gera alertas de queda de performance.<br>
+        <strong>Ganho real:</strong> GT deixa de perder 2h/semana em preenchimento.</p>
+        <div class="uc-kpi">KPI: Atualização concluída toda sexta 18h sem erros</div>
+      </div>
+      <div class="ucard" style="border-left:4px solid #e50914;">
+        <span class="uc-icon">🆘</span>
+        <h4>3. Gestão de Crise — NPS + FCA</h4>
+        <p><strong>Gatilho:</strong> NPS &lt; 7 (detração ou neutro).<br>
+        <strong>Agente:</strong> dispara thread no Slack, identifica AM responsável, abre FCA na Central Tática com "Fato" preenchido e sugere "Concausa" baseado no histórico de tarefas.<br>
+        <strong>Ganho real:</strong> Resposta em minutos, não em dias.</p>
+        <div class="uc-kpi">KPI: NPS médio &gt; 60 em clientes com LT &gt; 60 dias</div>
+      </div>
+      <div class="ucard" style="border-left:4px solid #9b59b6;">
+        <span class="uc-icon">🎙️</span>
+        <h4>4. Copiloto de Rituais</h4>
+        <p><strong>Gatilho:</strong> Reunião agenda no calendário.<br>
+        <strong>Agente Ouvinte:</strong> conecta-se ao Meet/Teams, captura a discussão em tempo real, preenche atas padrão (Comitê P&EG, Growth, Working Backwards) com decisões, donos e prazos.<br>
+        <strong>Ganho real:</strong> Ata pronta antes do fim da reunião.</p>
+        <div class="uc-kpi">KPI: Ata 100% preenchida antes do término do ritual</div>
+      </div>
+    </div>
+
+    <div class="insight mt-16">
+      <div class="i-icon">💡</div>
+      <div>
+        <h4>Por Onde Começar</h4>
+        <p>Comece pelo <strong>caso 2 (ROI Week)</strong>. É o de maior dor, menor complexidade técnica (só API + planilha) e retorno mais visível para o time. Em 2 semanas você tem um agente de propósito único rodando e o time pedindo o próximo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 8: ARQUITETURA MULTIAGENTE -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide" data-index="7">
+  <div class="slide-inner">
+    <div class="sec-tag">Arquitetura</div>
+    <h2 class="sec-title">ORQUESTRAÇÃO<span class="red"> MULTIAGENTE</span></h2>
+    <p class="sec-sub">
+      Três frameworks para três camadas da operação — cada um resolve um problema específico. Nenhum é bala de prata.
+    </p>
+
+    <table class="comp-table">
+      <tr><th>Critério</th><th style="color:#2ecc71;">LangGraph 🏆</th><th style="color:#3498db;">CrewAI</th><th style="color:#9b59b6;">AutoGen</th></tr>
+      <tr>
+        <td><strong>Modelo</strong></td>
+        <td>Grafos direcionados com transições determinísticas</td>
+        <td>Papéis e tarefas sequenciais/hierárquicas</td>
+        <td>Conversações dinâmicas entre agentes</td>
+      </tr>
+      <tr>
+        <td><strong>Estado</strong></td>
+        <td>Checkpointing robusto com "viagem no tempo"</td>
+        <td>Passagem de resultados entre tarefas</td>
+        <td>Histórico em memória de sessão</td>
+      </tr>
+      <tr>
+        <td><strong>Aderência ao Manual</strong></td>
+        <td>✅ Perfeito — SLAs e handoffs do manual</td>
+        <td>✅ Excelente — simulação criativa</td>
+        <td>✅ Adequado — debate e diagnóstico</td>
+      </tr>
+      <tr>
+        <td><strong>Facilidade de Dev</strong></td>
+        <td>Médio-alto (design de grafos)</td>
+        <td>🔵 Baixo — API amigável, prototipagem em horas</td>
+        <td>Médio (codificação conversacional)</td>
+      </tr>
+      <tr>
+        <td><strong>HITL</strong></td>
+        <td>Refinado — pausa nós para aprovação</td>
+        <td>Básico — aprovação em tarefas</td>
+        <td>Usuário como participante</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:none;"><strong>Onde usar na Mata Leão</strong></td>
+        <td style="border-bottom:none; color:#2ecc71;"><strong>Pipeline principal de handoffs AM→GT→Copy→Designer</strong></td>
+        <td style="border-bottom:none; color:#3498db;">Prototipagem de campanhas específicas</td>
+        <td style="border-bottom:none; color:#9b59b6;">Rituais de Growth e Working Backwards</td>
+      </tr>
+    </table>
+
+    <div class="card mt-24" style="border-left:4px solid #e50914;">
+      <div style="font-size:18px; margin-bottom:8px;">📋 Recomendação Prática</div>
+      <p style="font-size:15px; color:#999; line-height:1.7;">
+        Use <strong style="color:#2ecc71;">LangGraph como espinha dorsal</strong> da operação — ele modela o fluxo real da squad com checkpointing e rollback.
+        <strong style="color:#3498db;">CrewAI</strong> para prototipagem rápida de campanhas específicas (testar uma hipótese em horas).
+        <strong style="color:#9b59b6;">AutoGen</strong> para os rituais de discussão onde múltiplos agentes precisam debater antes de recomendar.
+      </p>
+    </div>
+
+    <div class="insight mt-16">
+      <div class="i-icon">🧪</div>
+      <div>
+        <h4>Teste Antes de Commit</h4>
+        <p>Ao escolher o framework, comece com <strong>CrewAI para prototipar</strong> o fluxo desejado em 1 dia. Se o fluxo for linear e estável, migre para LangGraph. CrewAI é ótimo para validar a idéia; LangGraph para produção.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 9: AI GATEWAY + OBSERVABILIDADE -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide" data-index="8">
+  <div class="slide-inner">
+    <div class="sec-tag">Governança Técnica</div>
+    <h2 class="sec-title">GATEWAY +<span class="red"> OBSERVABILIDADE</span></h2>
+    <p class="sec-sub">
+      Duas camadas que separam AI Ops de "scripts soltos na madrugada": controle de custo e rastreamento completo de cada decisão.
+    </p>
+
+    <div class="grid-2 mt-16">
+      <div class="card" style="border-left:4px solid #2ecc71;">
+        <div style="font-size:20px; margin-bottom:10px;">🛡️ Bifrost — AI Gateway</div>
+        <p style="font-size:15px; color:#999; line-height:1.7;">Gateway open-source que resolve o <strong>Denial of Wallet</strong> (looping de agentes desperdiçando tokens em chamadas repetidas).</p>
+        <div style="margin-top:12px; background:rgba(255,255,255,0.03); padding:16px; border-radius:8px;">
+          <p style="font-size:14px; color:#ccc; margin-bottom:6px;"><strong>Cache semântico de dupla camada:</strong></p>
+          <p style="font-size:13px; color:#999; line-height:1.6;">1️⃣ <strong style="color:#f5f5f5;">Hash Exato</strong> — prompts idênticos servidos em submilissegundos, custo zero de API</p>
+          <p style="font-size:13px; color:#999; line-height:1.6;">2️⃣ <strong style="color:#f5f5f5;">Similaridade Vetorial</strong> — prompts semanticamente próximos servidos do cache local (Weaviate/Redis), eliminando chamadas externas e <strong style="color:#2ecc71;">reduzindo tokens em até 70%</strong></p>
+        </div>
+        <p style="font-size:13px; color:#666; margin-top:10px;">+ Gerencia chaves virtuais, limites financeiros por squad e protocolo MCP</p>
+      </div>
+      <div class="card" style="border-left:4px solid #9b59b6;">
+        <div style="font-size:20px; margin-bottom:10px;">🔍 Langfuse — Observabilidade</div>
+        <p style="font-size:15px; color:#999; line-height:1.7;">Sistema open-source (MIT) de rastreamento completo — auto-hospedado na nuvem privada da unidade. <strong style="color:#f5f5f5;">LGPD compliance nativa.</strong></p>
+        <div style="margin-top:12px; background:rgba(255,255,255,0.03); padding:16px; border-radius:8px;">
+          <p style="font-size:13px; color:#999; line-height:1.8;">
+          ✅ Tracing de <strong>cada nó de decisão</strong> do LangGraph<br>
+          ✅ Consumo real de tokens <strong>por agente</strong> e por fluxo<br>
+          ✅ Diagnóstico de <strong>bugs e alucinações</strong> operacionais<br>
+          ✅ <strong>Soberania de dados</strong> — nenhum dado de cliente trafega para servidores externos</p>
+        </div>
+        <p style="font-size:13px; color:#666; margin-top:10px;">O Coordenador audita a operação pelo dashboard — checklist semanal validado automaticamente</p>
+      </div>
+    </div>
+
+    <div class="card mt-24" style="border-left:4px solid #e50914; background:rgba(229,9,20,0.04);">
+      <div class="grid-2" style="align-items:center;">
+        <div>
+          <div style="font-size:18px; margin-bottom:6px;">🔐 LGPD desde a Arquitetura</div>
+          <p style="font-size:14px; color:#999; line-height:1.6;">Microsserviço local de sanitização de PII: intercepta dados brutos do eKyte e CRM, remove nomes/CPFs/e-mails antes de enviar prompts para APIs externas. Hashes criptográficos irreversíveis. Embeddings criptografados no banco local (ClickHouse/Postgres).</p>
+        </div>
+        <div style="text-align:center;">
+          <span class="tag tag-distrito" style="font-size:12px;">TrISM</span>
+          <span class="tag tag-tech" style="font-size:12px;">Segurança</span>
+          <span class="tag tag-ml" style="font-size:12px;">Governança</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight mt-16">
+      <div class="i-icon">💰</div>
+      <div>
+        <h4>Custo Real por Fluxo</h4>
+        <p>Com Bifrost + Langfuse, você sabe exatamente quanto cada fluxo custa: o ROI Week, por exemplo, custa menos de <strong>R$ 0,30 por execução</strong> (2 chamadas de API + cache). Compare com 2h de trabalho de um GT e a conta fecha rápido.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 10: ROADMAP 12 SEMANAS -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide" data-index="9">
+  <div class="slide-inner">
+    <div class="sec-tag">Roadmap</div>
+    <h2 class="sec-title">12 SEMANAS<span class="red"> · DO MVP À AUTONOMIA</span></h2>
+    <p class="sec-sub">
+      Plano de facilitação em 3 ondas. Cada uma com entregáveis concretos, não promessas.
+    </p>
+
+    <div class="wave-box" style="border-left:4px solid #f1c40f;">
+      <div class="wave-head" style="background:rgba(241,196,15,0.06);">
+        <div><span class="tag" style="background:rgba(241,196,15,0.2);color:#f1c40f;font-size:11px;">Onda 1 — Assistida</span></div>
+        <div style="font-size:14px; color:#888;">Semanas 1-3</div>
+      </div>
+      <div class="wave-body">
+        <div class="grid-2">
+          <div>
+            <p><strong style="color:#f5f5f5;">🔧 Infraestrutura:</strong> Instalar Bifrost + Langfuse + sanitização PII</p>
+            <p style="margin-top:4px;"><strong style="color:#f5f5f5;">🤖 Agente 1:</strong> Onboarding (SPICED + STEP do kickoff)</p>
+          </div>
+          <div>
+            <p><strong style="color:#f5f5f5;">📄 Rituais:</strong> Atas do Comitê de P&EG geradas como rascunhos automáticos</p>
+          </div>
+        </div>
+      </div>
+      <div class="wave-note">✅ Entregável: Infra pronta + 1 agente assistido rodando</div>
+    </div>
+
+    <div class="wave-box mt-16" style="border-left:4px solid #e67e22;">
+      <div class="wave-head" style="background:rgba(230,126,34,0.06);">
+        <div><span class="tag" style="background:rgba(230,126,34,0.2);color:#e67e22;font-size:11px;">Onda 2 — Semiautônoma</span></div>
+        <div style="font-size:14px; color:#888;">Semanas 4-8</div>
+      </div>
+      <div class="wave-body">
+        <div class="grid-2">
+          <div>
+            <p><strong style="color:#f5f5f5;">📊 Agente 2:</strong> ROI Week — preenchimento automático, GT só audita</p>
+          </div>
+          <div>
+            <p><strong style="color:#f5f5f5;">🆘 Agente 3:</strong> NPS + FCA — monitora, detecta detração, abre FCA</p>
+          </div>
+        </div>
+      </div>
+      <div class="wave-note">✅ Entregável: 2 agentes de propósito único em produção, time auditando</div>
+    </div>
+
+    <div class="wave-box mt-16" style="border-left:4px solid #2ecc71;">
+      <div class="wave-head" style="background:rgba(46,204,113,0.06);">
+        <div><span class="tag" style="background:rgba(46,204,113,0.2);color:#2ecc71;font-size:11px;">Onda 3 — Autônoma Controlada</span></div>
+        <div style="font-size:14px; color:#888;">Semanas 9-12</div>
+      </div>
+      <div class="wave-body">
+        <div class="grid-2">
+          <div>
+            <p><strong style="color:#f5f5f5;">✅ Agente 4:</strong> Quality Check — Coordenador audita pelo Langfuse</p>
+          </div>
+          <div>
+            <p><strong style="color:#f5f5f5;">🧠 Sistema Multiagente:</strong> NPS → FCA → eKyte em ciclo fechado</p>
+          </div>
+        </div>
+      </div>
+      <div class="wave-note">✅ Entregável: Operação multiagente rodando, humano só em exceção</div>
+    </div>
+
+    <div class="quote mt-24">
+      "A cada R$ 1 investido em infraestrutura de IA, destinar igual valor em treinamento do time — account managers, redatores e designers deixam de executar tarefas manuais e tornam-se engenheiros de prompt e auditores de qualidade."
+      <div class="quote-author">— <span>Recomendação Estratégica</span> · Estudo de Caso</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 11: GOVERNANÇA — 8 PILARES -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide" data-index="10">
+  <div class="slide-inner">
+    <div class="sec-tag">Governança</div>
+    <h2 class="sec-title">8 PILARES<span class="red"> DISTRITO</span></h2>
+    <p class="sec-sub">
+      Alinhado ao Distrito AI Adoption Framework 2026 — segurança, custo, qualidade e risco não são pós-implementação. Entram na Onda 1.
+    </p>
+
+    <div class="grid-4" style="margin-top:16px;">
+      <div class="gov-card">
+        <span class="g-icon">💰</span>
+        <h4>FinOps</h4>
+        <p>Bifrost cache semântico (-70% tokens), rate limiting por squad, right-sizing de modelos (DeepSeek p/ análise, Gemini p/ output)</p>
+      </div>
+      <div class="gov-card">
+        <span class="g-icon">🛡️</span>
+        <h4>TrISM</h4>
+        <p>Sanitização PII local-first (LGPD), prompts fixos, .env gitignored, catálogo de riscos por tipo de dado</p>
+      </div>
+      <div class="gov-card">
+        <span class="g-icon">📊</span>
+        <h4>Observabilidade</h4>
+        <p>Langfuse self-hosted, tracing LangGraph por nó, métricas de tokens por agente, dashboard do Coordenador</p>
+      </div>
+      <div class="gov-card">
+        <span class="g-icon">🎯</span>
+        <h4>EvalOps</h4>
+        <p>Modo sample (--sample), flag "simulado" visível, revisor agente validando outputs críticos</p>
+      </div>
+      <div class="gov-card">
+        <span class="g-icon">🔒</span>
+        <h4>Segurança</h4>
+        <p>Input hardening, output filters, sem PII em relatórios, credenciais segregadas por cliente, hashing criptográfico</p>
+      </div>
+      <div class="gov-card">
+        <span class="g-icon">🔄</span>
+        <h4>ModelOps</h4>
+        <p>Rollout seguro (assistido → semi → autônomo), versionamento em git, gates de aprovação (PR), SBOM de skills</p>
+      </div>
+      <div class="gov-card">
+        <span class="g-icon">🤝</span>
+        <h4>Supply Chain</h4>
+        <p>Due diligence Google/Meta/Anthropic, licenças MIT, prevenção vendor lock-in (OpenRouter multi-provedor)</p>
+      </div>
+      <div class="gov-card">
+        <span class="g-icon">📚</span>
+        <h4>RAG</h4>
+        <p>NotebookLM + bases/ + docs/, dados de API frescos, embeddings criptografados em banco local (ClickHouse/Postgres)</p>
+      </div>
+    </div>
+
+    <div class="card mt-24 text-center" style="border-left:4px solid #e50914; padding:28px;">
+      <div style="font-size:18px;">Do MVP à Maturidade — com Governança desde o Dia 1</div>
+      <p style="margin-top:8px; font-size:15px; color:#999; max-width:700px; margin-left:auto; margin-right:auto;">
+        Nenhum dos 8 pilares é pós-implementação. Bifrost, Langfuse e sanitização PII entram na <strong style="color:#f5f5f5;">Onda 1 (Semanas 1-3)</strong>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 12: CTA -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide" id="cta" data-index="11">
+  <div class="slide-inner">
+    <div class="hero-tag">Próximos Passos</div>
+    <h2 class="sec-title" style="font-size:clamp(42px,7vw,90px);">
+      O FUTURO<br><span class="red">COMEÇA AGORA</span>
+    </h2>
+    <p style="font-size:19px; color:#999; max-width:650px; margin:0 auto 36px; line-height:1.8;">
+      A infraestrutura de AI Ops está pronta. O caso Mata Leão é o modelo.
+      <strong style="color:#f5f5f5;">12 semanas separam sua operação do caos à autonomia controlada.</strong>
+    </p>
+
+    <div class="grid-3" style="max-width:750px; margin:0 auto;">
+      <div class="card">
+        <div style="font-size:24px; margin-bottom:6px;">🔧</div>
+        <h3>1. Semanas 1-3</h3>
+        <p>Instalar Bifrost + Langfuse + Agente de Onboarding</p>
+      </div>
+      <div class="card">
+        <div style="font-size:24px; margin-bottom:6px;">⚡</div>
+        <h3>2. Semanas 4-8</h3>
+        <p>ROI Week + NPS/FCA automáticos em produção</p>
+      </div>
+      <div class="card">
+        <div style="font-size:24px; margin-bottom:6px;">🧠</div>
+        <h3>3. Semanas 9-12</h3>
+        <p>Sistema multiagente autônomo com Quality Check</p>
+      </div>
+    </div>
+
+    <div class="mt-32">
+      <span class="cta-btn" onclick="goTo(0)">INICIAR ONDA 1</span>
+      <span class="cta-btn cta-btn-outline" onclick="window.print()">SALVAR PDF</span>
+    </div>
+
+    <p style="margin-top:40px; font-size:13px; color:#666;">
+      V4 Company · AI Ops Framework v2.0 · Maio 2026<br>
+      Baseado no Estudo de Caso: V4 Peretto & Co (Squad Mata Leão)<br>
+      Documentação: <code>v4-automations/documentação/</code>
+    </p>
+  </div>
+</section>
+
+<div class="rodape">
+  V4 Company — AI Ops · Squad Mata Leão · Maio 2026 · v2.0.0
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+let current = 0;
+
+const dotsContainer = document.getElementById('navDots');
+slides.forEach((_, i) => {
+  const dot = document.createElement('button');
+  dot.className = 'nav-dot';
+  dot.onclick = () => goTo(i);
+  dotsContainer.appendChild(dot);
+});
+
+function goTo(index) {
+  current = Math.max(0, Math.min(index, totalSlides - 1));
+  slides[current].scrollIntoView({ behavior: 'smooth' });
+  updateDots();
+  updateProgress();
+}
+
+function updateDots() {
+  document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+}
+
+function updateProgress() {
+  document.getElementById('progress').style.width = ((current + 1) / totalSlides * 100) + '%';
+}
+
+document.addEventListener('keydown', (e) => {
+  if (['ArrowRight','ArrowDown'].includes(e.key)) goTo(current + 1);
+  if (['ArrowLeft','ArrowUp'].includes(e.key)) goTo(current - 1);
+  if (e.key === 'Home') goTo(0);
+  if (e.key === 'End') goTo(totalSlides - 1);
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = parseInt(entry.target.dataset.index);
+      if (!isNaN(idx)) { current = idx; updateDots(); updateProgress(); }
+    }
+  });
+}, { threshold: 0.3 });
+
+slides.forEach(s => observer.observe(s));
+updateDots();
+updateProgress();
+</script>
+</body>
+</html>

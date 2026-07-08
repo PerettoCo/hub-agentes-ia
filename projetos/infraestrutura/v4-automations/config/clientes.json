@@ -1,0 +1,123 @@
+{
+  "clientes": [
+    {
+      "nome": "Cliente A",
+      "google_ads_customer_id": "123-456-7890",
+      "meta_ad_account_id": "act_123456789",
+      "bing_ads_customer_id": null,
+      "bing_ads_account_id": null,
+      "ga4_property_id": "properties/123456789",
+      "email_cliente": "marcosluciano.rodrigues@v4company.com",
+
+      "ekyte_workspace_id": 101,
+      "ekyte_squad_id": 10,
+      "ekyte_sprint_project_id": 233113,
+      "ekyte_executor_id_am": "uuid-do-am-no-ekyte",
+      "ekyte_executor_id_gt": "uuid-do-gt-no-ekyte",
+      "ekyte_executor_id_copy": "uuid-do-copy-no-ekyte",
+
+      "okrs": {
+        "objetivo": "Consolidar crescimento de receita digital no Q2",
+        "krs": [
+          {
+            "descricao": "ROAS médio nas campanhas pagas",
+            "meta": 3.2,
+            "unidade": "x",
+            "atual": 0
+          },
+          {
+            "descricao": "Volume de leads mensais",
+            "meta": 150,
+            "unidade": "leads",
+            "atual": 0
+          },
+          {
+            "descricao": "CAC máximo",
+            "meta": 80,
+            "unidade": "R$",
+            "atual": 0,
+            "inverso": true
+          }
+        ]
+      },
+      "verba_mensal": 5000,
+      "vertical": "ecommerce",
+      "drive_root_folder_id": null
+    },
+    {
+      "nome": "Cliente B",
+      "google_ads_customer_id": "987-654-3210",
+      "meta_ad_account_id": "act_987654321",
+      "bing_ads_customer_id": null,
+      "bing_ads_account_id": null,
+      "ga4_property_id": "properties/987654321",
+      "email_cliente": "contato@clienteb.com",
+
+      "ekyte_workspace_id": 102,
+      "ekyte_squad_id": 10,
+      "ekyte_sprint_project_id": null,
+      "ekyte_executor_id_am": "uuid-do-am-no-ekyte",
+      "ekyte_executor_id_gt": "uuid-do-gt-no-ekyte",
+      "ekyte_executor_id_copy": "uuid-do-copy-no-ekyte",
+
+      "okrs": {
+        "objetivo": "Gerar leads qualificados para vendas B2B no Q2",
+        "krs": [
+          {
+            "descricao": "CPL máximo",
+            "meta": 120,
+            "unidade": "R$",
+            "atual": 0,
+            "inverso": true
+          },
+          {
+            "descricao": "Volume de MQLs mensais",
+            "meta": 40,
+            "unidade": "MQLs",
+            "atual": 0
+          }
+        ]
+      },
+      "verba_mensal": 8000,
+      "vertical": "b2b_saas",
+      "drive_root_folder_id": null
+    },
+    {
+      "nome": "GSET",
+      "google_ads_customer_id": "835-134-4062",
+      "meta_ad_account_id": null,
+      "bing_ads_customer_id": null,
+      "bing_ads_account_id": null,
+      "ga4_property_id": null,
+      "email_cliente": "gabriel@gsettennis.com",
+
+      "okrs": {
+        "objetivo": "Preencher capacidade JCC ($63.654/mês) e escalar Summer Camp 2026",
+        "krs": [
+          {
+            "descricao": "ROAS médio campanhas pagas",
+            "meta": 4.0,
+            "unidade": "x",
+            "atual": 0
+          },
+          {
+            "descricao": "Volume de leads qualificados/mês",
+            "meta": 60,
+            "unidade": "leads",
+            "atual": 42
+          },
+          {
+            "descricao": "CPL máximo",
+            "meta": 40,
+            "unidade": "R$",
+            "atual": 33,
+            "inverso": true
+          }
+        ]
+      },
+      "verba_mensal": 1391,
+      "vertical": "educacao_esportes",
+      "drive_root_folder_id": null
+    }
+  ]
+}

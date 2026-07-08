@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const rateLimit = require('express-rate-limit');
+const zlib = require('zlib');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
@@ -148,12 +149,12 @@ app.post('/api/login', loginLimiter, async (req, res) => {
 app.get('/logout', (req, res) => {
   req.session.destroy();
   res.clearCookie('opencode_user');
-  res.redirect('/login');
+  res.sendFile(path.join(__dirname, 'public', 'logout.html'));
 });
 app.post('/api/logout', (req, res) => {
   req.session.destroy();
   res.clearCookie('opencode_user');
-  res.redirect('/login');
+  res.redirect('/logout');
 });
 
 app.use((req, res, next) => {
@@ -172,6 +173,91 @@ const opencodeProxy = createProxyMiddleware({
   router: (req) => {
     const user = users.find(u => u.username === req.session?.user?.username);
     return user ? `http://${user.opencodeHost}:${user.opencodePort}` : null;
+  },
+  onProxyRes: (proxyRes, req, res) => {
+    const ct = proxyRes.headers['content-type'] || '';
+    if (!ct.includes('text/html')) return;
+
+    proxyRes.pause();
+
+    const enc = proxyRes.headers['content-encoding'];
+    const chunks = [];
+    proxyRes.on('data', chunk => chunks.push(chunk));
+    proxyRes.on('end', () => {
+      let buf = Buffer.concat(chunks);
+      if (enc === 'gzip') buf = zlib.gunzipSync(buf);
+      else if (enc === 'deflate') buf = zlib.inflateSync(buf);
+      let body = buf.toString('utf-8');
+
+      if (body.includes('</body>')) {
+        const logoBase64 = fs.readFileSync(path.join(__dirname, 'public', 'logo-white.png')).toString('base64');
+        const logoDataUri = `data:image/png;base64,${logoBase64}`;
+
+        const inject = `
+<style>
+  [class*="logo"]:not([class*="icon"]):not([class*="badge"]),
+  a[href*="opencode"] svg,
+  header svg:first-child, nav svg:first-child {
+    visibility: hidden !important;
+    position: relative !important;
+  }
+  [class*="logo"]:not([class*="icon"]):not([class*="badge"])::after,
+  a[href*="opencode"] svg::after,
+  header svg:first-child::after, nav svg:first-child::after {
+    content: '' !important;
+    visibility: visible !important;
+    position: absolute !important;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('${logoDataUri}') no-repeat center/contain !important;
+  }
+</style>
+<script>
+(function() {
+  const LOGO = '${logoDataUri}';
+  function replaceLogo() {
+    var sel = 'a[href*="opencode"] svg,header svg,nav svg,[class*="logo"] svg';
+    document.querySelectorAll(sel).forEach(function(el) {
+      if (el.getAttribute('data-v4logo')) return;
+      var img = document.createElement('img');
+      img.src = LOGO;
+      img.style.cssText = 'height:100%;width:auto;max-height:36px;';
+      img.setAttribute('data-v4logo', '1');
+      el.parentNode.replaceChild(img, el);
+    });
+  }
+  document.addEventListener('DOMContentLoaded', replaceLogo);
+  setTimeout(replaceLogo, 1000);
+  setInterval(replaceLogo, 3000);
+})();
+</script>
+<script>
+(function() {
+  var style = document.createElement('style');
+  style.textContent = [
+    '#v4-logout-btn{position:fixed;bottom:16px;right:16px;z-index:99999;background:rgba(230,57,70,0.9);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-family:Inter,-apple-system,sans-serif;font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 12px rgba(230,57,70,0.25);-webkit-font-smoothing:antialiased}',
+    '#v4-logout-btn:hover{background:#d32d3a;transform:translateY(-1px);box-shadow:0 6px 20px rgba(230,57,70,0.35)}',
+    '#v4-logout-btn:active{transform:translateY(0)}'
+  ].join('');
+  document.head.appendChild(style);
+  var btn = document.createElement('button');
+  btn.id = 'v4-logout-btn';
+  btn.textContent = 'Sair';
+  btn.title = 'Desconectar e trocar de usuário';
+  btn.addEventListener('click', function() { window.location.href = '/logout'; });
+  document.addEventListener('DOMContentLoaded', function() { document.body.appendChild(btn); });
+  setTimeout(function() { if (!document.body.contains(btn)) document.body.appendChild(btn); }, 1000);
+})();
+</script>
+</body>`;
+        body = body.replace('</body>', inject);
+      }
+
+      delete proxyRes.headers['content-encoding'];
+      const outBuf = Buffer.from(body, 'utf-8');
+      proxyRes.headers['content-length'] = outBuf.length;
+      res.writeHead(proxyRes.statusCode, proxyRes.headers);
+      res.end(outBuf);
+    });
   },
   onError: (err, req, res) => {
     if (res.writeHead) {

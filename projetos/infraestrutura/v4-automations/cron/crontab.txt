@@ -1,0 +1,13 @@
+# V4 Automations — Squad Mata Leão
+# Referência dos crons. Instalado automaticamente via: python setup/install_cron.py
+#
+# AGENDA:
+# Domingo 20h    → Briefing do Comitê P&EG (Coordenador + AM recebem por email)
+# Quinta  7h     → Análise de performance da semana (GT + AM recebem por email)
+# Quinta  8h     → Atualização de OKRs com dados do GT (AM recebe por email)
+# Sexta   16h    → Checklist de conformidade S/N (Coordenador recebe por email)
+# Dia 1   8h     → Envio de pesquisa NPS/CSAT para clientes (AM recebe confirmação)
+#
+# Para verificar crons ativos: crontab -l
+# Para remover todos: crontab -r
+# Para editar: crontab -e

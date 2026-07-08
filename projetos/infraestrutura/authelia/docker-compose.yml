@@ -1,0 +1,18 @@
+services:
+  authelia:
+    build: .
+    container_name: authelia
+    restart: unless-stopped
+    networks:
+      - dokploy-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=dokploy-network"
+      - "traefik.http.routers.authelia.rule=Host(\`auth.fvmarketing.com.br\`)"
+      - "traefik.http.services.authelia.loadbalancer.server.port=9091"
+      - "traefik.http.routers.authelia.tls=true"
+      - "traefik.http.routers.authelia.tls.certresolver=letsencrypt"
+
+networks:
+  dokploy-network:
+    external: true
