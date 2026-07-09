@@ -1,56 +1,132 @@
 model_list:
+  # ─── Modelos Free (via ZenCode / OpenCode) ───
   - model_name: deepseek-v4-flash-free
     litellm_params:
-      model: openai/deepseek-chat
+      model: openai/deepseek-v4-flash-free
+      api_key: ${ZENCODE_API_KEY}
+      api_base: https://opencode.ai/zen/v1
+      rpm: 200
+      max_tokens: 128000
+
+  - model_name: nemotron-3-ultra-free
+    litellm_params:
+      model: openai/nemotron-3-ultra-free
+      api_key: ${ZENCODE_API_KEY}
+      api_base: https://opencode.ai/zen/v1
+      rpm: 200
+      max_tokens: 128000
+
+  - model_name: mimo-v2.5-free
+    litellm_params:
+      model: openai/mimo-v2.5-free
+      api_key: ${ZENCODE_API_KEY}
+      api_base: https://opencode.ai/zen/v1
+      rpm: 200
+      max_tokens: 128000
+
+  - model_name: north-mini-code-free
+    litellm_params:
+      model: openai/north-mini-code-free
+      api_key: ${ZENCODE_API_KEY}
+      api_base: https://opencode.ai/zen/v1
+      rpm: 200
+      max_tokens: 128000
+
+  - model_name: big-pickle
+    litellm_params:
+      model: openai/big-pickle
+      api_key: ${ZENCODE_API_KEY}
+      api_base: https://opencode.ai/zen/v1
+      rpm: 200
+      max_tokens: 128000
+
+  # ─── Aliases ───
+  # "Sofia AI Daily" usa o modelo free padrão
+  - model_name: sofia-daily
+    litellm_params:
+      model: openai/deepseek-v4-flash-free
+      api_key: ${ZENCODE_API_KEY}
+      api_base: https://opencode.ai/zen/v1
+      rpm: 200
+      max_tokens: 128000
+
+  # ─── Modelos Pagos (opcionais via LiteLLM, precisam de API Key própria) ───
+  - model_name: deepseek-v4-flash
+    litellm_params:
+      model: openai/deepseek-v4-flash
       api_key: ${DEEPSEEK_API_KEY}
       api_base: https://api.deepseek.com/v1
       rpm: 100
       max_tokens: 128000
 
-  - model_name: gemini-2.5-flash-free
+  - model_name: deepseek-v4-pro
+    litellm_params:
+      model: openai/deepseek-v4-pro
+      api_key: ${DEEPSEEK_API_KEY}
+      api_base: https://api.deepseek.com/v1
+      rpm: 50
+      max_tokens: 128000
+
+  - model_name: claude-sonnet-5
+    litellm_params:
+      model: anthropic/claude-sonnet-5-20260514
+      api_key: ${ANTHROPIC_API_KEY}
+      rpm: 50
+      max_tokens: 8192
+
+  - model_name: claude-opus-4-8
+    litellm_params:
+      model: anthropic/claude-opus-4-8-20260603
+      api_key: ${ANTHROPIC_API_KEY}
+      rpm: 20
+      max_tokens: 8192
+
+  - model_name: claude-haiku-4-5
+    litellm_params:
+      model: anthropic/claude-haiku-4-5-20260415
+      api_key: ${ANTHROPIC_API_KEY}
+      rpm: 100
+      max_tokens: 8192
+
+  - model_name: gpt-5.4
+    litellm_params:
+      model: openai/gpt-5.4-20260609
+      api_key: ${OPENAI_API_KEY}
+      rpm: 30
+      max_tokens: 32000
+
+  - model_name: gpt-5.4-mini
+    litellm_params:
+      model: openai/gpt-5.4-mini-20260609
+      api_key: ${OPENAI_API_KEY}
+      rpm: 100
+      max_tokens: 32000
+
+  - model_name: gpt-5.5
+    litellm_params:
+      model: openai/gpt-5.5-20260801
+      api_key: ${OPENAI_API_KEY}
+      rpm: 20
+      max_tokens: 32000
+
+  - model_name: gemini-3.5-flash
+    litellm_params:
+      model: gemini/gemini-3.5-flash
+      api_key: ${GEMINI_API_KEY}
+      rpm: 30
+      max_tokens: 1048576
+
+  - model_name: gemini-2.5-flash
     litellm_params:
       model: gemini/gemini-2.5-flash
       api_key: ${GEMINI_API_KEY}
       rpm: 30
       max_tokens: 1048576
 
-  - model_name: claude-sonnet-4
-    litellm_params:
-      model: anthropic/claude-sonnet-4-20250514
-      api_key: ${ANTHROPIC_API_KEY}
-      rpm: 50
-      max_tokens: 8192
-
-  - model_name: gpt-4o-mini
-    litellm_params:
-      model: openai/gpt-4o-mini
-      api_key: ${OPENAI_API_KEY}
-      rpm: 100
-      max_tokens: 16000
-
-  - model_name: gpt-4o
-    litellm_params:
-      model: openai/gpt-4o
-      api_key: ${OPENAI_API_KEY}
-      rpm: 30
-      max_tokens: 16000
-
-  - model_name: sofia-daily
-    litellm_params:
-      model: openrouter/auto
-      api_key: ${OPENROUTER_API_KEY}
-      api_base: https://openrouter.ai/api/v1
-      rpm: 100
-      max_tokens: 128000
-
 general_settings:
   master_key: ${LITELLM_MASTER_KEY}
-  alerting: ["slack"]
-  database_url: ${LITELLM_DATABASE_URL}  # PostgreSQL p/ persistir teams, keys, uso
 
 router_settings:
-  routing_strategy: usage-based  # distribui requests entre modelos同等
+  routing_strategy: usage-based
   allowed_fails: 3
   num_retries: 1
-  fallbacks:
-    - gpt-4o-mini
