@@ -1,0 +1,85 @@
+model_list:
+  # ═══════════════════════════════════════════
+  # ZENCODE FREE MODELS
+  # ═══════════════════════════════════════════
+  - model_name: deepseek-v4-flash-free
+    litellm_params:
+      model: openai/deepseek-v4-flash-free
+      api_key: os.environ/ZENCODE_API_KEY
+      api_base: https://opencode.ai/zen/v1
+  - model_name: nemotron-3-ultra-free
+    litellm_params:
+      model: openai/nemotron-3-ultra-free
+      api_key: os.environ/ZENCODE_API_KEY
+      api_base: https://opencode.ai/zen/v1
+  - model_name: mimo-v2.5-free
+    litellm_params:
+      model: openai/mimo-v2.5-free
+      api_key: os.environ/ZENCODE_API_KEY
+      api_base: https://opencode.ai/zen/v1
+  - model_name: north-mini-code-free
+    litellm_params:
+      model: openai/north-mini-code-free
+      api_key: os.environ/ZENCODE_API_KEY
+      api_base: https://opencode.ai/zen/v1
+  - model_name: big-pickle
+    litellm_params:
+      model: openai/big-pickle
+      api_key: os.environ/ZENCODE_API_KEY
+      api_base: https://opencode.ai/zen/v1
+
+  # ═══════════════════════════════════════════
+  # PROVIDERS DIRETOS (futuro)
+  # ═══════════════════════════════════════════
+
+  # Anthropic
+  - model_name: claude-sonnet-5
+    litellm_params:
+      model: anthropic/claude-sonnet-5
+      api_key: os.environ/ANTHROPIC_API_KEY
+  - model_name: claude-opus-4-8
+    litellm_params:
+      model: anthropic/claude-opus-4-8
+      api_key: os.environ/ANTHROPIC_API_KEY
+  - model_name: claude-haiku-4-5
+    litellm_params:
+      model: anthropic/claude-haiku-4-5
+      api_key: os.environ/ANTHROPIC_API_KEY
+
+  # OpenAI
+  - model_name: gpt-5.5
+    litellm_params:
+      model: openai/gpt-5.5
+      api_key: os.environ/OPENAI_API_KEY
+  - model_name: gpt-5.4
+    litellm_params:
+      model: openai/gpt-5.4
+      api_key: os.environ/OPENAI_API_KEY
+  - model_name: gpt-5.4-mini
+    litellm_params:
+      model: openai/gpt-5.4-mini
+      api_key: os.environ/OPENAI_API_KEY
+
+  # DeepSeek
+  - model_name: deepseek-v4-pro
+    litellm_params:
+      model: deepseek/deepseek-v4-pro
+      api_key: os.environ/DEEPSEEK_API_KEY
+  - model_name: deepseek-v4-flash
+    litellm_params:
+      model: deepseek/deepseek-v4-flash
+      api_key: os.environ/DEEPSEEK_API_KEY
+
+  # Gemini
+  - model_name: gemini-3.5-flash
+    litellm_params:
+      model: gemini/gemini-3.5-flash
+      api_key: os.environ/GEMINI_API_KEY
+  - model_name: gemini-2.5-flash
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: os.environ/GEMINI_API_KEY
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+  database_url: os.environ/DATABASE_URL
