@@ -1,10 +1,9 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "model": "litellm/sofia-daily",
-  "small_model": "opencode/deepseek-v4-flash-free",
+  "small_model": "litellm/deepseek-v4-flash-free",
   "enabled_providers": [
-    "litellm",
-    "opencode"
+    "litellm"
   ],
   "provider": {
     "litellm": {
@@ -63,13 +62,6 @@
         },
         "gemini-2.5-flash": {
           "name": "Gemini 2.5 Flash"
-        }
-      }
-    },
-    "opencode": {
-      "models": {
-        "deepseek-v4-flash-free": {
-          "name": "Sofia AI Basic"
         }
       }
     }
