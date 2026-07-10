@@ -288,16 +288,21 @@ const server = app.listen(PORT, () => {
   }, 3000);
 });
 
+const wsProxyInstance = createProxyMiddleware({
+  changeOrigin: true,
+  ws: true,
+  router: (req) => {
+    const cookies = parseCookies(req.headers.cookie);
+    const username = cookies.opencode_user;
+    if (!username) return null;
+    const user = users.find(u => u.username === username);
+    return user ? `http://${user.opencodeHost}:${user.opencodePort}` : null;
+  }
+});
+
 server.on('upgrade', (req, socket, head) => {
-  const cookies = parseCookies(req.headers.cookie);
-  const username = cookies.opencode_user;
-  if (!username) { socket.destroy(); return; }
-  const user = users.find(u => u.username === username);
-  if (!user) { socket.destroy(); return; }
-  const target = `http://${user.opencodeHost}:${user.opencodePort}`;
-  const wsProxy = createProxyMiddleware({ target, changeOrigin: true, ws: true });
   if (BASIC_AUTH) req.headers['authorization'] = `Basic ${BASIC_AUTH}`;
-  wsProxy.upgrade(req, socket, head);
+  wsProxyInstance.upgrade(req, socket, head);
 });
 
 function parseCookies(cookieHeader) {

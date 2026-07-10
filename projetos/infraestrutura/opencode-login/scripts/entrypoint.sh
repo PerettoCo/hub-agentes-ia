@@ -12,7 +12,8 @@ if [ -n "$GITHUB_TOKEN" ]; then
   fi
 fi
 
-echo "[entrypoint] Resetting workspace preference..."
-rm -f /home/node/.local/share/opencode/state.json /home/node/.local/share/opencode/projects.json /home/node/.local/share/opencode/workspace* 2>/dev/null || true
+# Comentado: resetar estado força reindexação lenta a cada restart
+# echo "[entrypoint] Resetting workspace preference..."
+# rm -f /home/node/.local/share/opencode/state.json /home/node/.local/share/opencode/projects.json /home/node/.local/share/opencode/workspace* 2>/dev/null || true
 
 exec "$@"

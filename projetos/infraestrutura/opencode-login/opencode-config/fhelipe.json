@@ -10,13 +10,10 @@
       "name": "Sofia AI",
       "type": "openai-compatible",
       "apiKey": "{env:LITELLM_VIRTUAL_KEY}",
-      "baseURL": "https://litellm.fvmarketing.com.br/v1",
+      "baseURL": "http://litellm:4000/v1",
       "models": {
         "sofia-daily": {
           "name": "Sofia AI Daily ♺"
-        },
-        "claude-sonnet-4": {
-          "name": "Sofia AI Complex"
         },
         "deepseek-v4-flash-free": {
           "name": "DeepSeek V4 Flash (Free)"
