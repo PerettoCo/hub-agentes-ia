@@ -33,6 +33,9 @@
         "big-pickle": {
           "name": "Big Pickle (Free)"
         },
+        "hy3-free": {
+          "name": "HY3 Free"
+        },
         "deepseek-v4-flash": {
           "name": "DeepSeek V4 Flash"
         },
