@@ -1,69 +1,13 @@
 {
-  "$schema": "https://opencode.ai/config.json",
-  "model": "litellm/sofia-daily",
+  "modelProvider": "litellm",
+  "model": "litellm/deepseek-v4-flash-free",
   "small_model": "litellm/deepseek-v4-flash-free",
-  "enabled_providers": [
-    "litellm"
-  ],
-  "provider": {
+  "customProviders": {
     "litellm": {
-      "name": "Sofia AI",
+      "name": "Sofia AI (LiteLLM)",
       "type": "openai-compatible",
       "apiKey": "{env:LITELLM_VIRTUAL_KEY}",
-      "baseURL": "http://litellm:4000/v1",
-      "models": {
-        "sofia-daily": {
-          "name": "Sofia AI Daily ♺"
-        },
-        "deepseek-v4-flash-free": {
-          "name": "DeepSeek V4 Flash (Free)"
-        },
-        "nemotron-3-ultra-free": {
-          "name": "Nemotron 3 Ultra (Free)"
-        },
-        "mimo-v2.5-free": {
-          "name": "MiMo V2.5 (Free)"
-        },
-        "north-mini-code-free": {
-          "name": "North Mini Code (Free)"
-        },
-        "big-pickle": {
-          "name": "Big Pickle (Free)"
-        },
-        "hy3-free": {
-          "name": "HY3 Free"
-        },
-        "deepseek-v4-flash": {
-          "name": "DeepSeek V4 Flash"
-        },
-        "deepseek-v4-pro": {
-          "name": "DeepSeek V4 Pro"
-        },
-        "claude-sonnet-5": {
-          "name": "Claude Sonnet 5"
-        },
-        "claude-opus-4-8": {
-          "name": "Claude Opus 4.8"
-        },
-        "claude-haiku-4-5": {
-          "name": "Claude Haiku 4.5"
-        },
-        "gpt-5.4": {
-          "name": "GPT-5.4"
-        },
-        "gpt-5.4-mini": {
-          "name": "GPT-5.4 Mini"
-        },
-        "gpt-5.5": {
-          "name": "GPT-5.5"
-        },
-        "gemini-3.5-flash": {
-          "name": "Gemini 3.5 Flash"
-        },
-        "gemini-2.5-flash": {
-          "name": "Gemini 2.5 Flash"
-        }
-      }
+      "baseURL": "http://litellm:4000/v1"
     }
   },
   "permission": {
