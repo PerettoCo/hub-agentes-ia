@@ -7,9 +7,14 @@
     "litellm": {
       "name": "Sofia AI (LiteLLM)",
       "npm": "@ai-sdk/openai-compatible",
+      "apiKey": "{env:LITELLM_VIRTUAL_KEY}",
       "options": {
-        "apiKey": "{env:LITELLM_VIRTUAL_KEY}",
         "baseURL": "http://litellm:4000/v1"
+      },
+      "models": {
+        "deepseek-v4-flash-free": {
+          "name": "DeepSeek V4 Flash Free"
+        }
       }
     }
   },

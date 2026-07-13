@@ -11,8 +11,8 @@
     "litellm": {
       "name": "Sofia AI",
       "npm": "@ai-sdk/openai-compatible",
+      "apiKey": "{env:LITELLM_VIRTUAL_KEY}",
       "options": {
-        "apiKey": "{env:LITELLM_VIRTUAL_KEY}",
         "baseURL": "http://litellm:4000/v1"
       },
       "models": {
