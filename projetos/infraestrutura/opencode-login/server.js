@@ -1,10 +1,9 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
-const fs = require('fs');
+const http = require('http');
 const bcrypt = require('bcryptjs');
 const rateLimit = require('express-rate-limit');
-const zlib = require('zlib');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
@@ -160,6 +159,36 @@ app.post('/api/logout', (req, res) => {
 app.use((req, res, next) => {
   if (!req.session.user) return res.redirect('/login');
   next();
+});
+
+// SSE direct proxy — bypasses http-proxy-middleware to avoid buffering/compression issues
+app.use(['/event', '/global/event'], (req, res, next) => {
+  if (req.method !== 'GET') return next();
+
+  const user = users.find(u => u.username === req.session?.user?.username);
+  if (!user) return res.status(502).end('No target');
+
+  const target = `http://${user.opencodeHost}:${user.opencodePort}${req.originalUrl}`;
+  console.log(`[sse] ${req.method} ${req.path} -> ${target}`);
+
+  const proxyReq = http.get(target, {
+    headers: {
+      'Authorization': `Basic ${BASIC_AUTH}`,
+      'Accept': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive'
+    }
+  }, (proxyRes) => {
+    res.writeHead(proxyRes.statusCode, { ...proxyRes.headers });
+    proxyRes.pipe(res);
+  });
+
+  proxyReq.on('error', (err) => {
+    console.error('[sse] ERROR:', err.message);
+    if (!res.headersSent) res.writeHead(502).end('SSE proxy error');
+  });
+
+  req.on('close', () => proxyReq.destroy());
 });
 
 const opencodeProxy = createProxyMiddleware({
