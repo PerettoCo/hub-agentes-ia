@@ -3,6 +3,7 @@ const session = require('express-session');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 const rateLimit = require('express-rate-limit');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 app.set('trust proxy', 1);
@@ -11,20 +12,40 @@ const PORT = process.env.PORT || 3000;
 const SESSION_SECRET = process.env.SESSION_SECRET || 'CHAVE_SESSAO_32CARACTERES_AQUI';
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
+const OPENCODE_USERNAME = process.env.OPENCODE_SERVER_USERNAME || 'opencode';
+const OPENCODE_PASSWORD = process.env.OPENCODE_SERVER_PASSWORD || '';
+const COOKIE_DOMAIN = '.fvmarketing.com.br';
+
+const AUTH_HEADER = 'Basic ' + Buffer.from(`${OPENCODE_USERNAME}:${OPENCODE_PASSWORD}`).toString('base64');
 
 const PUBLIC_URL = process.env.PUBLIC_URL || 'https://ia.fvmarketing.com.br';
 
-// Mapas de upstreams por username
-const TARGETS = {
-  'marcos.luciano': { upstream: 'http://opencode-marcos:4096', redirect: 'https://marcos.fvmarketing.com.br' },
-  'fhelipe.aranha': { upstream: 'http://opencode-fhelipe:4096', redirect: 'https://fhelipe.fvmarketing.com.br' },
-  'lucas.nunes': { upstream: 'http://opencode-lucasnunes:4096', redirect: 'https://lucasnunes.fvmarketing.com.br' },
-  'csm1': { upstream: 'http://opencode-csm1:4096', redirect: 'https://csm1.fvmarketing.com.br' },
+const HOST_MAP = {
+  'marcos.fvmarketing.com.br': { upstream: 'http://opencode-marcos:4096', user: 'marcos.luciano' },
+  'fhelipe.fvmarketing.com.br': { upstream: 'http://opencode-fhelipe:4096', user: 'fhelipe.aranha' },
+  'lucasnunes.fvmarketing.com.br': { upstream: 'http://opencode-lucasnunes:4096', user: 'lucas.nunes' },
+  'csm1.fvmarketing.com.br': { upstream: 'http://opencode-csm1:4096', user: 'csm1' },
 };
-const DEFAULT_TARGET = { upstream: 'http://opencode-marcos:4096', redirect: 'https://marcos.fvmarketing.com.br' };
+
+const TARGETS = {};
+for (const [host, cfg] of Object.entries(HOST_MAP)) {
+  TARGETS[cfg.user] = { upstream: cfg.upstream, redirect: `https://${host}` };
+}
+const DEFAULT_TARGET = TARGETS['marcos.luciano'];
 
 function getTarget(username) {
   return TARGETS[username] || DEFAULT_TARGET;
+}
+
+function getHostConfig(host) {
+  if (!host) return null;
+  return HOST_MAP[host.toLowerCase()] || null;
+}
+
+function isAuthHost(host) {
+  if (!host) return true;
+  const h = host.toLowerCase();
+  return h === 'ia.fvmarketing.com.br' || !HOST_MAP[h];
 }
 
 let users = [];
@@ -57,7 +78,6 @@ async function loadUsers() {
 }
 
 loadUsers();
-// Recarrega a cada 5 minutos
 setInterval(loadUsers, 5 * 60 * 1000);
 
 app.use(express.urlencoded({ extended: true }));
@@ -70,7 +90,8 @@ app.use(session({
     secure: process.env.NODE_ENV === 'production',
     maxAge: 24 * 60 * 60 * 1000,
     httpOnly: true,
-    sameSite: 'lax'
+    sameSite: 'lax',
+    domain: COOKIE_DOMAIN,
   }
 }));
 
@@ -82,34 +103,17 @@ const loginLimiter = rateLimit({
 
 app.use('/static', express.static(path.join(__dirname, 'public')));
 
-// ─── Dashboard (login OK) ───
-app.get('/', (req, res) => {
-  if (!req.session.user) return res.redirect('/login');
-  res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
-});
-
-// ─── Auth check endpoint (usado pelo nginx auth_request, legado) ───
-app.get('/auth-check', (req, res) => {
-  if (!req.session.user) return res.status(401).end();
-  const target = getTarget(req.session.user.username);
-  res.set('X-Opencode-Target', target.upstream);
-  res.end();
-});
-
-// ─── Login page ───
 app.get('/login', (req, res) => {
   if (req.session.user) return res.redirect('/');
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 app.get('/login.html', (req, res) => res.redirect('/login'));
 
-// ─── API: me ───
 app.get('/api/me', (req, res) => {
   if (!req.session.user) return res.status(401).json({ error: 'not authenticated' });
   res.json(req.session.user);
 });
 
-// ─── API: targets (para o dashboard) ───
 app.get('/api/targets', (req, res) => {
   if (!req.session.user) return res.status(401).json({ error: 'not authenticated' });
   const target = getTarget(req.session.user.username);
@@ -120,7 +124,6 @@ app.get('/api/targets', (req, res) => {
   });
 });
 
-// ─── API: login ───
 app.post('/api/login', loginLimiter, async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -140,11 +143,11 @@ app.post('/api/login', loginLimiter, async (req, res) => {
     email: user.email,
     squad: user.squad,
   };
+  req.session.save();
   const target = getTarget(user.username);
   res.json({ success: true, user: req.session.user, redirectUrl: target.redirect });
 });
 
-// ─── API: logout ───
 app.post('/api/logout', (req, res) => {
   req.session.destroy();
   res.json({ success: true });
@@ -155,6 +158,72 @@ app.get('/logout', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'logout.html'));
 });
 
+app.get('/', (req, res) => {
+  const host = req.headers.host;
+  if (isAuthHost(host)) {
+    if (!req.session.user) return res.redirect('/login');
+    return res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
+  }
+  if (!req.session.user) {
+    return res.sendFile(path.join(__dirname, 'public', 'login.html'));
+  }
+  const config = getHostConfig(host);
+  if (config && req.session.user.username !== config.user) {
+    const target = getTarget(req.session.user.username);
+    return res.redirect(target.redirect);
+  }
+  proxyRequest(req, res);
+});
+
+const opencodeProxy = createProxyMiddleware({
+  changeOrigin: true,
+  ws: true,
+  router: (req) => {
+    const config = getHostConfig(req.headers.host);
+    return config ? config.upstream : null;
+  },
+  on: {
+    proxyReq: (proxyReq, req) => {
+      proxyReq.setHeader('Authorization', AUTH_HEADER);
+    },
+    error: (err, req, res) => {
+      console.error('[proxy]', err.message);
+      if (!res.headersSent) res.status(502).send('Upstream unavailable');
+    },
+  },
+});
+
+function proxyRequest(req, res) {
+  const config = getHostConfig(req.headers.host);
+  if (!config) {
+    return res.redirect('https://ia.fvmarketing.com.br');
+  }
+  if (!req.session.user) {
+    return res.sendFile(path.join(__dirname, 'public', 'login.html'));
+  }
+  opencodeProxy(req, res, (err) => {
+    if (err) {
+      console.error('[proxy] fallback error:', err.message);
+      if (!res.headersSent) res.status(502).send('Proxy error');
+    }
+  });
+}
+
+app.use((req, res) => {
+  proxyRequest(req, res);
+});
+
 const server = app.listen(PORT, () => {
   console.log(`[auth] listening on 0.0.0.0:${PORT}`);
+  console.log(`[auth] cookie domain: ${COOKIE_DOMAIN}`);
+  console.log(`[auth] proxy targets: ${Object.keys(HOST_MAP).join(', ')}`);
+});
+
+server.on('upgrade', (req, socket, head) => {
+  const config = getHostConfig(req.headers.host);
+  if (!config) {
+    socket.destroy();
+    return;
+  }
+  opencodeProxy.upgrade(req, socket, head);
 });

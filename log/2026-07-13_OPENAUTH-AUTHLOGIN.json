@@ -1,0 +1,37 @@
+{
+  "savedAt": "2026-07-13T12:00:00.000Z",
+  "summary": {
+    "title": "OpenAuth — Login + Subdomínios (Alt 3)",
+    "problem": "OpenCode web UI não funciona atrás de proxy Node.js (SSE quebra).",
+    "decision": "Implementada Alternativa 3: Login page + subdomínios",
+    "changes": [
+      "server.js: redirect pós-login para subdomínio do usuário + /api/targets + GET / dashboard",
+      "login.html: redirect muda de /?directory para data.redirectUrl",
+      "docker-compose.agentes.yml: remove opencode-gateway, expõe opencode-auth:3000",
+      "Renomeado csm2 → lucas.nunes (opencode-lucasnunes, lucasnunes.fvmarketing.com.br)",
+      "Renomeado csm3 → csm1 (opencode-csm1, csm1.fvmarketing.com.br)",
+      "PUBLIC_URL alterado para https://ia.fvmarketing.com.br"
+    ],
+    "current_state": "Código pronto. Aguardando subdomínios no Dokploy e deploy.",
+    "next_steps": [
+      "Criar subdomínios no Dokploy: ia, marcos, fhelipe, lucasnunes, csm1",
+      "Fazer deploy (git push)",
+      "Testar fluxo completo"
+    ]
+  },
+  "commands": {
+    "deploy": "git push hub-agentes infra-unify",
+    "testar_login": "curl -v http://localhost:3000",
+    "logs_auth": "docker logs authopencode-authlogin-ippaei-opencode-auth-1 --tail 50",
+    "testar_marcos_direto": "curl -u opencode:SENHA http://localhost:4090/api/models"
+  },
+  "files_changed": [
+    "docker-compose.agentes.yml",
+    "projetos/infraestrutura/opencode-login/server.js",
+    "projetos/infraestrutura/opencode-login/public/login.html",
+    "projetos/infraestrutura/opencode-login/opencode-config/lucasnunes.json (renomeado de csm2.json)",
+    "projetos/infraestrutura/opencode-login/opencode-config/csm1.json (renomeado de csm3.json)",
+    "projetos/infraestrutura/opencode-login/.env.example",
+    "projetos/infraestrutura/OPENAUTH-DOC.md"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "savedAt": "2026-07-13T16:30:00.000Z",
+  "summary": {
+    "title": "Deploy OpenAuth — Porta 80 com authlogin",
+    "problem": "OpenCode instances expostas em portas individuais (4090-4093). Migrar para tudo em porta 80 via nginx gateway + authlogin.",
+    "decision": "Removidas portas individuais dos OpenCode containers. Gateway em 80 como único entry point. Authlogin roteia por Host header.",
+    "changes": [
+      "docker-compose.agentes.yml: removidas ports 4090-4093 de marcos, fhelipe, lucasnunes, csm1",
+      "docker-compose.agentes.yml: adicionado dokploy-network ao opencode-lucasnunes (estava faltando)",
+      "opencode-gateway na porta 80 como único ponto de entrada"
+    ],
+    "current_state": "Código pronto para deploy. Nginx gateway roteia por Host header. Authlogin lida com autenticação.",
+    "next_steps": [
+      "Fazer push para o repo",
+      "Dokploy: criar/mapear subdomínios (ia, marcos, fhelipe, lucasnunes, csm1)",
+      "Verificar .env com SESSION_SECRET, SUPABASE_URL, SUPABASE_SERVICE_KEY",
+      "Deploy no Dokploy",
+      "Testar fluxo: login em ia.fvmarketing.com.br → redirect para subdomínio"
+    ]
+  },
+  "commands": {
+    "deploy": "git add . && git commit -m 'feat: remove portas individuais, tudo via gateway :80' && git push",
+    "logs_gateway": "docker logs $(docker ps -q -f name=gateway) --tail 50",
+    "logs_auth": "docker logs $(docker ps -q -f name=auth) --tail 50",
+    "test_gateway": "curl -v http://localhost:80",
+    "test_roteamento": "curl -v -H 'Host: marcos.fvmarketing.com.br' http://localhost:80"
+  },
+  "files_changed": [
+    "docker-compose.agentes.yml"
+  ],
+  "ambiente": {
+    "gateway_port": "80",
+    "auth_internal": "opencode-auth:3000",
+    "marcos_internal": "opencode-marcos:4096",
+    "fhelipe_internal": "opencode-fhelipe:4096",
+    "lucasnunes_internal": "opencode-lucasnunes:4096",
+    "csm1_internal": "opencode-csm1:4096"
+  }
+}
