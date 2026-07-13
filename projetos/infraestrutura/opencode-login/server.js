@@ -99,6 +99,33 @@ app.get('/login', (req, res) => {
 });
 app.get('/login.html', (req, res) => res.redirect('/login'));
 
+// ─── Login via form POST (server-side redirect — mais robusto que fetch) ───
+app.post('/login', loginLimiter, async (req, res) => {
+  const { username, password, redirect } = req.body;
+  if (!username || !password) {
+    return res.redirect('/login?error=' + encodeURIComponent('Preencha todos os campos'));
+  }
+  const user = users.find(u => u.username === username);
+  if (!user) {
+    return res.redirect('/login?error=' + encodeURIComponent('Credenciais inválidas'));
+  }
+  const match = await bcrypt.compare(password, user.passwordHash);
+  if (!match) {
+    return res.redirect('/login?error=' + encodeURIComponent('Credenciais inválidas'));
+  }
+  req.session.user = {
+    username: user.username,
+    name: user.name,
+    email: user.email,
+    squad: user.squad,
+  };
+  req.session.save((err) => {
+    if (err) console.error('[auth] session save error:', err);
+    const dest = redirect || getTarget(user.username).redirect;
+    res.redirect(dest);
+  });
+});
+
 // ─── API: me ───
 app.get('/api/me', (req, res) => {
   if (!req.session.user) return res.status(401).json({ error: 'not authenticated' });
