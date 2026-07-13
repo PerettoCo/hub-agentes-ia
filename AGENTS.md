@@ -121,3 +121,21 @@ Do not reconstruct `workflowsPath` from environment name/id, instance identifier
 
 Never write `n8nac-config.json`, `~/.n8n-manager`, or n8n-manager secret files by hand.
 <!-- n8n-as-code-end -->
+
+## Sistema de Log de Sessões
+
+Toda sessão significativa deve ser salva em `log/` no raiz do projeto.
+
+### Comandos
+- **`RETOMAR <projeto>`** — Carrega o contexto da última sessão salva em `log/` relacionada ao projeto. Lê o JSON, extrai objetivo, descobertas, próximo passo e comandos úteis.
+- **`/session-save`** — Exporta sessão atual para `log/YYYY-MM-DD_HH-MM-SS_TITULO.json`
+- **`/session-list`** — Lista sessões salvas em `log/`
+
+### Regras
+1. Ao encontrar `RETOMAR <projeto>`, carregue automaticamente a última sessão de `log/` que contenha `<projeto>` no título ou summary.
+2. Apresente: objetivo, descobertas principais, estado atual, próximo passo, comandos úteis.
+3 Sempre salve a sessão ao final (`log/<data>_<projeto>.json`).
+4. Arquivos em `log/` são gitignored.
+
+### Sessões salvas
+- `log/2026-07-13_04-00-00_OPENAUTH.json` — Infraestrutura de proxy/autenticação OpenCode
