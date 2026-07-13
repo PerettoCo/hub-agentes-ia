@@ -11,8 +11,27 @@ networks:
     external: true
 
 services:
+  # ─── Nginx Gateway (proxy reverso, roteia por Host header) ───
+  # Dokploy aponta TODOS os dominios para este container (porta 80)
+  # Nginx distribui baseado no Host: ia → auth, marcos → opencode-marcos, etc.
+  opencode-gateway:
+    build:
+      context: projetos/infraestrutura/opencode-gateway
+      dockerfile: Dockerfile
+    ports:
+      - '80'
+    networks:
+      - v4-infra
+      - dokploy-network
+    restart: unless-stopped
+    depends_on:
+      - opencode-auth
+      - opencode-marcos
+      - opencode-fhelipe
+      - opencode-lucasnunes
+      - opencode-csm1
+
   # ─── Auth Service (login via Supabase) ───
-  # Dokploy aponta ia.fvmarketing.com.br → este container (porta 3000)
   opencode-auth:
     build:
       context: projetos/infraestrutura/opencode-login
