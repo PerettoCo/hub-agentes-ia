@@ -17,8 +17,6 @@ services:
     build:
       context: projetos/infraestrutura/opencode-login
       dockerfile: Dockerfile
-    ports:
-      - '3000:3000'
     environment:
       SESSION_SECRET: ${SESSION_SECRET:-CHAVE_SESSAO_32CARACTERES_AQUI}
       SUPABASE_URL: ${SUPABASE_URL}
