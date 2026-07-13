@@ -2,7 +2,7 @@ FROM node:20-bookworm-slim
 
 RUN apt-get update && apt-get install -y git xdg-utils && rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g opencode-ai@latest
+RUN npm install -g opencode-ai@latest @ai-sdk/openai-compatible
 
 RUN mkdir -p /home/node/.config/opencode /home/node/.local/share/opencode /workspace && chown -R node:node /home/node/.config /home/node/.local /workspace
 
