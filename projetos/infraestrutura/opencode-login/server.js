@@ -1,268 +1,101 @@
-const express = require('express');
-const session = require('express-session');
-const path = require('path');
 const http = require('http');
-const bcrypt = require('bcryptjs');
-const rateLimit = require('express-rate-limit');
-const { createProxyMiddleware } = require('http-proxy-middleware');
 
-const app = express();
-app.set('trust proxy', 1);
-const PORT = process.env.PORT || 3000;
+const OPENCODE_HOST = process.env.OPENCODE_HOST || 'opencode-marcos';
+const OPENCODE_PORT = parseInt(process.env.OPENCODE_PORT || '4096', 10);
+const PORT = parseInt(process.env.PORT || '3000', 10);
+const TARGET = `http://${OPENCODE_HOST}:${OPENCODE_PORT}`;
 
-const SESSION_SECRET = process.env.SESSION_SECRET || 'CHAVE_SESSAO_32CARACTERES_AQUI';
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
-const OPENCODE_SERVER_USERNAME = process.env.OPENCODE_SERVER_USERNAME || 'opencode';
-const OPENCODE_SERVER_PASSWORD = process.env.OPENCODE_SERVER_PASSWORD || '';
-const BASIC_AUTH = Buffer.from(`${OPENCODE_SERVER_USERNAME}:${OPENCODE_SERVER_PASSWORD}`).toString('base64');
+const BASIC_AUTH = Buffer.from(
+  `${process.env.OPENCODE_SERVER_USERNAME || 'opencode'}:${process.env.OPENCODE_SERVER_PASSWORD || ''}`
+).toString('base64');
 
-let users = [];
-let usersLoaded = false;
+console.log(`[opencode-proxy] ${TARGET}`);
+console.log(`[opencode-proxy] basic-auth: ${!!BASIC_AUTH}`);
 
-async function loadUsers() {
-  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
-    console.error('[opencode-login] SUPABASE_URL or SUPABASE_SERVICE_KEY not set');
-    return;
-  }
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/users?select=*`, {
-      headers: {
-        'apikey': SUPABASE_SERVICE_KEY,
-        'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`
+const server = http.createServer((req, res) => {
+  console.log(`[proxy] ${req.method} ${req.url}`);
+
+  const headers = { ...req.headers };
+  headers.host = `${OPENCODE_HOST}:${OPENCODE_PORT}`;
+  if (BASIC_AUTH) headers.authorization = `Basic ${BASIC_AUTH}`;
+  headers.connection = 'keep-alive';
+  delete headers['proxy-connection'];
+
+  const proxyReq = http.request(
+    {
+      hostname: OPENCODE_HOST,
+      port: OPENCODE_PORT,
+      path: req.url,
+      method: req.method,
+      headers,
+    },
+    (proxyRes) => {
+      const outHeaders = { ...proxyRes.headers };
+      delete outHeaders['transfer-encoding'];
+      if (proxyRes.headers['content-type']?.includes('text/event-stream')) {
+        outHeaders['cache-control'] = 'no-cache';
+        outHeaders['connection'] = 'keep-alive';
+        outHeaders['x-accel-buffering'] = 'no';
+        console.log(`[proxy] SSE stream ${req.url}`);
       }
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const raw = await res.json();
-    users = raw.map(u => ({
-      username: u.username,
-      passwordHash: u.password_hash,
-      name: u.name,
-      email: u.email,
-      squad: u.squad,
-      opencodeHost: u.opencode_host,
-      opencodePort: u.opencode_port
-    }));
-    usersLoaded = true;
-    console.log(`[opencode-login] Loaded ${users.length} users from Supabase`);
-  } catch (e) {
-    console.error('[opencode-login] Failed to load users from Supabase:', e.message);
-  }
-}
-
-loadUsers();
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(session({
-  secret: SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    secure: process.env.NODE_ENV === 'production',
-    maxAge: 24 * 60 * 60 * 1000,
-    httpOnly: true,
-    sameSite: 'lax'
-  }
-}));
-
-const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 20,
-  message: { error: 'Muitas tentativas. Aguarde 15 minutos.' }
-});
-
-app.use('/static', express.static(path.join(__dirname, 'public')));
-
-app.get('/login', (req, res) => {
-  if (req.session.user) {
-    return res.send(`
-      <!DOCTYPE html><html lang="pt-BR">
-      <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-      <title>V4 Company · Hub de Agentes</title>
-      <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:Inter,system-ui,sans-serif;background:#0a0a0c;display:flex;align-items:center;justify-content:center;min-height:100vh;color:#fff}
-        .card{background:#161618;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:48px;text-align:center;max-width:400px}
-        .avatar{width:64px;height:64px;border-radius:50%;background:#e63946;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:700;margin:0 auto 16px}
-        h2{font-size:1.2rem;font-weight:600;margin-bottom:4px}
-        .sub{color:rgba(255,255,255,0.4);font-size:0.85rem;margin-bottom:24px}
-        .btn{display:inline-block;padding:12px 32px;background:#e63946;color:#fff;border:none;border-radius:10px;font-size:0.9rem;font-weight:600;cursor:pointer;transition:background 0.2s;text-decoration:none}
-        .btn:hover{background:#d32d3a}
-        .btn-sec{background:transparent;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);margin-top:12px;display:inline-block;padding:10px 24px;border-radius:10px;font-size:0.82rem;cursor:pointer;text-decoration:none}
-        .btn-sec:hover{border-color:rgba(255,255,255,0.2)}
-        .flex{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-      </style></head>
-      <body>
-        <div class="card">
-          <div class="avatar">${req.session.user.name.charAt(0).toUpperCase()}</div>
-          <h2>${req.session.user.name}</h2>
-          <div class="sub">${req.session.user.email || req.session.user.squad || req.session.user.username}</div>
-          <div class="flex">
-            <a href="/?directory=%2Fworkspace" class="btn">Acessar OpenCode</a>
-            <form action="/api/logout" method="POST" style="display:inline">
-              <button type="submit" class="btn-sec">Sair</button>
-            </form>
-          </div>
-        </div>
-      </body></html>
-    `);
-  }
-  res.sendFile(path.join(__dirname, 'public', 'login.html'));
-});
-app.get('/login.html', (req, res) => res.redirect('/login'));
-
-app.get('/api/me', (req, res) => {
-  if (!req.session.user) return res.status(401).json({ error: 'not authenticated' });
-  res.json(req.session.user);
-});
-
-app.post('/api/login', loginLimiter, async (req, res) => {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    return res.status(400).json({ error: 'Usuário e senha obrigatórios' });
-  }
-  const user = users.find(u => u.username === username);
-  if (!user) {
-    return res.status(401).json({ error: 'Credenciais inválidas' });
-  }
-  const match = await bcrypt.compare(password, user.passwordHash);
-  if (!match) {
-    return res.status(401).json({ error: 'Credenciais inválidas' });
-  }
-  req.session.user = {
-    username: user.username,
-    name: user.name,
-    email: user.email,
-    squad: user.squad,
-    opencodeHost: user.opencodeHost,
-    opencodePort: user.opencodePort
-  };
-  res.cookie('opencode_user', user.username, {
-    httpOnly: true, sameSite: 'lax',
-    maxAge: 24 * 60 * 60 * 1000
-  });
-  res.json({ success: true, user: req.session.user });
-});
-
-app.get('/logout', (req, res) => {
-  req.session.destroy();
-  res.clearCookie('opencode_user');
-  res.sendFile(path.join(__dirname, 'public', 'logout.html'));
-});
-app.post('/api/logout', (req, res) => {
-  req.session.destroy();
-  res.clearCookie('opencode_user');
-  res.redirect('/logout');
-});
-
-app.use((req, res, next) => {
-  if (!req.session.user) return res.redirect('/login');
-  next();
-});
-
-// SSE direct proxy — bypasses http-proxy-middleware to avoid buffering/compression issues
-app.use(['/event', '/global/event'], (req, res, next) => {
-  if (req.method !== 'GET') return next();
-
-  const user = users.find(u => u.username === req.session?.user?.username);
-  if (!user) return res.status(502).end('No target');
-
-  const target = `http://${user.opencodeHost}:${user.opencodePort}${req.originalUrl}`;
-  console.log(`[sse] ${req.method} ${req.path} -> ${target}`);
-
-  const proxyReq = http.get(target, {
-    headers: {
-      'Authorization': `Basic ${BASIC_AUTH}`,
-      'Accept': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-      'Connection': 'keep-alive'
+      res.writeHead(proxyRes.statusCode, outHeaders);
+      proxyRes.pipe(res);
     }
-  }, (proxyRes) => {
-    res.writeHead(proxyRes.statusCode, { ...proxyRes.headers });
-    proxyRes.pipe(res);
-  });
+  );
 
   proxyReq.on('error', (err) => {
-    console.error('[sse] ERROR:', err.message);
-    if (!res.headersSent) res.writeHead(502).end('SSE proxy error');
+    console.error(`[proxy] ERROR ${req.url}: ${err.message}`);
+    if (!res.headersSent) {
+      res.writeHead(502, { 'Content-Type': 'text/plain' });
+      res.end(`Proxy error: ${err.message}`);
+    }
   });
 
-  req.on('close', () => proxyReq.destroy());
-});
+  proxyReq.setTimeout(30000, () => {
+    proxyReq.destroy(new Error('timeout'));
+  });
 
-const opencodeProxy = createProxyMiddleware({
-  changeOrigin: true,
-  proxyTimeout: 600000,
-  timeout: 600000,
-  router: (req) => {
-    const user = users.find(u => u.username === req.session?.user?.username);
-    const target = user ? `http://${user.opencodeHost}:${user.opencodePort}` : null;
-    console.log(`[proxy] ${req.method} ${req.path} -> ${target || 'NO TARGET (null)'}`);
-    return target;
-  },
-  on: {
-    proxyReq: (proxyReq, req, res) => {
-      if (BASIC_AUTH) proxyReq.setHeader('authorization', `Basic ${BASIC_AUTH}`);
-    },
-    proxyRes: (proxyRes, req, res) => {
-      const ct = proxyRes.headers['content-type'] || '';
-      console.log(`[proxy] ${req.method} ${req.path} <- ${proxyRes.statusCode} ${ct.substring(0,60)}`);
-    },
-    error: (err, req, res) => {
-      console.error('[proxy] ERROR:', err.message, req.method, req.path);
-      if (res.writeHead) {
-        res.writeHead(502, { 'Content-Type': 'text/plain' });
-        res.end('Proxy error: OpenCode instance unavailable');
-      }
-    }
-  }
-});
+  req.pipe(proxyReq);
 
-app.use(opencodeProxy);
-
-const server = app.listen(PORT, () => {
-  console.log(`[opencode-login] running on port ${PORT}`);
-  // Test connectivity to each OpenCode instance
-  setTimeout(async () => {
-    for (const u of users) {
-      const target = `http://${u.opencodeHost}:${u.opencodePort}`;
-      try {
-        const ctrl = new AbortController();
-        const t = setTimeout(() => ctrl.abort(), 5000);
-        const r = await fetch(target, { signal: ctrl.signal });
-        clearTimeout(t);
-        console.log(`[opencode-login] ${u.username} -> ${target} = HTTP ${r.status}`);
-      } catch (e) {
-        console.log(`[opencode-login] ${u.username} -> ${target} = FAIL (${e.message})`);
-      }
-    }
-  }, 3000);
-});
-
-const wsProxyInstance = createProxyMiddleware({
-  changeOrigin: true,
-  ws: true,
-  router: (req) => {
-    const cookies = parseCookies(req.headers.cookie);
-    const username = cookies.opencode_user;
-    if (!username) return null;
-    const user = users.find(u => u.username === username);
-    return user ? `http://${user.opencodeHost}:${user.opencodePort}` : null;
-  }
+  req.on('close', () => {
+    if (!proxyReq.destroyed) proxyReq.destroy();
+  });
 });
 
 server.on('upgrade', (req, socket, head) => {
-  if (BASIC_AUTH) req.headers['authorization'] = `Basic ${BASIC_AUTH}`;
-  wsProxyInstance.upgrade(req, socket, head);
+  console.log(`[ws] ${req.url}`);
+
+  const headers = { ...req.headers };
+  headers.host = `${OPENCODE_HOST}:${OPENCODE_PORT}`;
+  if (BASIC_AUTH) headers.authorization = `Basic ${BASIC_AUTH}`;
+
+  const proxyReq = http.request({
+    hostname: OPENCODE_HOST,
+    port: OPENCODE_PORT,
+    path: req.url,
+    method: 'GET',
+    headers,
+  });
+
+  proxyReq.on('upgrade', (proxyRes, proxySocket) => {
+    socket.write(
+      'HTTP/1.1 101 Switching Protocols\r\n' +
+      'Upgrade: websocket\r\n' +
+      'Connection: Upgrade\r\n' +
+      '\r\n'
+    );
+    proxySocket.pipe(socket);
+    socket.pipe(proxySocket);
+  });
+
+  proxyReq.on('error', (err) => {
+    console.error(`[ws] ERROR ${req.url}: ${err.message}`);
+    socket.destroy();
+  });
+
+  proxyReq.end();
 });
 
-function parseCookies(cookieHeader) {
-  if (!cookieHeader) return {};
-  return Object.fromEntries(
-    cookieHeader.split(';').map(c => {
-      const [k, ...v] = c.trim().split('=');
-      return [k, decodeURIComponent(v.join('='))];
-    })
-  );
-}
+server.listen(PORT, () => {
+  console.log(`[opencode-proxy] listening on 0.0.0.0:${PORT}`);
+});
