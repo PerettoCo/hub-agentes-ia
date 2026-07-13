@@ -7,6 +7,8 @@ volumes:
 networks:
   v4-infra:
     driver: bridge
+  dokploy-network:
+    external: true
 
 services:
   # ─── Login Portal ───
@@ -28,6 +30,7 @@ services:
       NODE_ENV: production
     networks:
       - v4-infra
+      - dokploy-network
     restart: unless-stopped
 
   # ─── OpenCode - Marcos Luciano ───
@@ -50,6 +53,7 @@ services:
       - ./projetos/infraestrutura/opencode-login/opencode-config/marcos.json:/home/node/.config/opencode/opencode.json:ro
     networks:
       - v4-infra
+      - dokploy-network
     restart: unless-stopped
 
   # ─── OpenCode - Fhelipe Aranha ───
@@ -72,6 +76,7 @@ services:
       - ./projetos/infraestrutura/opencode-login/opencode-config/fhelipe.json:/home/node/.config/opencode/opencode.json:ro
     networks:
       - v4-infra
+      - dokploy-network
     restart: unless-stopped
 
   # ─── OpenCode - CSM 2 ───
@@ -116,4 +121,5 @@ services:
       - ./projetos/infraestrutura/opencode-login/opencode-config/csm3.json:/home/node/.config/opencode/opencode.json:ro
     networks:
       - v4-infra
+      - dokploy-network
     restart: unless-stopped
