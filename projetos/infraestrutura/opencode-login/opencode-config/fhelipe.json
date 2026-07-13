@@ -9,7 +9,8 @@
       "npm": "@ai-sdk/openai-compatible",
       "apiKey": "{env:LITELLM_VIRTUAL_KEY}",
       "options": {
-        "baseURL": "http://litellm:4000/v1"
+        "baseURL": "http://litellm:4000/v1",
+        "apiKey": "{env:LITELLM_VIRTUAL_KEY}"
       },
       "models": {
         "deepseek-v4-flash-free": {
