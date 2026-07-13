@@ -3,14 +3,17 @@
   "model": "litellm/sofia-daily",
   "small_model": "litellm/deepseek-v4-flash-free",
   "enabled_providers": [
-    "litellm"
+    "litellm",
+    "opencode",
+    "openrouter"
   ],
   "provider": {
     "litellm": {
       "name": "Sofia AI",
-      "type": "openai-compatible",
-      "apiKey": "{env:LITELLM_VIRTUAL_KEY}",
-      "baseURL": "https://litellm.fvmarketing.com.br/v1",
+      "options": {
+        "apiKey": "{env:LITELLM_VIRTUAL_KEY}",
+        "baseURL": "http://litellm:4000/v1"
+      },
       "models": {
         "sofia-daily": {
           "name": "Sofia AI Daily ♺"

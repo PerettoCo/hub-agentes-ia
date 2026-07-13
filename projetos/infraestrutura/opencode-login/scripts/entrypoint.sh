@@ -12,6 +12,9 @@ if [ -n "$GITHUB_TOKEN" ]; then
   fi
 fi
 
+# Remove opencode.json do workspace (project-level) para evitar conflito com o bind mount do usuário
+rm -f /workspace/opencode.json
+
 # Comentado: resetar estado força reindexação lenta a cada restart
 # echo "[entrypoint] Resetting workspace preference..."
 # rm -f /home/node/.local/share/opencode/state.json /home/node/.local/share/opencode/projects.json /home/node/.local/share/opencode/workspace* 2>/dev/null || true
