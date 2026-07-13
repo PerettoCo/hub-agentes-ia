@@ -37,11 +37,6 @@ function getTarget(username) {
   return TARGETS[username] || DEFAULT_TARGET;
 }
 
-function getHostConfig(host) {
-  if (!host) return null;
-  return HOST_MAP[host.toLowerCase()] || null;
-}
-
 function isAuthHost(host) {
   if (!host) return true;
   const h = host.toLowerCase();
@@ -103,7 +98,9 @@ const loginLimiter = rateLimit({
 
 app.use('/static', express.static(path.join(__dirname, 'public')));
 
+// ─── Auth routes (funcionam em qualquer subdomínio) ───
 app.get('/login', (req, res) => {
+  console.log(`[auth] /login host=${req.headers.host} session=${!!req.session.user}`);
   if (req.session.user) return res.redirect('/');
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
@@ -126,6 +123,7 @@ app.get('/api/targets', (req, res) => {
 
 app.post('/api/login', loginLimiter, async (req, res) => {
   const { username, password } = req.body;
+  console.log(`[auth] login attempt username=${username} host=${req.headers.host}`);
   if (!username || !password) {
     return res.status(400).json({ error: 'Usuário e senha obrigatórios' });
   }
@@ -143,9 +141,12 @@ app.post('/api/login', loginLimiter, async (req, res) => {
     email: user.email,
     squad: user.squad,
   };
-  req.session.save();
-  const target = getTarget(user.username);
-  res.json({ success: true, user: req.session.user, redirectUrl: target.redirect });
+  req.session.save((err) => {
+    if (err) console.error('[auth] session save error:', err);
+    const target = getTarget(user.username);
+    console.log(`[auth] login success user=${user.username} redirect=${target.redirect}`);
+    res.json({ success: true, user: req.session.user, redirectUrl: target.redirect });
+  });
 });
 
 app.post('/api/logout', (req, res) => {
@@ -158,57 +159,72 @@ app.get('/logout', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'logout.html'));
 });
 
+// ─── Pre-built proxies for each OpenCode instance ───
+const hostProxies = {};
+for (const [host, config] of Object.entries(HOST_MAP)) {
+  hostProxies[host] = createProxyMiddleware({
+    target: config.upstream,
+    changeOrigin: true,
+    ws: true,
+    on: {
+      proxyReq: (proxyReq, req) => {
+        proxyReq.setHeader('Authorization', AUTH_HEADER);
+        console.log(`[proxy] ${req.method} ${req.originalUrl} → ${config.upstream} user=${req.session?.user?.username}`);
+      },
+      proxyRes: (proxyRes, req) => {
+        console.log(`[proxy] ← ${proxyRes.statusCode} ${req.originalUrl} upstream=${config.upstream}`);
+      },
+      error: (err, req, res) => {
+        console.error(`[proxy:${host}] error:`, err.message);
+        if (!res.headersSent) res.status(502).send('Upstream unavailable');
+      },
+    },
+  });
+}
+
+function proxyRequest(req, res) {
+  const host = req.headers.host?.toLowerCase();
+  console.log(`[router] host=${host} path=${req.originalUrl} authed=${!!req.session?.user}`);
+
+  const proxy = hostProxies[host];
+  if (!proxy) {
+    console.log(`[router] no proxy for host=${host}, redirecting to ia`);
+    return res.redirect('https://ia.fvmarketing.com.br');
+  }
+
+  if (!req.session?.user) {
+    console.log(`[router] not authenticated, serving login`);
+    return res.sendFile(path.join(__dirname, 'public', 'login.html'));
+  }
+
+  const config = HOST_MAP[host];
+  if (config && req.session.user.username !== config.user) {
+    const target = getTarget(req.session.user.username);
+    console.log(`[router] user=${req.session.user.username} wrong for ${host}, redirect to ${target.redirect}`);
+    return res.redirect(target.redirect);
+  }
+
+  proxy(req, res, () => {
+    console.error(`[router] proxy bypassed for ${host}${req.originalUrl}`);
+    if (!res.headersSent) res.status(502).send('Proxy error');
+  });
+}
+
+// ─── Dashboard (auth host only: ia.fvmarketing.com.br) ───
 app.get('/', (req, res) => {
   const host = req.headers.host;
+  console.log(`[route] GET / host=${host} authed=${!!req.session?.user}`);
+
   if (isAuthHost(host)) {
     if (!req.session.user) return res.redirect('/login');
     return res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
   }
-  if (!req.session.user) {
-    return res.sendFile(path.join(__dirname, 'public', 'login.html'));
-  }
-  const config = getHostConfig(host);
-  if (config && req.session.user.username !== config.user) {
-    const target = getTarget(req.session.user.username);
-    return res.redirect(target.redirect);
-  }
+
+  // Non-auth host: proxy or login
   proxyRequest(req, res);
 });
 
-const opencodeProxy = createProxyMiddleware({
-  changeOrigin: true,
-  ws: true,
-  router: (req) => {
-    const config = getHostConfig(req.headers.host);
-    return config ? config.upstream : null;
-  },
-  on: {
-    proxyReq: (proxyReq, req) => {
-      proxyReq.setHeader('Authorization', AUTH_HEADER);
-    },
-    error: (err, req, res) => {
-      console.error('[proxy]', err.message);
-      if (!res.headersSent) res.status(502).send('Upstream unavailable');
-    },
-  },
-});
-
-function proxyRequest(req, res) {
-  const config = getHostConfig(req.headers.host);
-  if (!config) {
-    return res.redirect('https://ia.fvmarketing.com.br');
-  }
-  if (!req.session.user) {
-    return res.sendFile(path.join(__dirname, 'public', 'login.html'));
-  }
-  opencodeProxy(req, res, (err) => {
-    if (err) {
-      console.error('[proxy] fallback error:', err.message);
-      if (!res.headersSent) res.status(502).send('Proxy error');
-    }
-  });
-}
-
+// ─── Catch-all: proxy everything else ───
 app.use((req, res) => {
   proxyRequest(req, res);
 });
@@ -216,14 +232,20 @@ app.use((req, res) => {
 const server = app.listen(PORT, () => {
   console.log(`[auth] listening on 0.0.0.0:${PORT}`);
   console.log(`[auth] cookie domain: ${COOKIE_DOMAIN}`);
-  console.log(`[auth] proxy targets: ${Object.keys(HOST_MAP).join(', ')}`);
+  console.log(`[auth] targets: ${Object.keys(HOST_MAP).join(', ')}`);
 });
 
 server.on('upgrade', (req, socket, head) => {
-  const config = getHostConfig(req.headers.host);
-  if (!config) {
+  const host = req.headers.host?.toLowerCase();
+  const proxy = hostProxies[host];
+  if (!proxy) {
     socket.destroy();
     return;
   }
-  opencodeProxy.upgrade(req, socket, head);
+  const config = HOST_MAP[host];
+  if (config && req.session?.user?.username !== config.user) {
+    socket.destroy();
+    return;
+  }
+  proxy.upgrade(req, socket, head);
 });
