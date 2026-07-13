@@ -162,38 +162,41 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
-  if (BASIC_AUTH) req.headers['authorization'] = `Basic ${BASIC_AUTH}`;
-  next();
-});
-
 const opencodeProxy = createProxyMiddleware({
   changeOrigin: true,
-  ws: true,
+  proxyTimeout: 600000,
+  timeout: 600000,
   router: (req) => {
     const user = users.find(u => u.username === req.session?.user?.username);
-    return user ? `http://${user.opencodeHost}:${user.opencodePort}` : null;
+    const target = user ? `http://${user.opencodeHost}:${user.opencodePort}` : null;
+    console.log(`[proxy] ${req.method} ${req.path} -> ${target || 'NO TARGET (null)'}`);
+    return target;
   },
-  onProxyRes: (proxyRes, req, res) => {
-    const ct = proxyRes.headers['content-type'] || '';
-    if (!ct.includes('text/html')) return;
+  on: {
+    proxyReq: (proxyReq, req, res) => {
+      if (BASIC_AUTH) proxyReq.setHeader('authorization', `Basic ${BASIC_AUTH}`);
+    },
+    proxyRes: (proxyRes, req, res) => {
+      const ct = proxyRes.headers['content-type'] || '';
+      console.log(`[proxy] ${req.method} ${req.path} <- ${proxyRes.statusCode} ${ct.substring(0,60)}`);
+      if (!ct.includes('text/html')) return;
 
-    proxyRes.pause();
+      proxyRes.pause();
 
-    const enc = proxyRes.headers['content-encoding'];
-    const chunks = [];
-    proxyRes.on('data', chunk => chunks.push(chunk));
-    proxyRes.on('end', () => {
-      let buf = Buffer.concat(chunks);
-      if (enc === 'gzip') buf = zlib.gunzipSync(buf);
-      else if (enc === 'deflate') buf = zlib.inflateSync(buf);
-      let body = buf.toString('utf-8');
+      const enc = proxyRes.headers['content-encoding'];
+      const chunks = [];
+      proxyRes.on('data', chunk => chunks.push(chunk));
+      proxyRes.on('end', () => {
+        let buf = Buffer.concat(chunks);
+        if (enc === 'gzip') buf = zlib.gunzipSync(buf);
+        else if (enc === 'deflate') buf = zlib.inflateSync(buf);
+        let body = buf.toString('utf-8');
 
-      if (body.includes('</body>')) {
-        const logoBase64 = fs.readFileSync(path.join(__dirname, 'public', 'logo-white.png')).toString('base64');
-        const logoDataUri = `data:image/png;base64,${logoBase64}`;
+        if (body.includes('</body>')) {
+          const logoBase64 = fs.readFileSync(path.join(__dirname, 'public', 'logo-white.png')).toString('base64');
+          const logoDataUri = `data:image/png;base64,${logoBase64}`;
 
-        const inject = `
+          const inject = `
 <style>
   [class*="logo"]:not([class*="icon"]):not([class*="badge"]),
   a[href*="opencode"] svg,
@@ -249,20 +252,22 @@ const opencodeProxy = createProxyMiddleware({
 })();
 </script>
 </body>`;
-        body = body.replace('</body>', inject);
-      }
+          body = body.replace('</body>', inject);
+        }
 
-      delete proxyRes.headers['content-encoding'];
-      const outBuf = Buffer.from(body, 'utf-8');
-      proxyRes.headers['content-length'] = outBuf.length;
-      res.writeHead(proxyRes.statusCode, proxyRes.headers);
-      res.end(outBuf);
-    });
-  },
-  onError: (err, req, res) => {
-    if (res.writeHead) {
-      res.writeHead(502, { 'Content-Type': 'text/plain' });
-      res.end('Proxy error: OpenCode instance unavailable');
+        delete proxyRes.headers['content-encoding'];
+        const outBuf = Buffer.from(body, 'utf-8');
+        proxyRes.headers['content-length'] = outBuf.length;
+        res.writeHead(proxyRes.statusCode, proxyRes.headers);
+        res.end(outBuf);
+      });
+    },
+    error: (err, req, res) => {
+      console.error('[proxy] ERROR:', err.message, req.method, req.path);
+      if (res.writeHead) {
+        res.writeHead(502, { 'Content-Type': 'text/plain' });
+        res.end('Proxy error: OpenCode instance unavailable');
+      }
     }
   }
 });
