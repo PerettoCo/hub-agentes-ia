@@ -1,21 +1,17 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "litellm/sofia-daily",
-  "small_model": "litellm/deepseek-v4-flash-free",
+  "model": "openai/sofia-daily",
+  "small_model": "openai/deepseek-v4-flash-free",
   "enabled_providers": [
-    "litellm",
+    "openai",
     "opencode",
     "openrouter"
   ],
   "provider": {
-    "litellm": {
+    "openai": {
       "name": "Sofia AI",
-      "npm": "@ai-sdk/openai-compatible",
       "apiKey": "{env:LITELLM_VIRTUAL_KEY}",
-      "options": {
-        "baseURL": "http://litellm:4000/v1",
-        "apiKey": "{env:LITELLM_VIRTUAL_KEY}"
-      },
+      "baseURL": "http://litellm:4000/v1",
       "models": {
         "sofia-daily": {
           "name": "Sofia AI Daily ♺"
