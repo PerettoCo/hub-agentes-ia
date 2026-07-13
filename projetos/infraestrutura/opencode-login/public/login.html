@@ -391,7 +391,7 @@
         });
         const data = await res.json();
         if (!res.ok) { showError('Usuário ou senha incorretos'); return; }
-        window.location.href = '/?directory=%2Fworkspace';
+        window.location.href = data.redirectUrl;
       } catch (err) { showError('Erro de conexão'); }
       finally { submitBtn.disabled = false; submitBtn.textContent = 'Entrar'; }
     });

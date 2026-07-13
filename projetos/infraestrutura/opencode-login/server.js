@@ -12,14 +12,20 @@ const SESSION_SECRET = process.env.SESSION_SECRET || 'CHAVE_SESSAO_32CARACTERES_
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
 
-// Mapa de upstreams por username
+const PUBLIC_URL = process.env.PUBLIC_URL || 'https://ia.fvmarketing.com.br';
+
+// Mapas de upstreams por username
 const TARGETS = {
-  'marcos.luciano': 'http://opencode-marcos:4096',
-  'fhelipe.aranha': 'http://opencode-fhelipe:4096',
-  'csm2': 'http://opencode-csm2:4096',
-  'csm3': 'http://opencode-csm3:4096',
+  'marcos.luciano': { upstream: 'http://opencode-marcos:4096', redirect: 'https://marcos.fvmarketing.com.br' },
+  'fhelipe.aranha': { upstream: 'http://opencode-fhelipe:4096', redirect: 'https://fhelipe.fvmarketing.com.br' },
+  'lucas.nunes': { upstream: 'http://opencode-lucasnunes:4096', redirect: 'https://lucasnunes.fvmarketing.com.br' },
+  'csm1': { upstream: 'http://opencode-csm1:4096', redirect: 'https://csm1.fvmarketing.com.br' },
 };
-const DEFAULT_TARGET = 'http://opencode-marcos:4096';
+const DEFAULT_TARGET = { upstream: 'http://opencode-marcos:4096', redirect: 'https://marcos.fvmarketing.com.br' };
+
+function getTarget(username) {
+  return TARGETS[username] || DEFAULT_TARGET;
+}
 
 let users = [];
 
@@ -76,12 +82,17 @@ const loginLimiter = rateLimit({
 
 app.use('/static', express.static(path.join(__dirname, 'public')));
 
-// ─── Auth check endpoint (usado pelo nginx auth_request) ───
+// ─── Dashboard (login OK) ───
+app.get('/', (req, res) => {
+  if (!req.session.user) return res.redirect('/login');
+  res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
+});
+
+// ─── Auth check endpoint (usado pelo nginx auth_request, legado) ───
 app.get('/auth-check', (req, res) => {
   if (!req.session.user) return res.status(401).end();
-
-  const target = TARGETS[req.session.user.username] || DEFAULT_TARGET;
-  res.set('X-Opencode-Target', target);
+  const target = getTarget(req.session.user.username);
+  res.set('X-Opencode-Target', target.upstream);
   res.end();
 });
 
@@ -96,6 +107,17 @@ app.get('/login.html', (req, res) => res.redirect('/login'));
 app.get('/api/me', (req, res) => {
   if (!req.session.user) return res.status(401).json({ error: 'not authenticated' });
   res.json(req.session.user);
+});
+
+// ─── API: targets (para o dashboard) ───
+app.get('/api/targets', (req, res) => {
+  if (!req.session.user) return res.status(401).json({ error: 'not authenticated' });
+  const target = getTarget(req.session.user.username);
+  res.json({
+    targets: [
+      { name: 'OpenCode Web', url: target.redirect, icon: 'terminal' },
+    ]
+  });
 });
 
 // ─── API: login ───
@@ -118,7 +140,8 @@ app.post('/api/login', loginLimiter, async (req, res) => {
     email: user.email,
     squad: user.squad,
   };
-  res.json({ success: true, user: req.session.user });
+  const target = getTarget(user.username);
+  res.json({ success: true, user: req.session.user, redirectUrl: target.redirect });
 });
 
 // ─── API: logout ───

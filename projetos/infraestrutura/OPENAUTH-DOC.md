@@ -153,4 +153,8 @@ Página de login unificada em `login.fvmarketing.com.br` que redireciona para su
 | Proxy | ❌ | ✅ Nginx | ❌ |
 | SSE/WS nativo | ✅ | ✅ (nginx) | ✅ |
 
-**Recomendação:** Implementar **Alternativa 3** — Login page + subdomínios. É o melhor dos dois mundos: login unificado com Supabase + OpenCode puro sem proxy.
+**Decisão (2026-07-13):** Implementada **Alternativa 3** — Login page + subdomínios.
+- Domínio de login: `ia.fvmarketing.com.br` (auth service)
+- Subdomínios: `marcos`, `fhelipe`, `lucasnunes`, `csm1`
+- Usuários (Supabase): `marcos.luciano`, `fhelipe.aranha`, `lucas.nunes`, `csm1`
+- Gateway nginx removido (`opencode-gateway` removido do docker-compose)
