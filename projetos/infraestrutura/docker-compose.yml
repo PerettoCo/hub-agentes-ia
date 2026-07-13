@@ -85,7 +85,7 @@ services:
       OPENCODE_SERVER_USERNAME: opencode
       OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:-SENHA_FORTE_OPencode}
       LITELLM_VIRTUAL_KEY: ${LITELLM_KEY_MARCOS:-sk-marcos-virtual-key}
-      OPENAI_API_KEY: ${LITELLM_KEY_MARCOS}
+      OPENAI_API_KEY: ${LITELLM_MASTER_KEY:-sk-litellm-master-key}
       OPENAI_BASE_URL: http://litellm:4000/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
     volumes:
@@ -106,7 +106,7 @@ services:
       OPENCODE_SERVER_USERNAME: opencode
       OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:-SENHA_FORTE_OPencode}
       LITELLM_VIRTUAL_KEY: ${LITELLM_KEY_FHELIPE:-sk-fhelipe-virtual-key}
-      OPENAI_API_KEY: ${LITELLM_KEY_FHELIPE}
+      OPENAI_API_KEY: ${LITELLM_MASTER_KEY:-sk-litellm-master-key}
       OPENAI_BASE_URL: http://litellm:4000/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
     volumes:
@@ -127,7 +127,7 @@ services:
       OPENCODE_SERVER_USERNAME: opencode
       OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:-SENHA_FORTE_OPencode}
       LITELLM_VIRTUAL_KEY: ${LITELLM_KEY_CSM2:-sk-csm2-virtual-key}
-      OPENAI_API_KEY: ${LITELLM_KEY_CSM2}
+      OPENAI_API_KEY: ${LITELLM_MASTER_KEY:-sk-litellm-master-key}
       OPENAI_BASE_URL: http://litellm:4000/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
     volumes:
@@ -148,7 +148,7 @@ services:
       OPENCODE_SERVER_USERNAME: opencode
       OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:-SENHA_FORTE_OPencode}
       LITELLM_VIRTUAL_KEY: ${LITELLM_KEY_CSM3:-sk-csm3-virtual-key}
-      OPENAI_API_KEY: ${LITELLM_KEY_CSM3}
+      OPENAI_API_KEY: ${LITELLM_MASTER_KEY:-sk-litellm-master-key}
       OPENAI_BASE_URL: http://litellm:4000/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
     volumes:
