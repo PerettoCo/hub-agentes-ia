@@ -173,11 +173,13 @@ app.post('/api/login', loginLimiter, async (req, res) => {
 // ─── API: logout ───
 app.post('/api/logout', (req, res) => {
   req.session.destroy();
+  res.clearCookie('connect.sid', { domain: COOKIE_DOMAIN, path: '/' });
   res.json({ success: true });
 });
 
 app.get('/logout', (req, res) => {
   req.session.destroy();
+  res.clearCookie('connect.sid', { domain: COOKIE_DOMAIN, path: '/' });
   res.sendFile(path.join(__dirname, 'public', 'logout.html'));
 });
 
