@@ -171,15 +171,22 @@ app.post('/api/login', loginLimiter, async (req, res) => {
 });
 
 // ─── API: logout ───
+const CLEAR_COOKIE = {
+  domain: COOKIE_DOMAIN,
+  path: '/',
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'lax',
+};
+
 app.post('/api/logout', (req, res) => {
   req.session.destroy();
-  res.clearCookie('connect.sid', { domain: COOKIE_DOMAIN, path: '/' });
+  res.clearCookie('connect.sid', CLEAR_COOKIE);
   res.json({ success: true });
 });
 
 app.get('/logout', (req, res) => {
   req.session.destroy();
-  res.clearCookie('connect.sid', { domain: COOKIE_DOMAIN, path: '/' });
+  res.clearCookie('connect.sid', CLEAR_COOKIE);
   res.sendFile(path.join(__dirname, 'public', 'logout.html'));
 });
 
