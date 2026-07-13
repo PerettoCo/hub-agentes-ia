@@ -181,6 +181,7 @@ const opencodeProxy = createProxyMiddleware({
       console.log(`[proxy] ${req.method} ${req.path} <- ${proxyRes.statusCode} ${ct.substring(0,60)}`);
       if (!ct.includes('text/html')) return;
 
+      proxyRes.unpipe(res);
       proxyRes.pause();
 
       const enc = proxyRes.headers['content-encoding'];
@@ -255,11 +256,13 @@ const opencodeProxy = createProxyMiddleware({
           body = body.replace('</body>', inject);
         }
 
-        delete proxyRes.headers['content-encoding'];
-        const outBuf = Buffer.from(body, 'utf-8');
-        proxyRes.headers['content-length'] = outBuf.length;
-        res.writeHead(proxyRes.statusCode, proxyRes.headers);
-        res.end(outBuf);
+        if (!res.headersSent) {
+          delete proxyRes.headers['content-encoding'];
+          const outBuf = Buffer.from(body, 'utf-8');
+          proxyRes.headers['content-length'] = outBuf.length;
+          res.writeHead(proxyRes.statusCode, proxyRes.headers);
+          res.end(outBuf);
+        }
       });
     },
     error: (err, req, res) => {

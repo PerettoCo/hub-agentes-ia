@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  litellm:
+    container_name: litellm
+    image: ghcr.io/berriai/litellm:main-latest
+    restart: unless-stopped
+    depends_on:
+      litellm-db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
+      UI_USERNAME: ${UI_USERNAME}
+      UI_PASSWORD: ${UI_PASSWORD}
+      ZENCODE_API_KEY: ${ZENCODE_API_KEY}
+    expose:
+      - 4000
+    volumes:
+      - ./litellm.config.yaml:/app/config.yaml
+    networks:
+      - dokploy-network
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=dokploy-network
+      - traefik.http.routers.litellm.rule=Host(`litellm.fvmarketing.com.br`)
+      - traefik.http.services.litellm.loadbalancer.server.port=4000
+      - traefik.http.routers.litellm.service=litellm
+      - traefik.http.routers.litellm.tls=true
+      - traefik.http.routers.litellm.tls.certresolver=letsencrypt
+
+  litellm-db:
+    image: postgres:16-alpine
+    restart: on-failure:5
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - litellm-db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - dokploy-network
+
+volumes:
+  litellm-db: {}
+
+networks:
+  dokploy-network:
+    external: true

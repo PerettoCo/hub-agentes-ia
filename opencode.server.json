@@ -1,0 +1,58 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "deepseek-v4-flash-free",
+  "modelProvider": "litellm",
+  "customProviders": {
+    "litellm": {
+      "type": "openai-compatible",
+      "apiKey": "{env:LITELLM_VIRTUAL_KEY}",
+      "baseURL": "http://litellm:4000/v1"
+    }
+  },
+  "provider": {
+    "gemini": {
+      "apiKey": "{env:GEMINI_API_KEY}"
+    },
+    "openrouter": {
+      "apiKey": "{env:OPENROUTER_API_KEY}"
+    }
+  },
+  "agent": {
+    "build": {
+      "mode": "primary",
+      "permission": {
+        "edit": "allow",
+        "bash": "allow",
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "skill": "allow",
+        "task": {
+          "*": "allow"
+        }
+      }
+    },
+    "plan": {
+      "mode": "primary",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny",
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "skill": "allow"
+      }
+    }
+  },
+  "mcp": {
+    "ekyte": {
+      "type": "remote",
+      "url": "https://api.ekyte.com/mcp?token={env:EKYTE_MCP_TOKEN}",
+      "enabled": true
+    }
+  }
+}

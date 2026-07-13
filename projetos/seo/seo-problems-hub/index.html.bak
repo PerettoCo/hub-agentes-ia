@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Problems Hub — Knowledge Base · V4 Company</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --accent: #e50914;
+  --accent-hover: #ff222d;
+  --accent-dark: #d4070f;
+  --accent-subtle: rgba(229, 9, 20, 0.07);
+  --accent-gradient: linear-gradient(135deg, #e50914 0%, #ff222d 100%);
+  --sidebar-bg: #0a0a0f;
+  --sidebar-border: #1a1a26;
+  --sidebar-text: #9494a8;
+  --sidebar-heading: #e4e4ec;
+  --sidebar-hover: #1a1a22;
+  --content-bg: #ffffff;
+  --content-text: #1a1a2e;
+  --content-muted: #6a6a84;
+  --content-border: #e2e2ec;
+  --card-bg: #f8f8fc;
+  --card-hover: #f0f0f8;
+  --card-border: #e2e2ec;
+  --gold: #c9a96e;
+  --tag-bg: rgba(229, 9, 20, 0.06);
+  --tag-border: rgba(229, 9, 20, 0.15);
+  --code-bg: #f5f5f7;
+  --table-border: #e2e2ec;
+  --sidebar-width: 280px;
+  --header-height: 64px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+  --green: #1a8a3f;
+  --amber: #c97d0e;
+  --blue: #1a4a8c;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans); font-size: 15.5px; line-height: 1.75;
+  color: var(--content-text); background: var(--content-bg); display: flex;
+  min-height: 100vh; -webkit-font-smoothing: antialiased;
+}
+.header {
+  position: fixed; top: 0; left: var(--sidebar-width); right: 0;
+  height: var(--header-height);
+  background: var(--sidebar-bg); border-bottom: 1px solid var(--sidebar-border);
+  display: flex; align-items: center; padding: 0 36px; z-index: 100; gap: 12px;
+}
+.header h1 { font-size: 14px; font-weight: 700; color: var(--sidebar-heading); }
+.header .subtitle { font-size: 12px; color: var(--sidebar-text); }
+.header-badge {
+  margin-left: auto; font-size: 10px; font-weight: 600; color: #fff;
+  background: var(--accent); padding: 3px 10px; border-radius: 20px;
+  text-transform: uppercase; letter-spacing: 0.3px;
+}
+.sidebar {
+  position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-width);
+  background: var(--sidebar-bg); border-right: 1px solid var(--sidebar-border);
+  overflow-y: auto; z-index: 200;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: #2a2a3e; border-radius: 4px; }
+.sidebar-logo {
+  padding: 20px 20px 16px; border-bottom: 1px solid var(--sidebar-border);
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.sidebar-logo .logo-img { width: 120px; height: auto; object-fit: contain; margin-bottom: 6px; }
+.sidebar-logo .version {
+  font-size: 9.5px; color: var(--sidebar-text); font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.sidebar nav ul { list-style: none; padding: 0; margin: 0; }
+.sidebar nav ul li { margin: 0; }
+.sidebar .nav-link {
+  display: block; padding: 7px 20px; font-size: 12.5px; font-weight: 500;
+  color: var(--sidebar-text); text-decoration: none;
+  transition: all 0.2s ease; border-left: 3px solid transparent;
+  line-height: 1.3; cursor: pointer;
+}
+.sidebar .nav-link:hover { background: var(--sidebar-hover); color: var(--sidebar-heading); border-left-color: var(--accent); padding-left: 22px; }
+.sidebar .nav-link.level-0 {
+  font-weight: 600; font-size: 11px; padding: 9px 20px 5px;
+  color: var(--accent); text-transform: uppercase; letter-spacing: 0.4px;
+  cursor: default;
+}
+.sidebar .nav-link.level-0:hover { background: none; padding-left: 20px; }
+.sidebar .nav-link.nav-sub { padding-left: 32px; font-size: 11.5px; }
+.main {
+  margin-left: var(--sidebar-width); margin-top: var(--header-height);
+  flex: 1; min-width: 0;
+}
+.main > section {
+  padding: 20px 48px 0 40px;
+  margin-bottom: 28px;
+  scroll-margin-top: calc(var(--header-height) + 16px);
+}
+.main h1.section-title {
+  font-size: 22px; font-weight: 700; color: var(--accent);
+  margin-bottom: 16px; padding-bottom: 10px;
+  border-bottom: 3px solid var(--accent); letter-spacing: -0.4px;
+  display: flex; align-items: center; gap: 10px;
+}
+.main h1.section-title::before {
+  content: ''; display: inline-block; width: 4px; height: 24px;
+  background: var(--accent-gradient); border-radius: 2px; flex-shrink: 0;
+}
+.main h2 { font-size: 17px; font-weight: 600; margin-top: 24px; margin-bottom: 8px; color: var(--content-text); }
+.main h3 { font-size: 15px; font-weight: 600; margin-top: 20px; margin-bottom: 6px; }
+.main h4 { font-size: 14px; font-weight: 600; margin-top: 16px; margin-bottom: 4px; color: var(--accent); }
+.main p { margin-bottom: 10px; color: var(--content-text); }
+.main strong { font-weight: 700; }
+.main code {
+  font-family: var(--font-mono); font-size: 12.5px; background: var(--code-bg);
+  padding: 2px 7px; border-radius: 4px; color: var(--accent); border: 1px solid var(--content-border);
+}
+.main pre {
+  background: #0d1117; color: #e6edf3; padding: 18px 22px; border-radius: var(--radius-md);
+  overflow-x: auto; margin: 14px 0; font-size: 12.5px; line-height: 1.6; border: 1px solid #21262d;
+}
+.main pre code { background: none; color: inherit; padding: 0; border: none; font-size: 12.5px; }
+.main ul, .main ol { margin: 6px 0 12px 22px; }
+.main li { margin-bottom: 4px; line-height: 1.6; }
+.main li::marker { color: var(--accent); }
+.main table {
+  width: 100%; border-collapse: separate; border-spacing: 0; margin: 14px 0;
+  font-size: 12.5px; border-radius: var(--radius-sm); overflow: hidden;
+  border: 1px solid var(--table-border);
+}
+.main th {
+  background: var(--accent); font-weight: 600; text-align: left;
+  padding: 9px 12px; font-size: 10.5px; text-transform: uppercase;
+  letter-spacing: 0.5px; color: #fff;
+  border-bottom: 1px solid var(--accent-dark);
+}
+.main th:not(:last-child) { border-right: 1px solid rgba(255,255,255,0.12); }
+.main td {
+  padding: 7px 11px; border-bottom: 1px solid var(--table-border);
+  vertical-align: top; background: var(--content-bg);
+}
+.main tr:last-child td { border-bottom: none; }
+.main tr:nth-child(even) td { background: var(--card-bg); }
+.main tr:hover td { background: var(--accent-subtle); }
+.main blockquote {
+  border-left: 4px solid var(--accent); padding: 12px 16px; margin: 14px 0;
+  background: var(--accent-subtle); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 13.5px;
+}
+.main a { color: var(--accent); text-decoration: none; font-weight: 500; border-bottom: 1.5px solid transparent; }
+.main a:hover { border-bottom-color: var(--accent); color: var(--accent-dark); }
+.callout { padding: 10px 14px; border-radius: 8px; margin: 10px 0; font-size: 12.5px; border-left: 3px solid; }
+.callout-info { background: var(--accent-subtle); border-color: var(--accent); }
+.callout-warn { background: rgba(201, 109, 14, 0.06); border-color: var(--amber); }
+.callout-good { background: rgba(26, 138, 63, 0.06); border-color: var(--green); }
+.callout-tip { background: rgba(26, 74, 140, 0.06); border-color: var(--blue); }
+.problem-card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius-md); padding: 20px 24px; margin-bottom: 16px;
+  transition: all 0.25s ease;
+}
+.problem-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.08); }
+.problem-card h3 { margin: 0 0 8px; font-size: 15px; color: var(--accent); }
+.problem-card .meta { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.problem-card .meta-tag {
+  font-size: 10px; padding: 2px 8px; border-radius: 4px;
+  font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;
+}
+.tag-critical { background: rgba(229,9,20,0.1); color: var(--accent); border: 1px solid rgba(229,9,20,0.2); }
+.tag-high { background: rgba(201,109,14,0.1); color: var(--amber); border: 1px solid rgba(201,109,14,0.2); }
+.tag-medium { background: rgba(26,74,140,0.1); color: var(--blue); border: 1px solid rgba(26,74,140,0.2); }
+.tag-low { background: rgba(106,106,132,0.1); color: var(--content-muted); border: 1px solid rgba(106,106,132,0.2); }
+.faq-item {
+  border: 1px solid var(--content-border); border-radius: var(--radius-sm);
+  margin: 6px 0; overflow: hidden;
+}
+.faq-q {
+  padding: 10px 14px; background: var(--card-bg); font-weight: 600;
+  font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px;
+  transition: background 0.2s;
+}
+.faq-q:hover { background: var(--card-hover); }
+.faq-q::before { content: '▸'; color: var(--accent); font-size: 14px; transition: transform 0.2s; }
+.faq-q.open::before { transform: rotate(90deg); }
+.faq-a {
+  display: none; padding: 10px 14px 14px; font-size: 13px;
+  border-top: 1px solid var(--content-border); line-height: 1.6;
+}
+.faq-a.open { display: block; }
+.faq-a code { font-size: 12px; }
+.divider { width: 60px; height: 3px; background: var(--accent-gradient); border-radius: 2px; margin: 6px 0 16px; }
+.pop-list { counter-reset: pop-step; list-style: none; padding: 0; margin: 10px 0; }
+.pop-list li {
+  counter-increment: pop-step; padding: 8px 0 8px 36px; position: relative;
+  font-size: 13px; border-bottom: 1px solid var(--content-border);
+}
+.pop-list li::before {
+  content: counter(pop-step); position: absolute; left: 0; top: 7px;
+  width: 24px; height: 24px; background: var(--accent); color: #fff;
+  font-size: 10px; font-weight: 700; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.pop-list li:last-child { border: none; }
+.tools-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; margin: 10px 0;
+}
+.tool-card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm); padding: 10px 12px; font-size: 12px;
+}
+.tool-card .tool-name { font-weight: 600; color: var(--accent); font-size: 12px; }
+.tool-card .tool-desc { color: var(--content-muted); font-size: 11px; margin-top: 2px; }
+.cover-section {
+  background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 50%, #2a2a2a 100%);
+  color: #fff; padding: 40px 48px 36px; position: relative; overflow: hidden;
+  margin: 0;
+}
+.cover-section::before {
+  content: ''; position: absolute; top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(201,169,110,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cover-section .cover-content { position: relative; z-index: 1; max-width: 900px; }
+.cover-section .cover-content::before {
+  content: ''; position: absolute; top: -12px; left: 0;
+  width: 120px; height: 1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+.cover-section .label {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--gold); margin-bottom: 8px;
+}
+.cover-section h1 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800;
+  line-height: 1.15; margin-bottom: 10px;
+}
+.cover-section p { color: rgba(255,255,255,0.7); font-size: 14px; max-width: 700px; }
+.cover-section .gold-line {
+  width: 60px; height: 2px; background: var(--gold); margin-top: 16px; border-radius: 1px;
+}
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .header { left: 0; }
+  .main { margin-left: 0; padding: 20px 16px 60px; }
+  .main section { padding: 20px; }
+  .cover-section { padding: 24px 20px; }
+  .tools-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>SEO Problems Hub</h1>
+  <span class="subtitle">Knowledge Base · 30+ problemas documentados</span>
+  <span class="header-badge">v1.0 · Julho 2026</span>
+</div>
+
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <img class="logo-img" src="../../../logo-peretto-red.png" alt="Peretto & Co.">
+    <div class="version">v1.0 · SEO Problems Hub</div>
+  </div>
+  <nav><ul>
+    <li><a class="nav-link level-0">Introducao</a></li>
+    <li><a class="nav-link" href="#" data-section="intro">00 · Sobre este Guia</a></li>
+    <li><a class="nav-link level-0">Infraestrutura & Crawl</a></li>
+    <li><a class="nav-link" href="#" data-section="ssl">01 · SSL / TLS</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="robots">02 · Robots.txt</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="noindex">03 · Noindex Acidental</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="sitemap">04 · Sitemap XML</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="canonical">05 · Canonical Incorreto</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="redirects">06 · Redirecionamentos</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="http-errors">07 · Erros HTTP 4xx/5xx</a></li>
+    <li><a class="nav-link level-0">Indexacao & Conteudo</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="duplicate">08 · Conteudo Duplicado</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="thin-content">09 · Thin Content</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="orphan">10 · Paginas Orfas</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="cannibal">11 · Canibalizacao</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="meta-tags">12 · Meta Tags Ausentes</a></li>
+    <li><a class="nav-link level-0">Performance & CWV</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="lcp">13 · LCP Alto</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="inp">14 · INP Ruim</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="cls">15 · CLS</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="js-blocking">16 · JS Bloqueante</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="images">17 · Imagens Nao Otimizadas</a></li>
+    <li><a class="nav-link level-0">Schema & Dados Estruturados</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="schema">18 · Schema Incorreto</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="jsonld">19 · JSON-LD Invalido</a></li>
+    <li><a class="nav-link level-0">Mobile & UX</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="mobile">20 · Mobile Usability</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="viewport">21 · Viewport</a></li>
+    <li><a class="nav-link level-0">Avancado: JS & SPA</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="spa">22 · SPA / CSR sem SSR</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="two-wave">23 · Two-Wave Indexing</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="hash-routing">24 · Hash Routing</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="soft404">25 · Soft 404 em SPA</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="lazy-crawl">26 · Lazy Loading</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="infinite-scroll">27 · Infinite Scroll</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="js-blocked">28 · JS Bloqueado</a></li>
+    <li><a class="nav-link nav-sub" href="#" data-section="hydration">29 · Hydration</a></li>
+  </ul></nav>
+</div>
+
+<div class="main">
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 00 · INTRODUCAO -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="intro">
+<div class="cover-section">
+<div class="cover-content">
+  <div class="label">Knowledge Base · SEO</div>
+  <h1>SEO Problems Hub</h1>
+  <p>Catalogo completo de problemas de SEO — da infraestrutura ao JavaScript. Cada entrada documenta a causa raiz, o impacto real, o diagnostico preciso, o passo a passo de resolucao e um FAQ para duvidas recorrentes.</p>
+  <div class="gold-line"></div>
+</div>
+</div>
+
+<h2 style="margin-top:24px">Como usar este guia</h2>
+<p>Cada problema esta organizado em 7 categorias, da camada mais basica (infraestrutura) a mais avancada (JavaScript/SPA). Para cada problema voce encontra:</p>
+<ul>
+<li><strong>Visao geral</strong> — o que e e por que acontece</li>
+<li><strong>Causa raiz</strong> — o mecanismo tecnico por tras</li>
+<li><strong>Impacto no SEO</strong> — o que acontece na pratica com rankings e indexacao</li>
+<li><strong>Diagnostico</strong> — ferramentas e comandos para identificar o problema</li>
+<li><strong>Solucao</strong> — a abordagem tecnica para corrigir</li>
+<li><strong>POP (Procedimento Operacional Padrao)</strong> — passo a passo executavel</li>
+<li><strong>FAQ</strong> — perguntas recorrentes com respostas diretas</li>
+</ul>
+
+<h2>Ferramentas de diagnostico recomendadas</h2>
+<div class="tools-grid">
+  <div class="tool-card">
+    <div class="tool-name">Google Search Console</div>
+    <div class="tool-desc">URL Inspection, Crawl Stats, Index Coverage</div>
+  </div>
+  <div class="tool-card">
+    <div class="tool-name">SSL Labs Test</div>
+    <div class="tool-desc">Analise completa de certificado TLS/SSL</div>
+  </div>
+  <div class="tool-card">
+    <div class="tool-name">PageSpeed Insights</div>
+    <div class="tool-desc">Core Web Vitals reais e de laboratorio</div>
+  </div>
+  <div class="tool-card">
+    <div class="tool-name">Screaming Frog</div>
+    <div class="tool-desc">Crawler com rendering JS, audit tecnico</div>
+  </div>
+  <div class="tool-card">
+    <div class="tool-name">Chrome DevTools</div>
+    <div class="tool-desc">Rendering, Coverage, Network, Lighthouse</div>
+  </div>
+  <div class="tool-card">
+    <div class="tool-name">Rich Results Test</div>
+    <div class="tool-desc">Validacao de schema markup e dados estruturados</div>
+  </div>
+  <div class="tool-card">
+    <div class="tool-name">curl / wget</div>
+    <div class="tool-desc">Fetch direto do HTML que o crawler recebe</div>
+  </div>
+  <div class="tool-card">
+    <div class="tool-name">DataForSEO</div>
+    <div class="tool-desc">SERP data, backlinks, keyword research</div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 01 · SSL / TLS -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="ssl">
+<h1 class="section-title">01 · SSL / TLS — Certificado que Bloqueia Indexacao</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-critical">Critico</span>
+  <span class="meta-tag tag-high">Infraestrutura</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>O Googlebot <strong>recusa conexoes HTTPS</strong> com certificados expirados, autoassinados, com <em>hostname mismatch</em> ou que usam protocolos TLS obsoletos. Quando o crawler encontra qualquer um desses problemas, ele <strong>aborta o crawl</strong> — nao estabelece conexao segura, nao baixa o HTML, nao indexa a pagina. O site simplesmente desaparece do indice.</p>
+<p>Diferente de um usuario que pode clicar "Prosseguir mesmo assim", o Googlebot nao contorna avisos de seguranca. Se o handshake SSL falha, a URL e tratada como inacessivel.</p>
+
+<h3>Causa Raiz</h3>
+<p>O protocolo TLS exige que o servidor apresente um certificado valido emitido por uma Autoridade Certificadora (CA) confiavel. O Googlebot usa o <strong>mesmo trust store do Chrome</strong> — se o Chrome rejeita, o Googlebot rejeita. Os cenarios especificos:</p>
+<table>
+<tr><th>Cenario</th><th>Comportamento do Googlebot</th></tr>
+<tr><td>Certificado expirado</td><td>Recusa conexao — <code>ERR_CERT_DATE_INVALID</code></td></tr>
+<tr><td>Autoassinado ou CA desconhecida</td><td>Recusa — <code>ERR_CERT_AUTHORITY_INVALID</code></td></tr>
+<tr><td>Hostname mismatch</td><td>Cert emite para <code>www.site.com</code>, site responde em <code>site.com</code></td></tr>
+<tr><td>TLS 1.0 / 1.1</td><td>Googlebot nao aceita protocolos obsoletos desde 2020</td></tr>
+<tr><td>Cadeia incompleta</td><td>Cert intermediario ausente — handshake falha</td></tr>
+<tr><td>Redirecionamento HTTP→HTTPS quebrado</td><td>Redirect loop ou URL HTTPS que nao resolve</td></tr>
+</table>
+
+<h3>Impacto no SEO</h3>
+<ul>
+<li><strong>Desindexacao total</strong> — paginas HTTPS com SSL invalido somem do indice</li>
+<li><strong>Crawl budget desperdicado</strong> — Googlebot gasta recursos tentando e falhando</li>
+<li><strong>Aviso "Nao seguro" no navegador</strong> — impacta taxa de rejeicao e confianca</li>
+<li><strong>Redirecionamento HTTP → HTTPS quebrado</strong> — usuarios e crawlers caem em pagina de erro</li>
+<li><strong>Penalidade indireta</strong> — Google trata sites sem HTTPS como nao confiaveis (Chrome marca como "Not Secure")</li>
+</ul>
+
+<h3>Diagnostico</h3>
+<h4>1. SSL Labs Test (recomendado)</h4>
+<p>Acesse <code>https://www.ssllabs.com/ssltest/</code> e insira a URL do cliente. O relatorio mostra:</p>
+<ul>
+<li>Validade do certificado</li>
+<li>Cadeia de confianca completa</li>
+<li>Versao do protocolo TLS</li>
+<li>Suporte a cipher suites seguras</li>
+<li>Presenca de HSTS</li>
+<li>Nota geral (A+ a F)</li>
+</ul>
+
+<h4>2. Google Search Console — URL Inspection</h4>
+<p>Inspecione a URL e veja se o Googlebot reporta erro de "Crawled but blocked" ou "Page not indexed: other reason". Expanda "Crawling" para ver detalhes do HTTP response.</p>
+
+<h4>3. curl com user-agent do Googlebot</h4>
+<pre><code>curl -I -A "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" \
+  -H "Accept-Language: en-US,en;q=0.9" \
+  https://seu-site.com
+
+# Verifique o codigo de resposta e os headers SSL
+# Se retornar erro de certificado, o problema esta confirmado</code></pre>
+
+<h4>4. openssl (teste direto do certificado)</h4>
+<pre><code>echo | openssl s_client -connect seu-site.com:443 -servername seu-site.com 2>/dev/null | openssl x509 -noout -dates</code></pre>
+
+<h3>Solucao</h3>
+<p>Depende do cenario identificado no diagnostico:</p>
+<table>
+<tr><th>Problema</th><th>Solucao</th></tr>
+<tr><td>Expirado</td><td>Renovar com a CA e instalar antes do vencimento. Configurar alerta de expiracao (30 dias antes)</td></tr>
+<tr><td>Autoassinado</td><td>Substituir por certificado de CA confiavel (Let's Encrypt, Sectigo, DigiCert, Cloudflare)</td></tr>
+<tr><td>Hostname mismatch</td><td>Emitir certificado SAN (Subject Alternative Name) que cubra ambos os dominios</td></tr>
+<tr><td>TLS obsoleto</td><td>Desabilitar TLS 1.0/1.1 no servidor. Manter apenas TLS 1.2 + 1.3</td></tr>
+<tr><td>Cadeia incompleta</td><td>Instalar o certificado intermediario no servidor. Verificar com SSL Labs</td></tr>
+<tr><td>Redirect loop</td><td>Corrigir configuracao do servidor web (Nginx/Apache) para redirect 301 direto</td></tr>
+</table>
+
+<h3>POP — Procedimento Operacional Padrao</h3>
+<ol class="pop-list">
+<li><strong>Diagnosticar com SSL Labs</strong> — rode o teste, capture a nota e os problemas apontados</li>
+<li><strong>Validar no GSC</strong> — va em URL Inspection, teste a URL ao vivo, veja se o Googlebot reporta erro de SSL</li>
+<li><strong>Identificar o tipo de falha</strong> — expirado, mismatch, autoassinado, cadeia incompleta ou TLS obsoleto</li>
+<li><strong>Se expirado:</strong> gerar novo CSR na hospedagem, comprar/renovar com a CA, instalar o certificado + chain</li>
+<li><strong>Se autoassinado:</strong> usar Let's Encrypt (Certbot) para emissao automatica gratuita: <code>certbot --nginx -d site.com -d www.site.com</code></li>
+<li><strong>Se mismatch:</strong> reemitir certificado SAN incluindo todos os dominios/subdominios que o site usa</li>
+<li><strong>Se cadeia incompleta:</strong> baixar o bundle CA + intermediario do provedor e concatenar ao certificado</li>
+<li><strong>Se TLS obsoleto:</strong> no Nginx adicionar <code>ssl_protocols TLSv1.2 TLSv1.3;</code> e remover TLSv1/TLSv1.1</li>
+<li><strong>Testar novamente</strong> — SSL Labs + curl + GSC URL Inspection para confirmar resolucao</li>
+<li><strong>Configurar alerta</strong> — monitoramento de expiracao (UptimeRobot, cron + openssl, ou servico do provedor)</li>
+<li><strong>Documentar</strong> — registrar data de renovacao, CA usada, dominios cobertos, e procedimento no runbook do cliente</li>
+</ol>
+
+<div class="callout callout-tip">
+<strong>Melhores praticas:</strong> Use Let's Encrypt com renovacao automatica (Certbot). Ative HSTS (<code>Strict-Transport-Security</code>). Configure redirecionamento 301 direto de HTTP para HTTPS — sem redirect chain. Monitore a data de expiracao com alerta 30 dias antes.
+</div>
+
+<h3>Exemplo de configuracao Nginx (TLS moderno)</h3>
+<pre><code>server {
+    listen 443 ssl http2;
+    server_name site.com www.site.com;
+
+    ssl_certificate     /etc/letsencrypt/live/site.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/site.com/privkey.pem;
+    ssl_protocols       TLSv1.2 TLSv1.3;
+    ssl_ciphers         ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache   shared:SSL:10m;
+    ssl_session_timeout 10m;
+
+    add_header Strict-Transport-Security "max-age=63072000" always;
+}
+
+server {
+    listen 80;
+    server_name site.com www.site.com;
+    return 301 https://$host$request_uri;
+}</code></pre>
+
+<h3>FAQ</h3>
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">O Googlebot realmente nao indexa paginas com SSL expirado?</div>
+<div class="faq-a">Sim. O Googlebot usa o mesmo trust store do Chrome. Se a conexao falha com erro de certificado, ele nao consegue baixar o HTML e a pagina nao e indexada. O Search Console mostra como "Crawled but currently not indexed" ou "Page inaccessible".</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">E se eu usar Cloudflare? O SSL e gerenciado por eles?</div>
+<div class="faq-a">Sim, Cloudflare fornece certificado automatico (Universal SSL) e cuida da renovacao. O problema ocorre quando o SSL esta configurado como "Flexible" em vez de "Full (strict)" — nesse caso a conexao entre Cloudflare e o servidor de origem e HTTP puro, o que pode causar erros. Use sempre "Full (strict)".</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Leva quanto tempo para o Googlebot voltar a indexar depois que o SSL e corrigido?</div>
+<div class="faq-a">Assim que o Googlebot tentar recrawlear a pagina e encontrar a conexao funcionando, a indexacao e retomada. Use a URL Inspection do GSC para solicitar indexacao imediatamente apos a correcao. Normalmente leva de algumas horas a 2 dias.</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Qual a diferenca entre SSL e TLS?</div>
+<div class="faq-a">SSL (Secure Sockets Layer) e o protocolo original, deprecated e vulneravel. TLS (Transport Layer Security) e o sucessor. Hoje todo "certificado SSL" e na verdade TLS. O termo SSL virou sinonimo, mas tecnicamente voce quer TLS 1.2 ou 1.3.</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Preciso de certificado pago ou Let's Encrypt e suficiente?</div>
+<div class="faq-a">Let's Encrypt e perfeitamente suficiente para SEO. O Googlebot nao diferencia CA paga vs gratuita. O unico requisito e que o certificado seja emitido por uma CA confiavel, e Let's Encrypt e reconhecida por todos os browsers e crawlers.</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">O que e um certificado SAN e quando preciso?</div>
+<div class="faq-a">SAN (Subject Alternative Name) permite que um unico certificado cubra multiplos dominios: <code>site.com</code>, <code>www.site.com</code>, <code>blog.site.com</code>, <code>loja.site.com</code>. Sem SAN, cada dominio precisa do seu proprio certificado. Essencial para evitar hostname mismatch.</div>
+</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 02 · ROBOTS.TXT -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="robots">
+<h1 class="section-title">02 · Robots.txt Bloqueando Crawlers</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-critical">Critico</span>
+  <span class="meta-tag tag-high">Crawl</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>O <code>robots.txt</code> e o primeiro arquivo que o Googlebot solicita ao chegar em um site. Se ele bloqueia diretorios inteiros, URLs especificas ou arquivos JS/CSS necessarios para renderizacao, o crawler nao consegue acessar nem indexar o conteudo.</p>
+
+<h3>Causa Raiz</h3>
+<p>Geralmente por configuracao incorreta: <code>Disallow: /</code> (bloqueia tudo), <code>Disallow: /wp-admin/</code> (bloqueia diretorio de admin, mas e pra ser bloqueado mesmo), ou o bloqueio acidental de assets <code>.js</code> e <code>.css</code> que o Googlebot precisa para renderizar a pagina.</p>
+
+<h3>Diagnostico</h3>
+<pre><code># Testar com Googlebot user-agent
+curl -A "Googlebot" https://seu-site.com/robots.txt
+
+# Ver no GSC → Config → Robots.txt
+# O GSC mostra o conteudo e eventuais erros de parse</code></pre>
+
+<h3>POP</h3>
+<ol class="pop-list">
+<li>Acessar <code>/robots.txt</code> no navegador e confirmar o conteudo</li>
+<li>Verificar se <code>Disallow: /</code> esta presente (so deve estar em staging)</li>
+<li>Verificar se assets <code>.js</code> e <code>.css</code> estao acessiveis (nao bloqueados)</li>
+<li>Usar o tester do GSC para simular bloqueios por URL</li>
+<li>Corrigir permissoes no servidor web se arquivos estao retornando 403</li>
+</ol>
+
+<h3>FAQ</h3>
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Se eu bloquear JS no robots.txt, o Googlebot ainda renderiza minha pagina?</div>
+<div class="faq-a">Nao. Googlebot precisa dos arquivos JS e CSS para renderizar o DOM completo. Se eles estao bloqueados, ele ve apenas o HTML inicial — que em SPAs e vazio.</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 03 · NOINDEX ACIDENTAL -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="noindex">
+<h1 class="section-title">03 · Noindex Acidental</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-critical">Critico</span>
+  <span class="meta-tag tag-high">Indexacao</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>O meta tag <code>&lt;meta name="robots" content="noindex"&gt;</code> ou o header HTTP <code>X-Robots-Tag: noindex</code> instrui o Googlebot a <strong>nao incluir a pagina no indice</strong>. Quando colocado acidentalmente em paginas importantes (home, categorias, posts), elas somem da pesquisa.</p>
+
+<h3>Causa Raiz</h3>
+<ul>
+<li>Plugin de SEO configurado incorretamente</li>
+<li>Template que aplica noindex em todas as paginas por padrao</li>
+<li>Ambiente de staging/index.php com noindex que vazou para producao</li>
+<li>Tema WordPress com noindex por ser "Coming Soon"</li>
+<li>Header HTTP definido por servidor web ou CDN</li>
+</ul>
+
+<h3>Diagnostico</h3>
+<pre><code># Verificar meta robots no HTML
+curl -s https://seu-site.com | grep -i "noindex\|nofollow"
+
+# Verificar header X-Robots-Tag
+curl -I https://seu-site.com | grep -i "x-robots"
+
+# GSC → URL Inspection → mostra se a pagina tem noindex
+# Screaming Frog → column "Indexability" → mostra "Noindex"</code></pre>
+
+<h3>POP</h3>
+<ol class="pop-list">
+<li>Identificar paginas afetadas via GSC (index coverage report: "Excluded by noindex tag")</li>
+<li>Verificar source da pagina: meta tag no <code>&lt;head&gt;</code> ou header HTTP</li>
+<li>Remover o noindex de paginas que devem ser indexadas</li>
+<li>Usar GSC URL Inspection → "Solicitar indexacao" apos correcao</li>
+<li>Configurar alarme no GSC para detectar picos de paginas com noindex</li>
+</ol>
+
+<h3>FAQ</h3>
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Qual a diferenca entre noindex e nofollow?</div>
+<div class="faq-a"><strong>Noindex</strong> impede a indexacao da pagina. <strong>Nofollow</strong> diz ao Googlebot para nao seguir os links da pagina (mas a pagina pode ser indexada). Eles podem ser usados juntos: <code>noindex, nofollow</code>.</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 04 · SITEMAP XML -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="sitemap">
+<h1 class="section-title">04 · Sitemap XML com Erros</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-high">Alta</span>
+  <span class="meta-tag tag-medium">Crawl</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>O sitemap.xml e o principal canal de descoberta de URLs para o Googlebot. Erros de formato, URLs quebradas, redirects, ou a ausencia total do sitemap fazem com que paginas importantes nunca sejam descobertas ou fiquem presas na fila de crawl.</p>
+
+<h3>Problemas Comuns</h3>
+<table>
+<tr><th>Problema</th><th>Consequencia</th></tr>
+<tr><td>Sitemap ausente</td><td>Googlebot descobre URLs apenas por links internos — paginas orfas ficam invisiveis</td></tr>
+<tr><td>URLs com redirect (3xx)</td><td>Sitemap deve conter apenas URLs canonicas (200). Redirects desperdicam crawl budget</td></tr>
+<tr><td>URLs com erro (4xx/5xx)</td><td>Googlebot gasta recursos em paginas que nao existem</td></tr>
+<tr><td>URLs com noindex</td><td>Contradicao: pede para indexar mas nao quer que indexe</td></tr>
+<tr><td>Sitemap > 50MB ou 50.000 URLs</td><td>Googlebot ignora linhas excedentes — divida em sitemaps index</td></tr>
+<tr><td>URLs sem prioridade/ultmod</td><td>Googlebot prioriza todas igualmente — perde sinalizacao de importancia</td></tr>
+</table>
+
+<h3>Diagnostico</h3>
+<pre><code># Ver se o sitemap existe e esta acessivel
+curl -s https://seu-site.com/sitemap.xml | head -50
+
+# GSC → Sitemaps → ve status, URL count, erros
+# Screaming Frog → Sitemap audit</code></pre>
+
+<h3>POP</h3>
+<ol class="pop-list">
+<li>Verificar se o sitemap existe em <code>/sitemap.xml</code> ou no path configurado no robots.txt</li>
+<li>Validar formato XML (deve ter <code>&lt;urlset&gt;</code> com namespaces corretos)</li>
+<li>Verificar que cada URL retorna 200 (sem redirects ou erros)</li>
+<li>Remover URLs com noindex, canonical apontando para outra pagina, ou block do robots.txt</li>
+<li>Submeter no GSC → Sitemaps → "Adicionar sitemap"</li>
+<li>Manter atualizado — gerar dinamicamente ou via cron sempre que conteudo mudar</li>
+</ol>
+
+<h3>FAQ</h3>
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Sitemap substitui a necessidade de links internos?</div>
+<div class="faq-a">Nao. Sitemap ajuda na descoberta, mas links internos sao essenciais para passar autoridade (PageRank) e contexto tematico entre as paginas.</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 05 · CANONICAL INCORRETO -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="canonical">
+<h1 class="section-title">05 · Canonical Mal Configurado</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-high">Alta</span>
+  <span class="meta-tag tag-medium">Indexacao</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>A tag <code>&lt;link rel="canonical"&gt;</code> diz ao Google qual versao de uma URL deve ser tratada como a principal. Quando aponta para a pagina errada, para uma URL que redireciona, ou para si mesma em paginas paginadas, o Google pode indexar a versao errada ou ignorar a pagina.</p>
+
+<h3>Causa Raiz</h3>
+<ul>
+<li>Canonical apontando para URL com redirect em vez da final</li>
+<li>Todas as paginas apontando canonical para a home</li>
+<li>Paginas paginadas (page/2, page/3) apontando canonical para page/1</li>
+<li>Canonical ausente em paginas com multiplas URLs (parametros de tracking, filtros)</li>
+<li>Canonical definido via JavaScript em vez de HTML estatico</li>
+</ul>
+
+<h3>POP</h3>
+<ol class="pop-list">
+<li>Crawlear o site com Screaming Frog e exportar coluna "Canonical URL"</li>
+<li>Identificar paginas com canonical apontando para URL diferente da atual</li>
+<li>Verificar se o canonical aponta para URL 200 (nao redirect nem erro)</li>
+<li>Corrigir: cada pagina unica deve ter self-canonical (apontar para si mesma)</li>
+<li>Paginas paginadas: usar <code>rel="prev"</code>/<code>rel="next"</code> em vez de canonical para page/1</li>
+</ol>
+
+<h3>FAQ</h3>
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">O que acontece se o canonical aponta para uma URL 404?</div>
+<div class="faq-a">O Google ignora o canonical e tenta determinar a URL canonica sozinho — geralmente escolhendo a versao com mais links internos apontando.</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 06 · REDIRECIONAMENTOS -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="redirects">
+<h1 class="section-title">06 · Redirecionamentos Quebrados</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-high">Alta</span>
+  <span class="meta-tag tag-medium">Crawl</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>Cadeias de redirect (A → B → C), redirect loops, e redirects para URLs 4xx/5xx desperdicam crawl budget, atrasam a indexacao e podem fazer o Googlebot desistir de seguir a corrente.</p>
+
+<h3>Causa Raiz</h3>
+<ul>
+<li>HTTP → HTTPS → WWW → HTTPS redirect chain em vez de direto</li>
+<li>Redirects apos migracao de dominio mal configurados</li>
+<li>URLs antigas que deviam ser 410/301 mas ainda estao 200</li>
+<li>Redirects temporarios (302) usados onde deveriam ser permanentes (301)</li>
+<li>Redirect loops por configuracao conflitante (Nginx + app + CDN)</li>
+</ul>
+
+<h3>POP</h3>
+<ol class="pop-list">
+<li>Crawlear o site e identificar redirects (Screaming Frog → Status Code filter 3xx)</li>
+<li>Para cada redirect chain, verificar se pode ser reduzida a um unico 301</li>
+<li>Redirects temporarios (302) que sao permanentes devem virar 301</li>
+<li>Redirects para 4xx/5xx devem apontar para a URL correta ou ser removidos</li>
+<li>Redirect loops: corrigir configuracao no servidor web e desativar regras conflitantes</li>
+</ol>
+
+<h3>FAQ</h3>
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Quantos redirects o Googlebot segue?</div>
+<div class="faq-a">Google diz que segue ate 10 hops, mas na pratica recomenda-se no maximo 3. Cada redirect adicional desperdica crawl budget e dilui transferencia de autoridade.</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 07 · ERROS HTTP -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="http-errors">
+<h1 class="section-title">07 · Erros HTTP 4xx/5xx em Paginas Indexadas</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-high">Alta</span>
+  <span class="meta-tag tag-medium">Indexacao</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>Paginas que antes estavam indexadas e passam a retornar 404 (removidas sem redirect) ou 5xx (erro de servidor) sao retiradas do indice progressivamente. O Googlebot interpreta 404 como "conteudo removido" e 5xx como "site instavel".</p>
+
+<h3>POP</h3>
+<ol class="pop-list">
+<li>GSC → Index Coverage → "Not found (404)" → veja quais URLs estao com erro</li>
+<li>Para cada 404: se o conteudo foi movido, colocar 301 para a nova URL. Se foi removido de proposito, retornar 410 (Gone) em vez de 404</li>
+<li>Para 5xx: investigar causa no servidor (pico de trafego, recurso esgotado, erro de aplicacao)</li>
+<li>Implementar monitoramento de uptime com alertas para 5xx</li>
+<li>Corrigir links internos que ainda apontam para URLs 404</li>
+</ol>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 08 · CONTEUDO DUPLICADO -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="duplicate">
+<h1 class="section-title">08 · Conteudo Duplicado</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-medium">Media</span>
+  <span class="meta-tag tag-low">Indexacao</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>Conteudo identico ou muito similar acessivel em URLs diferentes (com e sem www, HTTP/HTTPS, parametros de tracking, filtros de ordenacao) faz o Google gastar crawl budget em duplicatas e dividir sinais de ranking entre as versoes.</p>
+
+<h3>Solucao</h3>
+<ul>
+<li>Escolher um dominio canonicos (www vs non-www) e redirecionar o outro</li>
+<li>Usar canonical tag em todas as paginas</li>
+<li>Parametros de tracking: configurar no GSC → Config → Parametros de URL</li>
+<li>Filtros de categoria/tamanho/cor: usar canonical para a versao padrao</li>
+<li>Paginacao: rel="prev"/"next" em vez de deixar todas soltas</li>
+</ul>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 09 · THIN CONTENT -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="thin-content">
+<h1 class="section-title">09 · Thin Content</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-medium">Media</span>
+  <span class="meta-tag tag-low">Conteudo</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>Paginas com pouco ou nenhum conteudo util — paginas de produto sem descricao, categorias com 2 linhas, paginas geradas automaticamente sem valor — sao penalizadas pelo Google (Helpful Content Update) e tendem a nao rankear.</p>
+
+<h3>POP</h3>
+<ol class="pop-list">
+<li>Extrair word count de todas as paginas (Screaming Frog → Word Count)</li>
+<li>Identificar paginas com < 300 palavras (blog) ou < 100 palavras (produto/categoria)</li>
+<li>Para produtos: adicionar descricao unica (nao copiar do fabricante), especificacoes, reviews</li>
+<li>Para categorias: adicionar texto introdutorio, guia de compra, FAQ</li>
+<li>Paginas que nao podem ter conteudo suficiente: noindex ou canonical para uma pagina mais rica</li>
+</ol>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 12 · META TAGS AUSENTES -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="meta-tags">
+<h1 class="section-title">12 · Title e Meta Description Ausentes ou Duplicadas</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-medium">Media</span>
+  <span class="meta-tag tag-low">On-Page</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>O <code>&lt;title&gt;</code> e a <code>&lt;meta name="description"&gt;</code> sao os primeiros sinais que o Google usa para entender do que a pagina se trata. Ausentes, duplicados ou gerados automaticamente, o Google escolhe o que mostrar no SERP — muitas vezes pior do que voce escreveria.</p>
+
+<h3>POP</h3>
+<ol class="pop-list">
+<li>Screaming Frog → Title 1 / Meta Desc 1 → exportar paginas com ausente ou duplicado</li>
+<li>Cada title deve ser unico, descritivo, < 60 caracteres, com keyword principal no inicio</li>
+<li>Cada meta description deve ser unica, < 160 caracteres, com call-to-action e keyword</li>
+<li>Corrigir no CMS ou template — title tags sao responsabilidade do desarrollador/SEO</li>
+<li>Em SPAs: garantir que o title seja definido no SSR/SSG, nao apenas via JS</li>
+</ol>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 10 · PAGINAS ORFAS -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="orphan">
+<h1 class="section-title">10 · Paginas Orfas</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-high">Alta</span>
+  <span class="meta-tag tag-medium">Arquitetura</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>Paginas que nao recebem links internos de nenhuma outra pagina do site. Sem links internos, o Googlebot depende exclusivamente do sitemap para descobri-las — e mesmo assim, sem link interno, elas nao recebem autoridade (PageRank) e tendem a nao rankear.</p>
+
+<h3>POP</h3>
+<ol class="pop-list">
+<li>Screaming Frog → crawl completo → exportar "Inlinks"</li>
+<li>Identificar paginas com 0 ou 1 link interno</li>
+<li>Criar links contextuais a partir de paginas relevantes (nao apenas do menu/rodape)</li>
+<li>Para SPAs: garantir que o router cria elementos <code>&lt;a&gt;</code> no HTML (nao onClick em divs)</li>
+<li>Auditar periodicamente — ferramenta: Python script + Screaming Frog crawl diff</li>
+</ol>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 11 · CANIBALIZACAO -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="cannibal">
+<h1 class="section-title">11 · Canibalizacao de Palavras-chave</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-medium">Media</span>
+  <span class="meta-tag tag-low">Conteudo</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>Quando duas ou mais paginas do mesmo site competem pela mesma palavra-chave, o Google precisa escolher qual mostrar. Isso divide cliques, dilui autoridade, e nenhuma das duas rankeia tao bem quanto rankearia se fosse a unica.</p>
+
+<h3>Diagnostico</h3>
+<ul>
+<li>GSC → Search Results → veja quais URLs aparecem para a mesma query</li>
+<li>Se duas URLs do seu site aparecem para a mesma keyword, voce tem canibalizacao</li>
+<li>Screaming Frog + export de titles + H1 ajuda a identificar sobreposicao tematica</li>
+</ul>
+
+<h3>Solucao</h3>
+<ul>
+<li>Fundir paginas concorrentes em uma unica, mais completa, com redirect 301 das outras</li>
+<li>Diferenciar o foco de cada pagina (keyword不同, intent不同)</li>
+<li>Usar canonical para a versao principal se a fusao nao for possivel imediatamente</li>
+<li>Internal link: direcionar todos os links para a pagina que voce quer rankear</li>
+</ul>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 13 · LCP -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="lcp">
+<h1 class="section-title">13 · LCP Alto (Largest Contentful Paint)</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-critical">Critico</span>
+  <span class="meta-tag tag-high">Performance</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>LCP mede o tempo que o maior elemento visivel da pagina leva para renderizar. O limite Google e 2.5 segundos. Acima disso, a pagina e considerada lenta e penalizada no ranking. Em SPAs, o LCP e particularmente problemático porque o conteudo principal so existe apos JS executar.</p>
+
+<h3>Causas Comuns</h3>
+<ul>
+<li>Imagem de hero sem compressao e sem <code>fetchpriority="high"</code></li>
+<li>Fonte customizada com <code>font-display: swap</code> ou block</li>
+<li>SPA sem SSR: o maior elemento e o spinner/loading ate o JS renderizar</li>
+<li>Render-blocking resources (JS/CSS nao criticos carregando antes do conteudo)</li>
+<li>Server response time (TTFB) alto > 500ms</li>
+</ul>
+
+<h3>POP</h3>
+<ol class="pop-list">
+<li>Identificar o elemento LCP (PageSpeed Insights → Diagnostics → Largest Contentful Paint element)</li>
+<li>Se for imagem: comprimir (WebP/AVIF), adicionar <code>fetchpriority="high"</code>, <code>loading="eager"</code></li>
+<li>Se for texto: ativar <code>font-display: swap</code>, preconnect para Google Fonts</li>
+<li>Se o TTFB for alto: otimizar servidor (cache, CDN, PHP opcache, banco de dados)</li>
+<li>Se for SPA: implementar SSR para que o HTML servido contenha o conteudo principal</li>
+<li>Usar <code>&lt;link rel="preload"&gt;</code> para o recurso LCP</li>
+</ol>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 14 · INP -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="inp">
+<h1 class="section-title">14 · INP Ruim (Interaction to Next Paint)</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-high">Performance</span>
+  <span class="meta-tag tag-medium">CWV</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>INP mede a latencia de todas as interacoes do usuario (cliques, toques, teclado) e reporta a pior observada. Substituiu o FID como Core Web Vital em marco/2024. Limite: < 200ms. Em SPAs, cada navegacao entre rotas pode triggerar INP alto se o bundle JS for grande.</p>
+
+<h3>Solucao</h3>
+<ul>
+<li>Code splitting: carregar apenas o JS necessario para cada rota</li>
+<li>Lazy load de componentes abaixo da dobra</li>
+<li>Evitar long tasks ( > 50ms) — usar <code>requestIdleCallback</code>, <code>setTimeout</code>, Web Workers</li>
+<li>Em SPAs: pre-renderizar rotas via SSR para que a interacao inicial nao dependa de hidratacao</li>
+<li>Debounce event handlers pesados (scroll, resize, input)</li>
+</ul>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 15 · CLS -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="cls">
+<h1 class="section-title">15 · CLS Alto (Cumulative Layout Shift)</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-high">Performance</span>
+  <span class="meta-tag tag-medium">UX</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>CLS mede mudancas no layout apos o carregamento inicial. Causado por elementos que "pulam" depois que outros carregam: imagens sem dimensoes, anúncios, fonts, embeds, ou em SPAs, componentes que renderizam em etapas. Limite Google: < 0.1.</p>
+
+<h3>POP</h3>
+<ol class="pop-list">
+<li>Identificar elementos que causam shift (Lighthouse → "Avoid large layout shifts" ou "Cumulative Layout Shift" debug)</li>
+<li>Toda imagem deve ter <code>width</code> e <code>height</code> explicitos (ou <code>aspect-ratio</code> CSS)</li>
+<li>Reservar espaco para anúncios, embeds e dynamic content com placeholder de dimensoes fixas</li>
+<li>Fonts: usar <code>font-display: optional</code> ou <code>swap</code> com <code>size-adjust</code></li>
+<li>Em SPAs: evitar que componentes renderizem em fases sem altura definida</li>
+<li>Injetar CSS critico inline para que o layout inicial seja estavel</li>
+</ol>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 16 · JS BLOQUEANTE -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="js-blocking">
+<h1 class="section-title">16 · JavaScript Bloqueante</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-high">Performance</span>
+  <span class="meta-tag tag-medium">Crawl</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>Arquivos JS carregados no <code>&lt;head&gt;</code> sem <code>defer</code> ou <code>async</code> bloqueiam o parser do HTML. O navegador (e o Googlebot) para de ler o HTML, baixa e executa o JS, e so depois continua. Isso atrasa LCP, TTFB percebido, e em SPAs delay a renderizacao do conteudo principal.</p>
+
+<h3>POP</h3>
+<ol class="pop-list">
+<li>Chrome DevTools → Performance → veja "Long tasks" e "Main thread blocking"</li>
+<li>Identificar scripts no <code>&lt;head&gt;</code> sem <code>defer</code> ou <code>async</code></li>
+<li>Adicionar <code>defer</code> para scripts que nao sao criticos para o render inicial</li>
+<li>Scripts criticos: inline minimizado no <code>&lt;head&gt;</code></li>
+<li>Code splitting: carregar bundles apenas quando necessario (rota, interacao)</li>
+</ol>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 17 · IMAGENS -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="images">
+<h1 class="section-title">17 · Imagens Nao Otimizadas</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-medium">Media</span>
+  <span class="meta-tag tag-low">Performance</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>Imagens representam > 50% do peso medio de uma pagina. Imensas em PNG, sem compressao, sem WebP/AVIF, sem dimensoes, sem lazy loading e sem alt text — cada um desses erros impacta LCP, CLS, acessibilidade e indexacao no Google Imagens.</p>
+
+<h3>POP</h3>
+<ol class="pop-list">
+<li>Crawlear e listar todas as imagens (Screaming Frog → Images tab)</li>
+<li>Identificar imagens > 100KB, formatos PNG desnecessarios, sem alt text</li>
+<li>Converter para WebP (ou AVIF) com compressao inteligente (80-85% qualidade)</li>
+<li>Adicionar <code>loading="lazy"</code> em imagens abaixo da dobra</li>
+<li>Adicionar <code>width</code> e <code>height</code> em todas as imagens (previne CLS)</li>
+<li>Adicionar <code>alt</code> descritivo com keyword natural (nao keyword stuffing)</li>
+<li>Implementar srcset para servir imagens no tamanho correto do viewport</li>
+<li>Configurar cache de imagens no CDN com long TTL + cache busting</li>
+</ol>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 18 · SCHEMA -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="schema">
+<h1 class="section-title">18 · Schema Markup Incorreto</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-high">Alta</span>
+  <span class="meta-tag tag-medium">Schema</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>Dados estruturados ajudam o Google a entender o conteudo e gerar rich snippets (estrelas, FAQ, receita, produto, etc). Schema markup com erros simplesmente nao gera rich result — e em alguns casos pode causar acao manual (spam de schema).</p>
+
+<h3>Problemas Comuns</h3>
+<ul>
+<li>Tipo de schema errado para o conteudo (ex: usar Product para pagina de servico)</li>
+<li>Propriedades obrigatorias ausentes (ex: falta <code>name</code> em <code>Product</code>)</li>
+<li>Valores em formato errado (preco como string em vez de numero)</li>
+<li>Schema injetado via JS que o Googlebot nao ve (especialmente em SPAs)</li>
+<li>Review schema com nota 5.0 para tudo (parece manipulado)</li>
+<li>FAQPAGE com perguntas que sao na verdade apenas keywords</li>
+</ul>
+
+<h3>POP</h3>
+<ol class="pop-list">
+<li>Validar todas as paginas com schema no Rich Results Test (Google)</li>
+<li>Corrigir erros apontados (propriedades ausentes, tipos incorretos, formatos errados)</li>
+<li>Schema deve estar no HTML inicial (server-rendered), nunca apenas via JS</li>
+<li>Usar JSON-LD (recomendado pelo Google), nao microdata ou RDFa</li>
+<li>Apos correcao: GSC → Rich Results → veja se os erros diminuem e os itens validos aumentam</li>
+</ol>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 19 · JSON-LD INVALIDO -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="jsonld">
+<h1 class="section-title">19 · JSON-LD Invalido</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-medium">Media</span>
+  <span class="meta-tag tag-low">Schema</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>JSON-LD invalido (mal formatado, com trailing commas, aspas simples, ou <code>@context</code> ausente) e ignorado pelo Google sem aviso. A pagina simplesmente nao gera rich result. Diferente de HTML mal formatado, o parser de JSON e strict.</p>
+
+<h3>Diagnostico</h3>
+<pre><code># Extrair JSON-LD da pagina
+curl -s https://seu-site.com | python3 -c "
+import sys, json, re
+html = sys.stdin.read()
+for match in re.finditer(r'<script type=\"application/ld\+json\">(.*?)</script>', html, re.DOTALL):
+    try:
+        data = json.loads(match.group(1))
+        print(json.dumps(data, indent=2))
+    except json.JSONDecodeError as e:
+        print(f'ERROR: {e}')
+"</code></pre>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 20 · MOBILE USABILITY -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="mobile">
+<h1 class="section-title">20 · Mobile Usability</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-critical">Critico</span>
+  <span class="meta-tag tag-high">Mobile</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>O Google usa indexacao <strong>mobile-first</strong> desde 2021. Se a versao mobile do seu site tem problemas de usabilidade, ela e usada como base para o ranking. Erros como <code>content</code> maior que a tela, touch elements muito proximos, fontes minusculas e Flash nao suportado fazem o Google penalizar o site.</p>
+
+<h3>POP</h3>
+<ol class="pop-list">
+<li>GSC → Mobile Usability → veja os erros reportados</li>
+<li>Corrigir viewport: <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+<li>Aumentar font-size para no minimo 16px (iOS escala fonts < 16px)</li>
+<li>Aumentar espacamento entre touch targets (minimo 48px x 48px)</li>
+<li>Garantir que o <code>content</code> nao exceda a largura do viewport</li>
+<li>Testar manualmente em device mode no Chrome DevTools</li>
+</ol>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 21 · VIEWPORT -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="viewport">
+<h1 class="section-title">21 · Viewport Configurado Incorretamente</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-high">Mobile</span>
+  <span class="meta-tag tag-medium">UX</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>A meta tag viewport e o que diz ao navegador como renderizar a pagina no dispositivo. Sem ela, o navegador assume desktop width e aplica zoom — resultado: site parece "zoomado", conteudo cortado, e o Google marca como "Not mobile-friendly".</p>
+
+<h3>Solucao</h3>
+<pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></pre>
+<p>Nunca usar <code>maximum-scale=1</code> ou <code>user-scalable=no</code> (impede zoom e e considerado anti-acessibilidade).</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 22 · SPA / CSR SEM SSR -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="spa">
+<h1 class="section-title">22 · Single Page Application — CSR sem SSR/SSG</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-critical">Critico</span>
+  <span class="meta-tag tag-high">JavaScript</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>SPAs (React, Vue, Angular) sem SSR ou SSG entregam ao crawler um HTML praticamente vazio: <code>&lt;div id="root"&gt;&lt;/div&gt;</code>. Todo o conteudo da pagina — textos, headings, links, metadados — so existe apos o JavaScript ser baixado, parseado e executado. O Googlebot ve uma pagina em branco.</p>
+<p>Este e <strong>o erro mais comum e mais grave</strong> em sites JavaScript modernos. Ele afeta nao so Google, mas todos os crawlers de IA (ClaudeBot, GPTBot, PerplexityBot) que nao executam JavaScript.</p>
+
+<h3>Causa Raiz</h3>
+<p>Frameworks JavaScript modernos (React com Create React App, Vue CLI, Angular CLI) geram por padrao uma aplicacao CSR (Client-Side Rendering). O servidor envia um HTML esqueleto com um unico <code>&lt;div&gt;</code> e um bundle JS. O navegador baixa o JS, executa, e so entao renderiza o conteudo. Mas crawlers:</p>
+<ul>
+<li><strong>Googlebot</strong>: renderiza JS em uma segunda wave (fila de rendering). Pode levar dias ou semanas. E mesmo assim, conteudo atras de interacao do usuario (scroll, clique) nunca e visto.</li>
+<li><strong>Bing, Yahoo, Yandex</strong>: geralmente nao executam JS. Veem pagina em branco.</li>
+<li><strong>AI Crawlers (GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot)</strong>: nao executam JS. Indexam zero.</li>
+<li><strong>Social crawlers (Facebook, Twitter, LinkedIn, Slack)</strong>: nao executam JS. Compartilhamento nao gera preview.</li>
+</ul>
+
+<h3>Impacto no SEO</h3>
+<ul>
+<li><strong>Paginas nao indexadas</strong> ou indexadas como "Crawled - currently not indexed" no GSC</li>
+<li><strong>Zero visibilidade em AI search</strong> (ChatGPT, Perplexity, AI Overviews)</li>
+<li><strong>Rich snippets ausentes</strong> (schema injetado via JS nao e lido por crawlers que nao executam JS)</li>
+<li><strong>Social previews quebrados</strong> (OG tags so existem apos JS)</li>
+<li><strong>Crawl budget exaurido</strong> — Googlebot gasta recursos para renderizar sem garantia de sucesso</li>
+</ul>
+
+<h3>Diagnostico</h3>
+<h4>1. Teste com JavaScript desabilitado</h4>
+<pre><code># Chrome DevTools → Settings → Debugger → "Disable JavaScript"
+# Recarregue a pagina. O que voce ve e o que a maioria dos crawlers ve.</code></pre>
+
+<h4>2. curl com user-agent Googlebot</h4>
+<pre><code>curl -s -A "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" \
+  https://seu-site.com | head -100
+# Se o output for <div id="root"></div> + script tag, voce tem CSR puro</code></pre>
+
+<h4>3. GSC → URL Inspection → "Test Live URL" → "Rendered HTML" tab</h4>
+<p>Compare o rendered HTML com o source original. Se sao drasticamente diferentes, voce depende de JS rendering.</p>
+
+<h4>4. Verificar tamanho do HTML inicial</h4>
+<pre><code>curl -s -A "Googlebot" https://seu-site.com | wc -c
+# HTML < 1KB = provavelmente CSR shell vazio
+# HTML > 10KB com texto visivel = provavelmente SSR/SSG</code></pre>
+
+<h3>Solucao</h3>
+<p>Quatro abordagens, da mais recomendada a menos:</p>
+<table>
+<tr><th>Abordagem</th><th>Funciona</th><th>Trade-off</th><th>Recomendado para</th></tr>
+<tr><td><strong>SSR</strong> (Next.js, Nuxt, Angular Universal)</td><td>Server renderiza HTML completo a cada request</td><td>Servidor Node.js necessario; aumento de TTFB</td><td>Sites com conteudo dinamico, personalizado</td></tr>
+<tr><td><strong>SSG</strong> (Astro, Next.js export, Hugo, 11ty)</td><td>HTML gerado em build time, servido estatico</td><td>Rebuild necessario para atualizar conteudo</td><td>Blogs, docs, landing pages, sites de conteudo</td></tr>
+<tr><td><strong>ISR</strong> (Next.js Incremental Static Regeneration)</td><td>SSG + regeneracao sob demanda</td><td>Infra Next.js; cache invalidation</td><td>Sites com atualizacao frequente sem perder performance</td></tr>
+<tr><td><strong>Prerendering / Dynamic Rendering</strong></td><td>Headless browser gera HTML para crawlers; SPA para usuarios</td><td>Duas codebases; Google chama de workaround</td><td>SPAs legadas onde SSR seria rewrite total</td></tr>
+</table>
+
+<h3>POP — SSR/SSG</h3>
+<ol class="pop-list">
+<li><strong>Diagnosticar</strong> — curl + GSC para confirmar CSR puro (HTML < 1KB, sem conteudo no source)</li>
+<li><strong>Escolher abordagem</strong> — SSR se conteudo dinamico, SSG se estatico, ISR se frequencia media</li>
+<li><strong>Se SSR com Next.js:</strong> migrar pages para <code>getServerSideProps</code> ou App Router com <code>dynamic = 'force-dynamic'</code></li>
+<li><strong>Se SSG com Next.js:</strong> usar <code>getStaticProps</code> + <code>revalidate</code> para ISR</li>
+<li><strong>Se SSG com Astro:</strong> arquivos .astro geram HTML estatico por padrao — zero config</li>
+<li><strong>Garantir que meta tags estao no HTML inicial:</strong> title, description, canonical, OG tags, JSON-LD</li>
+<li><strong>Garantir que links usam <code>&lt;a&gt;</code> com <code>href</code>:</strong> crawlers nao seguem onClick handlers</li>
+<li><strong>Testar novamente:</strong> curl com Googlebot → HTML deve conter texto, headings, links</li>
+<li><strong>GSC URL Inspection:</strong> solicitar indexacao das paginas principais</li>
+<li><strong>Testar em AI crawlers:</strong> usar ferramentas como DataJelly Visibility Test para ver o que GPTBot/ClaudeBot veem</li>
+</ol>
+
+<h3>POP — Prerendering / Dynamic Rendering (workaround)</h3>
+<ol class="pop-list">
+<li>Deployar servico de prerendering (Rendertron, Puppeteer, Prerender.io)</li>
+<li>Configurar proxy (Nginx, CDN) para detectar crawlers pelo User-Agent e redirecionar ao prerender</li>
+<li>Cachear HTML pre-renderizado com TTL configurado</li>
+<li>Invalidar cache quando conteudo mudar</li>
+<li>Testar com curl usando user-agent Googlebot</li>
+<li>Monitorar no GSC se paginas comecam a ser indexadas com conteudo</li>
+</ol>
+
+<div class="callout callout-warn">
+<strong>Atencao:</strong> Dynamic rendering e um workaround, nao uma solucao definitiva. Google recomenda SSR/SSG. Se voce usar dynamic rendering, o conteudo servido a crawlers deve ser estritamente equivalente ao que usuarios veem — senao e cloaking.
+</div>
+
+<h3>Exemplo: Next.js (SSR basico)</h3>
+<pre><code>// pages/produto/[id].js — SSR
+export async function getServerSideProps({ params }) {
+  const res = await fetch(`https://api.site.com/produtos/${params.id}`);
+  const produto = await res.json();
+  return { props: { produto } };
+}
+
+export default function Produto({ produto }) {
+  return (
+    &lt;&gt;
+      &lt;Head&gt;
+        &lt;title&gt;{produto.nome} | Loja&lt;/title&gt;
+        &lt;meta name="description" content={produto.descricao} /&gt;
+      &lt;/Head&gt;
+      &lt;h1&gt;{produto.nome}&lt;/h1&gt;
+      &lt;p&gt;{produto.descricao}&lt;/p&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+
+<h3>Exemplo: Astro (SSG por padrao)</h3>
+<pre><code>---
+// pages/produto.astro — SSG
+const { id } = Astro.params;
+const res = await fetch(`https://api.site.com/produtos/${id}`);
+const produto = await res.json();
+---
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;{produto.nome} | Loja&lt;/title&gt;
+    &lt;meta name="description" content={produto.descricao} /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;{produto.nome}&lt;/h1&gt;
+    &lt;p&gt;{produto.descricao}&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<div class="callout callout-tip">
+<strong>Checklist SPA SEO:</strong> SSR/SSG implementado · History API (sem hash routing) · Meta tags unicas por rota no HTML inicial · Canonical no HTML inicial · Status codes corretos (200 real, 404 real) · Sitemap com todas as URLs · Schema no HTML inicial · Links em <code>&lt;a&gt;</code> com <code>href</code> · fetch sem JS confirma conteudo · Teste GSC URL Inspection aprovado
+</div>
+
+<h3>FAQ</h3>
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Meu site e React puro (CRA). Preciso reescrever tudo?</div>
+<div class="faq-a">Depende. Se voce tem poucas paginas estaticas, pode usar prerendering como ponte. Se tem muitas paginas dinamicas, o recomendado e migrar para Next.js (incremental — pagina por pagina). O custo de nao fazer: zero indexacao para crawlers que nao executam JS.</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">O Googlebot executa JavaScript ou nao?</div>
+<div class="faq-a">Sim, mas em uma segunda wave (fila de rendering) que pode levar dias. E crawlers de IA (ChatGPT, Perplexity, Claude) e redes sociais (Facebook, Twitter, LinkedIn, Slack) nao executam JS. Se seu conteudo depende de JS, voce perde visibilidade em todos esses canais.</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Sitemap resolve o problema de SPA?</div>
+<div class="faq-a">Nao. Sitemap ajuda o Googlebot a <em>descobrir</em> as URLs, mas nao muda o que ele ve quando chega la. Se o HTML e vazio, o sitemap nao adianta. O problema e de rendering, nao de descoberta.</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Dynamic rendering e cloaking?</div>
+<div class="faq-a">Nao, desde que o conteudo servido para crawlers e para usuarios seja equivalente. Google reconhece dynamic rendering como workaround valido. Cloaking seria servir conteudo diferente (ex: encher de keywords para crawler, mostrar outra coisa para usuario).</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">E Next.js com SSG: isso e suficiente para SEO?</div>
+<div class="faq-a">Sim, SSG e a melhor opcao para SEO se o conteudo nao muda por usuario. O HTML e gerado em build time, servido estatico — crawler recebe pagina completa instantaneamente. Core Web Vitals tendem a ser excelentes. Unica limitacao: conteudo que muda com frequencia exige rebuild ou ISR.</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Meu cliente tem uma SPA legada e nao quer refatorar. O que fazer?</div>
+<div class="faq-a">Prerendering via servico como Prerender.io ou Rendertron. Configura o CDN/proxy para servir HTML pre-renderizado para crawlers. E um workaround, mas funciona imediatamente sem mudar o codigo da aplicacao. Ideal como ponte enquanto planeja a migracao para SSR/SSG.</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Como testar se meu site SPA e indexavel?</div>
+<div class="faq-a">1) <code>curl -A "Googlebot" https://site.com | wc -c</code> — se HTML < 1KB, problema. 2) GSC URL Inspection → Rendered HTML — ve se o conteudo aparece. 3) Desabilite JS no Chrome e recarregue — o que aparece e o que crawlers veem. 4) DataJelly Visibility Test — mostra o que cada crawler ve.</div>
+</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 23 · TWO-WAVE INDEXING -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="two-wave">
+<h1 class="section-title">23 · Two-Wave Indexing — A Fila de Rendering do Google</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-high">JavaScript</span>
+  <span class="meta-tag tag-critical">Indexacao</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>O Googlebot nao processa JavaScript em um unico passo. Ele usa um processo de <strong>duas ondas</strong> (two-wave indexing). A Wave 1 e rapida: baixa o HTML, indexa o conteudo estatico. Wave 2 e diferida: a pagina entra numa fila para renderizacao com JavaScript, que pode levar de segundos a semanas.</p>
+
+<h3>Impacto</h3>
+<ul>
+<li>Conteudo novo em CSR: leva dias para ser indexado (vs horas em SSR)</li>
+<li>Atualizacoes de preco, titulo, descricao: propagacao lenta para o indice</li>
+<li>Meta tags, canonical, hreflang, schema: se dependem de JS, ficam ausentes na Wave 1</li>
+<li>Crawl budget: paginas na fila de rendering consomem recursos sem garantia</li>
+</ul>
+
+<h3>Solucao</h3>
+<p>Unica solucao definitiva: <strong>conteudo critico no HTML inicial</strong> (SSR/SSG). Google nao tem controle sobre o tamanho da fila de rendering. Servir HTML completo elimina a dependencia da Wave 2.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 24 · HASH ROUTING -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="hash-routing">
+<h1 class="section-title">24 · Hash Routing — URLs com # nao Sao Indexaveis</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-critical">Critico</span>
+  <span class="meta-tag tag-high">SPA</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>URLs como <code>site.com/#/produto/123</code> usam hash fragments. Tudo depois de <code>#</code> nunca e enviado ao servidor — so existe no browser. Googlebot <strong>ignora o fragmento</strong> e trata <code>site.com/#/produto/123</code> como <code>site.com/</code>. Cada "pagina" da SPA e invisivel.</p>
+
+<h3>Solucao</h3>
+<p>Migrar para History API (HTML5 pushState): <code>site.com/produto/123</code>. React Router, Vue Router e Angular Router ja usam History API por padrao em versoes recentes. Verifique se o servidor esta configurado para servir <code>index.html</code> para todas as rotas (senao URLs diretas retornam 404).</p>
+
+<pre><code># Nginx — servir app shell para todas as rotas SPA
+location / {
+    try_files $uri $uri/ /index.html;
+}</code></pre>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 25 · SOFT 404 EM SPA -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="soft404">
+<h1 class="section-title">25 · Soft 404 em Single Page Applications</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-high">SPA</span>
+  <span class="meta-tag tag-medium">Indexacao</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>Em SPAs CSR, o servidor sempre retorna <code>200 OK</code> (o mesmo <code>index.html</code>) para qualquer URL. Quando o JavaScript decide que a rota nao existe, ele renderiza um componente "404" — mas o HTTP response ja foi 200. Isso e um <strong>soft 404</strong>: Google indexa a pagina como valida, mas o conteudo diz "nao encontrado".</p>
+
+<h3>Impacto</h3>
+<ul>
+<li>Google indexa paginas de erro como conteudo valido</li>
+<li>Crawl budget desperdicado em URLs que nao existem</li>
+<li>Usuario cai em pagina de erro vinda do Google</li>
+<li>Qualidade percebida do site cai</li>
+</ul>
+
+<h3>Solucao</h3>
+<p>A unica solucao real e SSR: o server verifica se a rota existe e retorna 404 real. Para CSR, as mitigacoes sao:</p>
+<ul>
+<li>Redirecionar o componente 404 para uma URL que o servidor retorna 404 (ex: <code>/404</code>)</li>
+<li>Adicionar <code>&lt;meta name="robots" content="noindex"&gt;</code> via JS na pagina de erro</li>
+<li>Nao incluir soft 404s no sitemap</li>
+</ul>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 26 · LAZY LOADING -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="lazy-crawl">
+<h1 class="section-title">26 · Lazy Loading que Impede Crawl</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-medium">Performance</span>
+  <span class="meta-tag tag-medium">Crawl</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>Lazy loading e otimo para performance, mas problematico se o conteudo principal e carregado apenas com base em scroll, clique ou interacao. Googlebot <strong>nao simula scroll</strong> — nao aciona Intersection Observer, nao clica em "Carregar mais", nao arrasta o carrossel.</p>
+
+<h3>Regras para SEO-safe lazy loading</h3>
+<ul>
+<li>Native <code>loading="lazy"</code> em imagens: seguro (Googlebot respeita)</li>
+<li>Intersection Observer para imagens: seguro (Googlebot ve como loading nativo em versoens recentes)</li>
+<li>Conteudo loaded on scroll: NAO seguro — Googlebot nunca ve</li>
+<li>Conteudo loaded on click ("Ver mais"): NAO seguro — crie URL separada com todo o conteudo</li>
+<li>Infinite scroll: NAO seguro sem fallback de paginacao tradicional com <code>&lt;a&gt;</code> links</li>
+</ul>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 27 · INFINITE SCROLL -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="infinite-scroll">
+<h1 class="section-title">27 · Infinite Scroll sem Paginacao Crawlavel</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-high">SPA</span>
+  <span class="meta-tag tag-high">Crawl</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>Infinite scroll carrega conteudo conforme o usuario rola. Googlebot nao rola. Se o unico jeito de acessar o conteudo e rolando, o crawler so ve os primeiros itens. Conteudo antigo nunca e descoberto.</p>
+
+<h3>Solucao</h3>
+<p>Implementar paginacao tradicional <strong>em paralelo</strong> ao infinite scroll:</p>
+<ul>
+<li>Cada "pagina" tem URL unica: <code>/blog/page/2</code>, <code>/blog/page/3</code></li>
+<li>Links <code>&lt;a&gt;</code> de paginacao no HTML (nao JS onClick)</li>
+<li><code>&lt;link rel="next"&gt;</code> e <code>&lt;link rel="prev"&gt;</code> no <code>&lt;head&gt;</code></li>
+<li>Usuarios veem infinite scroll; crawlers veem os links <code>&lt;a&gt;</code></li>
+</ul>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 28 · JS BLOQUEADO -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="js-blocked">
+<h1 class="section-title">28 · JavaScript Bloqueado no robots.txt</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-critical">Critico</span>
+  <span class="meta-tag tag-high">Crawl</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>Se o <code>robots.txt</code> bloqueia diretorios de assets JS/CSS, o Googlebot nao consegue baixar os arquivos necessarios para renderizar a pagina. O resultado: uma pagina visualmente quebrada, sem conteudo, que o Google considera de baixa qualidade ou simplesmente nao indexa.</p>
+
+<h3>Diagnostico</h3>
+<pre><code>curl -A "Googlebot" https://seu-site.com/robots.txt
+# Procure por Disallow contendo .js ou /assets/js/
+
+# GSC → URL Inspection → "Test Live URL" → veja "Crawling"
+# Se assets JS aparecem como "Blocked", o robots.txt esta bloqueando</code></pre>
+
+<h3>Solucao</h3>
+<p>Remover <code>Disallow</code> de arquivos .js e .css no robots.txt. Nunca bloquear diretorios de assets que sao necessarios para renderizacao.</p>
+<pre><code>User-agent: *
+Disallow: /admin/
+Disallow: /private/
+# NUNCA: Disallow: /assets/js/
+# NUNCA: Disallow: *.js</code></pre>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 29 · HYDRATION -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="hydration">
+<h1 class="section-title">29 · Problemas de Hydration em SPAs</h1>
+<div class="divider"></div>
+
+<div class="problem-card">
+<div class="meta">
+  <span class="meta-tag tag-medium">SPA</span>
+  <span class="meta-tag tag-medium">Performance</span>
+</div>
+
+<h3>Visao Geral</h3>
+<p>Hydration e o processo onde o JavaScript "assume o controle" do HTML que foi servido pelo SSR. Quando o JS hidrata, ele espera que o DOM gerado pelo servidor seja identico ao que ele geraria. Diferencas causam <strong>hydration mismatch</strong>: o conteudo pisca, desaparece, muda de posicao — o que confunde crawlers e prejudica CLS.</p>
+
+<h3>Problemas comuns</h3>
+<ul>
+<li>Conteudo gerado no server vs cliente diferente (ex: data atual, preco com desconto)</li>
+<li>CSS-in-JS que gera classes diferentes no server vs client</li>
+<li>Componentes que dependem de <code>window</code>, <code>document</code>, <code>localStorage</code> (nao existem no server)</li>
+<li>Third-party scripts que modificam o DOM durante hydration</li>
+</ul>
+
+<h3>Solucao</h3>
+<ul>
+<li>Usar <code>suppressHydrationWarning</code> apenas quando necessario e consciente</li>
+<li>Para conteudo dinamico (data, hora), renderizar do lado do cliente apos hydration com <code>useEffect</code></li>
+<li>Garantir que o estado inicial do server e do client sejam identicos</li>
+<li>Em Next.js: <code>dynamic(() => import(...), { ssr: false })</code> para componentes que so fazem sentido no client</li>
+<li>Islands architecture (Astro): hidrata apenas componentes interativos, nao a pagina toda</li>
+</ul>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ═══════════════════════════════════════════════ -->
+<section style="padding-bottom:40px">
+<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius-md);padding:20px 24px;text-align:center">
+<p style="font-size:13px;color:var(--content-muted);margin:0"><strong>SEO Problems Hub</strong> · v1.0 · Julho 2026 · V4 Company</p>
+<p style="font-size:12px;color:var(--content-muted);margin:4px 0 0">30+ problemas documentados com diagnostico, solucao, POP e FAQ.</p>
+</div>
+</section>
+
+</div>
+
+<script>
+function toggleFaq(el) {
+  el.classList.toggle('open');
+  var answer = el.nextElementSibling;
+  if (answer) answer.classList.toggle('open');
+}
+
+document.querySelectorAll('.sidebar .nav-link[data-section]').forEach(function(link) {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    var target = document.getElementById(this.getAttribute('data-section'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+
+</body>
+</html>

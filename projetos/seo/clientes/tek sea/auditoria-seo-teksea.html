@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auditoria Técnica SEO — TekSea</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --red: rgb(229, 9, 20);
+    --red-dark: rgb(180, 7, 16);
+    --red-light: rgb(255, 60, 70);
+    --gold: #c9a96e;
+    --gold-light: #f5f0e6;
+    --gold-border: #e8dcc8;
+    --gray-50: #fafafa;
+    --gray-100: #f5f5f5;
+    --gray-200: #eeeeee;
+    --gray-300: #e0e0e0;
+    --gray-400: #bdbdbd;
+    --gray-500: #9e9e9e;
+    --gray-600: #757575;
+    --gray-700: #616161;
+    --gray-800: #424242;
+    --gray-900: #212121;
+  }
+
+  body {
+    font-family: 'Ubuntu', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f8f7f4;
+    color: var(--gray-900);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  .cover {
+    background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 50%, #2a2a2a 100%);
+    color: #fff;
+    padding: 64px 40px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(201,169,110,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .cover-content { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+  .cover-content::before {
+    content: '';
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .cover-content::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 28px auto 0;
+    border-radius: 1px;
+  }
+
+  .cover .label {
+    display: inline-block;
+    background: rgba(201,169,110,0.12);
+    border: 1px solid rgba(201,169,110,0.3);
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: var(--gold);
+  }
+  .cover h1 {
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 14px;
+    letter-spacing: -0.5px;
+    font-family: 'Plus Jakarta Sans', serif;
+  }
+  .cover p {
+    font-size: 18px;
+    opacity: 0.85;
+    margin-bottom: 24px;
+    font-weight: 300;
+    letter-spacing: 0.2px;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 14px;
+    opacity: 0.7;
+    letter-spacing: 0.5px;
+  }
+
+  .container { max-width: 960px; margin: -36px auto 48px; position: relative; z-index: 2; }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+    margin-bottom: 28px;
+    overflow: hidden;
+    border: 1px solid var(--gray-300);
+    position: relative;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 40px;
+    right: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-border), var(--gold), var(--gold-border), transparent);
+    opacity: 0.6;
+  }
+  .card-body { padding: 44px 52px; }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--red);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--gold-border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -0.3px;
+    position: relative;
+  }
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 1px;
+  }
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin: 36px 0 18px;
+    letter-spacing: -0.2px;
+  }
+  h4 { font-size: 16px; font-weight: 700; color: var(--gray-800); margin: 22px 0 12px; }
+  p { font-size: 16px; color: var(--gray-700); margin-bottom: 16px; line-height: 1.8; }
+  p:last-child { margin-bottom: 0; }
+
+  .badge {
+    display: inline-block;
+    padding: 5px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .badge-critico { background: #fef2f2; color: var(--red); border: 1px solid #fecaca; }
+  .badge-alto { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+  .badge-medio { background: #fefce8; color: #a16207; border: 1px solid #fef08a; }
+  .badge-baixo { background: var(--gold-light); color: #8b7a4a; border: 1px solid var(--gold-border); }
+  .badge-info { background: #f5f5f5; color: #616161; border: 1px solid #d4d4d4; }
+
+  .severity { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .sev-critico { color: var(--red); }
+  .sev-alto { color: #c2410c; }
+  .sev-medio { color: #a16207; }
+  .sev-baixo { color: #8b7a4a; }
+  .sev-info { color: #616161; }
+
+  table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 15px; }
+  th, td { padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--gray-100); }
+  th {
+    background: linear-gradient(135deg, var(--gray-50), #f8f7f4);
+    font-weight: 700;
+    color: var(--gray-700);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-bottom: 2px solid var(--gold-border);
+    position: relative;
+  }
+  tr:hover td { background: #fcfaf7; }
+  tr:last-child td { border-bottom: none; }
+
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .kpi-card {
+    background: #f2f0ec;
+    border-radius: 10px;
+    padding: 20px 12px 18px;
+    text-align: center;
+    border: 1px solid var(--gold-border);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .kpi-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 2px 12px rgba(201,169,110,0.1);
+  }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--red), var(--gold));
+  }
+  .kpi-card .value {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--red);
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+  }
+  .kpi-card .label {
+    font-size: 12px;
+    color: var(--gray-600);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 8px;
+  }
+  .kpi-card .sub { font-size: 12px; color: var(--gray-600); margin-top: 4px; }
+
+  .risk-box {
+    background: linear-gradient(135deg, #fcfaf7, #f8f7f4);
+    border-left: 4px solid var(--red);
+    padding: 22px 26px;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 18px;
+  }
+  .risk-box h4 { margin: 0 0 10px; color: var(--red); font-size: 16px; letter-spacing: -0.2px; }
+  .risk-box p { font-size: 15px; color: var(--gray-700); margin: 0; line-height: 1.7; }
+
+  .finding {
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 26px 30px;
+    margin-bottom: 18px;
+    background: #fcfcfc;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    border-left: 3px solid transparent;
+  }
+  .finding:hover {
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    border-color: var(--gold-border);
+    border-left-color: var(--gold);
+  }
+  .finding-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    gap: 12px;
+  }
+  .finding-title { font-weight: 700; font-size: 17px; color: var(--gray-900); letter-spacing: -0.2px; }
+  .finding-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 32px;
+    font-size: 15px;
+  }
+  .finding-grid .field { font-weight: 600; color: var(--gray-800); }
+  .finding-grid .value { color: var(--gray-700); }
+  .finding-grid .full { grid-column: 1 / -1; }
+
+  .bar-container { margin: 22px 0; }
+  .bar-row { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
+  .bar-label { width: 160px; font-size: 14px; font-weight: 700; color: var(--gray-700); text-align: right; flex-shrink: 0; letter-spacing: -0.2px; }
+  .bar-track { flex: 1; height: 30px; background: var(--gray-100); border-radius: 6px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 14px; font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 0.3px; }
+  .bar-fill.red { background: linear-gradient(90deg, var(--red), var(--red-light)); }
+  .bar-fill.orange { background: linear-gradient(90deg, #c2410c, #ea580c); }
+  .bar-fill.gold { background: linear-gradient(90deg, #b8963a, #d4b96a); }
+  .bar-fill.gray { background: linear-gradient(90deg, #616161, #9e9e9e); }
+
+  .timeline {
+    display: flex;
+    gap: 0;
+    margin: 32px 0 16px;
+    position: relative;
+    padding: 0 0 20px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 5%;
+    right: 5%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold-border), var(--gold), var(--gold-border));
+    border-radius: 2px;
+  }
+  .timeline-phase {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    padding: 0 8px;
+  }
+  .timeline-phase .dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    position: relative;
+    z-index: 1;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px var(--gold);
+  }
+  .timeline-phase .dot.red { background: var(--red); }
+  .timeline-phase .dot.orange { background: #c2410c; }
+  .timeline-phase .dot.gold { background: var(--gold); }
+  .timeline-phase .dot.gray { background: #757575; }
+  .timeline-phase .phase-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 2px;
+  }
+  .timeline-phase .phase-hours {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: -0.5px;
+  }
+  .timeline-phase .phase-pct {
+    font-size: 12px;
+    color: var(--gray-500);
+    font-weight: 600;
+  }
+  .timeline-phase .phase-bar {
+    height: 8px;
+    border-radius: 4px;
+    margin: 8px auto 6px;
+    max-width: 80%;
+  }
+  .timeline-phase .phase-bar.red { background: linear-gradient(90deg, var(--red), var(--red-light)); }
+  .timeline-phase .phase-bar.orange { background: linear-gradient(90deg, #c2410c, #ea580c); }
+  .timeline-phase .phase-bar.gold { background: linear-gradient(90deg, #b8963a, #d4b96a); }
+  .timeline-phase .phase-bar.gray { background: linear-gradient(90deg, #616161, #9e9e9e); }
+  .timeline-deliverables {
+    display: flex;
+    gap: 0;
+    margin-top: 4px;
+  }
+  .timeline-deliverables .deliv {
+    flex: 1;
+    text-align: center;
+    padding: 0 6px;
+    font-size: 12px;
+    color: var(--gray-600);
+    line-height: 1.4;
+  }
+  .timeline-deliverables .deliv strong {
+    display: block;
+    color: var(--gray-700);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 2px;
+  }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--gray-100);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 14px;
+    color: var(--red);
+  }
+
+  .glossary-row { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--gray-100); }
+  .glossary-row:last-child { border: none; }
+  .glossary-row span:last-child { font-size: 15px; color: var(--gray-700); }
+
+  .footer {
+    text-align: center;
+    padding: 36px;
+    font-size: 14px;
+    color: var(--gray-500);
+    border-top: 1px solid var(--gold-border);
+    letter-spacing: 0.3px;
+    position: relative;
+  }
+  .footer::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; font-size: 12px; }
+    .cover { padding: 40px 30px; }
+    .container { max-width: 100%; margin: 0; }
+    .card { box-shadow: none; border: 1px solid var(--gray-200); page-break-inside: avoid; }
+    .card-body { padding: 20px 24px; }
+    .finding { page-break-inside: avoid; }
+    table { page-break-inside: avoid; }
+    @page { margin: 1.5cm 1cm; }
+  }
+
+  @media (max-width: 640px) {
+    .cover h1 { font-size: 26px; }
+    .cover { padding: 40px 20px 32px; }
+    .card-body { padding: 20px; }
+    .finding-grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-content">
+    <img src="../../../../v4logowhitepng.png" alt="V4 Company" style="height:60px; width:auto; margin-bottom:28px; opacity:0.95;">
+    <div class="label">Confidencial &bull; Julho 2026</div>
+    <h1>Auditoria T&eacute;cnica SEO</h1>
+    <p>TekSea &mdash; teksea.net</p>
+    <div class="cover-meta">
+      <span>&bull; Screaming Frog SEO Spider</span>
+      <span>&bull; 376 URLs rastreadas</span>
+      <span>&bull; 33 CSVs analisados</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Sum&aacute;rio</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="value">3,5 / 10</div>
+          <div class="label">Sa&uacute;de SEO</div>
+        </div>
+        <div class="kpi-card">
+          <div class="value">30+</div>
+          <div class="label">Problemas</div>
+          <div class="sub">6 Cr&iacute;ticos &bull; 9 Alto &bull; 4 M&eacute;dio</div>
+        </div>
+        <div class="kpi-card">
+          <div class="value">134 h</div>
+          <div class="label">Esfor&ccedil;o Total</div>
+          <div class="sub">3 meses de execu&ccedil;&atilde;o</div>
+        </div>
+        <div class="kpi-card">
+          <div class="value">+35% a +60%</div>
+          <div class="label">Proje&ccedil;&atilde;o Tr&aacute;fego</div>
+          <div class="sub">90 dias de execu&ccedil;&atilde;o</div>
+        </div>
+        <div class="kpi-card">
+          <div class="value">6</div>
+          <div class="label">Quick Wins</div>
+          <div class="sub">48 horas</div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:36px;">
+        <h2>Evolu&ccedil;&atilde;o do Projeto</h2>
+        <p style="margin-bottom:20px; color:var(--gray-700);">Distribui&ccedil;&atilde;o de esfor&ccedil;o ao longo dos 3 meses &mdash; da funda&ccedil;&atilde;o t&eacute;cnica &agrave; expans&atilde;o de conte&uacute;do e AI visibility.</p>
+
+        <div class="timeline">
+          <div class="timeline-phase">
+            <div class="dot red"></div>
+            <div class="phase-bar red" style="width:65%;"></div>
+            <div class="phase-hours">40</div>
+            <div class="phase-name">M&ecirc;s 1</div>
+            <div class="phase-pct">30% do total</div>
+          </div>
+          <div class="timeline-phase">
+            <div class="dot orange"></div>
+            <div class="phase-bar orange" style="width:75%;"></div>
+            <div class="phase-hours">57</div>
+            <div class="phase-name">M&ecirc;s 2</div>
+            <div class="phase-pct">42%</div>
+          </div>
+          <div class="timeline-phase">
+            <div class="dot gold"></div>
+            <div class="phase-bar gold" style="width:85%;"></div>
+            <div class="phase-hours">37</div>
+            <div class="phase-name">M&ecirc;s 3</div>
+            <div class="phase-pct">28%</div>
+          </div>
+        </div>
+
+        <div class="timeline-deliverables">
+          <div class="deliv"><strong>Funda&ccedil;&atilde;o Cr&iacute;tica</strong>H1s corrigidos<br>Meta descriptions<br>Broken links<br>Security headers</div>
+          <div class="deliv"><strong>On-Page &amp; Schema</strong>Structured data<br>Alt text imagens<br>Schema Product/FAQ<br>Legibilidade</div>
+          <div class="deliv"><strong>Expans&atilde;o</strong>Clusters de conte&uacute;do<br>AI Overviews (GEO)<br>llms.txt<br>Monitoramento</div>
+        </div>
+
+        <div style="margin-top:24px; background:linear-gradient(135deg, #fcfaf7, #f8f7f4); border-radius:10px; padding:18px 22px; border:1px solid var(--gold-border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+          <div>
+            <div style="font-size:12px; color:var(--gray-500); font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Progresso Total</div>
+            <div style="font-size:28px; font-weight:700; color:var(--red); letter-spacing:-0.5px;">134 h</div>
+          </div>
+          <div style="flex:1; max-width:400px;">
+            <div style="height:6px; background:var(--gray-200); border-radius:3px; overflow:hidden; margin-bottom:6px;">
+              <div style="height:100%; width:100%; background:linear-gradient(90deg, var(--red), var(--gold)); border-radius:3px;"></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--gray-500);">
+              <span>In&iacute;cio</span>
+              <span style="font-weight:600; color:var(--gray-700);">90 dias de execu&ccedil;&atilde;o</span>
+              <span>Go-Live</span>
+            </div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:12px; color:var(--gray-500); font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">+35% a +60%</div>
+            <div style="font-size:16px; font-weight:700; color:var(--gold);">Proje&ccedil;&atilde;o de tr&aacute;fego</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Top 3 Riscos que Exigem Aten&ccedil;&atilde;o Imediata do C-Level</h3>
+      <div class="risk-box">
+        <h4>1. Zero structured data em 100% das p&aacute;ginas + Template global que injeta H2 boilerplate</h4>
+        <p>110/110 p&aacute;ginas HTML sem JSON-LD. Al&eacute;m disso, "SISTEMAS CA/CC" e "SISTEMAS CA/CA" s&atilde;o renderizados como H2 em <strong>todas as p&aacute;ginas</strong> via widget global do Elementor &mdash; poluindo o entendimento sem&acirc;ntico do Google. Concorrentes (WEG, Schneider, Eaton) ocupam rich snippets enquanto a TekSea compete com "link azul simples". CTR estimado 15-25% inferior. Invisibilidade total em AI Overviews.</p>
+      </div>
+      <div class="risk-box">
+        <h4>2. 91% das p&aacute;ginas sem meta description (100 p&aacute;ginas) + 8 p&aacute;ginas sem H1</h4>
+        <p>Apenas ~10 p&aacute;ginas t&ecirc;m meta description &uacute;nica. <strong>90,91% de aus&ecirc;ncia</strong> &eacute; um dos maiores gaps j&aacute; vistos em site B2B. 8 p&aacute;ginas (incluindo eventos como FLIBS, WorkBoat, NT Expo) n&atilde;o t&ecirc;m H1 &mdash; perdem o principal sinal estrutural de t&oacute;pico. 18 subcategorias compartilham H1 "Linha de Produtos", criando canibaliza&ccedil;&atilde;o.</p>
+      </div>
+      <div class="risk-box">
+        <h4>3. 163 imagens sem alt text (100%) + Legibilidade Hard/Very Hard em 87% do site</h4>
+        <p>Todas as imagens em p&aacute;ginas HTML est&atilde;o sem alt text &mdash; zero tr&aacute;fego do Google Imagens, falha de acessibilidade WCAG. Conte&uacute;do com Flesch Reading Ease entre 14-50 (Hard/Very Hard) em 92 p&aacute;ginas, reduzindo engajamento e compreens&atilde;o do usu&aacute;rio t&eacute;cnico.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Perfil do Site</h2>
+      <table>
+        <tr><th>Caracter&iacute;stica</th><th>Detalhe</th></tr>
+        <tr><td><strong>Dom&iacute;nio</strong></td><td>teksea.net</td></tr>
+        <tr><td><strong>Segmento</strong></td><td>Automa&ccedil;&atilde;o industrial, energia cr&iacute;tica, IoT, naval, bombas</td></tr>
+        <tr><td><strong>CMS</strong></td><td>WordPress + Elementor (Hello Theme)</td></tr>
+        <tr><td><strong>Servidor</strong></td><td>nginx + LiteSpeed Cache + Cloudflare</td></tr>
+        <tr><td><strong>Plugins</strong></td><td>GTranslate, WhatsApp Joinchat, Yoast, Jet Engine, WP Rocket</td></tr>
+        <tr><td><strong>Idioma</strong></td><td>pt-BR (monol&iacute;ngue, sem hreflang &mdash; correto)</td></tr>
+        <tr><td><strong>Total URLs rastreadas</strong></td><td>376 (364 index&aacute;veis)</td></tr>
+        <tr><td><strong>P&aacute;ginas HTML</strong></td><td>~110</td></tr>
+        <tr><td><strong>Response time</strong></td><td>93% das URLs &lt; 200 ms</td></tr>
+        <tr><td><strong>Mobile</strong></td><td>Responsivo (Hello Theme)</td></tr>
+        <tr><td><strong>Sitemap XML</strong></td><td>Presente</td></tr>
+        <tr><td><strong>Schema Markup</strong></td><td><strong style="color:var(--red)">ZERO</strong> &mdash; nenhuma p&aacute;gina</td></tr>
+        <tr><td><strong>Tempo de resposta m&eacute;dio</strong></td><td>Excelente &mdash; ~200 ms (Comfort), 93% abaixo de 200ms</td></tr>
+        <tr><td><strong>HTTPS</strong></td><td>V&aacute;lido. Sem mixed content. Security headers ausentes (98%).</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Diagn&oacute;stico T&eacute;cnico Detalhado</h2>
+
+      <h3><span class="badge badge-critico">Cr&iacute;ticos</span> &mdash; Impedem Indexa&ccedil;&atilde;o e Ranqueamento</h3>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">C-01. Zero Structured Data em Todas as P&aacute;ginas HTML</span></div>
+          <div><span class="severity sev-critico">Cr&iacute;tico</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Evid&ecirc;ncia:</span> <span class="value">110/110 p&aacute;ginas HTML (100%) sem qualquer JSON-LD ou Microdata. Zero rich snippets.</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">Perda total de diferencia&ccedil;&atilde;o no SERP. Concorrentes (WEG, Schneider, Eaton) com Product, Article, FAQ e Organization schema ocupam 2&times; o espa&ccedil;o visual. CTR 15-25% inferior. Invisibilidade total em AI Overviews (2026: 48% das queries t&ecirc;m resposta gerada por IA).</span></div>
+          <div class="full"><span class="field">Recomenda&ccedil;&atilde;o:</span> <span class="value">(1) Organization schema global. (2) BreadcrumbList schema em todas as p&aacute;ginas. (3) Product schema em 65+ p&aacute;ginas de produto. (4) FAQ schema em p&aacute;ginas de produto. (5) Article schema no blog.</span></div>
+          <div class="full"><span class="field">Esfor&ccedil;o:</span> <span class="value">16 h (Dev WordPress + SEO)</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">C-02. 100 P&aacute;ginas sem Meta Description (90,91%)</span></div>
+          <div><span class="severity sev-critico">Cr&iacute;tico</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Evid&ecirc;ncia:</span> <span class="value">Apenas ~10 p&aacute;ginas com meta description (home, produtos, sobre n&oacute;s). 91% de aus&ecirc;ncia &mdash; um dos maiores gaps j&aacute; vistos em site B2B.</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">Google gera snippets autom&aacute;ticos, frequentemente com conte&uacute;do irrelevante. CTR reduzido em 15-25%.</span></div>
+          <div class="full"><span class="field">Recomenda&ccedil;&atilde;o:</span> <span class="value">Escrever meta descriptions &uacute;nicas (130-160 caracteres) para todas as p&aacute;ginas index&aacute;veis. Prioridade: produtos &gt; mercados &gt; categorias &gt; blog.</span></div>
+          <div class="full"><span class="field">Esfor&ccedil;o:</span> <span class="value">12 h (Copywriter)</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">C-03. 8 P&aacute;ginas sem H1 + Homepage com 3 H1s</span></div>
+          <div><span class="severity sev-critico">Cr&iacute;tico</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Evid&ecirc;ncia:</span> <span class="value">Eventos (FLIBS, WorkBoat, NT Expo, SC EXPO) sem H1. Homepage com 3 H1s (inclui not&iacute;cia da Petrobras como H1).</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">H1 &eacute; o 2&ordm; sinal on-page mais forte. P&aacute;ginas sem H1 perdem relev&ecirc;ncia. H1s m&uacute;ltiplos diluem o sinal sem&acirc;ntico.</span></div>
+          <div class="full"><span class="field">Recomenda&ccedil;&atilde;o:</span> <span class="value">(1) Adicionar H1 &uacute;nico nas 8 p&aacute;ginas. (2) Reduzir homepage para 1 H1. (3) Garantir H1 com keyword prim&aacute;ria.</span></div>
+          <div class="full"><span class="field">Esfor&ccedil;o:</span> <span class="value">4 h (Copywriter + Dev WP)</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">C-04. 163 Imagens sem Alt Text (100%)</span></div>
+          <div><span class="severity sev-critico">Cr&iacute;tico</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Evid&ecirc;ncia:</span> <span class="value">Todas as imagens em p&aacute;ginas HTML sem alt text.</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">Perda de tr&aacute;fego Google Imagens. Acessibilidade zero (falha WCAG). Sinal de baixa maturidade t&eacute;cnica.</span></div>
+          <div class="full"><span class="field">Recomenda&ccedil;&atilde;o:</span> <span class="value">Adicionar alt text descritivo em todas as imagens de produto, mercado e blog.</span></div>
+          <div class="full"><span class="field">Esfor&ccedil;o:</span> <span class="value">8 h (Copywriter + Dev WP)</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">C-05. 4 Broken Internal Links + Template Global Injetando H2s Boilerplate</span></div>
+          <div><span class="severity sev-critico">Cr&iacute;tico</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Evid&ecirc;ncia:</span> <span class="value">4 URLs internas com erro 4xx. TODAS as 110 p&aacute;ginas t&ecirc;m "SISTEMAS CA/CC" e "SISTEMAS CA/CA" como H2 &mdash; widget global do Elementor Theme Builder.</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">Links quebrados desperdi&ccedil;am crawl budget. H2 boilerplate em 100% das p&aacute;ginas infla headings e confunde o Google sobre o t&oacute;pico real de cada p&aacute;gina.</span></div>
+          <div class="full"><span class="field">Recomenda&ccedil;&atilde;o:</span> <span class="value">(1) Corrigir 4 broken links. (2) Refatorar template global para usar divs ou H4+ nas se&ccedil;&otilde;es de produtos sistem&aacute;s.</span></div>
+          <div class="full"><span class="field">Esfor&ccedil;o:</span> <span class="value">6 h (Dev WP)</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">C-06. 18 P&aacute;ginas com H1 Duplicado "Linha de Produtos"</span></div>
+          <div><span class="severity sev-critico">Cr&iacute;tico</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Evid&ecirc;ncia:</span> <span class="value">Subcategorias (baterias, prote&ccedil;&atilde;o, UPS, inversores) com mesmo H1 gen&eacute;rico "Linha de Produtos".</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">Keyword canibaliza&ccedil;&atilde;o severa. 18 p&aacute;ginas competindo pelo mesmo termo, nenhuma com H1 &uacute;nico e descritivo.</span></div>
+          <div class="full"><span class="field">Recomenda&ccedil;&atilde;o:</span> <span class="value">Criar H1 &uacute;nico para cada subcategoria: "Baterias Industriais TekSea", "Sistemas de Prote&ccedil;&atilde;o El&eacute;trica", etc.</span></div>
+          <div class="full"><span class="field">Esfor&ccedil;o:</span> <span class="value">4 h (Copywriter + Dev WP)</span></div>
+        </div>
+      </div>
+
+      <h3><span class="badge badge-alto">Alto</span> &mdash; Impactam Diretamente CTR e Experi&ecirc;ncia</h3>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">A-01. T&iacute;tulos Curtos Demais (22 p&aacute;ginas &lt; 30 caracteres)</span></div>
+          <div><span class="severity sev-alto">Alto</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Evid&ecirc;ncia:</span> <span class="value">"Radares" (16), "Produtos" (17), "Sobre n&oacute;s" (18) &mdash; t&iacute;tulos muito curtos para comunica&ccedil;&atilde;o no SERP.</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">Oportunidade perdida de ranquear para termos relevantes. Espa&ccedil;o no SERP subutilizado.</span></div>
+          <div class="full"><span class="field">Esfor&ccedil;o:</span> <span class="value">3 h (Copywriter)</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">A-02. T&iacute;tulos Longos Demais (15 &gt; 60 caracteres, 17 &gt; 561px)</span></div>
+          <div><span class="severity sev-alto">Alto</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Evid&ecirc;ncia:</span> <span class="value">Posts de blog com 86-136 caracteres ser&atilde;o truncados no SERP.</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">T&iacute;tulo cortado no SERP reduz CTR drasticamente.</span></div>
+          <div class="full"><span class="field">Esfor&ccedil;o:</span> <span class="value">3 h (Copywriter)</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">A-03. 44 Imagens &gt; 100KB (algumas &gt; 1MB)</span></div>
+          <div><span class="severity sev-alto">Alto</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Evid&ecirc;ncia:</span> <span class="value">OFF-TEKSEA-SITE-NOTICIA-1-scaled.png (4,78MB), QEP.png (1,5MB). Imagens pesadas em p&aacute;ginas de produto e blog.</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">LCP severamente comprometido. Core Web Vitals penalizados. Experi&ecirc;ncia mobile degradada.</span></div>
+          <div class="full"><span class="field">Esfor&ccedil;o:</span> <span class="value">4 h (Dev WP)</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">A-04. 110 Links Inseguros (target=&ldquo;_blank&rdquo; sem rel=&ldquo;noopener&rdquo;)</span></div>
+          <div><span class="severity sev-alto">Alto</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Evid&ecirc;ncia:</span> <span class="value">29,26% das URLs com links externos sem noopener/noreferrer.</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">Risco de seguran&ccedil;a. P&aacute;gina de destino pode acessar window.opener.</span></div>
+          <div class="full"><span class="field">Esfor&ccedil;o:</span> <span class="value">1 h (Dev WP)</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">A-05. Legibilidade Hard/Very Hard em 87% das P&aacute;ginas</span></div>
+          <div><span class="severity sev-alto">Alto</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Evid&ecirc;ncia:</span> <span class="value">Flesch Reading Ease entre 14-50 (Hard/Very Hard) em 92 das 110 p&aacute;ginas HTML.</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">Conte&uacute;do t&eacute;cnico complexo demais reduz engajamento, tempo na p&aacute;gina e convers&otilde;es.</span></div>
+          <div class="full"><span class="field">Esfor&ccedil;o:</span> <span class="value">16 h (Copywriter)</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">A-06. Security Headers Ausentes (369 URLs &mdash; 98%)</span></div>
+          <div><span class="severity sev-alto">Alto</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Evid&ecirc;ncia:</span> <span class="value">Missing X-Frame-Options, HSTS, X-Content-Type-Options, CSP em 98% das URLs.</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">Risco de clickjacking. Confian&ccedil;a reduzida. Site B2B precisa de headers b&aacute;sicos para LGPD e credibilidade.</span></div>
+          <div class="full"><span class="field">Esfor&ccedil;o:</span> <span class="value">2 h (Dev Infra)</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">A-07. 3 P&aacute;ginas sem Canonical + 2 Canonicalizadas Incorretamente</span></div>
+          <div><span class="severity sev-alto">Alto</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Evid&ecirc;ncia:</span> <span class="value">3 p&aacute;ginas sem canonical tag. 2 p&aacute;ginas com canonical apontando para URL incorreta.</span></div>
+          <div class="full"><span class="field">Impacto:</span> <span class="value">Risco de duplicidade de conte&uacute;do. Google pode indexar vers&atilde;o errada ou dividir link equity.</span></div>
+          <div class="full"><span class="field">Esfor&ccedil;o:</span> <span class="value">2 h (Dev WP)</span></div>
+        </div>
+      </div>
+
+      <h3><span class="badge badge-medio">M&eacute;dio</span> &mdash; Oportunidades de Melhoria</h3>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">M-01. Missing Referrer-Policy Header (369 URLs)</span></div>
+          <div><span class="severity sev-medio">M&eacute;dio</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Esfor&ccedil;o:</span> <span class="value">1 h (Dev Infra)</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">M-02. 24 P&aacute;ginas com H2 N&atilde;o-Sequencial</span></div>
+          <div><span class="severity sev-medio">M&eacute;dio</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Esfor&ccedil;o:</span> <span class="value">6 h (Dev WP)</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">M-03. 23 Imagens sem Size Attributes (Risco de CLS)</span></div>
+          <div><span class="severity sev-medio">M&eacute;dio</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Esfor&ccedil;o:</span> <span class="value">3 h (Dev WP)</span></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-header">
+          <div><span class="finding-title">M-04. 3 Redirects Internos (3xx)</span></div>
+          <div><span class="severity sev-medio">M&eacute;dio</span></div>
+        </div>
+        <div class="finding-grid">
+          <div class="full"><span class="field">Esfor&ccedil;o:</span> <span class="value">1 h (Dev WP)</span></div>
+        </div>
+      </div>
+
+      <h3><span class="badge badge-info">Informativo</span> &mdash; Observa&ccedil;&otilde;es</h3>
+
+      <div class="finding" style="padding:14px 24px;">
+        <div class="finding-header" style="margin-bottom:6px;">
+          <div><span class="finding-title" style="font-size:16px;">I-01. Sitemap XML Funcional</span></div>
+          <div><span class="severity sev-info">Info</span></div>
+        </div>
+        <p style="font-size:15px; margin:0; color:var(--gray-700);">Sitemap presente e funcional. Inclui corretamente as p&aacute;ginas HTML index&aacute;veis.</p>
+      </div>
+      <div class="finding" style="padding:14px 24px;">
+        <div class="finding-header" style="margin-bottom:6px;">
+          <div><span class="finding-title" style="font-size:16px;">I-02. Performance Excelente (93% &lt; 200ms)</span></div>
+          <div><span class="severity sev-info">Info</span></div>
+        </div>
+        <p style="font-size:15px; margin:0; color:var(--gray-700);">nginx + LiteSpeed Cache + Cloudflare entregam resposta r&aacute;pida. 93% das URLs abaixo de 200ms (classifica&ccedil;&atilde;o "Comfort").</p>
+      </div>
+      <div class="finding" style="padding:14px 24px;">
+        <div class="finding-header" style="margin-bottom:6px;">
+          <div><span class="finding-title" style="font-size:16px;">I-03. WordPress + Elementor Stack Robusta</span></div>
+          <div><span class="severity sev-info">Info</span></div>
+        </div>
+        <p style="font-size:15px; margin:0; color:var(--gray-700);">Hello Theme + LiteSpeed + WP Rocket + Cloudflare = boa base t&eacute;cnica. Maioria dos problemas &eacute; de configura&ccedil;&atilde;o, n&atilde;o de infraestrutura.</p>
+      </div>
+      <div class="finding" style="padding:14px 24px;">
+        <div class="finding-header" style="margin-bottom:6px;">
+          <div><span class="finding-title" style="font-size:16px;">I-04. Monol&iacute;ngue pt-BR (Correto)</span></div>
+          <div><span class="severity sev-info">Info</span></div>
+        </div>
+        <p style="font-size:15px; margin:0; color:var(--gray-700);">Aus&ecirc;ncia de hreflang &eacute; correta para site monol&iacute;ngue. GTranslate &eacute; plugin de tradu&ccedil;&atilde;o autom&aacute;tica, n&atilde;o vers&atilde;o multil&iacute;ngue index&aacute;vel.</p>
+      </div>
+      <div class="finding" style="padding:14px 24px;">
+        <div class="finding-header" style="margin-bottom:6px;">
+          <div><span class="finding-title" style="font-size:16px;">I-05. HTTPS sem Mixed Content</span></div>
+          <div><span class="severity sev-info">Info</span></div>
+        </div>
+        <p style="font-size:15px; margin:0; color:var(--gray-700);">Site integralmente servido via HTTPS. Certificado SSL v&aacute;lido. Zero mixed content warnings.</p>
+      </div>
+      <div class="finding" style="padding:14px 24px;">
+        <div class="finding-header" style="margin-bottom:6px;">
+          <div><span class="finding-title" style="font-size:16px;">I-06. Yoast SEO Configurado</span></div>
+          <div><span class="severity sev-info">Info</span></div>
+        </div>
+        <p style="font-size:15px; margin:0; color:var(--gray-700);">Yoast ativo &mdash; facilita corre&ccedil;&otilde;es de titles, meta descriptions, sitemap e breadcrumbs sem plugin extra.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Plano de A&ccedil;&atilde;o Trimestral</h2>
+
+      <h3 style="margin-top:0;">M&ecirc;s 1 &mdash; Funda&ccedil;&atilde;o Cr&iacute;tica (40 h)</h3>
+      <table>
+        <tr><th>#</th><th>A&ccedil;&atilde;o</th><th>Resp.</th><th>Horas</th><th>Priod.</th></tr>
+        <tr><td>1</td><td>C-05: Corrigir 4 broken links internos</td><td>Dev WP</td><td>2</td><td>1</td></tr>
+        <tr><td>2</td><td>C-03: Corrigir H1s (8 ausentes + homepage com 3)</td><td>Dev WP</td><td>4</td><td>2</td></tr>
+        <tr><td>3</td><td>A-07: Corrigir canonicals (3 sem + 2 canonicalizadas)</td><td>Dev WP</td><td>2</td><td>3</td></tr>
+        <tr><td>4</td><td>C-05b: Refatorar template global (H2 boilerplate)</td><td>Dev WP</td><td>4</td><td>4</td></tr>
+        <tr><td>5</td><td>C-06: Corrigir 18 H1s "Linha de Produtos"</td><td>Copy+Dev</td><td>4</td><td>5</td></tr>
+        <tr><td>6</td><td>A-06: Configurar security headers (nginx)</td><td>Dev Infra</td><td>2</td><td>6</td></tr>
+        <tr><td>7</td><td>C-02: Escrever meta descriptions (100 p&aacute;ginas)</td><td>Copywriter</td><td>12</td><td>7</td></tr>
+        <tr><td>8</td><td>A-01: Expandir 22 t&iacute;tulos curtos</td><td>Copywriter</td><td>3</td><td>8</td></tr>
+        <tr><td>9</td><td>A-02: Encurtar 17 t&iacute;tulos longos</td><td>Copywriter</td><td>3</td><td>9</td></tr>
+        <tr><td>10</td><td>A-04: Fixar 110 links sem noopener</td><td>Dev WP</td><td>1</td><td>10</td></tr>
+        <tr><td>11</td><td>M-01: Configurar Referrer-Policy header</td><td>Dev Infra</td><td>1</td><td>11</td></tr>
+        <tr><td>12</td><td>M-04: Corrigir 3 redirects internos</td><td>Dev WP</td><td>1</td><td>12</td></tr>
+        <tr><td>13</td><td>Validar corre&ccedil;&otilde;es (re-crawl parcial)</td><td>SEO</td><td>1</td><td>13</td></tr>
+      </table>
+
+      <h3>M&ecirc;s 2 &mdash; On-Page e Schema (57 h)</h3>
+      <table>
+        <tr><th>#</th><th>A&ccedil;&atilde;o</th><th>Resp.</th><th>Horas</th><th>Priod.</th></tr>
+        <tr><td>1</td><td>C-04: Adicionar alt text (163 imagens)</td><td>Copy+Dev</td><td>8</td><td>1</td></tr>
+        <tr><td>2</td><td>A-03: Comprimir 44 imagens &gt; 100KB</td><td>Dev WP</td><td>4</td><td>2</td></tr>
+        <tr><td>3</td><td>C-01: Schema &mdash; Organization + BreadcrumbList</td><td>SEO+Dev</td><td>4</td><td>3</td></tr>
+        <tr><td>4</td><td>C-01: Schema &mdash; Product (65+ produtos)</td><td>SEO+Dev</td><td>8</td><td>4</td></tr>
+        <tr><td>5</td><td>C-01: Schema &mdash; Event + VideoObject</td><td>SEO+Dev</td><td>4</td><td>5</td></tr>
+        <tr><td>6</td><td>A-05: Melhorar legibilidade (92 p&aacute;ginas)</td><td>Copywriter</td><td>16</td><td>6</td></tr>
+        <tr><td>7</td><td>M-02: Corrigir 24 H2s n&atilde;o-sequenciais</td><td>Dev WP</td><td>6</td><td>7</td></tr>
+        <tr><td>8</td><td>M-03: Adicionar size attributes (23 imagens)</td><td>Dev WP</td><td>3</td><td>8</td></tr>
+        <tr><td>9</td><td>FAQ schema nas p&aacute;ginas de produto top 10</td><td>SEO+Dev</td><td>4</td><td>9</td></tr>
+      </table>
+
+      <h3>M&ecirc;s 3 &mdash; Clusters e AI Visibility (37 h)</h3>
+      <table>
+        <tr><th>#</th><th>A&ccedil;&atilde;o</th><th>Resp.</th><th>Horas</th><th>Priod.</th></tr>
+        <tr><td>1</td><td>Criar cluster de conte&uacute;do Energia Cr&iacute;tica (hub + spokes)</td><td>Copywriter</td><td>8</td><td>1</td></tr>
+        <tr><td>2</td><td>Criar cluster de conte&uacute;do Automa&ccedil;&atilde;o Industrial</td><td>Copywriter</td><td>8</td><td>2</td></tr>
+        <tr><td>3</td><td>Criar cluster de conte&uacute;do IoT &amp; Monitoramento</td><td>Copywriter</td><td>8</td><td>3</td></tr>
+        <tr><td>4</td><td>Otimizar para AI Overviews (GEO) &mdash; FAQ + QA format</td><td>SEO</td><td>4</td><td>4</td></tr>
+        <tr><td>5</td><td>Implementar llms.txt para visibilidade em LLMs</td><td>Dev WP</td><td>1</td><td>5</td></tr>
+        <tr><td>6</td><td>Configurar GSC + Analytics + monitoramento</td><td>SEO</td><td>4</td><td>6</td></tr>
+        <tr><td>7</td><td>Criar p&aacute;ginas "vs" / alternativas (3 produtos-chave)</td><td>Copywriter</td><td>4</td><td>7</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Resumo de Esfor&ccedil;o Consolidado</h2>
+      <table>
+        <tr><th>Especialidade</th><th>M&ecirc;s 1</th><th>M&ecirc;s 2</th><th>M&ecirc;s 3</th><th>Total</th></tr>
+        <tr><td>Desenvolvedor WordPress</td><td>18 h</td><td>21 h</td><td>1 h</td><td>40 h</td></tr>
+        <tr><td>Dev Infraestrutura (nginx)</td><td>3 h</td><td>&mdash;</td><td>&mdash;</td><td>3 h</td></tr>
+        <tr><td>SEO</td><td>1 h</td><td>20 h</td><td>8 h</td><td>29 h</td></tr>
+        <tr><td>Copywriter</td><td>18 h</td><td>16 h</td><td>28 h</td><td>62 h</td></tr>
+        <tr style="background:var(--red); color:#fff; font-weight:700;"><td>Total</td><td>40 h</td><td>57 h</td><td>37 h</td><td>~134 h</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Proje&ccedil;&atilde;o de Impacto &mdash; 90 Dias</h2>
+      <table>
+        <tr><th>M&eacute;trica</th><th>Atual</th><th>30 dias</th><th>60 dias</th><th>90 dias (Cons.)</th><th>90 dias (Otim.)</th></tr>
+        <tr><td>Tr&aacute;fego org&acirc;nico (base 100)</td><td>100</td><td>+5%</td><td>+15%</td><td>+25%</td><td>+55-70%</td></tr>
+        <tr><td>P&aacute;ginas indexadas</td><td>~80</td><td>~95</td><td>~105</td><td>~110</td><td>~110</td></tr>
+        <tr><td>CTR m&eacute;dio no SERP</td><td>Baixo</td><td>Moderado</td><td>Bom</td><td>Bom</td><td>&Oacute;timo</td></tr>
+        <tr><td>Rich snippets (schema)</td><td>0</td><td>0</td><td>Org+Prod</td><td>Todos tipos</td><td>Todos tipos</td></tr>
+        <tr><td>Cita&ccedil;&otilde;es em LLM (AI Vis.)</td><td>0</td><td>0</td><td>3-5</td><td>8-12</td><td>15-25</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>KPIs para Acompanhamento Mensal</h2>
+      <table>
+        <tr><th>KPI</th><th>Meta M&ecirc;s 1</th><th>Meta M&ecirc;s 2</th><th>Meta M&ecirc;s 3</th></tr>
+        <tr><td>P&aacute;ginas indexadas</td><td>80 &rarr; 95</td><td>95 &rarr; 105</td><td>105 &rarr; 110</td></tr>
+        <tr><td>P&aacute;ginas com schema</td><td>0 &rarr; 10%</td><td>10% &rarr; 80%</td><td>80% &rarr; 100%</td></tr>
+        <tr><td>H1 &uacute;nico e descritivo</td><td>74% &rarr; 90%</td><td>90% &rarr; 100%</td><td>100%</td></tr>
+        <tr><td>Titles otimizados</td><td>47% &rarr; 60%</td><td>60% &rarr; 85%</td><td>85% &rarr; 95%</td></tr>
+        <tr><td>Meta descriptions</td><td>9% &rarr; 40%</td><td>40% &rarr; 80%</td><td>80% &rarr; 100%</td></tr>
+        <tr><td>Imagens com alt text</td><td>0% &rarr; 40%</td><td>40% &rarr; 100%</td><td>100%</td></tr>
+        <tr><td>Broken links</td><td>4 &rarr; 0</td><td>0</td><td>0</td></tr>
+        <tr><td>H2 boilerplate</td><td>100% &rarr; 50%</td><td>50% &rarr; 0%</td><td>0%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Gloss&aacute;rio de Issues por Abrang&ecirc;ncia</h2>
+      <table>
+        <tr><th>Issue</th><th>URLs Afetadas</th><th>%</th><th>Severidade</th></tr>
+        <tr><td>Zero structured data</td><td>110</td><td>100%</td><td><span class="badge badge-critico">Cr&iacute;tico</span></td></tr>
+        <tr><td>Missing meta description</td><td>100</td><td>90,91%</td><td><span class="badge badge-critico">Cr&iacute;tico</span></td></tr>
+        <tr><td>Missing alt text</td><td>163</td><td>100%</td><td><span class="badge badge-critico">Cr&iacute;tico</span></td></tr>
+        <tr><td>H2 boilerplate (global)</td><td>110</td><td>100%</td><td><span class="badge badge-critico">Cr&iacute;tico</span></td></tr>
+        <tr><td>Missing security headers</td><td>369</td><td>98,14%</td><td><span class="badge badge-alto">Alto</span></td></tr>
+        <tr><td>Readability Hard/Very Hard</td><td>92</td><td>83,64%</td><td><span class="badge badge-alto">Alto</span></td></tr>
+        <tr><td>H1 duplicado "Linha de Produtos"</td><td>18</td><td>16,36%</td><td><span class="badge badge-alto">Alto</span></td></tr>
+        <tr><td>Unsafe cross-origin links</td><td>110</td><td>29,26%</td><td><span class="badge badge-alto">Alto</span></td></tr>
+        <tr><td>Missing H1</td><td>8</td><td>7,27%</td><td><span class="badge badge-critico">Cr&iacute;tico</span></td></tr>
+        <tr><td>Multiple H1s</td><td>2</td><td>1,82%</td><td><span class="badge badge-critico">Cr&iacute;tico</span></td></tr>
+        <tr><td>Titles &lt; 30 chars</td><td>22</td><td>20,00%</td><td><span class="badge badge-alto">Alto</span></td></tr>
+        <tr><td>Titles &gt; 60 chars</td><td>15</td><td>13,64%</td><td><span class="badge badge-alto">Alto</span></td></tr>
+        <tr><td>Images &gt; 100KB</td><td>44</td><td>26,99%</td><td><span class="badge badge-alto">Alto</span></td></tr>
+        <tr><td>Images sem size attributes</td><td>23</td><td>14,11%</td><td><span class="badge badge-medio">M&eacute;dio</span></td></tr>
+        <tr><td>H2 non-sequential</td><td>24</td><td>13,64%</td><td><span class="badge badge-medio">M&eacute;dio</span></td></tr>
+        <tr><td>Broken internal links (4xx)</td><td>4</td><td>0,97%</td><td><span class="badge badge-critico">Cr&iacute;tico</span></td></tr>
+        <tr><td>Internal redirects (3xx)</td><td>3</td><td>0,73%</td><td><span class="badge badge-medio">M&eacute;dio</span></td></tr>
+        <tr><td>Missing canonical</td><td>3</td><td>2,65%</td><td><span class="badge badge-alto">Alto</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Riscos e Mitiga&ccedil;&otilde;es</h2>
+      <table>
+        <tr><th>Risco</th><th>Prob.</th><th>Impacto</th><th>Mitiga&ccedil;&atilde;o</th></tr>
+        <tr><td>Depend&ecirc;ncia do dev WordPress</td><td>Alta</td><td>Alto</td><td>Briefings claros. Janela de 1 semana por m&ecirc;s. Validar em staging.</td></tr>
+        <tr><td>Elementor limitar schemas personalizados</td><td>M&eacute;dia</td><td>M&eacute;dio</td><td>Schema injetado via Yoast + JSON-LD manual no header.php do tema filho.</td></tr>
+        <tr><td>GTranslate criar p&aacute;ginas traduzidas index&aacute;veis</td><td>M&eacute;dia</td><td>M&eacute;dio</td><td>Verificar se GTranslate gera URLs /en/, /es/ index&aacute;veis. Se sim, noindex ou hreflang.</td></tr>
+        <tr><td>Google n&atilde;o revisitar rapidamente ap&oacute;s corre&ccedil;&otilde;es</td><td>M&eacute;dia</td><td>M&eacute;dio</td><td>Solicitar indexa&ccedil;&atilde;o via GSC + publicar novo conte&uacute;do + sitemap atualizado.</td></tr>
+        <tr><td>Site com LiteSpeed Cache pode cachear vers&otilde;es antigas</td><td>M&eacute;dia</td><td>Baixo</td><td>Limpar cache do LiteSpeed + Cloudflare ap&oacute;s cada deploy de corre&ccedil;&atilde;o.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Pr&oacute;ximos Passos</h2>
+      <div class="kpi-grid" style="grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));">
+        <div class="kpi-card" style="text-align:left; padding:18px;">
+          <div class="label" style="text-align:left; margin-bottom:4px;">1. Alinhar escopo com o cliente</div>
+          <p style="font-size:15px; margin:0; color:var(--gray-700);">Apresentar este relat&oacute;rio ao cliente TekSea. Validar prioridades e cronograma de 3 meses.</p>
+        </div>
+        <div class="kpi-card" style="text-align:left; padding:18px;">
+          <div class="label" style="text-align:left; margin-bottom:4px;">2. Iniciar M&ecirc;s 1 &mdash; Funda&ccedil;&atilde;o Cr&iacute;tica</div>
+          <p style="font-size:15px; margin:0; color:var(--gray-700);">40 h de corre&ccedil;&otilde;es t&eacute;cnicas: H1, meta descriptions, broken links, security headers.</p>
+        </div>
+        <div class="kpi-card" style="text-align:left; padding:18px;">
+          <div class="label" style="text-align:left; margin-bottom:4px;">3. Corrigir template global do Elementor</div>
+          <p style="font-size:15px; margin:0; color:var(--gray-700);">4 h. Remover H2s boilerplate de 100% das p&aacute;ginas. Maior impacto sem&acirc;ntico imediato.</p>
+        </div>
+        <div class="kpi-card" style="text-align:left; padding:18px;">
+          <div class="label" style="text-align:left; margin-bottom:4px;">4. Schema + AI Visibility</div>
+          <p style="font-size:15px; margin:0; color:var(--gray-700);">16 h. Structured data + GEO + llms.txt. Preparar o site para 2026 com AI Overviews.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Gloss&aacute;rio de Severidade</h2>
+      <div class="glossary-row"><span class="badge badge-critico">Cr&iacute;tico</span> <span>Impede indexa&ccedil;&atilde;o ou ranqueamento. Impacto direto em receita.</span></div>
+      <div class="glossary-row"><span class="badge badge-alto">Alto</span> <span>Impacta CTR, experi&ecirc;ncia do usu&aacute;rio ou autoridade.</span></div>
+      <div class="glossary-row"><span class="badge badge-medio">M&eacute;dio</span> <span>Oportunidade de melhoria com impacto moderado.</span></div>
+      <div class="glossary-row"><span class="badge badge-baixo">Baixo</span> <span>Ajuste de polimento. Baixo impacto individual.</span></div>
+      <div class="glossary-row"><span class="badge badge-info">Info</span> <span>Observa&ccedil;&atilde;o ou boa pr&aacute;tica. Nenhuma a&ccedil;&atilde;o requerida.</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h2>Sobre Esta Auditoria</h2>
+      <table>
+        <tr><td><strong>Ferramenta</strong></td><td>Screaming Frog SEO Spider v20.x</td></tr>
+        <tr><td><strong>Data do crawl</strong></td><td>33 CSVs em /home/marcos/Desktop/AI/v4perettoco-main/projetos/seo/clientes/tek sea/</td></tr>
+        <tr><td><strong>Revis&atilde;o t&eacute;cnica</strong></td><td>SEO Squad V4 Company (seo-visibilidade, estrategista-marketing, analista-dados, pesquisador)</td></tr>
+        <tr><td><strong>Escopo</strong></td><td>Auditoria t&eacute;cnica estrutural baseada em crawl completo (Screaming Frog, 376 URLs). Ferramentas de analytics e monitoramento (Search Console, Analytics, PageSpeed Insights, backlinks) est&atilde;o dispon&iacute;veis para pr&oacute;ximas fases se necess&aacute;rio.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    Documento gerado em Julho de 2026 pela equipe de SEO da <strong>V4 Company</strong> &mdash; Padr&atilde;o BuiltVisible / Moz / Searchmetrics
+  </div>
+</div>
+
+</body>
+</html>

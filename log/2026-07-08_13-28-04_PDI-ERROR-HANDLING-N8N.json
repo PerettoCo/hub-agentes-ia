@@ -1,0 +1,71 @@
+{
+  "title": "PDI-ERROR-HANDLING-N8N",
+  "timestamp": "2026-07-08T13:28:00-03:00",
+  "agent": "opencode",
+  "summary": "Desenho e homologacao do padrao universal de tratamento de erros complexos e retry policies para workflows n8n enterprise",
+  "objective": "Criar padrao replicavel em 3 camadas (node-level, error workflow, circuit breaker+DLQ) para todos os 10 workflows de producao (7 SDR IA + 3 Command Center)",
+  "deliverables": {
+    "standards": [
+      "PDI/1-standards/STANDARD-ERROR-HANDLING.md — Documentacao completa do padrao (609 linhas)",
+      "PDI/1-standards/ENVELOPE-ERRO.md — Schema do envelope padrao de erro com codigo de referencia",
+      "PDI/1-standards/RETRY-MATRIX.md — Tabela de configuracao por tipo de node e codigos HTTP"
+    ],
+    "workflows": [
+      "PDI/2-workflows/Error Handler Central.workflow.ts — Error Trigger workflow central (validado)",
+      "PDI/2-workflows/Circuit Breaker Monitor.workflow.ts — Health-check de circuitos a cada 5min (validado)",
+      "PDI/2-workflows/ERROR-HANDLER-TEMPLATE.md — Template para novos workflows"
+    ],
+    "supabase": [
+      "PDI/3-supabase/supabase-schema-v2.1.sql — 4 novas tabelas (error_dlq, error_circuit_breaker, error_retry_log, error_alert_config)",
+      "PDI/3-supabase/MIGRATION-GUIDE.md — Guia de migracao aditiva (zero downtime)"
+    ],
+    "retrofit": [
+      "PDI/4-retrofit/RETROFIT-SDR-IA.md — Plano por fase para 7 workflows SDR IA",
+      "PDI/4-retrofit/RETROFIT-COMMAND-CENTER.md — Plano para 3 workflows de infraestrutura"
+    ],
+    "monitoring": [
+      "PDI/5-monitoring/DASHBOARD-QUERIES.md — 7 queries + 4 regras de alerta"
+    ],
+    "automation": [
+      "PDI/6-automation/deploy-error-handler.sh — Script de deploy automatizado",
+      "PDI/6-automation/run-migration.sh — Script de migracao Supabase"
+    ],
+    "presentation": [
+      "PDI/7-apresentacao/DECK-PDI.md — Deck de 16 slides para apresentacao",
+      "PDI/7-apresentacao/DEMO-SCRIPT.md — Script passo-a-passo de demonstracao"
+    ]
+  },
+  "total_files": 18,
+  "total_lines": 2743,
+  "artifacts": [
+    "PDI/1-standards/STANDARD-ERROR-HANDLING.md",
+    "PDI/1-standards/ENVELOPE-ERRO.md",
+    "PDI/1-standards/RETRY-MATRIX.md",
+    "PDI/2-workflows/Error Handler Central.workflow.ts",
+    "PDI/2-workflows/Circuit Breaker Monitor.workflow.ts",
+    "PDI/2-workflows/ERROR-HANDLER-TEMPLATE.md",
+    "PDI/2-workflows/README.md",
+    "PDI/3-supabase/supabase-schema-v2.1.sql",
+    "PDI/3-supabase/supabase-schema.sql",
+    "PDI/3-supabase/MIGRATION-GUIDE.md",
+    "PDI/4-retrofit/RETROFIT-SDR-IA.md",
+    "PDI/4-retrofit/RETROFIT-COMMAND-CENTER.md",
+    "PDI/5-monitoring/DASHBOARD-QUERIES.md",
+    "PDI/6-automation/deploy-error-handler.sh",
+    "PDI/6-automation/run-migration.sh",
+    "PDI/7-apresentacao/DECK-PDI.md",
+    "PDI/7-apresentacao/DEMO-SCRIPT.md",
+    "PDI/README.md",
+    "projetos/infraestrutura/n8n/STANDARD-ERROR-HANDLING.md",
+    "projetos/infraestrutura/n8n/supabase-schema-v2.1.sql",
+    "projetos/infraestrutura/n8n/Orquestracao/Error Handler Central.workflow.ts",
+    "projetos/infraestrutura/n8n/Orquestracao/Circuit Breaker Monitor.workflow.ts",
+    "projetos/infraestrutura/n8n/AGENTS.md",
+    "projetos/infraestrutura/n8n/CLAUDE.md"
+  ],
+  "validation": {
+    "Error Handler Central": "valid",
+    "Circuit Breaker Monitor": "valid"
+  },
+  "tags": ["n8n", "error-handling", "retry", "circuit-breaker", "dlq", "enterprise", "pdi"]
+}

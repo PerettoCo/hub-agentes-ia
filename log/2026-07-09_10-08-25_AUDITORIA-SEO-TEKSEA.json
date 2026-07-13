@@ -1,0 +1,43 @@
+{
+  "title": "Auditoria SEO TekSea",
+  "timestamp": "$(date +"%Y-%m-%dT%H:%M:%S")",
+  "subagent_type": "seo-visibilidade",
+  "client": "TekSea (teksea.net)",
+  "objective": "Auditoria técnica SEO completa com diagnóstico, plano de ação trimestral e relatório HTML",
+  "artifacts": [
+    "projetos/seo/clientes/tek sea/auditoria-seo-teksea.html",
+    "projetos/seo/clientes/tek sea/url_all.csv",
+    "projetos/seo/clientes/tek sea/response_codes.csv",
+    "projetos/seo/clientes/tek sea/issues_overview.csv",
+    "projetos/seo/clientes/tek sea/indexability.csv",
+    "projetos/seo/clientes/tek sea/meta_description.csv",
+    "projetos/seo/clientes/tek sea/h1.csv",
+    "projetos/seo/clientes/tek sea/page_titles.csv",
+    "projetos/seo/clientes/tek sea/content_all.csv",
+    "projetos/seo/clientes/tek sea/canonicals.csv",
+    "projetos/seo/clientes/tek sea/internal_all.csv",
+    "projetos/seo/clientes/tek sea/pagespeed.csv",
+    "projetos/seo/clientes/tek sea/structured_data_all.csv",
+    "projetos/seo/clientes/tek sea/search_console_all.csv"
+  ],
+  "subagents_used": [
+    "seo-visibilidade",
+    "estrategia-marketing",
+    "analista-dados",
+    "pesquisador"
+  ],
+  "key_findings": {
+    "health_score": 3.5,
+    "critical_issues": 6,
+    "high_issues": 9,
+    "medium_issues": 4,
+    "total_effort_hours": 134,
+    "projected_traffic_increase": "35 a 60% em 90 dias",
+    "quick_wins_48h": 6,
+    "top_risks": [
+      "Zero structured data em 100% das páginas",
+      "91% das páginas sem meta description (100 páginas)",
+      "Estrutura de headings colapsada com H2 boilerplate global"
+    ]
+  }
+}
