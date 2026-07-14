@@ -209,7 +209,7 @@ Use `/opensquad create` para montar seu próprio combo de agentes.
 
 ---
 
-## 6. Skills Instaladas
+## 6. Skills Operacionais
 
 Cada skill foi criada para resolver um problema real do dia a dia. O racional por trás de cada uma:
 
