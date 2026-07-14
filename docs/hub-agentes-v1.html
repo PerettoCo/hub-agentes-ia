@@ -440,24 +440,70 @@
     </div>
     <div class="card-body">
       <div class="arch">
-<span class="hl-gold">┌─────────┐</span>  <span class="hl-gold">┌──────────┐</span>  <span class="hl-gold">┌──────────┐</span>  <span class="hl-gold">┌──────────┐</span>  <span class="hl-gold">┌───────────┐</span>
-<span class="hl-gold">│</span>  Nginx  <span class="hl-gold">│</span><span class="hl-red">──</span><span class="hl-gold">│</span>   Auth   <span class="hl-gold">│</span><span class="hl-red">──</span><span class="hl-gold">│</span> OpenCode <span class="hl-gold">│</span><span class="hl-red">──</span><span class="hl-gold">│</span> LiteLLM  <span class="hl-gold">│</span><span class="hl-red">──</span><span class="hl-gold">│</span>  Modelos  <span class="hl-gold">│</span>
-<span class="hl-gold">│</span> Gateway <span class="hl-gold">│</span>     <span class="hl-gold">│</span> Node.js <span class="hl-gold">│</span>     <span class="hl-gold">│</span> Web:4090<span class="hl-gold">│</span>     <span class="hl-gold">│</span> :4000/v1 <span class="hl-gold">│</span>     <span class="hl-gold">│</span> IA       <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  :80    <span class="hl-gold">│</span>     <span class="hl-gold">│</span>  :3000   <span class="hl-gold">│</span>     <span class="hl-gold">│</span>  -4095   <span class="hl-gold">│</span>     <span class="hl-gold">│</span>          <span class="hl-gold">│</span>     <span class="hl-gold">│</span> Zen·Claude<span class="hl-gold">│</span>
-<span class="hl-gold">└─────────┘</span>  <span class="hl-gold">└────┬─────┘</span>  <span class="hl-gold">└────┬─────┘</span>  <span class="hl-gold">└──────────┘</span>  <span class="hl-gold">└───────────┘</span>
-                    <span class="hl-gold">│</span>           <span class="hl-gold">│</span>
-                    <span class="hl-gold">│</span>    <span class="hl-gold">┌──────┴─────────────────────┐</span>
-                    <span class="hl-gold">│</span>    <span class="hl-green">│</span>  <span class="hl-green">Supabase pgvector</span>              <span class="hl-green">│</span>
-                    <span class="hl-gold">│</span>    <span class="hl-green">│</span>  users  ·  agent_memories    <span class="hl-green">│</span>
-                    <span class="hl-gold">│</span>    <span class="hl-green">│</span>  call_history · call_trans  <span class="hl-green">│</span>
-                    <span class="hl-gold">│</span>    <span class="hl-green">│</span>  decisions  ·  clients       <span class="hl-green">│</span>
-                    <span class="hl-gold">│</span>    <span class="hl-green">└────────────────────────────┘</span>
-                    <span class="hl-gold">│</span>
-         <span class="hl-gold">┌─────────┴───────────────────────┐</span>
-         <span class="hl-blue">│</span>  <span class="hl-blue">MCP Integrações</span>                    <span class="hl-blue">│</span>
-         <span class="hl-blue">│</span>  Google Drive (arquivos cliente)  <span class="hl-blue">│</span>
-         <span class="hl-blue">│</span>  Ekyte (API externa)              <span class="hl-blue">│</span>
-         <span class="hl-blue">└──────────────────────────────────┘</span>
+<span class="hl-gold">┌─────────────────────────────────────────────────────────────┐</span>
+<span class="hl-gold">│</span>  <span class="hl-green">🌐 Navegador</span>  <span class="hl-gold">│</span>  <span class="hl-red">https://</span><span class="hl-gold">nome.fvmarketing.com.br</span>                 <span class="hl-gold">│</span>
+<span class="hl-gold">└─────────────────────┬───────────────────────────────────────┘</span>
+                     <span class="hl-gold">│</span>
+                     <span class="hl-gold">│</span>  porta 80
+                     <span class="hl-gold">▼</span>
+<span class="hl-gold">┌──────────────────────────────────────────┐</span>
+<span class="hl-gold">│</span>  <span class="hl-red">① Nginx Gateway</span>                          <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  ──────────────────────────────────────  <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  Verifica cookie <span class="hl-blue">connect.sid</span> no request   <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  Se não existir → redireciona pra login  <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  Se existir → proxy reverso pro OpenCode <span class="hl-gold">│</span>
+<span class="hl-gold">└──────┬────────────────────────┬──────────┘</span>
+       <span class="hl-gold">│</span>                        <span class="hl-gold">│</span>
+       <span class="hl-gold">│</span>  sem cookie            <span class="hl-gold">│</span>  com cookie
+       <span class="hl-gold">▼</span>                        <span class="hl-gold">▼</span>
+<span class="hl-gold">┌──────────────────┐</span>  <span class="hl-gold">┌──────────────────────────────────────┐</span>
+<span class="hl-gold">│</span>  <span class="hl-red">② Auth App</span>       <span class="hl-gold">│</span>  <span class="hl-gold">│</span>  <span class="hl-red">③ OpenCode Web</span>                    <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  Node.js :3000   <span class="hl-gold">│</span>  <span class="hl-gold">│</span>  Instância por usuário             <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  ──────────────  <span class="hl-gold">│</span>  <span class="hl-gold">│</span>  :4090 (marcos) · :4091 (fhelipe)  <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  Login com bcrypt<span class="hl-gold">│</span>  <span class="hl-gold">│</span>  :4092 (bruno)  · :4093 (stephanie) <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  Cria cookie 24h <span class="hl-gold">│</span>  <span class="hl-gold">│</span>  :4094 (paolo)  · :4095 (samuel)   <span class="hl-gold">│</span>
+<span class="hl-gold">└──────┬───────────┘</span>  <span class="hl-gold">└──────┬───────────────────────────────┘</span>
+       <span class="hl-gold">│</span>                     <span class="hl-gold">│</span>           <span class="hl-gold">│</span>              <span class="hl-gold">│</span>
+       <span class="hl-gold">│</span>  valida credenciais  <span class="hl-gold">│</span>           <span class="hl-gold">│</span>              <span class="hl-gold">│</span>
+       <span class="hl-gold">▼</span>                     <span class="hl-gold">▼</span>           <span class="hl-gold">▼</span>              <span class="hl-gold">▼</span>
+<span class="hl-gold">┌─────────────────────────────────────────────────────────────────┐</span>
+<span class="hl-gold">│</span>  <span class="hl-green">④ Supabase (pgvector)</span>                                       <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  ─────────────────────────────────────────────────────────────  <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  <span class="hl-blue">users</span>         → autenticação (bcrypt hash)                    <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  <span class="hl-blue">agent_memories</span> → memória persistente por similaridade         <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  <span class="hl-blue">call_history</span>   → histórico de calls dos clientes              <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  <span class="hl-blue">call_transcripts</span>→ transcrições indexadas (embeddings)          <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  <span class="hl-blue">decisions</span>      → decisões registradas em reunião              <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  <span class="hl-blue">clients</span>        → dados dos clientes V4                       <span class="hl-gold">│</span>
+<span class="hl-gold">└─────────────────────────────────────────────────────────────────┘</span>
+                              <span class="hl-gold">▲</span>
+                              <span class="hl-gold">│</span>
+                              <span class="hl-gold">│</span>  roteia requisições de modelo
+                              <span class="hl-gold">│</span>
+                    <span class="hl-gold">┌──────┴─────────────────┐</span>
+                    <span class="hl-gold">│</span>  <span class="hl-red">⑤ LiteLLM Proxy</span>       <span class="hl-gold">│</span>
+                    <span class="hl-gold">│</span>  Roteador de modelos   <span class="hl-gold">│</span>
+                    <span class="hl-gold">│</span>  Chaves virtuais       <span class="hl-gold">│</span>
+                    <span class="hl-gold">│</span>  Rate limit por usuário <span class="hl-gold">│</span>
+                    <span class="hl-gold">└──────┬─────────────────┘</span>
+                           <span class="hl-gold">│</span>
+                 <span class="hl-gold">┌─────────┴──────────────┐</span>
+                 <span class="hl-gold">│</span>  <span class="hl-red">⑥ Provedores IA</span>        <span class="hl-gold">│</span>
+                 <span class="hl-gold">│</span>  ────────────────────  <span class="hl-gold">│</span>
+                 <span class="hl-gold">│</span>  <span class="hl-blue">ZenCode</span> (free, uso     <span class="hl-gold">│</span>
+                 <span class="hl-gold">│</span>  diário)                <span class="hl-gold">│</span>
+                 <span class="hl-gold">│</span>  <span class="hl-blue">Claude Sonnet 5</span>        <span class="hl-gold">│</span>
+                 <span class="hl-gold">│</span>  (tarefas complexas)    <span class="hl-gold">│</span>
+                 <span class="hl-gold">│</span>  <span class="hl-blue">GPT · Gemini</span>           <span class="hl-gold">│</span>
+                 <span class="hl-gold">│</span>  (suporte)              <span class="hl-gold">│</span>
+                 <span class="hl-gold">└────────────────────────┘</span>
+
+<span class="hl-gold">┌───────────────────────────────────────────────────────────────┐</span>
+<span class="hl-gold">│</span>  <span class="hl-blue">⑦ MCP Servers</span> — ferramentas que o agente pode invocar        <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  ───────────────────────────────────────────────────────────  <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  <span class="hl-green">Google Drive MCP</span> → ler/consultar arquivos dos clientes       <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  <span class="hl-green">Ekyte MCP</span>        → API externa de dados                      <span class="hl-gold">│</span>
+<span class="hl-gold">└───────────────────────────────────────────────────────────────┘</span>
       </div>
     </div>
   </div>

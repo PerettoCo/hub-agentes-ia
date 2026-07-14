@@ -20,24 +20,66 @@ OpenCode é um agente de IA de código aberto para programação, disponível co
 ### 2.1 Componentes
 
 ```
-┌─────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌───────────┐
-│  Nginx  │──│   Auth   │──│ OpenCode │──│ LiteLLM  │──│  Modelos  │
-│ Gateway │  │ Node.js  │  │ Web:4090 │  │ :4000/v1 │  │ IA        │
-│  :80    │  │  :3000   │  │  -4095   │  │          │  │ Zen·Claude│
-└─────────┘  └────┬─────┘  └────┬─────┘  └──────────┘  └───────────┘
-                   │           │
-                   │    ┌──────┴─────────────────────┐
-                   │    │  Supabase pgvector          │
-                   │    │  users · agent_memories     │
-                   │    │  call_history · call_trans  │
-                   │    │  decisions · clients        │
-                   │    └────────────────────────────┘
-                   │
-        ┌──────────┴──────────────────────┐
-        │  MCP Integrações                 │
-        │  Google Drive (arquivos cliente) │
-        │  Ekyte (API externa)             │
-        └──────────────────────────────────┘
+┌────────────────────────────────────────────────────────────┐
+│  🌐 Navegador  │  https://nome.fvmarketing.com.br          │
+└─────────────────────┬──────────────────────────────────────┘
+                      │  porta 80
+                      ▼
+┌──────────────────────────────────────────┐
+│  ① Nginx Gateway                        │
+│  ──────────────────────────────────────  │
+│  Verifica cookie connect.sid no request  │
+│  Se não existir → redireciona pra login  │
+│  Se existir → proxy reverso pro OpenCode │
+└──────┬────────────────────────┬──────────┘
+       │                        │
+       │  sem cookie            │  com cookie
+       ▼                        ▼
+┌──────────────────┐  ┌──────────────────────────────────────┐
+│  ② Auth App       │  │  ③ OpenCode Web                    │
+│  Node.js :3000   │  │  Instância por usuário             │
+│  ──────────────  │  │  :4090 (marcos) · :4091 (fhelipe)  │
+│  Login com bcrypt│  │  :4092 (bruno)  · :4093 (stephanie) │
+│  Cria cookie 24h │  │  :4094 (paolo)  · :4095 (samuel)   │
+└──────┬───────────┘  └──────┬───────────────────────────────┘
+       │                     │           │              │
+       │  valida credenciais │           │              │
+       ▼                     ▼           ▼              ▼
+┌────────────────────────────────────────────────────────────────┐
+│  ④ Supabase (pgvector)                                      │
+│  ─────────────────────────────────────────────────────────    │
+│  users         → autenticação (bcrypt hash)                   │
+│  agent_memories → memória persistente por similaridade        │
+│  call_history   → histórico de calls dos clientes             │
+│  call_transcripts→ transcrições indexadas (embeddings)         │
+│  decisions      → decisões registradas em reunião             │
+│  clients        → dados dos clientes V4                       │
+└────────────────────────────────────────────────────────────────┘
+                             ▲
+                             │  roteia requisições de modelo
+                   ┌─────────┴────────────────┐
+                   │  ⑤ LiteLLM Proxy         │
+                   │  Roteador de modelos      │
+                   │  Chaves virtuais          │
+                   │  Rate limit por usuário   │
+                   └─────────┬────────────────┘
+                             │
+                  ┌──────────┴──────────────┐
+                  │  ⑥ Provedores IA         │
+                  │  ────────────────────    │
+                  │  ZenCode (free, uso      │
+                  │  diário)                 │
+                  │  Claude Sonnet 5         │
+                  │  (tarefas complexas)     │
+                  │  GPT · Gemini (suporte)  │
+                  └─────────────────────────┘
+
+┌────────────────────────────────────────────────────────────┐
+│  ⑦ MCP Servers — ferramentas que o agente pode invocar     │
+│  ─────────────────────────────────────────────────────────  │
+│  Google Drive MCP → ler/consultar arquivos dos clientes    │
+│  Ekyte MCP        → API externa de dados                    │
+└────────────────────────────────────────────────────────────┘
 ```
 
 ### 2.2 Stack Tecnológica
