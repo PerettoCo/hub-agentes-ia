@@ -20,38 +20,24 @@ OpenCode é um agente de IA de código aberto para programação, disponível co
 ### 2.1 Componentes
 
 ```
-┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│  Nginx       │────▶│  Auth App    │────▶│  OpenCode    │
-│  Gateway     │     │  (Node.js)   │     │  Web Server  │
-│  :80         │     │  :3000       │     │  :4090-4095  │
-└──────────────┘     └──────┬───────┘     └──────┬───────┘
-                            │                     │
-                            │              ┌──────┴──────┐
-                            │              │ LiteLLM     │
-                            │              │ Proxy:4000  │
-                            │              └──────┬──────┘
-                            │                     │
-                            │              ┌──────┴──────┐
-                            │              │ Provedores  │
-                            │              │ IA (ZenCode,│
-                            │              │ Claude, GPT)│
-                            │              └─────────────┘
-                            │
-                ┌───────────┴──────────────────┐
-                │         Supabase              │
-                │  ┌────────────────────────┐   │
-                │  │ users (auth)            │   │
-                │  │ agent_memories (pgvec)  │◀──│── memória persistente
-                │  │ call_history            │   │
-                │  │ call_transcripts        │◀──│── calls (quarta)
-                │  │ decisions               │   │
-                │  │ clients                 │   │
-                │  └────────────────────────┘   │
-                └───────────────────────────────┘
-
-┌──────────────────────┐
-│  Google Drive (MCP)  │◀────────────────── arquivos dos clientes
-└──────────────────────┘
+┌─────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌───────────┐
+│  Nginx  │──│   Auth   │──│ OpenCode │──│ LiteLLM  │──│  Modelos  │
+│ Gateway │  │ Node.js  │  │ Web:4090 │  │ :4000/v1 │  │ IA        │
+│  :80    │  │  :3000   │  │  -4095   │  │          │  │ Zen·Claude│
+└─────────┘  └────┬─────┘  └────┬─────┘  └──────────┘  └───────────┘
+                   │           │
+                   │    ┌──────┴─────────────────────┐
+                   │    │  Supabase pgvector          │
+                   │    │  users · agent_memories     │
+                   │    │  call_history · call_trans  │
+                   │    │  decisions · clients        │
+                   │    └────────────────────────────┘
+                   │
+        ┌──────────┴──────────────────────┐
+        │  MCP Integrações                 │
+        │  Google Drive (arquivos cliente) │
+        │  Ekyte (API externa)             │
+        └──────────────────────────────────┘
 ```
 
 ### 2.2 Stack Tecnológica

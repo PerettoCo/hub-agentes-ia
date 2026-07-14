@@ -440,38 +440,24 @@
     </div>
     <div class="card-body">
       <div class="arch">
-<span class="hl-gold">┌──────────────┐</span>     <span class="hl-gold">┌──────────────┐</span>     <span class="hl-gold">┌──────────────┐</span>
-<span class="hl-gold">│</span>  Nginx       <span class="hl-gold">│</span><span class="hl-red">────</span><span class="hl-gold">│</span>  Auth App    <span class="hl-gold">│</span><span class="hl-red">────</span><span class="hl-gold">│</span>  OpenCode    <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  Gateway     <span class="hl-gold">│</span>     <span class="hl-gold">│</span>  (Node.js)   <span class="hl-gold">│</span>     <span class="hl-gold">│</span>  Web Server  <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  :80         <span class="hl-gold">│</span>     <span class="hl-gold">│</span>  :3000       <span class="hl-gold">│</span>     <span class="hl-gold">│</span>  :4090-4095  <span class="hl-gold">│</span>
-<span class="hl-gold">└──────────────┘</span>     <span class="hl-gold">└──────┬───────┘</span>     <span class="hl-gold">└──────┬───────┘</span>
-                              <span class="hl-gold">│</span>                     <span class="hl-gold">│</span>
-                              <span class="hl-gold">│</span>              <span class="hl-gold">┌──────┴──────┐</span>
-                              <span class="hl-gold">│</span>              <span class="hl-gold">│</span>  LiteLLM    <span class="hl-gold">│</span>
-                              <span class="hl-gold">│</span>              <span class="hl-gold">│</span>  Proxy:4000  <span class="hl-gold">│</span>
-                              <span class="hl-gold">│</span>              <span class="hl-gold">└──────┬──────┘</span>
-                              <span class="hl-gold">│</span>                     <span class="hl-gold">│</span>
-                              <span class="hl-gold">│</span>              <span class="hl-gold">┌──────┴──────┐</span>
-                              <span class="hl-gold">│</span>              <span class="hl-gold">│</span>  Provedores  <span class="hl-gold">│</span>
-                              <span class="hl-gold">│</span>              <span class="hl-gold">│</span>  IA (ZenCode,<span class="hl-gold">│</span>
-                              <span class="hl-gold">│</span>              <span class="hl-gold">│</span>  Claude, GPT)<span class="hl-gold">│</span>
-                              <span class="hl-gold">│</span>              <span class="hl-gold">└─────────────┘</span>
-                              <span class="hl-gold">│</span>
-                  <span class="hl-gold">┌─────────┴──────────────────┐</span>
-                  <span class="hl-green">│</span>  <span class="hl-green">Supabase (pgvector)</span>         <span class="hl-green">│</span>
-                  <span class="hl-green">│</span>  ┌──────────────────────┐   <span class="hl-green">│</span>
-                  <span class="hl-green">│</span>  │ users (auth)          │   <span class="hl-green">│</span>
-                  <span class="hl-green">│</span>  │ agent_memories (mem.) │<span class="hl-gold">◀──</span><span class="hl-green">│</span>── memória persistente
-                  <span class="hl-green">│</span>  │ call_history          │   <span class="hl-green">│</span>
-                  <span class="hl-green">│</span>  │ call_transcripts      │<span class="hl-gold">◀──</span><span class="hl-green">│</span>── calls (quarta)
-                  <span class="hl-green">│</span>  │ decisions             │   <span class="hl-green">│</span>
-                  <span class="hl-green">│</span>  │ clients               │   <span class="hl-green">│</span>
-                  <span class="hl-green">│</span>  └──────────────────────┘   <span class="hl-green">│</span>
-                  <span class="hl-green">└────────────────────────────┘</span>
-
-<span class="hl-blue">┌──────────────────────┐</span>
-<span class="hl-blue">│</span>  Google Drive (MCP)  <span class="hl-blue">│</span><span class="hl-gold">◀──────────────────</span> arquivos dos clientes
-<span class="hl-blue">└──────────────────────┘</span>
+<span class="hl-gold">┌─────────┐</span>  <span class="hl-gold">┌──────────┐</span>  <span class="hl-gold">┌──────────┐</span>  <span class="hl-gold">┌──────────┐</span>  <span class="hl-gold">┌───────────┐</span>
+<span class="hl-gold">│</span>  Nginx  <span class="hl-gold">│</span><span class="hl-red">──</span><span class="hl-gold">│</span>   Auth   <span class="hl-gold">│</span><span class="hl-red">──</span><span class="hl-gold">│</span> OpenCode <span class="hl-gold">│</span><span class="hl-red">──</span><span class="hl-gold">│</span> LiteLLM  <span class="hl-gold">│</span><span class="hl-red">──</span><span class="hl-gold">│</span>  Modelos  <span class="hl-gold">│</span>
+<span class="hl-gold">│</span> Gateway <span class="hl-gold">│</span>     <span class="hl-gold">│</span> Node.js <span class="hl-gold">│</span>     <span class="hl-gold">│</span> Web:4090<span class="hl-gold">│</span>     <span class="hl-gold">│</span> :4000/v1 <span class="hl-gold">│</span>     <span class="hl-gold">│</span> IA       <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  :80    <span class="hl-gold">│</span>     <span class="hl-gold">│</span>  :3000   <span class="hl-gold">│</span>     <span class="hl-gold">│</span>  -4095   <span class="hl-gold">│</span>     <span class="hl-gold">│</span>          <span class="hl-gold">│</span>     <span class="hl-gold">│</span> Zen·Claude<span class="hl-gold">│</span>
+<span class="hl-gold">└─────────┘</span>  <span class="hl-gold">└────┬─────┘</span>  <span class="hl-gold">└────┬─────┘</span>  <span class="hl-gold">└──────────┘</span>  <span class="hl-gold">└───────────┘</span>
+                    <span class="hl-gold">│</span>           <span class="hl-gold">│</span>
+                    <span class="hl-gold">│</span>    <span class="hl-gold">┌──────┴─────────────────────┐</span>
+                    <span class="hl-gold">│</span>    <span class="hl-green">│</span>  <span class="hl-green">Supabase pgvector</span>              <span class="hl-green">│</span>
+                    <span class="hl-gold">│</span>    <span class="hl-green">│</span>  users  ·  agent_memories    <span class="hl-green">│</span>
+                    <span class="hl-gold">│</span>    <span class="hl-green">│</span>  call_history · call_trans  <span class="hl-green">│</span>
+                    <span class="hl-gold">│</span>    <span class="hl-green">│</span>  decisions  ·  clients       <span class="hl-green">│</span>
+                    <span class="hl-gold">│</span>    <span class="hl-green">└────────────────────────────┘</span>
+                    <span class="hl-gold">│</span>
+         <span class="hl-gold">┌─────────┴───────────────────────┐</span>
+         <span class="hl-blue">│</span>  <span class="hl-blue">MCP Integrações</span>                    <span class="hl-blue">│</span>
+         <span class="hl-blue">│</span>  Google Drive (arquivos cliente)  <span class="hl-blue">│</span>
+         <span class="hl-blue">│</span>  Ekyte (API externa)              <span class="hl-blue">│</span>
+         <span class="hl-blue">└──────────────────────────────────┘</span>
       </div>
     </div>
   </div>
