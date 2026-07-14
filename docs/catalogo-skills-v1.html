@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo · Skills & Agentes · V4 Company</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: rgb(229, 9, 20);
+      --red-dark: rgb(180, 7, 16);
+      --gold: #c9a96e;
+      --gold-light: #f5f0e6;
+      --gold-border: #e8dcc8;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-300: #d4d4d4;
+      --gray-400: #a3a3a3;
+      --gray-500: #737373;
+      --gray-600: #525252;
+      --gray-700: #404040;
+      --gray-800: #262626;
+      --gray-900: #171717;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: #f8f7f4;
+      color: var(--gray-800);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    .cover {
+      background: linear-gradient(135deg, #0d0d0d 0%, #2a2a2a 100%);
+      color: #fff;
+      padding: 80px 24px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -60%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(229,9,20,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cover h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+    .cover h1 span { color: var(--red); }
+    .cover .sub {
+      margin-top: 12px;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.55);
+      font-weight: 300;
+    }
+    .cover .meta {
+      margin-top: 24px;
+      display: flex;
+      gap: 32px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+    }
+    .cover .meta strong { color: rgba(255,255,255,0.7); font-weight: 500; }
+
+    /* Stats bar */
+    .stats {
+      display: flex;
+      gap: 1px;
+      background: var(--gray-200);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .stats .stat {
+      flex: 1;
+      background: #fff;
+      padding: 20px 24px;
+      text-align: center;
+    }
+    .stats .stat .num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--gray-900);
+      line-height: 1.2;
+    }
+    .stats .stat .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gray-400);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* Tab navigation */
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--gray-200);
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .tabs button {
+      flex: 1;
+      padding: 16px 12px;
+      border: none;
+      background: transparent;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--gray-400);
+      cursor: pointer;
+      transition: all 0.15s;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-bottom: 2px solid transparent;
+    }
+    .tabs button:hover { color: var(--gray-700); }
+    .tabs button.active {
+      color: var(--red);
+      border-bottom-color: var(--red);
+      background: #fffaf5;
+    }
+
+    /* Search */
+    .search-wrap {
+      background: #fff;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .search-wrap input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--gray-300);
+      border-radius: 8px;
+      font-family: 'Ubuntu', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border 0.15s;
+      background: var(--gray-50);
+    }
+    .search-wrap input:focus {
+      border-color: var(--gold);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(201,169,110,0.15);
+    }
+
+    /* Content panels */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* Cards grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+      padding: 24px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid var(--gray-200);
+      transition: all 0.15s;
+    }
+    .card:hover {
+      border-color: var(--gold-border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+    .card .tag {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .card .tag.agent { background: #e8f0fe; color: #1a4a8c; }
+    .card .tag.skill { background: var(--gold-light); color: #8b6914; }
+    .card .tag.team { background: #e8f5e9; color: #1a6a3f; }
+    .card .tag.cmd { background: #f3e8ff; color: #6b21a8; }
+    .card h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 6px;
+    }
+    .card h3 .prefix {
+      color: var(--gray-400);
+      font-weight: 400;
+    }
+    .card p {
+      font-size: 0.82rem;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+    .card .cat {
+      font-size: 0.68rem;
+      color: var(--gray-400);
+      margin-top: 10px;
+      font-weight: 500;
+    }
+    .card .cat strong { color: var(--gray-600); }
+
+    /* Category headers within search results */
+    .cat-header {
+      padding: 8px 24px 4px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .cat-header:not(:first-child) { margin-top: 8px; }
+
+    /* When nothing found */
+    .empty {
+      padding: 60px 24px;
+      text-align: center;
+      color: var(--gray-400);
+      font-size: 0.9rem;
+    }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      gap: 24px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--gray-200);
+      font-size: 0.78rem;
+      flex-wrap: wrap;
+    }
+    .legend span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .legend .dot.dot-agent { background: #e8f0fe; border: 1px solid #1a4a8c; }
+    .legend .dot.dot-skill { background: var(--gold-light); border: 1px solid #c9a96e; }
+    .legend .dot.dot-team { background: #e8f5e9; border: 1px solid #1a6a3f; }
+    .legend .dot.dot-cmd { background: #f3e8ff; border: 1px solid #6b21a8; }
+
+    .usage-tip {
+      background: var(--gold-light);
+      border: 1px solid var(--gold-border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 24px;
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+    .usage-tip code {
+      background: rgba(201,169,110,0.2);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+
+    hr.sep {
+      border: none;
+      border-top: 1px solid var(--gray-200);
+      margin: 0 24px;
+    }
+
+    /* Next steps section */
+    .next-steps {
+      background: var(--gray-900);
+      color: rgba(255,255,255,0.8);
+      padding: 48px 24px;
+      margin-top: 40px;
+    }
+    .next-steps h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+    .next-steps h2 span { color: var(--gold); }
+    .next-steps ol {
+      list-style: none;
+      counter-reset: step;
+      display: grid;
+      gap: 16px;
+    }
+    .next-steps ol li {
+      counter-increment: step;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 8px;
+      border-left: 3px solid var(--gold);
+      font-size: 0.9rem;
+    }
+    .next-steps ol li::before {
+      content: counter(step);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-right: 12px;
+    }
+    .next-steps ol li strong { color: #fff; }
+    .next-steps ol li .deadline {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--gold);
+      margin-left: 8px;
+    }
+    .next-steps .vision {
+      background: rgba(201,169,110,0.08);
+      border: 1px solid rgba(201,169,110,0.2);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 32px;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+    .next-steps .vision strong { color: var(--gold); }
+
+    @media (max-width: 640px) {
+      .cover h1 { font-size: 1.8rem; }
+      .stats { flex-wrap: wrap; }
+      .stats .stat { flex: 1 1 45%; }
+      .grid { grid-template-columns: 1fr; padding: 16px; }
+      .tabs button { font-size: 0.65rem; padding: 12px 6px; }
+      .legend { gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ====== COVER ====== -->
+<div class="cover">
+  <div class="container">
+    <h1>Catálogo <span>V4</span></h1>
+    <div class="sub">Biblioteca completa de skills, agentes, orquestradores e times — tudo que o ecossistema V4 oferece</div>
+    <div class="meta">
+      <span><strong>96</strong> skills</span>
+      <span><strong>35</strong> agentes</span>
+      <span><strong>8</strong> orquestradores</span>
+      <span><strong>2</strong> times</span>
+      <span>v1.0 · 13/07/2026</span>
+    </div>
+  </div>
+</div>
+
+<!-- ====== STATS ====== -->
+<div class="stats">
+  <div class="stat"><div class="num">96</div><div class="label">Skills</div></div>
+  <div class="stat"><div class="num">35</div><div class="label">Agentes</div></div>
+  <div class="stat"><div class="num">8</div><div class="label">Orquestradores</div></div>
+  <div class="stat"><div class="num">2</div><div class="label">Times</div></div>
+</div>
+
+<!-- ====== LEGEND ====== -->
+<div class="legend">
+  <span><span class="dot dot-agent"></span> @agente — subagente especialista</span>
+  <span><span class="dot dot-skill"></span> /skill — instrução carregável</span>
+  <span><span class="dot dot-team"></span> /team-* — roteiro de especialistas</span>
+  <span><span class="dot dot-cmd"></span> /comando — atalho customizado</span>
+</div>
+
+<!-- ====== USAGE TIP ====== -->
+<div class="usage-tip">
+  <strong>Como usar este catálogo:</strong> Pense como escolher um modelo LLM — cada skill, agente e time resolve um tipo de problema.<br>
+  <code>@agente</code> delega pra um especialista independente · <code>/skill</code> instrui o agente atual · <code>/team-*</code> monta um combo rápido · <code>@orquestrador</code> coordena vários agentes sozinho.<br>
+  <span style="color:var(--gray-500);font-size:0.8rem;">Use a busca abaixo para filtrar por nome, descrição ou categoria.</span>
+</div>
+
+<!-- ====== TABS ====== -->
+<div class="tabs" id="tabs">
+  <button class="active" data-tab="all">Todos</button>
+  <button data-tab="agents">Agentes</button>
+  <button data-tab="orchs">Orquestradores</button>
+  <button data-tab="skills">Skills</button>
+  <button data-tab="teams">Times</button>
+  <button data-tab="cmds">Comandos</button>
+</div>
+
+<!-- ====== SEARCH ====== -->
+<div class="search-wrap">
+  <input type="text" id="search" placeholder="Buscar por nome, descrição, categoria…" autocomplete="off">
+</div>
+
+<!-- ====== ALL PANEL ====== -->
+<div class="panel active" id="panel-all">
+  <div id="all-results" class="grid"></div>
+  <div id="all-empty" class="empty" style="display:none">Nenhum resultado encontrado.</div>
+</div>
+
+<!-- ====== AGENTS PANEL ====== -->
+<div class="panel" id="panel-agents">
+  <div id="agent-results" class="grid"></div>
+  <div id="agent-empty" class="empty" style="display:none">Nenhum resultado encontrado.</div>
+</div>
+
+<!-- ====== ORCHESTRATORS PANEL ====== -->
+<div class="panel" id="panel-orchs">
+  <div id="orch-results" class="grid"></div>
+  <div id="orch-empty" class="empty" style="display:none">Nenhum resultado encontrado.</div>
+</div>
+
+<!-- ====== SKILLS PANEL ====== -->
+<div class="panel" id="panel-skills">
+  <div id="skill-results" class="grid"></div>
+  <div id="skill-empty" class="empty" style="display:none">Nenhum resultado encontrado.</div>
+</div>
+
+<!-- ====== TEAMS PANEL ====== -->
+<div class="panel" id="panel-teams">
+  <div id="team-results" class="grid"></div>
+  <div id="team-empty" class="empty" style="display:none">Nenhum resultado encontrado.</div>
+</div>
+
+<!-- ====== COMMANDS PANEL ====== -->
+<div class="panel" id="panel-cmds">
+  <div id="cmd-results" class="grid"></div>
+  <div id="cmd-empty" class="empty" style="display:none">Nenhum resultado encontrado.</div>
+</div>
+
+<!-- ====== NEXT STEPS / VISION ====== -->
+<div class="next-steps">
+  <div class="container">
+
+    <h2>Próximos Passos <span>· até quarta 16/07</span></h2>
+
+    <div class="vision">
+      <strong>A visão (o "cérebro digital" de cada cliente):</strong><br><br>
+      Imagine que cada cliente da V4 tem um centro de inteligência próprio composto por <strong>4 camadas</strong>:<br><br>
+      <strong>1. Banco de dados (Supabase + pgvector)</strong> — a fonte da verdade: clients, calls, transcripts, decisions, documents. Tudo indexado por similaridade semântica. O agente consulta direto — sem depender de arquivos .md locais.<br><br>
+      <strong>2. Supabase + pgvector</strong> (banco de dados) — a memória de longo prazo: transcrições de calls indexadas por similaridade semântica, documentos referenciados, decisões registradas. O agente busca aqui sem precisar lembrar de nada — ele pergunta e o banco responde.<br><br>
+      <strong>3. Google Drive (via MCP)</strong> — os arquivos reais do cliente: apresentações, planilhas, briefings, contratos. O agente acessa via Drive MCP sem baixar nada, só consulta, extrai e usa.<br><br>
+      <strong>4. A mágica:</strong> Quando o account pergunta "qual o status do cliente?", o agente consulta a base, busca as últimas calls por similaridade, puxa o documento mais recente do Drive e monta um briefing completo em <strong>segundos</strong> — sem depender de arquivo local nenhum.<br><br>
+      <strong>E mais:</strong> Com as tabelas de banco conectadas, o <code>@flag-roi</code> cruza verba de mídia com resultado de calls, o <code>@evolucao-checkins</code> gera relatório de progresso real, e cada cliente vira um <strong>mini-agente especializado</strong> que entende a fundo a conta consultando a base direto.<br><br>
+      <strong>Caso real:</strong> Imagine que um designer entrega uma arte atrasada. O account vai lá no Drive, puxa a peça via MCP e pede avaliação. O mission control — que conhece o brandbook do cliente — sabe que <strong>azul é cor proibida</strong> para essa marca. Na hora que o account solicita a avaliação, o sistema alerta: <em>"Essa peça usa azul, que viola a identidade visual do cliente conforme diretriz registrada no mission control."</em> O problema é detectado antes de chegar ao cliente, o account não passa vergonha, e o designer recebe o feedback com a regra objetiva. <strong>Isso é o mission control funcionando como cérebro compartilhado entre funções.</strong>
+    </div>
+
+    <ol>
+      <li>
+        <strong>Modelar banco de dados de clientes</strong>
+        <span class="deadline">quarta</span><br>
+        Consultar estrutura atual do Supabase, criar tabelas <code>clients</code>, <code>call_history</code>, <code>call_transcripts</code> (com pgvector), <code>decisions</code> — query direta, sem depender de arquivos .md.
+      </li>
+      <li>
+        <strong>Instanciar novos usuários</strong>
+        <span class="deadline">quarta</span><br>
+        Criar contas no Authelia + Login Portal + opencode config: <strong>Stephanie Santos</strong> (copy), <strong>Samuel Costa</strong> (design), <strong>Bruno Lindenmeyer</strong> (gestor de tráfego).
+      </li>
+      <li>
+        <strong>Criar tabelas de calls no Supabase</strong>
+        <span class="deadline">quarta</span><br>
+        Migration com <code>call_history</code>, <code>call_transcripts</code> (com embedding pgvector), <code>call_decisions</code>. Pipeline de ingestão via NotebookLM + script Python.
+      </li>
+      <li>
+        <strong>Configurar Google Drive MCP</strong>
+        <span class="deadline">quarta</span><br>
+        Server MCP do Google Drive para que agentes acessem arquivos dos clientes diretamente — sem download manual, sem busca em pasta.
+      </li>
+      <li>
+        <strong>Pipeline de integração Base → Agente</strong>
+        <span class="deadline">próxima semana</span><br>
+        Script que permite ao agente consultar status de clientes, calls e decisões direto no banco — tipo "quais calls tivemos com a atlas-copco esse mês?"
+      </li>
+      <li>
+        <strong>Dashboard executivo de clientes</strong>
+        <span class="deadline">próxima semana</span><br>
+        Visão consolidada de todos os clientes: últimas calls, decisões, documentos — tudo vindo do banco, num HTML no estilo V4.
+      </li>
+    </ol>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+const AGENTS_DATA = [
+  // ── ESTRATÉGIA & LIDERANÇA ──
+  { name: 'estrategia-lideranca', cat: 'Estratégia & Liderança', desc: 'Conselheiro de liderança e estratégia — sabatina planos, brainstorm de função, identifica parcerias e oportunidades de launch.', type: 'agent' },
+  { name: 'estrategia-marketing', cat: 'Estratégia & Liderança', desc: 'Estrategista de marketing — pesquisa mercado, analisa concorrência, define posicionamento e estratégia de conteúdo.', type: 'agent' },
+  { name: 'executor-comite', cat: 'Estratégia & Liderança', desc: 'Gera briefing automático do Comitê de P&EG com dados reais de OKRs, sprints e FCAs.', type: 'agent' },
+  { name: 'growth-team', cat: 'Estratégia & Liderança', desc: 'Growth Team Lead — orquestra a estratégia de growth integrando CRO, mídia paga, SEO, conteúdo e receita.', type: 'orch' },
+  { name: 'launch-pad', cat: 'Estratégia & Liderança', desc: 'Launch Pad — orquestra lançamentos de produtos integrando estratégia, conteúdo, mídia, SEO e diretórios.', type: 'orch' },
+
+  // ── CONTEÚDO & COPY ──
+  { name: 'content-studio', cat: 'Conteúdo & Copy', desc: 'Content Studio Producer — orquestra produção de conteúdo integrando pesquisa, copy, design e SEO.', type: 'orch' },
+  { name: 'copy-content', cat: 'Conteúdo & Copy', desc: 'Copywriter e produtor de conteúdo — escreve landing pages, emails, anúncios, redes sociais e lead magnets.', type: 'agent' },
+  { name: 'criacao-design', cat: 'Conteúdo & Copy', desc: 'Diretor de criação e design — produz interfaces, imagens, vídeos e apresentações de alto nível.', type: 'agent' },
+  { name: 'pipeline-conteudo', cat: 'Conteúdo & Copy', desc: 'Produtor de conteúdo editorial — cria calendário, blog posts e email marketing, gerencia fluxo de aprovação no Google Drive.', type: 'agent' },
+  { name: 'gerar-doc', cat: 'Conteúdo & Copy', desc: 'Gera documentos formatados (atas, relatórios, propostas) no padrão V4.', type: 'agent' },
+  { name: 'gerar-html', cat: 'Conteúdo & Copy', desc: 'Gera páginas HTML completas e responsivas usando geral-frontend-design.', type: 'agent' },
+  { name: 'gerar-pdf', cat: 'Conteúdo & Copy', desc: 'Gera PDFs estilizados no padrão visual V4/Peretto usando geral-frontend-design.', type: 'agent' },
+  { name: 'gerar-ppt', cat: 'Conteúdo & Copy', desc: 'Gera apresentações em PPT/HTML no padrão visual V4 usando geral-frontend-design.', type: 'agent' },
+
+  // ── SEO & VISIBILIDADE ──
+  { name: 'seo-visibilidade', cat: 'SEO & Visibilidade', desc: 'Especialista em SEO e AI Visibility — audita, otimiza e faz marcas aparecerem em buscas e IAs.', type: 'orch' },
+  { name: 'pesquisador', cat: 'SEO & Visibilidade', desc: 'Pesquisador de profundidade — minera dados públicos, reviews, concorrentes e consumidores para gerar insights acionáveis.', type: 'agent' },
+
+  // ── CSM & ACCOUNT ──
+  { name: 'account-orchestrator', cat: 'CSM & Account', desc: 'Account Orchestrator — orquestra a saúde do cliente integrando check-ins, mission control, flags e expansão.', type: 'orch' },
+  { name: 'csm-orquestrador', cat: 'CSM & Account', desc: 'Orquestrador CSM — setup inicial, triagem de flags, QBR, fechamento de loop.', type: 'orch' },
+  { name: 'evolucao-checkins', cat: 'CSM & Account', desc: 'Analista de evolução de check-ins — lê histórico do Mission Control e gera relatório de progressão: taxa de combinados, ciclo de apostas, score de saúde.', type: 'agent' },
+  { name: 'flag-churn', cat: 'CSM & Account', desc: 'Diagnóstico de risco de churn quando NPS + CSAT caem juntos.', type: 'agent' },
+  { name: 'flag-okr', cat: 'CSM & Account', desc: 'Diagnóstico de desvio de OKR quando KR < 60% do esperado.', type: 'agent' },
+  { name: 'flag-operacao', cat: 'CSM & Account', desc: 'Alerta de operação travada — sprint atrasada sem FCA ou timesheet zerado.', type: 'agent' },
+  { name: 'flag-roi', cat: 'CSM & Account', desc: 'Diagnóstico de ROAS abaixo da meta — classifica tipo e gera CHAS para o GT.', type: 'agent' },
+
+  // ── DADOS & MÍDIA ──
+  { name: 'analista-dados', cat: 'Dados & Mídia', desc: 'Analisa dados de performance, OKRs, métricas e gera insights estruturados.', type: 'agent' },
+  { name: 'automacao-analytics', cat: 'Dados & Mídia', desc: 'Arquiteto de automação e analytics — setup de tracking, workflows n8n e pipelines de dados.', type: 'agent' },
+  { name: 'media-buyer', cat: 'Dados & Mídia', desc: 'Media Buyer especialista — arquitetura de contas, análise preditiva, otimização ROAS/CPA com dados reais.', type: 'agent' },
+  { name: 'midia-paga', cat: 'Dados & Mídia', desc: 'Estrategista de mídia paga — planeja, estrutura e otimiza campanhas em Meta, Google, LinkedIn e TikTok.', type: 'agent' },
+  { name: 'relatorios-trafego', cat: 'Dados & Mídia', desc: 'Analista de relatórios de tráfego multicanal — Google Ads, Meta Ads, Bing Ads. Reports consolidados com IA.', type: 'agent' },
+  { name: 'receita-crescimento', cat: 'Dados & Mídia', desc: 'Especialista em receita e crescimento — pricing, retenção, referrals, operações de receita.', type: 'agent' },
+  { name: 'revenue-ops', cat: 'Dados & Mídia', desc: 'Revenue Operations Lead — orquestra a engrenagem de receita integrando pricing, churn, referral e automação.', type: 'orch' },
+
+  // ── CRM & AUTOMAÇÃO ──
+  { name: 'cmoorch', cat: 'CRM & Automação', desc: 'CMO Orchestrator — orquestra a estratégia de marketing completa, integrando todos os times e especialistas.', type: 'orch' },
+  { name: 'n8n-automator', cat: 'CRM & Automação', desc: 'Arquiteto n8n — cria, edita, valida e sincroniza workflows de automação com n8n-as-code.', type: 'agent' },
+  { name: 'vendas-account', cat: 'CRM & Automação', desc: 'Especialista em vendas e account — cria collaterais de vendas, scripts de demo, handoff e pesquisa de cliente.', type: 'agent' },
+
+  // ── QUALIDADE ──
+  { name: 'cro-lab', cat: 'Qualidade', desc: 'CRO Lab Lead — orquestra pipeline de experimentos contínuo com hipóteses, design, execução e aprendizado.', type: 'orch' },
+  { name: 'cro-otimizacao', cat: 'Qualidade', desc: 'Especialista em CRO e experimentação — otimiza conversão em páginas, signups, formulários e onboarding.', type: 'agent' },
+  { name: 'revisor', cat: 'Qualidade', desc: 'Valida outputs de outros agentes, confere números e formata saída (peso e contrapeso).', type: 'agent' },
+];
+
+const SKILLS_DATA = [
+  { name: 'ab-test-setup', cat: 'CRO & Experimentação', desc: 'Planeja, desenha e implementa testes A/B — hipóteses, variantes, significância estatística, backlog de experimentos.' },
+  { name: 'account-checkin-review', cat: 'Account', desc: 'Pós-call de check-in: lê transcript, atualiza Mission Control, registra combinados, diagnostica ROPRE da call.' },
+  { name: 'account-checkin-roleplay', cat: 'Account', desc: 'Prepara account pra reunião seguindo ROPRE V4 e roda roleplay realista com as personas reais do cliente.' },
+  { name: 'account-evolucao-checkins', cat: 'Account', desc: 'Relatório de evolução entre check-ins — combinados, apostas, personas e ritmo de resolução ao longo do tempo.' },
+  { name: 'account-handoff', cat: 'Account', desc: 'Transforma formulário + reunião de vendas em KB completa: resumo, promessas, riscos, Mission Control preliminar.' },
+  { name: 'account-pesquisa-profunda-cliente', cat: 'Account', desc: 'Pesquisa profunda de cliente usando Deep Research do Gemini — 4 prompts: cliente, produto, consumidor, concorrência.' },
+  { name: 'ad-creative', cat: 'Mídia Paga', desc: 'Gera e escala criativos de anúncio — headlines, descrições, textos primários, variações RSA para qualquer plataforma.' },
+  { name: 'ai-search', cat: 'AI Search', desc: 'Setor completo de AI Search: AEO + GEO + AI SEO — diagnose, implementa e gerencia presença em respostas de IA.' },
+  { name: 'ai-seo', cat: 'SEO', desc: 'Otimiza conteúdo para mecanismos de resposta IA — ChatGPT, Perplexity, AI Overviews, Gemini, Claude, Copilot.' },
+  { name: 'analytics-tracking', cat: 'Dados', desc: 'Configura, melhora e audita tracking — GA4, GTM, eventos, UTMs, plano de medição, atribuição.' },
+  { name: 'aso-audit', cat: 'SEO', desc: 'Audita e otimiza listagens na App Store e Google Play — keywords, conversão, visibilidade.' },
+  { name: 'churn-prevention', cat: 'Receita', desc: 'Reduz churn — fluxos de cancelamento, save offers, recuperação de pagamento, dunning, retenção.' },
+  { name: 'co-marketing', cat: 'Estratégia', desc: 'Encontra parceiros de co-marketing, planeja campanhas conjuntas e identifica oportunidades de parceria.' },
+  { name: 'cold-email', cat: 'Vendas', desc: 'Escreve emails B2B de prospecção e sequências de follow-up que geram respostas.' },
+  { name: 'community-marketing', cat: 'Growth', desc: 'Constrói e alavanca comunidades online (Discord, Slack, fóruns) pra impulsionar growth e lealdade.' },
+  { name: 'compartilhar-skill', cat: 'Builders Hub', desc: 'Empacota skill local e abre PR no Builders Hub público — valida, commita, push e PR via gh CLI.' },
+  { name: 'competitor-alternatives', cat: 'SEO', desc: 'Cria páginas de comparação e alternativas — "X vs Y", "alternativas ao X", matrizes de features.' },
+  { name: 'competitor-profiling', cat: 'Estratégia', desc: 'Pesquisa e perfila concorrentes a partir de URLs — dossiê estruturado em markdown.' },
+  { name: 'content-strategy', cat: 'Conteúdo', desc: 'Planeja estratégia de conteúdo — tópicos, clusters, calendário editorial, conteúdo marketing.' },
+  { name: 'contexto', cat: 'Builders Hub', desc: 'Lê KB de cliente/squad/projeto, gera CLAUDE.md + AGENTS.md, cria/atualiza Mission Control com OKRs e apostas.' },
+  { name: 'copy-editing', cat: 'Conteúdo', desc: 'Edita, revisa e melhora copy existente — polimento, refresh de conteúdo ultrapassado.' },
+  { name: 'copy-pipeline-conteudo', cat: 'Conteúdo', desc: 'Pipeline completo de conteúdo editorial — calendário, produção, aprovação no Drive, JSONs finais.' },
+  { name: 'copywriting', cat: 'Conteúdo', desc: 'Escreve copy de marketing para qualquer página — home, landing, pricing, features, about.' },
+  { name: 'criador-de-skills', cat: 'Builders Hub', desc: 'Cria skills novas e melhora existentes — dual-write em .agents/ e .claude/ simultaneamente.' },
+  { name: 'customer-research', cat: 'Estratégia', desc: 'Conduz e sintetiza pesquisa de clientes — transcripts, surveys, reviews, Reddit, G2, personas.' },
+  { name: 'directory-submissions', cat: 'SEO', desc: 'Submete produto em diretórios (startup, SaaS, AI, MCP) para backlinks, DR e discovery.' },
+  { name: 'email-sequence', cat: 'Conteúdo', desc: 'Cria e otimiza sequências de email — drip, nutrição, onboarding, re-engajamento, lifecycle.' },
+  { name: 'form-cro', cat: 'CRO', desc: 'Otimiza formulários que não são de signup — lead capture, contato, demo, checkout.' },
+  { name: 'free-tool-strategy', cat: 'Growth', desc: 'Planeja e avalia ferramentas gratuitas como estratégia de marketing — calculadoras, graders, generators.' },
+  { name: 'geral-ai-visibility', cat: 'AI Search', desc: '[Migrada para ai-search] Use ai-search para AI Search completo.' },
+  { name: 'geral-brainstormar-sobre-minha-funcao', cat: 'Produtividade', desc: 'Entrevista usuário sobre seu trabalho pra descobrir como IA pode ajudar no dia a dia.' },
+  { name: 'geral-compactar', cat: 'Produtividade', desc: 'Economiza contexto e tokens — analisa uso, comprime prompts longos, sugere estratégias de token budget.' },
+  { name: 'geral-frontend-design', cat: 'Design', desc: 'Cria interfaces frontend de alto nível com design diferenciado — evita estética genérica de IA.' },
+  { name: 'geral-leitor-arquivos', cat: 'Produtividade', desc: 'Leitor universal — extrai texto de PDF, DOCX, PPTX, XLSX, imagens (OCR), HTML, CSV.' },
+  { name: 'geral-leitura-contexto', cat: 'Produtividade', desc: 'Leitor profundo de contexto com CLI — escaneia diretório, detecta tipo, produz relatório estruturado.' },
+  { name: 'geral-log-sessoes', cat: 'Produtividade', desc: 'Configura sistema de log de sessões — pasta log/, scripts, comandos /session-save, /session-list, /session-load.' },
+  { name: 'geral-memoria-pgvector', cat: 'Infraestrutura', desc: 'Sistema de memória persistente por similaridade semântica com pgvector + Supabase.' },
+  { name: 'geral-rag-documentos', cat: 'Infraestrutura', desc: 'Ingestão e busca semântica de documentos via RAG com pgvector no Supabase.' },
+  { name: 'geral-sabatina', cat: 'Produtividade', desc: 'Entrevista implacável sobre cada aspecto de um plano ou design até entendimento compartilhado.' },
+  { name: 'geral-template-v4-soft', cat: 'Design', desc: 'Gera relatórios HTML internos no padrão visual V4 Company (vermelho + dourado + Ubuntu).' },
+  { name: 'gt-media-buyer-completo', cat: 'Mídia Paga', desc: 'Gestão de tráfego e media buying com análise preditiva, TOC e PNL — todos os canais e setores.' },
+  { name: 'gt-relatorios-trafego', cat: 'Mídia Paga', desc: 'Relatório consolidado de tráfego multicanal — Google Ads, Meta Ads, Bing Ads com detecção de anomalias.' },
+  { name: 'image', cat: 'Design', desc: 'Cria, gera e otimiza imagens para marketing — blog heroes, sociais, mockups, banners.' },
+  { name: 'launch-strategy', cat: 'Estratégia', desc: 'Planeja lançamento de produto — Product Hunt, feature release, GTM, waitlist, checklist.' },
+  { name: 'lead-magnets', cat: 'Growth', desc: 'Cria e otimiza lead magnets — ebooks, cheat sheets, checklists, templates, conteúdo gated.' },
+  { name: 'marketing-ideas', cat: 'Estratégia', desc: 'Gera ideias de marketing e growth para SaaS — brainstorm, inspiração, estratégias criativas.' },
+  { name: 'marketing-psychology', cat: 'Estratégia', desc: 'Aplica psicologia, modelos mentais e ciência comportamental ao marketing.' },
+  { name: 'n8n-architect', cat: 'Automação', desc: 'Cria, edita, valida e sincroniza workflows n8n com n8n-as-code.' },
+  { name: 'novo-cliente', cat: 'Builders Hub', desc: 'Cria pasta de cliente com estrutura padrão — CLAUDE.md, AGENTS.md, links, calls, checkins, docs, campanhas.' },
+  { name: 'novo-projeto', cat: 'Builders Hub', desc: 'Cria pasta de projeto com estrutura padrão em bases/.' },
+  { name: 'novo-squad', cat: 'Builders Hub', desc: 'Cria pasta de squad em squads/ com entry point e estrutura padrão.' },
+  { name: 'onboarding', cat: 'Builders Hub', desc: 'Configura ambiente do usuário — git 100%, dependências, skills, fluxo de sync/compartilhamento.' },
+  { name: 'onboarding-cro', cat: 'CRO', desc: 'Otimiza onboarding pós-signup — ativação, first-run, empty states, aha moment, time-to-value.' },
+  { name: 'page-cro', cat: 'CRO', desc: 'Otimiza conversão em páginas de marketing — home, landing, pricing, features, blog.' },
+  { name: 'paid-ads', cat: 'Mídia Paga', desc: 'Estratégia de anúncios pagos — Google Ads, Meta, LinkedIn, Twitter — targeting, bidding, otimização.' },
+  { name: 'paywall-upgrade-cro', cat: 'CRO', desc: 'Cria e otimiza paywalls in-app, upgrade screens, upsell modals, feature gates.' },
+  { name: 'popup-cro', cat: 'CRO', desc: 'Cria e otimiza popups, modais, slide-ins, banners — exit intent, lead capture, announcement.' },
+  { name: 'pricing-strategy', cat: 'Estratégia', desc: 'Ajuda com decisões de pricing — tiers, freemium, trial, packaging, value metric, monetização.' },
+  { name: 'product-marketing-context', cat: 'Estratégia', desc: 'Cria documento de contexto de produto-marketing — positioning, ICP, audience, referência pra outras skills.' },
+  { name: 'programmatic-seo', cat: 'SEO', desc: 'Cria páginas SEO em escala com templates e dados — diretórios, local pages, comparações.' },
+  { name: 'referral-program', cat: 'Receita', desc: 'Cria e otimiza programas de referral, afiliados, embaixadores e viral loops.' },
+  { name: 'revops', cat: 'Receita', desc: 'Revenue Operations — lead lifecycle, scoring, routing, MQL/SQL, handoff marketing-vendas.' },
+  { name: 'sales-enablement', cat: 'Vendas', desc: 'Cria collaterais de vendas — pitch decks, one-pagers, objection handling, demo scripts.' },
+  { name: 'schema-markup', cat: 'SEO', desc: 'Adiciona, corrige e otimiza schema markup / structured data (JSON-LD).' },
+  { name: 'seo', cat: 'SEO', desc: 'Auditoria SEO completa — crawl, indexação, Core Web Vitals, schema, E-E-A-T, GEO, AI Overviews.' },
+  { name: 'seo-audit', cat: 'SEO', desc: 'Audita e diagnostica problemas de SEO — técnico, on-page, Core Web Vitals, tráfego, rankings.' },
+  { name: 'seo-backlinks', cat: 'SEO', desc: 'Análise de perfil de backlinks — domínios referentes, anchor text, links tóxicos, gap competitivo.' },
+  { name: 'seo-cluster', cat: 'SEO', desc: 'Clusterização semântica baseada em SERP para arquitetura de conteúdo hub-and-spoke.' },
+  { name: 'seo-competitor-pages', cat: 'SEO', desc: 'Gera páginas de comparação SEO — "X vs Y", "alternativas", matrizes de features e schema.' },
+  { name: 'seo-content', cat: 'SEO', desc: 'Análise de qualidade de conteúdo e E-E-A-T com avaliação de prontidão para citação em IA.' },
+  { name: 'seo-content-brief', cat: 'SEO', desc: 'Gera briefings competitivos de conteúdo SEO com contagem de palavras por seção.' },
+  { name: 'seo-dataforseo', cat: 'SEO', desc: 'Dados SEO ao vivo via DataForSEO — SERP, keywords, backlinks, on-page, AI visibility.' },
+  { name: 'seo-drift', cat: 'SEO', desc: 'Monitora desvio SEO — baseline, diff e tracking de mudanças em elementos críticos de SEO.' },
+  { name: 'seo-ecommerce', cat: 'SEO', desc: 'SEO para e-commerce — Google Shopping, Amazon marketplace, schema de produto, gaps de keyword.' },
+  { name: 'seo-flow', cat: 'SEO', desc: 'Framework FLOW — SEO orientado por evidências: Find → Leverage → Optimize → Win.' },
+  { name: 'seo-geo', cat: 'SEO', desc: 'Otimização para Generative Engine Optimization — AI Overviews, ChatGPT, Perplexity.' },
+  { name: 'seo-google', cat: 'SEO', desc: 'APIs Google SEO — Search Console, PageSpeed, CrUX, Indexing API, GA4 orgânico.' },
+  { name: 'seo-hreflang', cat: 'SEO', desc: 'Audita e gera hreflang para SEO internacional — validação de tags, detecção de erros comuns.' },
+  { name: 'seo-image-gen', cat: 'SEO', desc: 'Geração de imagens por IA para SEO — OG images, blog heroes, schema images, infográficos.' },
+  { name: 'seo-images', cat: 'SEO', desc: 'Otimização de imagens para SEO — alt text, formatos, lazy loading, CLS, image SERP.' },
+  { name: 'seo-local', cat: 'SEO', desc: 'SEO Local — Google Business Profile, NAP, citações, reviews, schema local, multi-location.' },
+  { name: 'seo-maps', cat: 'SEO', desc: 'Inteligência de mapas para SEO Local — geo-grid rank tracking, GBP auditing, review intelligence.' },
+  { name: 'seo-page', cat: 'SEO', desc: 'Análise profunda de página única — on-page, conteúdo, meta tags, schema, imagens, performance.' },
+  { name: 'seo-plan', cat: 'SEO', desc: 'Planejamento estratégico de SEO — templates por indústria, análise competitiva, roadmap.' },
+  { name: 'seo-programmatic', cat: 'SEO', desc: 'Planejamento de SEO programático — template engines, URL patterns, thin content prevention.' },
+  { name: 'seo-schema', cat: 'SEO', desc: 'Detecta, valida e gera Schema.org structured data em JSON-LD.' },
+  { name: 'seo-sitemap', cat: 'SEO', desc: 'Analisa e gera XML sitemaps com templates por indústria.' },
+  { name: 'seo-sxo', cat: 'SEO', desc: 'Search Experience Optimization — lê SERPs ao contrário, detecta page-type mismatches, score por persona.' },
+  { name: 'seo-technical', cat: 'SEO', desc: 'Auditoria técnica SEO em 9 categorias — crawl, indexação, segurança, Core Web Vitals, JS rendering.' },
+  { name: 'signup-flow-cro', cat: 'CRO', desc: 'Otimiza fluxos de signup, registro e ativação de trial — reduz abandono, aumenta conversão.' },
+  { name: 'site-architecture', cat: 'SEO', desc: 'Planeja arquitetura de site — hierarquia, navegação, URL structure, internal linking, IA.' },
+  { name: 'social-content', cat: 'Conteúdo', desc: 'Cria e otimiza conteúdo para redes sociais — LinkedIn, Twitter/X, Instagram, TikTok, short-form video.' },
+  { name: 'sync-hub', cat: 'Builders Hub', desc: 'Atualiza Builders Hub local — puxa skills do repo público, mostra diff, preserva arquivos pessoais.' },
+  { name: 'v4mos-dados-meta-ads', cat: 'Mídia Paga', desc: 'Puxa dados de Meta Ads via API V4mos — campanhas, anúncios, keywords, ROAS, breakdowns.' },
+  { name: 'video', cat: 'Design', desc: 'Cria e produz conteúdo em vídeo com IA — Remotion, HeyGen, Runway, explainers, demos.' },
+];
+
+const TEAMS_DATA = [
+  { name: 'team-conteudo', desc: 'Monta squad de conteúdo: @estrategia-marketing + @copy-content + @seo-visibilidade + @revisor', members: 4 },
+  { name: 'team-seo', desc: 'Monta squad de SEO: @seo-visibilidade + @estrategia-marketing + @analista-dados + @pesquisador', members: 4 },
+];
+
+const CMDS_DATA = [
+  { name: 'session-save', desc: 'Exporta sessão atual para a pasta log/ com data e título.' },
+  { name: 'session-list', desc: 'Lista todas as sessões salvas em log/ com tamanho e data.' },
+  { name: 'session-load', desc: 'Carrega contexto de uma sessão anterior salva em log/.' },
+  { name: 'new-post', desc: 'Cria novo artigo no blog marcosv4-blog via npm run new-post.' },
+  { name: 'pipeline-conteudo', desc: 'Pipeline editorial completo: tópicos → produção → revisão → publicação.' },
+  { name: 'orquestra', desc: 'Mostra mapa completo da Agent Orchestra V4 — 35 subagentes.' },
+  { name: 'skills-v4', desc: 'Lista todas as skills V4 disponíveis globalmente.' },
+];
+
+// ============================================================
+// RENDER
+// ============================================================
+
+const ORCH_NAMES = ['growth-team','launch-pad','content-studio','account-orchestrator','csm-orquestrador','seo-visibilidade','revenue-ops','cmoorch','cro-lab'];
+
+function cardHTML(item, type) {
+  const tagClass = type === 'agent' ? 'agent' : type === 'orch' ? 'agent' : type === 'skill' ? 'skill' : type === 'team' ? 'team' : 'cmd';
+  const tagLabel = type === 'orch' ? 'ORQUESTRADOR' : type === 'agent' ? 'AGENTE' : type === 'skill' ? 'SKILL' : type === 'team' ? 'TIME' : 'COMANDO';
+  const prefix = type === 'agent' || type === 'orch' ? '@' : '/';
+  const cat = item.cat || '';
+  const extra = item.members ? ` · ${item.members} agentes` : '';
+  return `<div class="card">
+    <span class="tag ${tagClass}">${tagLabel}${cat ? ' · '+cat : ''}</span>
+    <h3><span class="prefix">${prefix}</span>${item.name}</h3>
+    <p>${item.desc}${extra}</p>
+  </div>`;
+}
+
+function renderAll(items, containerId, emptyId) {
+  const container = document.getElementById(containerId);
+  const empty = document.getElementById(emptyId);
+  const q = document.getElementById('search').value.toLowerCase();
+  const filtered = items.filter(i => {
+    if (!q) return true;
+    return i.name.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q) || (i.cat||'').toLowerCase().includes(q);
+  });
+  if (filtered.length === 0) {
+    container.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  container.innerHTML = filtered.map(i => {
+    const type = i.type || 'skill';
+    return cardHTML(i, type);
+  }).join('');
+}
+
+function renderSkills() {
+  const container = document.getElementById('skill-results');
+  const empty = document.getElementById('skill-empty');
+  const q = document.getElementById('search').value.toLowerCase();
+  const filtered = SKILLS_DATA.filter(i => {
+    if (!q) return true;
+    return i.name.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q) || i.cat.toLowerCase().includes(q);
+  });
+  if (filtered.length === 0) {
+    container.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  container.innerHTML = filtered.map(i => cardHTML(i, 'skill')).join('');
+}
+
+function renderTeams() {
+  const container = document.getElementById('team-results');
+  const empty = document.getElementById('team-empty');
+  const q = document.getElementById('search').value.toLowerCase();
+  const filtered = TEAMS_DATA.filter(i => {
+    if (!q) return true;
+    return i.name.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q);
+  });
+  if (filtered.length === 0) {
+    container.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  container.innerHTML = filtered.map(i => cardHTML(i, 'team')).join('');
+}
+
+function renderCmds() {
+  const container = document.getElementById('cmd-results');
+  const empty = document.getElementById('cmd-empty');
+  const q = document.getElementById('search').value.toLowerCase();
+  const filtered = CMDS_DATA.filter(i => {
+    if (!q) return true;
+    return i.name.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q);
+  });
+  if (filtered.length === 0) {
+    container.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  container.innerHTML = filtered.map(i => cardHTML(i, 'cmd')).join('');
+}
+
+function renderAllPanels() {
+  // All
+  const allItems = [
+    ...AGENTS_DATA.map(i => ({ ...i, _type: ORCH_NAMES.includes(i.name) ? 'orch' : i.type })),
+    ...SKILLS_DATA.map(i => ({ ...i, type: 'skill' })),
+    ...TEAMS_DATA.map(i => ({ ...i, type: 'team' })),
+    ...CMDS_DATA.map(i => ({ ...i, type: 'cmd' })),
+  ];
+  renderAll(allItems, 'all-results', 'all-empty');
+
+  // Agents (non-orch)
+  const agents = AGENTS_DATA.filter(i => !ORCH_NAMES.includes(i.name));
+  renderAll(agents, 'agent-results', 'agent-empty');
+
+  // Orchs
+  const orchs = AGENTS_DATA.filter(i => ORCH_NAMES.includes(i.name));
+  renderAll(orchs, 'orch-results', 'orch-empty');
+
+  // Skills
+  renderSkills();
+
+  // Teams
+  renderTeams();
+
+  // Cmds
+  renderCmds();
+}
+
+// ============================================================
+// EVENTS
+// ============================================================
+
+document.getElementById('search').addEventListener('input', renderAllPanels);
+
+document.querySelectorAll('.tabs button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+    renderAllPanels();
+  });
+});
+
+// Initial render
+renderAllPanels();
+</script>
+
+</body>
+</html>

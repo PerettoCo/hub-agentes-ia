@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V4 Company · OpenCode Hub · Documentação</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: rgb(229, 9, 20);
+      --red-dark: rgb(180, 7, 16);
+      --gold: #c9a96e;
+      --gold-light: #f5f0e6;
+      --gold-border: #e8dcc8;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-300: #d4d4d4;
+      --gray-400: #a3a3a3;
+      --gray-500: #737373;
+      --gray-600: #525252;
+      --gray-700: #404040;
+      --gray-800: #262626;
+      --gray-900: #171717;
+      --green: #1a8a3f;
+      --amber: #c97d0e;
+      --blue: #1a4a8c;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: #f8f7f4;
+      color: var(--gray-800);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+    /* ─── COVER ─── */
+    .cover {
+      background: linear-gradient(135deg, #0d0d0d 0%, #2a2a2a 100%);
+      color: #fff;
+      padding: 80px 24px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--red), var(--gold));
+    }
+    .cover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 30%, rgba(229,9,20,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 70%, rgba(201,169,110,0.06) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .cover .container { position: relative; z-index: 1; }
+    .cover-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,169,110,0.3);
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    .cover h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .cover h1 em {
+      font-style: normal;
+      color: var(--red);
+    }
+    .cover .subtitle {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.55);
+      max-width: 600px;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+    .cover .bar {
+      width: 80px;
+      height: 3px;
+      background: var(--gold);
+      margin-bottom: 24px;
+    }
+    .cover-meta {
+      display: flex;
+      gap: 32px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+    }
+    .cover-meta strong { color: rgba(255,255,255,0.7); }
+
+    /* ─── CARDS ─── */
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+      margin-top: 32px;
+      overflow: hidden;
+    }
+    .card-header {
+      background: linear-gradient(90deg, var(--red) 0%, var(--red-dark) 100%);
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .card-header .icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .card-header h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+    .card-body { padding: 28px; }
+
+    /* ─── TABLES ─── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    thead th {
+      background: var(--gray-900);
+      color: #fff;
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    thead th:first-child { border-radius: 8px 0 0 0; }
+    thead th:last-child { border-radius: 0 8px 0 0; }
+    tbody tr:nth-child(even) { background: var(--gray-50); }
+    tbody tr:hover { background: #f0eeea; }
+    tbody td {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--gray-200);
+      vertical-align: top;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .tag-red { background: rgba(229,9,20,0.08); color: var(--red); }
+    .tag-green { background: rgba(26,138,63,0.08); color: var(--green); }
+    .tag-amber { background: rgba(201,125,14,0.08); color: var(--amber); }
+    .tag-blue { background: rgba(26,74,140,0.08); color: var(--blue); }
+    .tag-gold { background: rgba(201,169,110,0.12); color: #8a7540; }
+
+    /* ─── KPI GRID ─── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .kpi-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      border-top: 3px solid var(--red);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .kpi-card .value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      line-height: 1.2;
+    }
+    .kpi-card .label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gray-400);
+      margin-top: 4px;
+    }
+
+    /* ─── ARCH DIAGRAM ─── */
+    .arch {
+      background: var(--gray-900);
+      border-radius: 12px;
+      padding: 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.7);
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .arch .hl-red { color: var(--red); }
+    .arch .hl-gold { color: var(--gold); }
+    .arch .hl-green { color: #4ade80; }
+    .arch .hl-blue { color: #60a5fa; }
+
+    /* ─── TIMELINE ─── */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--gray-200);
+    }
+    .tl-item { position: relative; margin-bottom: 28px; }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -24px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--red);
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 2px var(--red);
+    }
+    .tl-date {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+    }
+    .tl-title {
+      font-weight: 700;
+      margin: 2px 0 4px;
+    }
+    .tl-desc {
+      font-size: 0.85rem;
+      color: var(--gray-500);
+    }
+
+    .section-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gray-400);
+      margin: 24px 0 8px;
+    }
+
+    /* ─── COMMAND GRID ─── */
+    .cmd-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .cmd-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--gray-50);
+      border-radius: 10px;
+      border: 1px solid var(--gray-200);
+    }
+    .cmd-item code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--red);
+      white-space: nowrap;
+    }
+    .cmd-item span {
+      font-size: 0.82rem;
+      color: var(--gray-600);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--gray-400);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 768px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .cmd-grid { grid-template-columns: 1fr; }
+      .cover h1 { font-size: 1.8rem; }
+      .cover-meta { flex-direction: column; gap: 8px; }
+      .card-body { padding: 20px; }
+    }
+    @media (max-width: 480px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+      .cover { padding: 56px 16px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── COVER ─── -->
+<section class="cover">
+  <div class="container">
+    <div class="cover-tag">Auditoria · Infraestrutura</div>
+    <h1>OpenCode <em>Hub</em></h1>
+    <div class="subtitle">
+      Documentação da infraestrutura de agentes de IA da V4 Company —<br>
+      arquitetura, acesso, skills e pipeline de documentos.
+    </div>
+    <div class="bar"></div>
+    <div class="cover-meta">
+      <div><strong>Cliente:</strong> V4 Company · Peretto & Co</div>
+      <div><strong>Data:</strong> 13/07/2026</div>
+      <div><strong>Versão:</strong> 1.0.0</div>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+
+  <!-- ─── KPIs ─── -->
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="value">6</div><div class="label">Usuários</div></div>
+    <div class="kpi-card"><div class="value">94</div><div class="label">Skills</div></div>
+    <div class="kpi-card"><div class="value">4</div><div class="label">Instâncias Ativas</div></div>
+    <div class="kpi-card"><div class="value">5</div><div class="label">Provedores LLM</div></div>
+  </div>
+
+  <!-- ─── CARD: Sobre ─── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      </div>
+      <h2>Sobre o OpenCode</h2>
+    </div>
+    <div class="card-body">
+      <p style="margin-bottom:16px">OpenCode é um agente de IA de código aberto para programação, usado por mais de <strong>7,5M de desenvolvedores</strong> mensalmente. Disponibilizamos ele como serviço web por usuário, cada um com sua própria instância, sessão e chave de API via LiteLLM.</p>
+      <p style="margin-bottom:16px;color:var(--gray-500)">Site oficial: <a href="https://opencode.ai" style="color:var(--red)">opencode.ai</a> · Repositório: <a href="https://github.com/anomalyco/opencode" style="color:var(--red)">github.com/anomalyco/opencode</a></p>
+    </div>
+  </div>
+
+  <!-- ─── CARD: Arquitetura ─── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <h2>Arquitetura</h2>
+    </div>
+    <div class="card-body">
+      <div class="arch">
+<span class="hl-gold">┌──────────────┐</span>     <span class="hl-gold">┌──────────────┐</span>     <span class="hl-gold">┌──────────────┐</span>
+<span class="hl-gold">│</span>  Nginx       <span class="hl-gold">│</span><span class="hl-red">────</span><span class="hl-gold">│</span>  Auth App    <span class="hl-gold">│</span><span class="hl-red">────</span><span class="hl-gold">│</span>  OpenCode    <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  Gateway     <span class="hl-gold">│</span>     <span class="hl-gold">│</span>  (Node.js)   <span class="hl-gold">│</span>     <span class="hl-gold">│</span>  Web Server  <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  :80         <span class="hl-gold">│</span>     <span class="hl-gold">│</span>  :3000       <span class="hl-gold">│</span>     <span class="hl-gold">│</span>  :4090-4095  <span class="hl-gold">│</span>
+<span class="hl-gold">└──────────────┘</span>     <span class="hl-gold">└──────────────┘</span>     <span class="hl-gold">└──────┬───────┘</span>
+                                                    <span class="hl-gold">│</span>
+                                          <span class="hl-gold">┌─────────┴──────────┐</span>
+                                          <span class="hl-gold">│</span>  LiteLLM Proxy     <span class="hl-gold">│</span>
+                                          <span class="hl-gold">│</span>  :4000/v1          <span class="hl-gold">│</span>
+                                          <span class="hl-gold">└─────────┬──────────┘</span>
+                                                    <span class="hl-gold">│</span>
+                                          <span class="hl-gold">┌─────────┴──────────┐</span>
+                                          <span class="hl-gold">│</span>  Provedores de IA  <span class="hl-gold">│</span>
+                                          <span class="hl-gold">│</span>  ZenCode · Claude  <span class="hl-gold">│</span>
+                                          <span class="hl-gold">│</span>  GPT · Gemini      <span class="hl-gold">│</span>
+                                          <span class="hl-gold">└────────────────────┘</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── CARD: Usuários e Acesso ─── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <h2>Usuários e Acesso</h2>
+    </div>
+    <div class="card-body">
+      <p style="margin-bottom:16px">Portal de login: <strong>https://ia.fvmarketing.com.br</strong></p>
+      <table>
+        <thead><tr><th>Usuário</th><th>Nome</th><th>Subdomínio</th><th>Squad</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><code>marcos.luciano</code></td><td>Marcos Luciano</td><td>marcos.fvmarketing.com.br</td><td><span class="tag tag-blue">tech</span></td><td><span class="tag tag-green">ativo</span></td></tr>
+          <tr><td><code>fhelipe.aranha</code></td><td>Fhelipe Aranha</td><td>fhelipe.fvmarketing.com.br</td><td><span class="tag tag-gold">csm</span></td><td><span class="tag tag-green">ativo</span></td></tr>
+          <tr><td><code>lucas.nunes</code></td><td>Lucas Nunes</td><td>lucasnunes.fvmarketing.com.br</td><td><span class="tag tag-gold">csm</span></td><td><span class="tag tag-green">ativo</span></td></tr>
+          <tr><td><code>paolo.carmine</code></td><td>Paolo Carmine</td><td>paolo.fvmarketing.com.br</td><td><span class="tag tag-gold">csm</span></td><td><span class="tag tag-green">ativo</span></td></tr>
+          <tr><td><code>csm.2</code></td><td>CSM 2 → <strong>bruno.lindenmeyer</strong></td><td>—</td><td><span class="tag tag-gold">csm</span></td><td><span class="tag tag-amber">pendente</span></td></tr>
+          <tr><td><code>csm.3</code></td><td>CSM 3 → pendente</td><td>—</td><td><span class="tag tag-gold">csm</span></td><td><span class="tag tag-amber">pendente</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ─── CARD: Stack ─── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <h2>Stack Tecnológica</h2>
+    </div>
+    <div class="card-body">
+      <table>
+        <thead><tr><th>Camada</th><th>Tecnologia</th><th>Função</th></tr></thead>
+        <tbody>
+          <tr><td>Gateway</td><td>Nginx</td><td>Roteia subdomínios, verifica cookie de sessão</td></tr>
+          <tr><td>Auth</td><td>Node.js + Express</td><td>Login, sessão, dashboard</td></tr>
+          <tr><td>Agente IA</td><td>OpenCode Web</td><td>Interface do agente por usuário</td></tr>
+          <tr><td>Proxy LLM</td><td>LiteLLM</td><td>Roteamento para múltiplos modelos</td></tr>
+          <tr><td>Modelo free</td><td>deepseek-v4-flash-free (ZenCode)</td><td>Uso diário sem custo</td></tr>
+          <tr><td>Modelos pagos</td><td>Claude Sonnet 5, GPT 5.4, Gemini</td><td>Tarefas complexas</td></tr>
+          <tr><td>Memória</td><td>Supabase + pgvector</td><td>RAG e memória persistente</td></tr>
+          <tr><td>Autenticação</td><td>bcrypt + cookie session</td><td>Sessão com expiração em 24h</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ─── CARD: Skills ─── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </div>
+      <h2>Skills Instaladas</h2>
+    </div>
+    <div class="card-body">
+      <p style="margin-bottom:16px;font-size:0.88rem">Skills são instruções reutilizáveis que o agente carrega sob demanda. Total: <strong>94 skills</strong> em <code>.agents/skills/</code> + <code>.claude/skills/</code>.</p>
+
+      <div class="section-title">Infraestrutura</div>
+      <table style="margin-bottom:20px">
+        <thead><tr><th>Skill</th><th>Função</th></tr></thead>
+        <tbody>
+          <tr><td><code>geral-log-sessoes</code></td><td>Salva e restaura sessões em <code>log/</code></td></tr>
+          <tr><td><code>geral-memoria-pgvector</code></td><td>Memória persistente com pgvector + Supabase</td></tr>
+          <tr><td><code>geral-leitura-contexto</code></td><td>Leitura profunda do contexto do projeto</td></tr>
+          <tr><td><code>geral-compactar</code></td><td>Compressão de contexto e tokens (<code>/compactar</code>)</td></tr>
+        </tbody>
+      </table>
+
+      <div class="section-title">Arquivos e RAG (novas)</div>
+      <table>
+        <thead><tr><th>Skill</th><th>Função</th></tr></thead>
+        <tbody>
+          <tr><td><code>geral-leitor-arquivos</code></td><td>Leitura de PDF, DOCX, XLSX, PPTX, imagens (OCR)</td></tr>
+          <tr><td><code>geral-rag-documentos</code></td><td>Ingestão e busca semântica em documentos via pgvector</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ─── CARD: Leitura de Arquivos ─── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <h2>Leitura de Arquivos</h2>
+    </div>
+    <div class="card-body">
+      <p style="margin-bottom:16px">Script <code>scripts/file-reader.py</code> — leitor universal de arquivos com OCR para imagens.</p>
+      <table>
+        <thead><tr><th>Formato</th><th>Motor</th></tr></thead>
+        <tbody>
+          <tr><td>PDF</td><td>pypdf / pdftotext</td></tr>
+          <tr><td>DOCX</td><td>python-docx</td></tr>
+          <tr><td>XLSX</td><td>openpyxl</td></tr>
+          <tr><td>PPTX</td><td>python-pptx</td></tr>
+          <tr><td>PNG / JPG / GIF / etc.</td><td>Tesseract OCR (português + inglês)</td></tr>
+          <tr><td>HTML / CSV</td><td>Parser nativo</td></tr>
+          <tr><td>Código (.py, .js, .ts...)</td><td>Leitura UTF-8 direta</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ─── CARD: Comandos ─── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+      </div>
+      <h2>Comandos Úteis</h2>
+    </div>
+    <div class="card-body">
+      <div class="cmd-grid">
+        <div class="cmd-item"><code>/compactar</code><span>Comprime contexto e tokens</span></div>
+        <div class="cmd-item"><code>/session-save</code><span>Salva sessão atual</span></div>
+        <div class="cmd-item"><code>/session-list</code><span>Lista sessões salvas</span></div>
+        <div class="cmd-item"><code>/contexto</code><span>Carrega contexto do projeto</span></div>
+        <div class="cmd-item"><code>file-reader.py</code><span>Lê PDF, DOCX, XLSX, imagens</span></div>
+        <div class="cmd-item"><code>memory-cli.py store</code><span>Armazena na memória vetorial</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── CARD: Pipeline RAG ─── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="11" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><path d="M2 4h2l3.28 11.57A2 2 0 0 0 9.2 17h7.6a2 2 0 0 0 1.92-1.43L21 7H6"/></svg>
+      </div>
+      <h2>Pipeline RAG</h2>
+    </div>
+    <div class="card-body">
+      <div style="background:var(--gray-900);color:rgba(255,255,255,0.7);border-radius:12px;padding:20px;font-family:'JetBrains Mono',monospace;font-size:0.78rem;line-height:2;overflow-x:auto;white-space:pre">
+Arquivo <span style="color:#4ade80">→</span> file-reader.py <span style="color:#4ade80">→</span> extração de texto <span style="color:#4ade80">→</span> chunk (2000 chars)
+<span style="color:#4ade80">→</span> memory-cli.py store <span style="color:#4ade80">→</span> embedding (text-embedding-3-small)
+<span style="color:#4ade80">→</span> Supabase pgvector <span style="color:#4ade80">→</span> busca semântica
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── CARD: Segurança ─── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h2>Segurança</h2>
+    </div>
+    <div class="card-body">
+      <table>
+        <thead><tr><th>Item</th><th>Configuração</th></tr></thead>
+        <tbody>
+          <tr><td>Senhas</td><td>bcrypt com salt, base + 3 chars aleatórios</td></tr>
+          <tr><td>Sessão</td><td>cookie httpOnly, sameSite=lax, 24h de validade</td></tr>
+          <tr><td>Rate limit</td><td>20 tentativas / 15 min</td></tr>
+          <tr><td>Gateway</td><td>Nginx bloqueia sem cookie <code>connect.sid</code></td></tr>
+          <tr><td>Modelos</td><td>Chaves virtuais LiteLLM por usuário</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ─── CARD: Timeline / Próximos Passos ─── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <h2>Próximos Passos</h2>
+    </div>
+    <div class="card-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-date">Pendente</div>
+          <div class="tl-title">Renomear csm.2 → bruno.lindenmeyer</div>
+          <div class="tl-desc">Criar users.json, TARGETS, nginx, docker, config</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Pendente</div>
+          <div class="tl-title">Definir e criar stefanny.santos / samuel.costa</div>
+          <div class="tl-desc">Substituir csm.3, criar infra completa</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Pendente</div>
+          <div class="tl-title">Completar csm1 em users.json</div>
+          <div class="tl-desc">Nginx + docker já existem, falta login</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Pendente</div>
+          <div class="tl-title">Popular tabela users no Supabase</div>
+          <div class="tl-desc">SQL de INSERT para todos os usuários</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<footer class="footer">
+  Report gerado em 13/07/2026 · V4 Company
+</footer>
+
+</body>
+</html>
