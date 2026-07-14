@@ -206,35 +206,6 @@
     .tag-pink { background: rgba(236,72,153,0.08); color: #db2777; }
     .tag-teal { background: rgba(20,184,166,0.08); color: #0d9488; }
 
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-    .kpi-card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 20px;
-      border-top: 3px solid var(--red);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-    }
-    .kpi-card .value {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--gray-900);
-      line-height: 1.2;
-    }
-    .kpi-card .label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--gray-400);
-      margin-top: 4px;
-    }
-
     .arch {
       background: var(--gray-900);
       border-radius: 12px;
@@ -368,7 +339,6 @@
     }
 
     @media (max-width: 768px) {
-      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
       .cmd-grid { grid-template-columns: 1fr; }
       .explain-grid { grid-template-columns: 1fr; }
       .cover h1 { font-size: 1.8rem; }
@@ -376,7 +346,6 @@
       .card-body { padding: 20px; }
     }
     @media (max-width: 480px) {
-      .kpi-grid { grid-template-columns: 1fr; }
       .cover { padding: 56px 16px 40px; }
     }
   </style>
@@ -409,12 +378,7 @@
 
 <section class="container">
 
-  <div class="kpi-grid">
-    <div class="kpi-card"><div class="value">6</div><div class="label">Usuários</div></div>
-    <div class="kpi-card"><div class="value">94</div><div class="label">Skills</div></div>
-    <div class="kpi-card"><div class="value">4</div><div class="label">Instâncias Ativas</div></div>
-    <div class="kpi-card"><div class="value">5</div><div class="label">Provedores LLM</div></div>
-  </div>
+
 
   <!-- Sobre -->
   <div class="card">
@@ -440,70 +404,65 @@
     </div>
     <div class="card-body">
       <div class="arch">
-<span class="hl-gold">┌─────────────────────────────────────────────────────────────┐</span>
-<span class="hl-gold">│</span>  <span class="hl-green">🌐 Navegador</span>  <span class="hl-gold">│</span>  <span class="hl-red">https://</span><span class="hl-gold">nome.fvmarketing.com.br</span>                 <span class="hl-gold">│</span>
-<span class="hl-gold">└─────────────────────┬───────────────────────────────────────┘</span>
-                     <span class="hl-gold">│</span>
-                     <span class="hl-gold">│</span>  porta 80
-                     <span class="hl-gold">▼</span>
+<span class="hl-gold">┌──────────────────────────────────────────────────────────────┐</span>
+<span class="hl-gold">│</span>  <span class="hl-green">👤 Usuário</span>                                                    <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  Acessa <span class="hl-blue">https://ia.fvmarketing.com.br</span> pelo navegador              <span class="hl-gold">│</span>
+<span class="hl-gold">└──────────────────────────┬───────────────────────────────────┘</span>
+                            <span class="hl-gold">│</span>
+                            <span class="hl-gold">▼</span>
+<span class="hl-gold">┌──────────────────────────────────────────────────────────────┐</span>
+<span class="hl-gold">│</span>  <span class="hl-red">① Portal de Login</span>  <span class="hl-blue">(ia.fvmarketing.com.br)</span>                  <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  ──────────────────────────────────────────────              <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  Digita <span class="hl-blue">usuário</span> + <span class="hl-blue">senha</span>                                  <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  Auth App valida contra Supabase (bcrypt)                    <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  Se OK → cria cookie <span class="hl-blue">connect.sid</span> (24h)                      <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  Redireciona pro subdomínio do usuário                       <span class="hl-gold">│</span>
+<span class="hl-gold">└──────────────────────────┬───────────────────────────────────┘</span>
+                            <span class="hl-gold">│</span>
+                            <span class="hl-gold">│</span>  redireciona com cookie
+                            <span class="hl-gold">▼</span>
+<span class="hl-gold">┌──────────────────────────────────────────────────────────────┐</span>
+<span class="hl-gold">│</span>  <span class="hl-green">🌐 Navegador</span>  <span class="hl-blue">https://SEU_NOME.fvmarketing.com.br</span>           <span class="hl-gold">│</span>
+<span class="hl-gold">└──────────────────────────┬───────────────────────────────────┘</span>
+                            <span class="hl-gold">│</span>
+                            <span class="hl-gold">│</span>  porta 80
+                            <span class="hl-gold">▼</span>
 <span class="hl-gold">┌──────────────────────────────────────────┐</span>
-<span class="hl-gold">│</span>  <span class="hl-red">① Nginx Gateway</span>                          <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  <span class="hl-red">② Nginx Gateway</span>                          <span class="hl-gold">│</span>
 <span class="hl-gold">│</span>  ──────────────────────────────────────  <span class="hl-gold">│</span>
 <span class="hl-gold">│</span>  Verifica cookie <span class="hl-blue">connect.sid</span> no request   <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  Se não existir → redireciona pra login  <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  Se existir → proxy reverso pro OpenCode <span class="hl-gold">│</span>
-<span class="hl-gold">└──────┬────────────────────────┬──────────┘</span>
-       <span class="hl-gold">│</span>                        <span class="hl-gold">│</span>
-       <span class="hl-gold">│</span>  sem cookie            <span class="hl-gold">│</span>  com cookie
-       <span class="hl-gold">▼</span>                        <span class="hl-gold">▼</span>
-<span class="hl-gold">┌──────────────────┐</span>  <span class="hl-gold">┌──────────────────────────────────────┐</span>
-<span class="hl-gold">│</span>  <span class="hl-red">② Auth App</span>       <span class="hl-gold">│</span>  <span class="hl-gold">│</span>  <span class="hl-red">③ OpenCode Web</span>                    <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  Node.js :3000   <span class="hl-gold">│</span>  <span class="hl-gold">│</span>  Instância por usuário             <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  ──────────────  <span class="hl-gold">│</span>  <span class="hl-gold">│</span>  :4090 (marcos) · :4091 (fhelipe)  <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  Login com bcrypt<span class="hl-gold">│</span>  <span class="hl-gold">│</span>  :4092 (bruno)  · :4093 (stephanie) <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  Cria cookie 24h <span class="hl-gold">│</span>  <span class="hl-gold">│</span>  :4094 (paolo)  · :4095 (samuel)   <span class="hl-gold">│</span>
-<span class="hl-gold">└──────┬───────────┘</span>  <span class="hl-gold">└──────┬───────────────────────────────┘</span>
-       <span class="hl-gold">│</span>                     <span class="hl-gold">│</span>           <span class="hl-gold">│</span>              <span class="hl-gold">│</span>
-       <span class="hl-gold">│</span>  valida credenciais  <span class="hl-gold">│</span>           <span class="hl-gold">│</span>              <span class="hl-gold">│</span>
-       <span class="hl-gold">▼</span>                     <span class="hl-gold">▼</span>           <span class="hl-gold">▼</span>              <span class="hl-gold">▼</span>
-<span class="hl-gold">┌─────────────────────────────────────────────────────────────────┐</span>
-<span class="hl-gold">│</span>  <span class="hl-green">④ Supabase (pgvector)</span>                                       <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  ─────────────────────────────────────────────────────────────  <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  <span class="hl-blue">users</span>         → autenticação (bcrypt hash)                    <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  <span class="hl-blue">agent_memories</span> → memória persistente por similaridade         <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  <span class="hl-blue">call_history</span>   → histórico de calls dos clientes              <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  <span class="hl-blue">call_transcripts</span>→ transcrições indexadas (embeddings)          <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  <span class="hl-blue">decisions</span>      → decisões registradas em reunião              <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  <span class="hl-blue">clients</span>        → dados dos clientes V4                       <span class="hl-gold">│</span>
-<span class="hl-gold">└─────────────────────────────────────────────────────────────────┘</span>
-                              <span class="hl-gold">▲</span>
-                              <span class="hl-gold">│</span>
-                              <span class="hl-gold">│</span>  roteia requisições de modelo
-                              <span class="hl-gold">│</span>
-                    <span class="hl-gold">┌──────┴─────────────────┐</span>
-                    <span class="hl-gold">│</span>  <span class="hl-red">⑤ LiteLLM Proxy</span>       <span class="hl-gold">│</span>
-                    <span class="hl-gold">│</span>  Roteador de modelos   <span class="hl-gold">│</span>
-                    <span class="hl-gold">│</span>  Chaves virtuais       <span class="hl-gold">│</span>
-                    <span class="hl-gold">│</span>  Rate limit por usuário <span class="hl-gold">│</span>
-                    <span class="hl-gold">└──────┬─────────────────┘</span>
-                           <span class="hl-gold">│</span>
-                 <span class="hl-gold">┌─────────┴──────────────┐</span>
-                 <span class="hl-gold">│</span>  <span class="hl-red">⑥ Provedores IA</span>        <span class="hl-gold">│</span>
-                 <span class="hl-gold">│</span>  ────────────────────  <span class="hl-gold">│</span>
-                 <span class="hl-gold">│</span>  <span class="hl-blue">ZenCode</span> (free, uso     <span class="hl-gold">│</span>
-                 <span class="hl-gold">│</span>  diário)                <span class="hl-gold">│</span>
-                 <span class="hl-gold">│</span>  <span class="hl-blue">Claude Sonnet 5</span>        <span class="hl-gold">│</span>
-                 <span class="hl-gold">│</span>  (tarefas complexas)    <span class="hl-gold">│</span>
-                 <span class="hl-gold">│</span>  <span class="hl-blue">GPT · Gemini</span>           <span class="hl-gold">│</span>
-                 <span class="hl-gold">│</span>  (suporte)              <span class="hl-gold">│</span>
-                 <span class="hl-gold">└────────────────────────┘</span>
-
-<span class="hl-gold">┌───────────────────────────────────────────────────────────────┐</span>
-<span class="hl-gold">│</span>  <span class="hl-blue">⑦ MCP Servers</span> — ferramentas que o agente pode invocar        <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  ───────────────────────────────────────────────────────────  <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  <span class="hl-green">Google Drive MCP</span> → ler/consultar arquivos dos clientes       <span class="hl-gold">│</span>
-<span class="hl-gold">│</span>  <span class="hl-green">Ekyte MCP</span>        → API externa de dados                      <span class="hl-gold">│</span>
-<span class="hl-gold">└───────────────────────────────────────────────────────────────┘</span>
+<span class="hl-gold">│</span>  Se inválido → redireciona pra login     <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  Se válido → proxy reverso pro OpenCode   <span class="hl-gold">│</span>
+<span class="hl-gold">└──────────────┬─────────────────────────────┘</span>
+               <span class="hl-gold">│</span>
+               <span class="hl-gold">│</span>  proxy reverso
+               <span class="hl-gold">▼</span>
+<span class="hl-gold">┌──────────────────────────────────────┐</span>
+<span class="hl-gold">│</span>  <span class="hl-red">③ OpenCode Web</span>                      <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  Instância por usuário              <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  ────────────────────────────────   <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  <span class="hl-blue">:4090</span> marcos · <span class="hl-blue">:4091</span> fhelipe       <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  <span class="hl-blue">:4092</span> bruno  · <span class="hl-blue">:4093</span> stephanie     <span class="hl-gold">│</span>
+<span class="hl-gold">│</span>  <span class="hl-blue">:4094</span> paolo  · <span class="hl-blue">:4095</span> samuel        <span class="hl-gold">│</span>
+<span class="hl-gold">└──────────────┬───────────────────────┘</span>
+               <span class="hl-gold">│</span>
+    <span class="hl-gold">┌──────────┴──────────┬────────────────┐</span>
+    <span class="hl-gold">│</span>                    <span class="hl-gold">│</span>                <span class="hl-gold">│</span>
+    <span class="hl-gold">▼</span>                    <span class="hl-gold">▼</span>                <span class="hl-gold">▼</span>
+<span class="hl-gold">┌──────────────┐</span>  <span class="hl-gold">┌──────────────────┐</span>  <span class="hl-gold">┌──────────────────────────┐</span>
+<span class="hl-gold">│</span> <span class="hl-red">④ LiteLLM  </span>  <span class="hl-gold">│</span>  <span class="hl-gold">│</span> <span class="hl-green">⑤ Supabase      </span>  <span class="hl-gold">│</span>  <span class="hl-gold">│</span> <span class="hl-blue">⑥ MCP Servers    </span>    <span class="hl-gold">│</span>
+<span class="hl-gold">│</span> Proxy:4000  <span class="hl-gold">│</span>  <span class="hl-gold">│</span> pgvector       <span class="hl-gold">│</span>  <span class="hl-gold">│</span> ────────────────  <span class="hl-gold">│</span>
+<span class="hl-gold">│</span> Chaves virt. <span class="hl-gold">│</span>  <span class="hl-gold">│</span> ────────────   <span class="hl-gold">│</span>  <span class="hl-gold">│</span> Google Drive     <span class="hl-gold">│</span>
+<span class="hl-gold">└──────┬───────┘</span>  <span class="hl-gold">│</span> users · mem    <span class="hl-gold">│</span>  <span class="hl-gold">│</span> (arquivos)      <span class="hl-gold">│</span>
+       <span class="hl-gold">│</span>          <span class="hl-gold">│</span> calls · decis   <span class="hl-gold">│</span>  <span class="hl-gold">│</span> Ekyte (API)     <span class="hl-gold">│</span>
+       <span class="hl-gold">▼</span>          <span class="hl-gold">│</span> clients        <span class="hl-gold">│</span>  <span class="hl-gold">└──────────────────────────┘</span>
+<span class="hl-gold">┌───────────────┐</span>  <span class="hl-gold">└──────────────────┘</span>
+<span class="hl-gold">│</span> <span class="hl-red">⑦ Modelos IA</span>   <span class="hl-gold">│</span>
+<span class="hl-gold">│</span> ───────────   <span class="hl-gold">│</span>
+<span class="hl-gold">│</span> (alguns free) <span class="hl-gold">│</span>
+<span class="hl-gold">│</span> + APIs       <span class="hl-gold">│</span>
+<span class="hl-gold">│</span> próprias      <span class="hl-gold">│</span>
+<span class="hl-gold">└───────────────┘</span>
       </div>
     </div>
   </div>
@@ -608,67 +567,131 @@
     </div>
   </div>
 
-  <!-- Comandos e Habilidades -->
+  <!-- Skills de Eficiência da Operacional Plataforma -->
   <div class="card">
     <div class="card-header">
       <div class="icon">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
       </div>
-      <h2>Comandos e Habilidades</h2>
+      <h2>Skills de Eficiência da Operacional Plataforma</h2>
     </div>
     <div class="card-body">
-      <p style="margin-bottom:16px;font-size:0.88rem">Quatro camadas de interação — cada uma com seu nível de complexidade:</p>
 
-      <div class="explain-grid">
-        <div class="explain-card">
-          <h3>@agentes <span style="font-weight:400;color:var(--gray-400);font-size:0.75rem">(especialistas)</span></h3>
-          <p><strong>Delegue tarefas diretas.</strong> Chame <code>@analista-dados</code> para métricas, <code>@seo-visibilidade</code> para auditoria SEO, <code>@copy-content</code> para copys, <code>@cro-otimizacao</code> para CRO, <code>@pesquisador</code> para pesquisa, <code>@midia-paga</code> para campanhas, <code>@criacao-design</code> para design.</p>
-          <p style="margin-top:8px;font-size:0.82rem;color:var(--gray-500)"><strong>Quando usar:</strong> tarefa clara que exige um especialista. Você dá o briefing, ele executa e volta com entrega.</p>
-        </div>
-        <div class="explain-card">
-          <h3>@orquestradores <span style="font-weight:400;color:var(--gray-400);font-size:0.75rem">(times coordenados)</span></h3>
-          <p><strong>8 times orquestradores.</strong> Cada um coordena especialistas internamente:</p>
-          <ul style="margin-top:6px;font-size:0.82rem;color:var(--gray-600);list-style:none;padding:0">
-            <li>• <code>@cmoorch</code> — marketing completo</li>
-            <li>• <code>@growth-team</code> — growth integrado</li>
-            <li>• <code>@content-studio</code> — conteúdo + design</li>
-            <li>• <code>@account-orchestrator</code> — CSM/accounts</li>
-            <li>• <code>@csm-orquestrador</code> — saúde do cliente</li>
-            <li>• <code>@launch-pad</code> — lançamentos</li>
-            <li>• <code>@revenue-ops</code> — receita</li>
-            <li>• <code>@executor-comite</code> — comitê P&amp;EG</li>
-          </ul>
-          <p style="margin-top:8px;font-size:0.82rem;color:var(--gray-500)"><strong>Quando usar:</strong> objetivo que precisa de várias frentes. O orquestrador delega, revisa e consolida pra você.</p>
-        </div>
-        <div class="explain-card">
-          <h3>/skills <span style="font-weight:400;color:var(--gray-400);font-size:0.75rem">(comandos)</span></h3>
-          <p><strong>Instruções pro agente atual.</strong> Use <code>/contexto</code> pra carregar contexto do projeto, <code>/compactar</code> pra economizar tokens, <code>/save-session</code> pra salvar conversa, <code>/session-list</code> pra ver sessões, <code>/csm-diagnostico</code> pra rodar diagnóstico CSM completo.</p>
-          <p style="margin-top:8px;font-size:0.82rem;color:var(--gray-500)"><strong>Quando usar:</strong> o agente que já está conversando com você precisa executar uma ação útil — sem criar um agente novo.</p>
-        </div>
-      </div>
+      <p style="margin-bottom:16px;font-size:0.88rem">Quatro camadas de interação. Cada uma foi projetada com uma metodologia específica por trás — não é só um prompt genérico.</p>
+
+      <hr style="border:none;border-top:1px solid var(--gold-border);margin:20px 0">
+
+      <h3 style="margin-bottom:12px">@agentes <span style="font-weight:400;color:var(--gray-400);font-size:0.75rem">(especialistas)</span></h3>
+      <p style="font-size:0.85rem;margin-bottom:12px">Cada especialista foi treinado com <strong>frameworks, dados reais e skills específicas</strong> para a função. Você dá o briefing, ele executa e volta com entrega.</p>
+
+      <table>
+        <thead><tr><th>Agente</th><th>O que faz</th><th>Metodologia / Construção</th><th>Por que confiar</th></tr></thead>
+        <tbody>
+          <tr><td><code>@analista-dados</code></td><td>Métricas, OKRs, performance, insights estruturados</td><td>Treinado com framework OKR V4 + queries diretas ao Supabase + pipeline de dados reais</td><td>Não chuta — puxa dados do banco e cruza com metas documentadas em mission-control</td></tr>
+          <tr><td><code>@seo-visibilidade</code></td><td>Auditoria SEO completa + AI Visibility (GEO/AEO)</td><td>Segue o framework FLOW (Find → Leverage → Optimize → Win) + APIs Google + DataForSEO + skills seo-*</td><td>Usa dados reais do Google, não achismo. Skills cobrem técnico, conteúdo, backlinks, GEO, schema</td></tr>
+          <tr><td><code>@copy-content</code></td><td>Landing pages, emails, anúncios, redes sociais, lead magnets</td><td>Treinado com metodologia de copy V4 (direct response + SEO + persuasão) + pipeline de conteúdo editorial</td><td>Escreve baseado em briefing estruturado, pesquisa de concorrência e psicologia de marketing</td></tr>
+          <tr><td><code>@cro-otimizacao</code></td><td>Otimização de conversão em páginas, signups, formulários, onboarding</td><td>Metodologia de experimentação baseada em hipóteses (ICE score) + analytics tracking + skills de CRO</td><td>Cada recomendação parte de dados de tracking ou padrões validados, não de opinião</td></tr>
+          <tr><td><code>@pesquisador</code></td><td>Pesquisa profunda de mercado, concorrentes, consumidores</td><td>Multi-fontes: reviews (G2, Trustpilot), Reddit, redes, consumidores — tudo sintetizado em insights acionáveis</td><td>Não faz pesquisa superficial — minera dados públicos reais e cruza com briefing do cliente</td></tr>
+          <tr><td><code>@midia-paga</code></td><td>Estratégia de mídia paga (Meta, Google, LinkedIn, TikTok)</td><td>Arquitetura de contas + análise preditiva + teoria das restrições + PNL</td><td>Usa dados reais de campanha (V4mos API) e skills de mídia para decisões baseadas em performance</td></tr>
+          <tr><td><code>@criacao-design</code></td><td>Interfaces, imagens, vídeos, apresentações</td><td>Treinado no padrão visual V4 (vermelho + dourado + Ubuntu) + geral-frontend-design + skills de imagem/vídeo</td><td>Segue identidade visual consistente — não é design aleatório, é design V4</td></tr>
+        </tbody>
+      </table>
+
+      <hr style="border:none;border-top:1px solid var(--gold-border);margin:20px 0">
+
+      <h3 style="margin-bottom:12px">@orquestradores <span style="font-weight:400;color:var(--gray-400);font-size:0.75rem">(times coordenados)</span></h3>
+      <p style="font-size:0.85rem;margin-bottom:12px">Diferente dos especialistas (que executam), os orquestradores são <strong>agentes independentes com contexto próprio, modelo e permissões</strong>. Eles internamente delegam tarefas, revisam resultados e consolidam a entrega final pra você.</p>
+
+      <table>
+        <thead><tr><th>Orquestrador</th><th>O que coordena</th><th>Metodologia / Construção</th><th>Por que confiar</th></tr></thead>
+        <tbody>
+          <tr><td><code>@cmoorch</code></td><td>Estratégia, growth, conteúdo, revenue, launch, dados, revisão</td><td>Framework CMO V4 — orquestra marketing completo integrando todos os times</td><td>Não é um agente de marketing genérico — entende a operação V4 como um todo e coordena especialistas reais</td></tr>
+          <tr><td><code>@growth-team</code></td><td>Dados, CRO, mídia paga, SEO, copy, receita</td><td>Pipeline de growth integrado: experimentos contínuos com hipóteses, design, execução e aprendizado</td><td>Conecta CRO + mídia + SEO + conteúdo em ciclo fechado de aprendizado</td></tr>
+          <tr><td><code>@content-studio</code></td><td>Estratégia, copy, design, SEO, pesquisa, revisão</td><td>Pipeline editorial completo: pesquisa → estratégia → produção → revisão → publicação</td><td>Cada peça de conteúdo passa por múltiplos especialistas antes de sair — não é conteúdo feito por um agente só</td></tr>
+          <tr><td><code>@account-orchestrator</code></td><td>Handoff, check-in roleplay/review, evolução, vendas, pesquisa, flags, dados, revisão</td><td>Ciclo completo de saúde do cliente: check-in → mission control → flags → expansão</td><td>Integra o ROPRE V4, roleplay realista com personas reais e histórico de check-ins</td></tr>
+          <tr><td><code>@csm-orquestrador</code></td><td>4 flags (churn, OKR, operação, ROI) + account</td><td>Sistema de diagnóstico por flags com gatilhos objetivos: NPS+CSAT, KRs &lt;60%, sprints atrasadas, ROAS abaixo da meta</td><td>Cada flag tem critério numérico claro — não é achismo, é alarme objetivo</td></tr>
+          <tr><td><code>@launch-pad</code></td><td>Estratégia, copy, mídia, SEO, design, diretórios</td><td>Framework de lançamento estruturado: pré-lançamento → lançamento → pós-lançamento com cobertura multicanal</td><td>Cobre todas as frentes de um launch — não só o anúncio, mas SEO, diretórios e conteúdo</td></tr>
+          <tr><td><code>@revenue-ops</code></td><td>Receita, automação, vendas, dados, flags churn/ROI</td><td>Engrenagem de receita integrando pricing, churn, referral e automação de operações</td><td>Conecta prevenção de churn + programas de referral + operações de receita em um fluxo só</td></tr>
+          <tr><td><code>@executor-comite</code></td><td>n8n, dados, 4 flags, revisão</td><td>Briefing automático do Comitê de P&amp;EG com dados reais de OKRs, sprints e FCAs</td><td>Gera pauta de comitê com dados vivos, não com relatório manual desatualizado</td></tr>
+        </tbody>
+      </table>
+
+      <hr style="border:none;border-top:1px solid var(--gold-border);margin:20px 0">
+
+      <h3 style="margin-bottom:12px">/skills <span style="font-weight:400;color:var(--gray-400);font-size:0.75rem">(comandos)</span></h3>
+      <p style="font-size:0.85rem;margin-bottom:12px">Diferente dos @agentes (que são independentes), os comandos <code>/skill</code> são instruções que o <strong>agente que já está conversando com você</strong> executa — sem criar um agente novo.</p>
+
+      <table>
+        <thead><tr><th>Comando</th><th>O que faz</th><th>Metodologia</th><th>Por que confiar</th></tr></thead>
+        <tbody>
+          <tr><td><code>/contexto</code></td><td>Carrega todo o contexto do projeto/cliente/squad</td><td>Escaneia diretórios, lê CLAUDE.md, AGENTS.md, mission-control, docs, git log</td><td>Não pula etapa — o agente precisa saber onde está antes de agir</td></tr>
+          <tr><td><code>/compactar</code></td><td>Comprime contexto e tokens quando a conversa está longa</td><td>Analisa uso atual, identifica desperdícios, resume histórico</td><td>Economiza token budget sem perder informações críticas</td></tr>
+          <tr><td><code>/session-save</code></td><td>Salva a sessão atual em <code>log/</code> com metadados</td><td>Exporta objetivo, descobertas, próximo passo e comandos úteis em JSON</td><td>Nenhum trabalho se perde — a sessão pode ser retomada depois</td></tr>
+          <tr><td><code>/session-list</code></td><td>Lista todas as sessões salvas</td><td>Lê diretório <code>log/</code> e mostra com data, título e resumo</td><td>Visualização rápida do histórico de trabalho</td></tr>
+          <tr><td><code>/csm-diagnostico</code></td><td>Roda diagnóstico CSM completo</td><td>Executa as 4 flags (churn, OKR, operação, ROI) em sequência e consolida</td><td>Diagnóstico completo em um comando só — sem chamar flag por flag</td></tr>
+        </tbody>
+      </table>
 
       <div style="margin-top:20px;padding:16px;background:#f0eeea;border-radius:10px;font-size:0.85rem;line-height:1.7">
-        <strong>E os /team-*?</strong> Comandos como <code>/team-conteudo</code> e <code>/team-seo</code> são <strong>modelos prontos</strong> que instruem o agente atual a chamar uma sequência de @especialistas. Diferente dos @orquestradores (que são agentes independentes com contexto próprio), o <code>/team-*</code> é só um roteiro — o próprio agente que você já está usando é quem coordena a execução.<br><br>
-        <strong>Como escolher:</strong><br>
+        <strong>E os /team-*?</strong> Comandos como <code>/team-conteudo</code> e <code>/team-seo</code> são <strong>modelos prontos</strong> que instruem o agente atual a chamar uma sequência de @especialistas. Diferente dos @orquestradores (que são agentes independentes), o <code>/team-*</code> é um roteiro — o próprio agente que você já está usando coordena a execução.<br><br>
+
+        <strong>/opensquad create</strong> — monte seu próprio combo de agentes.<br><br>
+
+        <strong>Resumo — como escolher:</strong><br>
         • Tarefa única e clara? → chame o <strong>@especialista</strong> direto<br>
-        • Precisa de várias áreas coordenadas por um agente independente? → acione o <strong>@orquestrador</strong><br>
-        • Quer um roteiro rápido de especialistas sem criar agente novo? → use <strong>/team-*</strong><br>
-        • Quer uma instrução pro agente atual? → use uma <strong>/skill</strong><br>
-        • Quer montar seu próprio combo? → use <code>/opensquad create</code>
+        • Várias frentes coordenadas por um agente independente? → acione o <strong>@orquestrador</strong><br>
+        • Roteiro rápido sem criar agente novo? → use <strong>/team-*</strong><br>
+        • Instrução pro agente atual? → use uma <strong>/skill</strong><br>
+        • Combo personalizado? → use <code>/opensquad create</code>
       </div>
 
       <div class="section-title" style="margin-top:24px">Skills Instaladas</div>
-      <table>
-        <thead><tr><th>Skill</th><th>Função</th></tr></thead>
-        <tbody>
-          <tr><td><code>geral-log-sessoes</code></td><td>Salva e restaura sessões em <code>log/</code></td></tr>
-          <tr><td><code>geral-memoria-pgvector</code></td><td>Memória persistente com pgvector + Supabase</td></tr>
-          <tr><td><code>geral-leitura-contexto</code></td><td>Leitura profunda do contexto do projeto</td></tr>
-          <tr><td><code>geral-compactar</code></td><td>Compressão de contexto e tokens (<code>/compactar</code>)</td></tr>
-          <tr><td><code>geral-leitor-arquivos</code></td><td>Leitura de PDF, DOCX, XLSX, PPTX, imagens (OCR)</td></tr>
-          <tr><td><code>geral-rag-documentos</code></td><td>Ingestão e busca semântica em documentos via pgvector</td></tr>
-        </tbody>
-      </table>
+      <p style="margin-bottom:16px;color:var(--gray-500);font-size:14px">
+        Cada skill foi criada para resolver um problema real do dia a dia. O racional por trás de cada uma:
+      </p>
+
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px">
+        <div style="background:var(--gray-50);border-radius:8px;padding:14px;border-left:3px solid var(--gold)">
+          <code style="font-weight:600;color:var(--red)">geral-log-sessoes</code>
+          <p style="font-size:13px;margin-top:6px;color:var(--gray-600)">
+            <strong>Problema:</strong> Sessões do OpenCode expiram e o contexto se perde. <strong>Solução:</strong> Salva e restaura sessões em <code>log/</code> com objetivo, descobertas, próximo passo e comandos úteis — nenhum trabalho se perde.
+          </p>
+        </div>
+        <div style="background:var(--gray-50);border-radius:8px;padding:14px;border-left:3px solid var(--gold)">
+          <code style="font-weight:600;color:var(--red)">geral-memoria-pgvector</code>
+          <p style="font-size:13px;margin-top:6px;color:var(--gray-600)">
+            <strong>Problema:</strong> LLMs não retêm informação entre sessões. <strong>Solução:</strong> Memória persistente com embeddings no pgvector — busca semântica por conversas, decisões e insights passados. O agente se lembra do que foi discutido antes.
+          </p>
+        </div>
+        <div style="background:var(--gray-50);border-radius:8px;padding:14px;border-left:3px solid var(--gold)">
+          <code style="font-weight:600;color:var(--red)">geral-leitura-contexto</code>
+          <p style="font-size:13px;margin-top:6px;color:var(--gray-600)">
+            <strong>Problema:</strong> O agente precisa entender rápido onde está (qual cliente, projeto, squad). <strong>Solução:</strong> Escaneia diretórios, lê CLAUDE.md, AGENTS.md, mission-control, git log e produz relatório estruturado — o agente nunca trabalha sem contexto.
+          </p>
+        </div>
+        <div style="background:var(--gray-50);border-radius:8px;padding:14px;border-left:3px solid var(--gold)">
+          <code style="font-weight:600;color:var(--red)">geral-compactar</code>
+          <p style="font-size:13px;margin-top:6px;color:var(--gray-600)">
+            <strong>Problema:</strong> Conversas longas consomem tokens preciosos. <strong>Solução:</strong> Analisa uso de contexto, comprime prompts longos, resume histórico e elimina desperdício — o agente trabalha mais com menos tokens.
+          </p>
+        </div>
+        <div style="background:var(--gray-50);border-radius:8px;padding:14px;border-left:3px solid var(--gold)">
+          <code style="font-weight:600;color:var(--red)">geral-leitor-arquivos</code>
+          <p style="font-size:13px;margin-top:6px;color:var(--gray-600)">
+            <strong>Problema:</strong> Clientes enviam arquivos nos mais variados formatos (PDF, DOCX, imagens). <strong>Solução:</strong> Extrator unificado — PDF via pypdf, DOCX via python-docx, imagens via OCR Tesseract. Tudo vira markdown limpo para o agente processar.
+          </p>
+        </div>
+        <div style="background:var(--gray-50);border-radius:8px;padding:14px;border-left:3px solid var(--gold)">
+          <code style="font-weight:600;color:var(--red)">geral-rag-documentos</code>
+          <p style="font-size:13px;margin-top:6px;color:var(--gray-600)">
+            <strong>Problema:</strong> Ler arquivo por arquivo é ineficiente. <strong>Solução:</strong> Pipeline RAG — chunk, embedding, busca semântica no pgvector. Pergunte em linguagem natural e encontre o documento relevante em segundos.
+          </p>
+        </div>
+      </div>
+
+      <p style="font-size:13px;color:var(--gray-400);margin-bottom:16px">
+        + 94 skills no total em <code>.agents/skills/</code> cobrindo SEO, CRO, tráfego, CSM, conteúdo, design, growth, receita e automação.
+      </p>
 
       <div class="section-title">Comandos Úteis</div>
       <div class="cmd-grid">
@@ -698,8 +721,7 @@
           <tr><td>Auth</td><td>Node.js + Express</td><td>Login, sessão, dashboard</td></tr>
           <tr><td>Agente IA</td><td>OpenCode Web</td><td>Interface do agente por usuário</td></tr>
           <tr><td>Proxy LLM</td><td>LiteLLM</td><td>Roteamento para múltiplos modelos</td></tr>
-          <tr><td>Modelo free</td><td>deepseek-v4-flash-free (ZenCode)</td><td>Uso diário sem custo</td></tr>
-          <tr><td>Modelos pagos</td><td>Claude Sonnet 5, GPT 5.4, Gemini</td><td>Tarefas complexas</td></tr>
+          <tr><td>Modelos disponíveis</td><td>Alguns com marcação Free</td><td>Para uso e teste. Futuramente mais modelos podem ser conectados e cada usuário pode usar sua própria API pessoal (Claude, Gemini, GPT, etc.)</td></tr>
           <tr><td>Memória</td><td>Supabase + pgvector</td><td>RAG e memória persistente</td></tr>
           <tr><td>Autenticação</td><td>bcrypt + cookie session</td><td>Sessão com expiração em 24h</td></tr>
         </tbody>

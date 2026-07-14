@@ -184,36 +184,6 @@
     .tag-blue { background: rgba(26,74,140,0.08); color: var(--blue); }
     .tag-gold { background: rgba(201,169,110,0.12); color: #8a7540; }
 
-    /* ─── KPI GRID ─── */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-    .kpi-card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 20px;
-      border-top: 3px solid var(--red);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-    }
-    .kpi-card .value {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--gray-900);
-      line-height: 1.2;
-    }
-    .kpi-card .label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--gray-400);
-      margin-top: 4px;
-    }
-
     /* ─── ARCH DIAGRAM ─── */
     .arch {
       background: var(--gray-900);
@@ -316,14 +286,12 @@
     }
 
     @media (max-width: 768px) {
-      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
       .cmd-grid { grid-template-columns: 1fr; }
       .cover h1 { font-size: 1.8rem; }
       .cover-meta { flex-direction: column; gap: 8px; }
       .card-body { padding: 20px; }
     }
     @media (max-width: 480px) {
-      .kpi-grid { grid-template-columns: 1fr; }
       .cover { padding: 56px 16px 40px; }
     }
   </style>
@@ -350,13 +318,7 @@
 
 <section class="container">
 
-  <!-- ─── KPIs ─── -->
-  <div class="kpi-grid">
-    <div class="kpi-card"><div class="value">6</div><div class="label">Usuários</div></div>
-    <div class="kpi-card"><div class="value">94</div><div class="label">Skills</div></div>
-    <div class="kpi-card"><div class="value">4</div><div class="label">Instâncias Ativas</div></div>
-    <div class="kpi-card"><div class="value">5</div><div class="label">Provedores LLM</div></div>
-  </div>
+
 
   <!-- ─── CARD: Sobre ─── -->
   <div class="card">
