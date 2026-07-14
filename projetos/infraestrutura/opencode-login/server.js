@@ -23,6 +23,7 @@ const TARGETS = {
   'marcos.luciano': { redirect: 'https://marcos.fvmarketing.com.br' },
   'fhelipe.aranha': { redirect: 'https://fhelipe.fvmarketing.com.br' },
   'lucas.nunes': { redirect: 'https://lucasnunes.fvmarketing.com.br' },
+  'paolo.carmine': { redirect: 'https://paolo.fvmarketing.com.br' },
   'csm1': { redirect: 'https://csm1.fvmarketing.com.br' },
 };
 const DEFAULT_TARGET = TARGETS['marcos.luciano'];
