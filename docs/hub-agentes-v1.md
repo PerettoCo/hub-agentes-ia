@@ -273,20 +273,11 @@ Arquivo → file-reader.py → extração de texto → chunk (2000 chars)
 
 ---
 
-## 9. Próximos Passos
+## 9. Acesse o Guia Completo
 
-### Até quarta 16/07
+👉 **[perettoco.github.io/hub-agentes/](https://perettoco.github.io/hub-agentes/)** — Hub de Agentes de IA V4
 
-- [ ] **Consultar base atual e modelar schema** — Ler estrutura existente no Supabase, planejar tabelas de calls, clients, decisions — query direta, sem /contexto
-- [ ] **Instanciar novos usuários** — Stephanie Santos (copy) · Samuel Costa (design) · Bruno Lindenmeyer (gestor de tráfego) — Authelia + login portal + opencode config
-- [ ] **Criar tabelas de calls no Supabase** — `call_history` + `call_transcripts` (pgvector) + pipeline de ingestão do NotebookLM
-- [ ] **Configurar Google Drive MCP** — Server MCP pra agentes acessarem arquivos dos clientes diretamente
-
-### Próxima semana
-
-- [ ] **Pipeline Mission Control ↔ Banco** — Sincronizar apostas/combinados do .md com tabelas SQL
-- [ ] **Visão consolidada no PerettoOps** — Painel unificado conectando pastas (Drive MCP), contextos (mission control no banco) e dados (calls, decisões)
-- [ ] **Onboarding dos novos usuários** — Enviar acessos para Stephanie (copy), Samuel (design) e Bruno (mídia) com texto de boas-vindas
+👉 **[perettoco.github.io/hub-agentes/skills/](https://perettoco.github.io/hub-agentes/skills/)** — Catálogo de Skills e Agentes
 
 ---
 
