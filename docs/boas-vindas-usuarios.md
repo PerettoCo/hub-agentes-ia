@@ -1,20 +1,32 @@
-# Bem-vindo ao ecossistema V4
+<div align="center">
 
-Seu acesso ao Hub de Agentes de IA está liberado.
+**V4 COMPANY · BUILDERS HUB**
 
-**Portal de login:** https://ia.fvmarketing.com.br  
-**Seu subdomínio:** https://SEU_NOME.fvmarketing.com.br  
-**Usuário:** seu.nome (ex: bruno.lindenmeyer)  
-**Senha:** enviada separadamente
+# 🚀 Seu agente de IA já está no ar
 
----
-
-Acesse o link abaixo para ver o guia completo de como usar a plataforma — agentes especialistas, orquestradores, comandos e boas práticas:
-
-🔗 **https://perettoco.github.io/hub-agentes/**
-
-Lá você encontra tudo explicado: como chamar cada agente, o que cada um faz, como foi construído e como tirar o máximo proveito.
+</div>
 
 ---
 
-*V4 Company · 2026*
+### Seus dados de acesso
+
+|              |                                     |
+| ------------ | ----------------------------------- |
+| **Portal**   | https://ia.fvmarketing.com.br       |
+| **Seu link** | https://SEU_NOME.fvmarketing.com.br |
+| **Usuário**  | seu.nome (ex: bruno.lindenmeyer)    |
+| **Senha**    | enviada separadamente               |
+
+---
+
+### Antes de começar, leia o guia completo
+
+👉 **[perettoco.github.io/hub-agentes/](https://perettoco.github.io/hub-agentes/)**
+
+Lá tem o passo a passo, o que cada agente faz, como foi construído e como tirar o melhor proveito. Reserve 5 minutos — vale a pena.
+
+---
+
+<div align="center">
+<small>V4 Company · 2026</small>
+</div>
