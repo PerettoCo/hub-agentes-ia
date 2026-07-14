@@ -195,7 +195,8 @@ Arquivo → file-reader.py → extração de texto → chunk (2000 chars)
 ### Próxima semana
 
 - [ ] **Pipeline Mission Control ↔ Banco** — Sincronizar apostas/combinados do .md com tabelas SQL
-- [ ] **Dashboard executivo de clientes** — Visão consolidada: status das apostas, check-ins, OKRs, combinados pendentes
+- [ ] **Visão consolidada no PerettoOps** — Painel unificado conectando pastas (Drive MCP), contextos (mission control no banco) e dados (calls, decisões)
+- [ ] **Onboarding dos novos usuários** — Enviar acessos para Stephanie (copy), Samuel (design) e Bruno (mídia) com texto de boas-vindas
 
 ---
 
