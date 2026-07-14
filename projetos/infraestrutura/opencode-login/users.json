@@ -2,7 +2,7 @@
   "users": [
     {
       "username": "marcos.luciano",
-      "passwordHash": "$2b$10$6rKcKV/rPobrDM8Vd01.DOArspYPf0f3EBauEJaKt4cue1LtP0gCO",
+      "passwordHash": "$2b$10$2U6ljaD3pZBskKCO7JCgruxCArE9e7Uu0FCVgdN1mmrk6tNb3vc4y",
       "name": "Marcos Luciano",
       "email": "marcosluciano.rodrigues@v4company.com",
       "squad": "tech",
@@ -11,7 +11,7 @@
     },
     {
       "username": "fhelipe.aranha",
-      "passwordHash": "$2b$10$6rKcKV/rPobrDM8Vd01.DOi74Dn2CX3xi3oASOQQIDsk15Ay4iQYG",
+      "passwordHash": "$2b$10$wHOXbnLVZw18CrjWxZp0YuYSn9GeKkZNmHpQiodlitj/g.O8ZaZWq",
       "name": "Fhelipe Aranha",
       "email": "fhelipe.aranha@v4company.com",
       "squad": "csm",
@@ -35,6 +35,24 @@
       "squad": "csm",
       "opencodeHost": "host.docker.internal",
       "opencodePort": 4093
+    },
+    {
+      "username": "lucas.nunes",
+      "passwordHash": "$2b$10$cbmt20MsASGCvRzgdqN.pehFFTtNKCh6HGDQwJMyvMdIaTGHIyiDW",
+      "name": "Lucas Nunes",
+      "email": "lucas.nunes@v4company.com",
+      "squad": "csm",
+      "opencodeHost": "host.docker.internal",
+      "opencodePort": 4095
+    },
+    {
+      "username": "paolo.carmine",
+      "passwordHash": "$2b$10$UrpuAYFVX.LaFTsZRVJ4TumozSjk9AXaS5xQ5545BurT/Kx0jBORS",
+      "name": "Paolo Carmine",
+      "email": "paolo.carmine@v4company.com",
+      "squad": "csm",
+      "opencodeHost": "host.docker.internal",
+      "opencodePort": 4094
     }
   ]
 }
