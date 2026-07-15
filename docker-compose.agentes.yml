@@ -3,151 +3,229 @@ volumes:
   opencode-data-fhelipe:
   opencode-data-lucasnunes:
   opencode-data-paolo:
-  opencode-data-csm1:
-
-networks:
-  v4-infra:
-    driver: bridge
-  dokploy-network:
-    external: true
+  opencode-data-bruno:
+  opencode-data-italo:
+  opencode-auth-data:
 
 services:
-  # ─── Nginx Gateway (porta 80 — único ponto de entrada) ───
+  # ─── Gateway ───
   opencode-gateway:
     build:
-      context: projetos/infraestrutura/opencode-gateway
+      context: infra/gateway
       dockerfile: Dockerfile
     ports:
-      - '80'
-    networks:
-      - v4-infra
-      - dokploy-network
+      - '8080:80'
     restart: unless-stopped
     depends_on:
-      - opencode-auth
-      - opencode-marcos
-      - opencode-fhelipe
-      - opencode-lucasnunes
-      - opencode-paolo
-      - opencode-csm1
+      opencode-auth:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-  # ─── Auth Service (login/dashboard + auth-check para o gateway) ───
+  # ─── Auth ───
   opencode-auth:
     build:
-      context: projetos/infraestrutura/opencode-login
+      context: infra/auth
       dockerfile: Dockerfile
+    volumes:
+      - opencode-auth-data:/data
     environment:
-      SESSION_SECRET: ${SESSION_SECRET:-CHAVE_SESSAO_32CARACTERES_AQUI}
-      SUPABASE_URL: ${SUPABASE_URL}
-      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY}
+      SESSION_SECRET: ${SESSION_SECRET:?SESSION_SECRET é obrigatório}
+      COOKIE_DOMAIN: ${COOKIE_DOMAIN:-.fvmarketing.com.br}
       PUBLIC_URL: ${PUBLIC_URL:-https://ia.fvmarketing.com.br}
+      SUPABASE_URL: ${SUPABASE_URL:-}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
+      BOOTSTRAP_ADMIN: ${BOOTSTRAP_ADMIN:-}
+      DEFAULT_PASSWORD: ${DEFAULT_PASSWORD:-v4@2025}
+      USERS_PATH: /data/users.json
       NODE_ENV: production
-    networks:
-      - v4-infra
-      - dokploy-network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
-  # ─── OpenCode - Marcos Luciano ───
+  # ─── Cloudflare Tunnel ───
+  # Descomente para usar. Substitui portas expostas — sem portas abertas no host.
+  # Configure TUNNEL_TOKEN no .env. Crie o tunnel em Cloudflare Zero Trust → Tunnels.
+  #
+  # cloudflared:
+  #   image: cloudflare/cloudflared:latest
+  #   command: tunnel --no-autoupdate run
+  #   environment:
+  #     TUNNEL_TOKEN: ${TUNNEL_TOKEN:?Configure TUNNEL_TOKEN no .env}
+  #   restart: unless-stopped
+  #   network_mode: "service:opencode-gateway"
+
+  # ─── OpenCode — Marcos Luciano ───
   opencode-marcos:
     build:
-      context: projetos/infraestrutura
-      dockerfile: Dockerfile.opencode
+      context: .
+      dockerfile: infra/Dockerfile.opencode
     environment:
       OPENCODE_SERVER_USERNAME: opencode
-      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:-SENHA_FORTE_OPencode}
-      LITELLM_VIRTUAL_KEY: ${LITELLM_KEY_MARCOS:-sk-marcos-virtual-key}
-      OPENAI_API_KEY: ${LITELLM_MASTER_KEY:-sk-litellm-master-key}
-      OPENAI_BASE_URL: http://litellm:4000/v1
+      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?OPENCODE_SERVER_PASSWORD é obrigatório}
+      OPENAI_API_KEY: ${LITELLM_KEY_MARCOS:?LITELLM_KEY_MARCOS é obrigatório}
+      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
-      GITHUB_TOKEN: ${GITHUB_TOKEN}
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      SUPABASE_URL: ${SUPABASE_URL:-}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
+      SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
+      SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
+      HUB_USERNAME: marcos.luciano
     volumes:
       - opencode-data-marcos:/home/node/.local/share/opencode
-      - ./projetos/infraestrutura/opencode-login/opencode-config/marcos.json:/home/node/.config/opencode/opencode.json:ro
-    networks:
-      - v4-infra
-      - dokploy-network
+      - ./infra/auth/opencode-config/marcos.luciano.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:4096/global/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
-  # ─── OpenCode - Fhelipe Aranha ───
+  # ─── OpenCode — Fhelipe Aranha ───
   opencode-fhelipe:
     build:
-      context: projetos/infraestrutura
-      dockerfile: Dockerfile.opencode
+      context: .
+      dockerfile: infra/Dockerfile.opencode
     environment:
       OPENCODE_SERVER_USERNAME: opencode
-      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:-SENHA_FORTE_OPencode}
-      LITELLM_VIRTUAL_KEY: ${LITELLM_KEY_FHELIPE:-sk-fhelipe-virtual-key}
-      OPENAI_API_KEY: ${LITELLM_MASTER_KEY:-sk-litellm-master-key}
-      OPENAI_BASE_URL: http://litellm:4000/v1
+      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?}
+      OPENAI_API_KEY: ${LITELLM_KEY_FHELIPE:?}
+      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
-      GITHUB_TOKEN: ${GITHUB_TOKEN}
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      SUPABASE_URL: ${SUPABASE_URL:-}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
+      SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
+      SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
+      HUB_USERNAME: fhelipe.aranha
     volumes:
       - opencode-data-fhelipe:/home/node/.local/share/opencode
-      - ./projetos/infraestrutura/opencode-login/opencode-config/fhelipe.json:/home/node/.config/opencode/opencode.json:ro
-    networks:
-      - v4-infra
-      - dokploy-network
+      - ./infra/auth/opencode-config/fhelipe.aranha.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:4096/global/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
-  # ─── OpenCode - Lucas Nunes ───
+  # ─── OpenCode — Lucas Nunes ───
   opencode-lucasnunes:
     build:
-      context: projetos/infraestrutura
-      dockerfile: Dockerfile.opencode
+      context: .
+      dockerfile: infra/Dockerfile.opencode
     environment:
       OPENCODE_SERVER_USERNAME: opencode
-      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:-SENHA_FORTE_OPencode}
-      LITELLM_VIRTUAL_KEY: ${LITELLM_KEY_LUCASNUNES:-sk-lucasnunes-virtual-key}
-      OPENAI_API_KEY: ${LITELLM_MASTER_KEY:-sk-litellm-master-key}
-      OPENAI_BASE_URL: http://litellm:4000/v1
+      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?}
+      OPENAI_API_KEY: ${LITELLM_KEY_LUCASNUNES:?}
+      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
-      GITHUB_TOKEN: ${GITHUB_TOKEN}
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      SUPABASE_URL: ${SUPABASE_URL:-}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
+      SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
+      SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
+      HUB_USERNAME: lucas.nunes
     volumes:
       - opencode-data-lucasnunes:/home/node/.local/share/opencode
-      - ./projetos/infraestrutura/opencode-login/opencode-config/lucasnunes.json:/home/node/.config/opencode/opencode.json:ro
-    networks:
-      - v4-infra
-      - dokploy-network
+      - ./infra/auth/opencode-config/lucas.nunes.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:4096/global/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
-  # ─── OpenCode - Paolo Carmine ───
+  # ─── OpenCode — Paolo Carmine ───
   opencode-paolo:
     build:
-      context: projetos/infraestrutura
-      dockerfile: Dockerfile.opencode
+      context: .
+      dockerfile: infra/Dockerfile.opencode
     environment:
       OPENCODE_SERVER_USERNAME: opencode
-      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:-SENHA_FORTE_OPencode}
-      LITELLM_VIRTUAL_KEY: ${LITELLM_KEY_PAOLO:-sk-paolo-virtual-key}
-      OPENAI_API_KEY: ${LITELLM_MASTER_KEY:-sk-litellm-master-key}
-      OPENAI_BASE_URL: http://litellm:4000/v1
+      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?}
+      OPENAI_API_KEY: ${LITELLM_KEY_PAOLO:?}
+      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
-      GITHUB_TOKEN: ${GITHUB_TOKEN}
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      SUPABASE_URL: ${SUPABASE_URL:-}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
+      SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
+      SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
+      HUB_USERNAME: paolo.carmine
     volumes:
       - opencode-data-paolo:/home/node/.local/share/opencode
-      - ./projetos/infraestrutura/opencode-login/opencode-config/paolo.json:/home/node/.config/opencode/opencode.json:ro
-    networks:
-      - v4-infra
-      - dokploy-network
+      - ./infra/auth/opencode-config/paolo.carmine.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:4096/global/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
-  # ─── OpenCode - CSM 1 ───
-  opencode-csm1:
+  # ─── OpenCode — Bruno Lindenmeyer ───
+  opencode-bruno:
     build:
-      context: projetos/infraestrutura
-      dockerfile: Dockerfile.opencode
+      context: .
+      dockerfile: infra/Dockerfile.opencode
     environment:
       OPENCODE_SERVER_USERNAME: opencode
-      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:-SENHA_FORTE_OPencode}
-      LITELLM_VIRTUAL_KEY: ${LITELLM_KEY_CSM1:-sk-csm1-virtual-key}
-      OPENAI_API_KEY: ${LITELLM_MASTER_KEY:-sk-litellm-master-key}
-      OPENAI_BASE_URL: http://litellm:4000/v1
+      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?}
+      OPENAI_API_KEY: ${LITELLM_KEY_BRUNO:?}
+      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
-      GITHUB_TOKEN: ${GITHUB_TOKEN}
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      SUPABASE_URL: ${SUPABASE_URL:-}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
+      SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
+      SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
+      HUB_USERNAME: bruno.lindenmeyer
     volumes:
-      - opencode-data-csm1:/home/node/.local/share/opencode
-      - ./projetos/infraestrutura/opencode-login/opencode-config/csm1.json:/home/node/.config/opencode/opencode.json:ro
-    networks:
-      - v4-infra
-      - dokploy-network
+      - opencode-data-bruno:/home/node/.local/share/opencode
+      - ./infra/auth/opencode-config/bruno.lindenmeyer.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:4096/global/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # ─── OpenCode — Ítalo Rossi ───
+  opencode-italo:
+    build:
+      context: .
+      dockerfile: infra/Dockerfile.opencode
+    environment:
+      OPENCODE_SERVER_USERNAME: opencode
+      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?}
+      OPENAI_API_KEY: ${LITELLM_KEY_ITALO:?}
+      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
+      OPENCODE_DISABLE_MODELS_FETCH: "false"
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      SUPABASE_URL: ${SUPABASE_URL:-}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
+      SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
+      SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
+      HUB_USERNAME: italo.rossi
+    volumes:
+      - opencode-data-italo:/home/node/.local/share/opencode
+      - ./infra/auth/opencode-config/italo.rossi.json:/home/node/.config/opencode/opencode.json:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:4096/global/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s

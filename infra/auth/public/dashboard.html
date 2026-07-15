@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard · Hub de Agentes IA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #0a0a0c; color: #fff; min-height: 100vh; }
+    .header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 32px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .header h1 { font-size: 1rem; font-weight: 600; color: rgba(255,255,255,0.6); }
+    .header h1 span { color: #e63946; }
+    .header-right { display: flex; align-items: center; gap: 16px; }
+    .user-badge { display: flex; align-items: center; gap: 10px; }
+    .user-badge .name { font-size: 0.85rem; font-weight: 500; }
+    .user-badge .role {
+      font-size: 0.7rem; background: rgba(230,57,70,0.15); color: #e63946;
+      padding: 3px 10px; border-radius: 100px;
+    }
+    .user-badge .squad {
+      font-size: 0.7rem; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.4);
+      padding: 3px 10px; border-radius: 100px;
+    }
+    .btn {
+      background: none; border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.4);
+      padding: 8px 16px; border-radius: 8px; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 0.8rem; transition: all 0.2s;
+    }
+    .btn:hover { border-color: #e63946; color: #e63946; }
+    .btn-primary {
+      background: #e63946; border-color: #e63946; color: #fff;
+    }
+    .btn-primary:hover { background: #d32d3a; border-color: #d32d3a; color: #fff; }
+    .main { max-width: 720px; margin: 60px auto; padding: 0 32px; text-align: center; }
+    .main h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
+    .main p { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-bottom: 48px; }
+    .card {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px; padding: 32px; text-align: left;
+    }
+    .card h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
+    .card .desc { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+    .btn-card {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(230,57,70,0.1); border: 1px solid rgba(230,57,70,0.2);
+      color: #e63946; padding: 12px 24px; border-radius: 10px;
+      font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500;
+      cursor: pointer; transition: all 0.2s; text-decoration: none;
+    }
+    .btn-card:hover { background: rgba(230,57,70,0.2); border-color: #e63946; }
+    .btn-card .icon { font-size: 1.1rem; }
+
+    /* Admin section */
+    .admin-section {
+      display: none;
+      max-width: 720px; margin: 40px auto; padding: 0 32px;
+    }
+    .admin-section.visible { display: block; }
+    .admin-header {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+    }
+    .admin-header h3 { font-size: 1.1rem; font-weight: 600; }
+    .users-table {
+      width: 100%; border-collapse: collapse; font-size: 0.85rem;
+    }
+    .users-table th {
+      text-align: left; padding: 10px 12px; color: rgba(255,255,255,0.3);
+      font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .users-table td {
+      padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .users-table .role-badge {
+      font-size: 0.7rem; padding: 2px 8px; border-radius: 100px;
+    }
+    .role-badge.admin { background: rgba(230,57,70,0.15); color: #e63946; }
+    .role-badge.user { background: rgba(59,130,246,0.15); color: #60a5fa; }
+    .users-table .actions { display: flex; gap: 8px; }
+    .users-table .actions button {
+      background: none; border: none; color: rgba(255,255,255,0.3);
+      cursor: pointer; font-family: 'Inter', sans-serif; font-size: 0.8rem;
+      padding: 4px 8px; border-radius: 4px; transition: all 0.2s;
+    }
+    .users-table .actions button:hover { background: rgba(255,255,255,0.05); }
+    .users-table .actions .delete:hover { color: #e63946; }
+    .users-table .actions .edit:hover { color: #60a5fa; }
+
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+      z-index: 100; align-items: center; justify-content: center;
+    }
+    .modal-overlay.visible { display: flex; }
+    .modal {
+      background: #1a1a1c; border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px; padding: 32px; width: 100%; max-width: 420px;
+    }
+    .modal h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 20px; }
+    .modal .form-group { margin-bottom: 16px; }
+    .modal .form-group label {
+      display: block; font-size: 0.8rem; font-weight: 500;
+      color: rgba(255,255,255,0.5); margin-bottom: 4px;
+    }
+    .modal .form-group input, .modal .form-group select {
+      width: 100%; padding: 10px 12px; background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+      color: #fff; font-family: 'Inter', sans-serif; font-size: 0.85rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .modal .form-group input:focus, .modal .form-group select:focus {
+      border-color: #e63946;
+    }
+    .modal .form-group select option { background: #1a1a1c; }
+    .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
+    .toast {
+      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
+      padding: 12px 24px; border-radius: 10px; font-size: 0.85rem;
+      z-index: 200; opacity: 0; transition: opacity 0.3s;
+    }
+    .toast.visible { opacity: 1; }
+    .toast.success { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); color: #22c55e; }
+    .toast.error { background: rgba(230,57,70,0.15); border: 1px solid rgba(230,57,70,0.3); color: #e63946; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>V4 Company · <span>Hub de Agentes de IA</span></h1>
+    <div class="header-right">
+      <div class="user-badge">
+        <span class="name" id="userName"></span>
+        <span class="squad" id="userSquad"></span>
+        <span class="role" id="userRole"></span>
+      </div>
+      <button class="btn" onclick="logout()">Sair</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <h2>Bem-vindo(a), <span id="userDisplayName"></span></h2>
+    <p>Selecione seu ambiente de IA para começar</p>
+    <div class="card" id="targets"></div>
+  </div>
+
+  <div class="admin-section" id="adminSection">
+    <div class="admin-header">
+      <h3>Gerenciar Usuários</h3>
+      <button class="btn btn-primary" onclick="openAddUser()">+ Novo</button>
+    </div>
+    <div class="card">
+      <table class="users-table">
+        <thead><tr>
+          <th>Usuário</th><th>Nome</th><th>Squad</th><th>Função</th><th></th>
+        </tr></thead>
+        <tbody id="usersBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="userModal">
+    <div class="modal">
+      <h3 id="modalTitle">Novo Usuário</h3>
+      <input type="hidden" id="editUsername">
+      <div class="form-group">
+        <label>Usuário (login)</label>
+        <input type="text" id="fUsername" placeholder="nome.sobrenome" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label>Nome completo</label>
+        <input type="text" id="fName" placeholder="Nome Sobrenome">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="fEmail" placeholder="email@v4company.com">
+      </div>
+      <div class="form-group">
+        <label>Squad</label>
+        <input type="text" id="fSquad" placeholder="Growth, Design, Tech...">
+      </div>
+      <div class="form-group">
+        <label>Função</label>
+        <select id="fRole">
+          <option value="user">Usuário</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Senha <span style="color:rgba(255,255,255,0.3);font-size:0.75rem;">(deixe em branco para senha padrão)</span></label>
+        <input type="password" id="fPassword" placeholder="••••••••">
+      </div>
+      <div class="modal-actions">
+        <button class="btn" onclick="closeModal()">Cancelar</button>
+        <button class="btn btn-primary" onclick="saveUser()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    let currentUser = null;
+
+    async function api(path, opts = {}) {
+      const res = await fetch(path, {
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json', ...opts.headers },
+        ...opts,
+      });
+      if (res.status === 401) { window.location = '/login?redirect=' + encodeURIComponent(window.location.href); return null; }
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Erro desconhecido');
+      return data;
+    }
+
+    function showToast(msg, type = 'success') {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.className = 'toast ' + type + ' visible';
+      setTimeout(() => t.classList.remove('visible'), 3000);
+    }
+
+    async function loadUser() {
+      currentUser = await api('/api/me');
+      document.getElementById('userName').textContent = currentUser.name;
+      document.getElementById('userDisplayName').textContent = currentUser.name.split(' ')[0];
+      document.getElementById('userSquad').textContent = currentUser.squad;
+      document.getElementById('userRole').textContent = currentUser.role === 'admin' ? 'Admin' : 'Usuário';
+      if (currentUser.role === 'admin') {
+        document.getElementById('adminSection').classList.add('visible');
+        loadUsers();
+      }
+    }
+
+    async function loadTargets() {
+      const data = await api('/api/targets');
+      const container = document.getElementById('targets');
+      container.innerHTML = data.targets.map(t => `
+        <h3>${t.name}</h3>
+        <div class="desc">Acesse sua interface OpenCode Web</div>
+        <a href="${t.url}" class="btn-card">
+          <span class="icon">▸</span> Abrir ${t.name}
+        </a>
+      `).join('');
+    }
+
+    async function loadUsers() {
+      const list = await api('/api/users');
+      const body = document.getElementById('usersBody');
+      body.innerHTML = list.map(u => `
+        <tr>
+          <td><strong>${u.username}</strong></td>
+          <td>${u.name}</td>
+          <td>${u.squad}</td>
+          <td><span class="role-badge ${u.role}">${u.role === 'admin' ? 'Admin' : 'Usuário'}</span></td>
+          <td class="actions">
+            <button class="edit" onclick="editUser('${u.username}')">Editar</button>
+            ${u.role !== 'admin' || currentUser.username !== u.username ? `<button class="delete" onclick="deleteUser('${u.username}')">Remover</button>` : ''}
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function openAddUser() {
+      document.getElementById('modalTitle').textContent = 'Novo Usuário';
+      document.getElementById('editUsername').value = '';
+      ['fUsername','fName','fEmail','fSquad','fPassword'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('fRole').value = 'user';
+      document.getElementById('userModal').classList.add('visible');
+    }
+
+    function editUser(username) {
+      document.getElementById('modalTitle').textContent = 'Editar Usuário';
+      document.getElementById('editUsername').value = username;
+      const u = document.getElementById('usersBody').querySelector(`tr`).querySelectorAll('td');
+      // Fetch fresh data
+      api('/api/users').then(list => {
+        const user = list.find(u => u.username === username);
+        if (!user) return;
+        document.getElementById('fUsername').value = user.username;
+        document.getElementById('fUsername').disabled = true;
+        document.getElementById('fName').value = user.name;
+        document.getElementById('fEmail').value = user.email || '';
+        document.getElementById('fSquad').value = user.squad || '';
+        document.getElementById('fRole').value = user.role || 'user';
+        document.getElementById('fPassword').value = '';
+        document.getElementById('userModal').classList.add('visible');
+      });
+    }
+
+    function closeModal() {
+      document.getElementById('userModal').classList.remove('visible');
+      document.getElementById('fUsername').disabled = false;
+    }
+
+    async function saveUser() {
+      const editUsername = document.getElementById('editUsername').value;
+      const data = {
+        username: document.getElementById('fUsername').value,
+        name: document.getElementById('fName').value,
+        email: document.getElementById('fEmail').value,
+        squad: document.getElementById('fSquad').value,
+        role: document.getElementById('fRole').value,
+      };
+      const password = document.getElementById('fPassword').value;
+      if (password) data.password = password;
+
+      try {
+        if (editUsername) {
+          await api('/api/users/' + editUsername, { method: 'PATCH', body: JSON.stringify(data) });
+          showToast('Usuário atualizado');
+        } else {
+          await api('/api/users', { method: 'POST', body: JSON.stringify(data) });
+          showToast('Usuário criado');
+        }
+        closeModal();
+        loadUsers();
+      } catch (e) {
+        showToast(e.message, 'error');
+      }
+    }
+
+    async function deleteUser(username) {
+      if (!confirm('Remover usuário "' + username + '"?')) return;
+      try {
+        await api('/api/users/' + username, { method: 'DELETE' });
+        showToast('Usuário removido');
+        loadUsers();
+      } catch (e) {
+        showToast(e.message, 'error');
+      }
+    }
+
+    function logout() {
+      fetch('/api/logout', { method: 'POST', credentials: 'same-origin' })
+        .then(() => window.location.href = '/login')
+        .catch(() => window.location.href = '/login');
+    }
+
+    loadUser();
+    loadTargets();
+  </script>
+</body>
+</html>

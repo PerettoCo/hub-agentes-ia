@@ -1,0 +1,25 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "openai/deepseek-v4-flash-free",
+  "small_model": "openai/deepseek-v4-flash-free",
+  "provider": {
+    "openai": {
+      "options": {
+        "apiKey": "{env:OPENAI_API_KEY}",
+        "baseURL": "{env:OPENAI_BASE_URL}"
+      }
+    }
+  },
+  "permission": {
+    "edit": "allow",
+    "bash": "allow",
+    "read": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "webfetch": "allow",
+    "websearch": "allow",
+    "skill": "allow",
+    "question": "allow",
+    "todowrite": "allow"
+  }
+}
