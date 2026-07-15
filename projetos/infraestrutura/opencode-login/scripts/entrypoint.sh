@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 # Mata o xdg-open pra evitar crash do opencode web ao tentar abrir browser
 mkdir -p /home/node/.local/bin
