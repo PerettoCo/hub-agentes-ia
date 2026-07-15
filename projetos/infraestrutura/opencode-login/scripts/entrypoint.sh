@@ -10,13 +10,6 @@ chmod +x /home/node/.local/bin/xdg-open
 export PATH="/home/node/.local/bin:$PATH"
 export BROWSER=/home/node/.local/bin/xdg-open
 
-# Garante que o Python venv esteja no PATH
-if [ -d /opt/venv ]; then
-  export PATH="/opt/venv/bin:$PATH"
-  export VIRTUAL_ENV="/opt/venv"
-fi
-
-# Clone/update do workspace
 if [ -n "$GITHUB_TOKEN" ]; then
   if [ ! -d /workspace/.git ]; then
     echo "[entrypoint] Cloning hub-agentes into /workspace..."
