@@ -8,13 +8,11 @@ volumes:
   opencode-auth-data:
 
 services:
-  # ─── Gateway ───
+  # ─── Gateway (roteado via Dokploy/Traefik, sem porta no host) ───
   opencode-gateway:
     build:
       context: infra/gateway
       dockerfile: Dockerfile
-    ports:
-      - '8080:80'
     restart: unless-stopped
     depends_on:
       opencode-auth:
