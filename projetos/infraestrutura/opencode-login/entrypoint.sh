@@ -1,38 +1,31 @@
 #!/bin/bash
 set -e
 
-# ─── OpenCode Web Entrypoint ───
-# Gera opencode.json apontando pro LiteLLM com a chave virtual do usuário
-# e inicia o servidor web.
+mkdir -p /home/node/.local/bin
+cat > /home/node/.local/bin/xdg-open << 'XDGEOF'
+#!/bin/bash
+echo "[xdg-open] suppressed (headless container)"
+XDGEOF
+chmod +x /home/node/.local/bin/xdg-open
+export PATH="/home/node/.local/bin:$PATH"
+export BROWSER=/home/node/.local/bin/xdg-open
 
-LITELLM_VIRTUAL_KEY="${LITELLM_VIRTUAL_KEY:-}"
-LITELLM_BASE_URL="${LITELLM_BASE_URL:-http://litellm:4000/v1}"
-OPENCODE_PORT="${OPENCODE_PORT:-4096}"
-
-OPENCODE_CONFIG_DIR="${OPENCODE_CONFIG_DIR:-/root/.config/opencode}"
-
-apt-get update && apt-get install -y git curl sudo
-npm install -g opencode-ai
-
-mkdir -p "$OPENCODE_CONFIG_DIR"
-
-if [ -n "$LITELLM_VIRTUAL_KEY" ]; then
-  cat > "$OPENCODE_CONFIG_DIR/opencode.json" << EOF
-{
-  "modelProvider": "litellm",
-  "model": "deepseek-v4-flash-free",
-  "customProviders": {
-    "litellm": {
-      "type": "openai-compatible",
-      "apiKey": "${LITELLM_VIRTUAL_KEY}",
-      "baseURL": "${LITELLM_BASE_URL}"
-    }
-  }
-}
-EOF
-  echo "[opencode] LiteLLM configurado com chave virtual"
-else
-  echo "[opencode] AVISO: LITELLM_VIRTUAL_KEY não definida — rodando sem gateway"
+if [ -n "$GITHUB_TOKEN" ]; then
+  REPO_URL="https://marcoslrvusa:${GITHUB_TOKEN}@github.com/PerettoCo/hub-agentes.git"
+  if [ ! -d /workspace/.git ]; then
+    echo "[entrypoint] Setting up workspace (infra-v2)..."
+    rm -rf /workspace
+    git clone -b infra-v2 --single-branch "$REPO_URL" /workspace
+    git -C /workspace remote set-url origin https://github.com/PerettoCo/hub-agentes.git
+  else
+    echo "[entrypoint] Updating workspace..."
+    git -C /workspace remote set-url origin "$REPO_URL"
+    git -C /workspace pull --ff-only
+  fi
 fi
 
-opencode web --hostname 0.0.0.0 --port "$OPENCODE_PORT"
+mkdir -p /workspace/outputs
+
+rm -f /workspace/opencode.json
+
+exec "$@"
