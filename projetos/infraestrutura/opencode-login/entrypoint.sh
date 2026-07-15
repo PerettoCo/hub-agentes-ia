@@ -14,7 +14,7 @@ if [ -n "$GITHUB_TOKEN" ]; then
   REPO_URL="https://marcoslrvusa:${GITHUB_TOKEN}@github.com/PerettoCo/hub-agentes.git"
   if [ ! -d /workspace/.git ]; then
     echo "[entrypoint] Setting up workspace (infra-v2)..."
-    rm -rf /workspace
+    rm -rf /workspace/* /workspace/.[!.]* /workspace/.??* 2>/dev/null || true
     git clone -b infra-v2 --single-branch "$REPO_URL" /workspace
     git -C /workspace remote set-url origin https://github.com/PerettoCo/hub-agentes.git
   else
