@@ -1,6 +1,6 @@
 ---
 name: seo-backlinks
-description: "Backlink profile analysis: referring domains, anchor text distribution, toxic link detection, competitor gap analysis. Works with free APIs (Moz, Bing Webmaster, Common Crawl) and DataForSEO extension. Use when user says backlinks, link profile, referring domains, anchor text, toxic links, link gap, link building, disavow, or backlink audit."
+description: "Análise de perfil de backlinks: referring domains, distribuição de anchor text, detecção de links tóxicos, análise de lacuna de concorrentes. Funciona com APIs gratuitas (Moz, Bing Webmaster, Common Crawl) e a extensão DataForSEO. Use quando o usuário disser backlinks, link profile, referring domains, anchor text, toxic links, link gap, link building, disavow ou backlink audit."
 user-invocable: true
 argument-hint: "<url>"
 license: MIT

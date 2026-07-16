@@ -1,6 +1,6 @@
 ---
 name: video
-description: "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Runway,' 'Kling,' 'Pika,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social-content. For paid video ad creative, see ad-creative."
+description: "Quando o usuário quer criar, gerar ou produzir conteúdo de vídeo usando ferramentas de IA ou frameworks programáticos. Use também quando o usuário mencionar 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Runway,' 'Kling,' 'Pika,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' ou 'make me a video.' Use para fluxos de criação, geração e produção de vídeo. Para estratégia de conteúdo de vídeo e o que postar, veja social-content. Para criativos de vídeo pagos, veja ad-creative."
 metadata:
   version: 1.0.0
 aliases: [video]

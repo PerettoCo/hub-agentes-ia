@@ -1,12 +1,13 @@
 ---
 name: seo-sxo
 description: >
-  Search Experience Optimization: reads Google SERPs backwards to detect page-type
-  mismatches, derives user stories from search intent signals, and scores pages
-  from multiple persona perspectives. Identifies why well-optimized pages fail
-  to rank by analyzing what Google rewards for each keyword. Use when user says
+  Search Experience Optimization: lê os SERPs do Google de trás para frente para
+  detectar incompatibilidades de page-type, deriva user stories a partir de
+  sinais de intenção de busca e pontua páginas sob múltiplas perspectivas de
+  persona. Identifica por que páginas bem otimizadas falham ao ranquear
+  analisando o que o Google recompensa para cada palavra-chave. Use quando o usuário disser
   "SXO", "search experience", "page type mismatch", "SERP analysis", "user story",
-  "persona scoring", "why isn't my page ranking", "intent mismatch", or "wireframe".
+  "persona scoring", "why isn't my page ranking", "intent mismatch", ou "wireframe".
 user-invocable: true
 argument-hint: "<url> [keyword]"
 license: MIT

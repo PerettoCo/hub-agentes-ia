@@ -1,6 +1,6 @@
 ---
 name: seo-audit
-description: When the user wants to audit, review, or diagnose SEO issues on their site. Also use when the user mentions "SEO audit," "technical SEO," "why am I not ranking," "SEO issues," "on-page SEO," "meta tags review," "SEO health check," "my traffic dropped," "lost rankings," "not showing up in Google," "site isn't ranking," "Google update hit me," "page speed," "core web vitals," "crawl errors," or "indexing issues." Use this even if the user just says something vague like "my SEO is bad" or "help with SEO" — start with an audit. For building pages at scale to target keywords, see programmatic-seo. For adding structured data, see schema-markup. For AI search optimization, see ai-seo.
+description: Quando o usuário quer auditar, revisar ou diagnosticar problemas de SEO no site. Use também quando o usuário mencionar "SEO audit," "technical SEO," "why am I not ranking," "SEO issues," "on-page SEO," "meta tags review," "SEO health check," "my traffic dropped," "lost rankings," "not showing up in Google," "site isn't ranking," "Google update hit me," "page speed," "core web vitals," "crawl errors," ou "indexing issues." Use mesmo se o usuário disser algo vago como "my SEO is bad" ou "help with SEO" — comece com uma auditoria. Para criar páginas em escala para palavras-chave, veja programmatic-seo. Para adicionar dados estruturados, veja schema-markup. Para otimização para busca por IA, veja ai-seo.
 metadata:
   version: 1.2.0
 aliases: [seo-audit]

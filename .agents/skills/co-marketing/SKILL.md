@@ -1,6 +1,6 @@
 ---
 name: co-marketing
-description: "When the user wants to find co-marketing partners, plan joint campaigns, or brainstorm partnership opportunities. Use when the user says 'co-marketing,' 'partner marketing,' 'joint campaign,' 'who should we partner with,' 'integration marketing,' 'cross-promotion,' 'collaborate with another company,' 'partnership ideas,' or 'co-brand.' For customer referral programs, see referral-program. For launch-specific partnerships, see launch-strategy."
+description: "Quando o usuário quiser encontrar parceiros de co-marketing, planejar campanhas conjuntas ou gerar ideias de parcerias. Use quando o usuário disser 'co-marketing,' 'partner marketing,' 'joint campaign,' 'who should we partner with,' 'integration marketing,' 'cross-promotion,' 'collaborate with another company,' 'partnership ideas,' ou 'co-brand.' Para programas de indicação de clientes, veja referral-program. Para parcerias específicas de lançamento, veja launch-strategy."
 metadata:
   version: 1.0.0
 aliases: [co-marketing]

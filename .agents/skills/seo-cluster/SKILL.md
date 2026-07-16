@@ -1,13 +1,14 @@
 ---
 name: seo-cluster
 description: >
-  SERP-based semantic topic clustering for content architecture planning. Groups
-  keywords by actual Google SERP overlap (not text similarity), designs hub-and-spoke
-  content clusters with internal link matrices, and generates interactive
-  visualizations. Optionally executes content creation if claude-blog is installed.
-  Use when user says "topic cluster", "content cluster", "semantic clustering",
+  Clustering semântico de tópicos baseado em SERP para planejamento de arquitetura
+  de conteúdo. Agrupa palavras-chave pela sobreposição real de SERP do Google (não
+  por similaridade de texto), projeta content clusters hub-and-spoke com matrizes
+  de link interno e gera visualizações interativas. Opcionalmente executa criação
+  de conteúdo se claude-blog estiver instalado.
+  Use quando o usuário disser "topic cluster", "content cluster", "semantic clustering",
   "pillar page", "hub and spoke", "content architecture", "keyword grouping",
-  or "cluster plan".
+  ou "cluster plan".
 user-invocable: true
 argument-hint: "<seed-keyword or url>"
 license: MIT

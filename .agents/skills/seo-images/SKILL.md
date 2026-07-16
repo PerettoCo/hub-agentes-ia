@@ -1,12 +1,13 @@
 ---
 name: seo-images
 description: >
-  Image optimization analysis for SEO and performance. Checks alt text, file
-  sizes, formats, responsive images, lazy loading, CLS prevention, image SERP
-  rankings (via DataForSEO), and image file optimization (WebP/AVIF conversion,
-  IPTC/XMP metadata injection). Use when user says "image optimization",
-  "alt text", "image SEO", "image size", "image audit", "optimize images",
-  "image metadata", "image SERP", "convert to webp", or "image file optimize".
+  Análise de otimização de imagens para SEO e performance. Verifica alt text,
+  tamanhos de arquivo, formatos, imagens responsivas, lazy loading, prevenção de
+  CLS, rankings de imagem em SERP (via DataForSEO) e otimização de arquivos de
+  imagem (conversão WebP/AVIF, injeção de metadados IPTC/XMP). Use quando o usuário
+  disser "image optimization", "alt text", "image SEO", "image size",
+  "image audit", "optimize images", "image metadata", "image SERP",
+  "convert to webp", ou "image file optimize".
 user-invocable: true
 argument-hint: "[url]"
 license: MIT

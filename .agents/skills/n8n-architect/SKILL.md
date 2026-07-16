@@ -1,6 +1,6 @@
 ---
 name: n8n-architect
-description: Use when the user explicitly wants to create, edit, validate, sync, or troubleshoot n8n workflows, asks about n8n nodes or automation, or wants to use n8n-as-code in the current context root.
+description: Use quando o usuário quer explicitamente criar, editar, validar, sincronizar ou resolver problemas de workflows n8n, pergunta sobre nós do n8n ou automação, ou quer usar n8n-as-code na raiz de contexto atual.
 ---
 
 # n8n Architect

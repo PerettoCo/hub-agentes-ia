@@ -1,6 +1,6 @@
 ---
 name: launch-strategy
-description: "When the user wants to plan a product launch, feature announcement, or release strategy. Also use when the user mentions 'launch,' 'Product Hunt,' 'feature release,' 'announcement,' 'go-to-market,' 'beta launch,' 'early access,' 'waitlist,' 'product update,' 'how do I launch this,' 'launch checklist,' 'GTM plan,' or 'we're about to ship.' Use this whenever someone is preparing to release something publicly. For ongoing marketing after launch, see marketing-ideas."
+description: "Quando o usuário quiser planejar o lançamento de um produto, anúncio de funcionalidade ou estratégia de release. Use também quando o usuário mencionar 'launch,' 'Product Hunt,' 'feature release,' 'announcement,' 'go-to-market,' 'beta launch,' 'early access,' 'waitlist,' 'product update,' 'how do I launch this,' 'launch checklist,' 'GTM plan,' ou 'we're about to ship.' Use sempre que alguém estiver se preparando para lançar algo publicamente. Para marketing contínuo após o lançamento, veja marketing-ideas."
 metadata:
   version: 1.1.0
 aliases: [launch-strategy]

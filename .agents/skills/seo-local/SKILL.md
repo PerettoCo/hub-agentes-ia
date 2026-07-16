@@ -1,15 +1,15 @@
 ---
 name: seo-local
 description: >
-  Local SEO analysis covering Google Business Profile optimization, NAP
-  consistency, citation health, review signals, local schema markup,
-  location page quality, multi-location SEO, and industry-specific
-  recommendations. Detects business type (brick-and-mortar, SAB, hybrid)
-  and industry vertical (restaurant, healthcare, legal, home services,
-  real estate, automotive). Use when user says "local SEO", "Google
-  Business Profile", "GBP", "map pack", "local pack", "citations",
+  Análise de SEO local abrangendo otimização do Google Business Profile,
+  consistência NAP, saúde de citações, sinais de avaliações, markup de schema
+  local, qualidade de páginas de localização, SEO multi-local e recomendações
+  específicas por setor. Detecta tipo de negócio (brick-and-mortar, SAB, híbrido)
+  e vertical de indústria (restaurante, saúde, jurídico, serviços domésticos,
+  imobiliário, automotivo). Use quando o usuário disser "local SEO",
+  "Google Business Profile", "GBP", "map pack", "local pack", "citations",
   "NAP consistency", "local rankings", "service area", "multi-location",
-  or "local search".
+  ou "local search".
 user-invocable: true
 argument-hint: "[url]"
 license: MIT

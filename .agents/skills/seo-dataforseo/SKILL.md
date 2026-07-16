@@ -1,14 +1,15 @@
 ---
 name: seo-dataforseo
 description: >
-  Live SEO data via DataForSEO MCP server. SERP analysis (Google, Bing, Yahoo,
-  YouTube, Google Images), keyword research (volume, difficulty, intent, trends),
-  backlink profiles, on-page analysis (Lighthouse, content parsing), competitor
-  analysis, content analysis, business listings, AI visibility (ChatGPT scraper,
-  LLM mention tracking), and domain analytics. Requires DataForSEO extension
-  installed. Use when user says "dataforseo", "live SERP", "keyword volume",
-  "backlink data", "competitor data", "AI visibility check", "LLM mentions",
-  "image SERP", "google images", "image rankings", or "real search data".
+  Dados de SEO em tempo real via servidor MCP DataForSEO. Análise de SERP (Google,
+  Bing, Yahoo, YouTube, Google Images), pesquisa de palavras-chave (volume,
+  dificuldade, intenção, tendências), perfis de backlink, análise on-page (Lighthouse,
+  content parsing), análise de concorrentes, análise de conteúdo, listagens de
+  negócios, visibilidade em IA (ChatGPT scraper, rastreamento de menções LLM) e
+  análise de domínio. Requer extensão DataForSEO instalada. Use quando o usuário
+  disser "dataforseo", "live SERP", "keyword volume", "backlink data",
+  "competitor data", "AI visibility check", "LLM mentions", "image SERP",
+  "google images", "image rankings", ou "real search data".
 user-invocable: true
 argument-hint: "[command] [query]"
 license: MIT

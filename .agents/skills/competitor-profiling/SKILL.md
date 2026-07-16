@@ -1,6 +1,6 @@
 ---
 name: competitor-profiling
-description: "When the user wants to research, profile, or analyze competitors from their URLs. Also use when the user mentions 'competitor profile,' 'competitor research,' 'competitor analysis,' 'profile this competitor,' 'analyze competitor,' 'competitive intelligence,' 'competitor deep dive,' 'who are my competitors,' 'competitor landscape,' 'competitor dossier,' 'competitive audit,' or 'research these competitors.' Input is a list of competitor URLs. Output is structured competitor profile markdown files. For creating comparison/alternative pages from profiles, see competitor-alternatives. For sales-specific battle cards, see sales-enablement."
+description: "Quando o usuário quiser pesquisar, perfilizar ou analisar concorrentes a partir de suas URLs. Use também quando o usuário mencionar 'competitor profile,' 'competitor research,' 'competitor analysis,' 'profile this competitor,' 'analyze competitor,' 'competitive intelligence,' 'competitor deep dive,' 'who are my competitors,' 'competitor landscape,' 'competitor dossier,' 'competitive audit,' ou 'research these competitors.' A entrada é uma lista de URLs de concorrentes. A saída são arquivos markdown estruturados de perfil de concorrente. Para criar páginas de comparação/alternativas a partir dos perfis, veja competitor-alternatives. Para battle cards específicos de vendas, veja sales-enablement."
 metadata:
   version: 1.0.0
 aliases: [competitor-profiling]

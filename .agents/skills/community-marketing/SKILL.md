@@ -1,6 +1,6 @@
 ---
 name: community-marketing
-description: "Build and leverage online communities to drive product growth and brand loyalty. Use when the user wants to create a community strategy, grow a Discord or Slack community, manage a forum or subreddit, build brand advocates, increase word-of-mouth, drive community-led growth, engage users post-signup, or turn customers into evangelists. Trigger phrases: \"build a community,\" \"community strategy,\" \"Discord community,\" \"Slack community,\" \"community-led growth,\" \"brand advocates,\" \"user community,\" \"forum strategy,\" \"community engagement,\" \"grow our community,\" \"ambassador program,\" \"community flywheel.\""
+description: "Construa e aproveite comunidades online para impulsionar o crescimento do produto e a lealdade à marca. Use quando o usuário quiser criar uma estratégia de comunidade, crescer uma comunidade no Discord ou Slack, gerenciar um fórum ou subreddit, construir defensores da marca, aumentar o boca a boca, impulsionar o community-led growth, engajar usuários após o cadastro ou transformar clientes em evangelistas. Trigger phrases: \"build a community,\" \"community strategy,\" \"Discord community,\" \"Slack community,\" \"community-led growth,\" \"brand advocates,\" \"user community,\" \"forum strategy,\" \"community engagement,\" \"grow our community,\" \"ambassador program,\" \"community flywheel.\""
 metadata:
   version: 1.0.0
 aliases: [community-marketing]

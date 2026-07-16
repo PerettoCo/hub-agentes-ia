@@ -1,11 +1,11 @@
 ---
 name: seo-drift
 description: >
-  SEO drift monitoring: capture baselines of SEO-critical elements, detect changes,
-  and track regressions over time. Git for SEO — baseline, diff, and track changes
-  to your on-page SEO. Use when user says "SEO drift", "baseline", "track changes",
-  "did anything break", "SEO regression", "compare SEO", "before and after",
-  "monitor SEO changes", or "deployment check".
+  Monitoramento de SEO drift: captura linhas de base de elementos críticos de SEO,
+  detecta mudanças e rastreia regressões ao longo do tempo. Git para SEO — baseline,
+  diff e rastreia mudanças no seu SEO on-page. Use quando o usuário disser "SEO drift",
+  "baseline", "track changes", "did anything break", "SEO regression", "compare SEO",
+  "before and after", "monitor SEO changes", ou "deployment check".
 user-invocable: true
 argument-hint: "baseline|compare|history <url>"
 license: MIT

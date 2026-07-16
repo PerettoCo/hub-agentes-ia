@@ -1,11 +1,11 @@
 ---
 name: seo-competitor-pages
 description: >
-  Generate SEO-optimized competitor comparison and alternatives pages. Covers
-  "X vs Y" layouts, "alternatives to X" pages, feature matrices, schema markup,
-  and conversion optimization. Use when user says "comparison page", "vs page",
-  "alternatives page", "competitor comparison", "X vs Y", "versus",
-  "compare competitors", or "alternative to".
+  Gera páginas de comparação de concorrentes e alternativas otimizadas para SEO.
+  Abrange layouts "X vs Y", páginas "alternatives to X", matrizes de recursos,
+  schema markup e otimização de conversão. Use quando o usuário disser "comparison page",
+  "vs page", "alternatives page", "competitor comparison", "X vs Y", "versus",
+  "compare competitors", ou "alternative to".
 user-invocable: true
 argument-hint: "[url or generate] [competitor]"
 license: MIT

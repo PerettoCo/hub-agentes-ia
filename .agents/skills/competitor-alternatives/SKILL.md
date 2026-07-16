@@ -1,6 +1,6 @@
 ---
 name: competitor-alternatives
-description: "When the user wants to create competitor comparison or alternative pages for SEO and sales enablement. Also use when the user mentions 'alternative page,' 'vs page,' 'competitor comparison,' 'comparison page,' '[Product] vs [Product],' '[Product] alternative,' 'competitive landing pages,' 'how do we compare to X,' 'battle card,' or 'competitor teardown.' Use this for any content that positions your product against competitors. Covers four formats: singular alternative, plural alternatives, you vs competitor, and competitor vs competitor. For sales-specific competitor docs, see sales-enablement."
+description: "Quando o usuário quiser criar páginas de comparação ou alternativas de concorrentes para SEO e habilitação de vendas. Use também quando o usuário mencionar 'alternative page,' 'vs page,' 'competitor comparison,' 'comparison page,' '[Product] vs [Product],' '[Product] alternative,' 'competitive landing pages,' 'how do we compare to X,' 'battle card,' ou 'competitor teardown.' Use para qualquer conteúdo que posicione seu produto contra concorrentes. Abrange quatro formatos: alternativa singular, alternativas plurais, você vs concorrente e concorrente vs concorrente. Para documentos de concorrentes específicos de vendas, veja sales-enablement."
 metadata:
   version: 1.1.0
 aliases: [competitor-alternatives]

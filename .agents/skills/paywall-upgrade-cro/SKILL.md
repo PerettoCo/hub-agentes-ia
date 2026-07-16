@@ -1,6 +1,6 @@
 ---
 name: paywall-upgrade-cro
-description: When the user wants to create or optimize in-app paywalls, upgrade screens, upsell modals, or feature gates. Also use when the user mentions "paywall," "upgrade screen," "upgrade modal," "upsell," "feature gate," "convert free to paid," "freemium conversion," "trial expiration screen," "limit reached screen," "plan upgrade prompt," "in-app pricing," "free users won't upgrade," "trial to paid conversion," or "how do I get users to pay." Use this for any in-product moment where you're asking users to upgrade. Distinct from public pricing pages (see page-cro) — this focuses on in-product upgrade moments where the user has already experienced value. For pricing decisions, see pricing-strategy.
+description: Quando o usuário quiser criar ou otimizar paywalls in-app, telas de upgrade, modais de upsell ou bloqueios de funcionalidades. Use também quando o usuário mencionar "paywall," "upgrade screen," "upgrade modal," "upsell," "feature gate," "convert free to paid," "freemium conversion," "trial expiration screen," "limit reached screen," "plan upgrade prompt," "in-app pricing," "free users won't upgrade," "trial to paid conversion," ou "how do I get users to pay." Use esta skill para qualquer momento dentro do produto em que você pede ao usuário para fazer upgrade. Diferente de páginas de preços públicas (veja page-cro) — esta foca em momentos de upgrade dentro do produto onde o usuário já experimentou valor. Para decisões de preços, veja pricing-strategy.
 metadata:
   version: 1.1.0
 aliases: [paywall-upgrade-cro]

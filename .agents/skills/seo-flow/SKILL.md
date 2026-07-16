@@ -1,11 +1,11 @@
 ---
 name: seo-flow
 description: >
-  FLOW framework integration — evidence-led SEO using the Find → Leverage →
-  Optimize → Win loop. Surfaces stage-specific AI prompts from the FLOW
-  knowledge base (41 prompts, CC BY 4.0). Use when user says "FLOW", "FLOW
-  framework", "seo flow", "evidence-led SEO", "find leverage optimize win",
-  or wants stage-specific SEO prompts.
+  Integração do framework FLOW — SEO orientado por evidências usando o loop
+  Find → Leverage → Optimize → Win. Disponibiliza prompts de IA específicos por
+  estágio a partir da base de conhecimento FLOW (41 prompts, CC BY 4.0). Use quando
+  o usuário disser "FLOW", "FLOW framework", "seo flow", "evidence-led SEO",
+  "find leverage optimize win", ou quiser prompts de SEO específicos por estágio.
 user-invocable: true
 argument-hint: "[stage] [url|topic]"
 license: MIT

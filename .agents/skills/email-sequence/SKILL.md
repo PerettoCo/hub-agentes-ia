@@ -1,6 +1,6 @@
 ---
 name: email-sequence
-description: When the user wants to create or optimize an email sequence, drip campaign, automated email flow, or lifecycle email program. Also use when the user mentions "email sequence," "drip campaign," "nurture sequence," "onboarding emails," "welcome sequence," "re-engagement emails," "email automation," "lifecycle emails," "trigger-based emails," "email funnel," "email workflow," "what emails should I send," "welcome series," or "email cadence." Use this for any multi-email automated flow. For cold outreach emails, see cold-email. For in-app onboarding, see onboarding-cro.
+description: Quando o usuário quiser criar ou otimizar uma sequência de e-mails, campanha de drip, fluxo de e-mail automatizado ou programa de e-mail de ciclo de vida. Use também quando o usuário mencionar "email sequence," "drip campaign," "nurture sequence," "onboarding emails," "welcome sequence," "re-engagement emails," "email automation," "lifecycle emails," "trigger-based emails," "email funnel," "email workflow," "what emails should I send," "welcome series," ou "email cadence." Use isso para qualquer fluxo automatizado de múltiplos e-mails. Para e-mails de cold outreach, veja cold-email. Para onboarding in-app, veja onboarding-cro.
 metadata:
   version: 1.1.0
 aliases: [email-sequence]

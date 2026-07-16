@@ -1,6 +1,6 @@
 ---
 name: programmatic-seo
-description: When the user wants to create SEO-driven pages at scale using templates and data. Also use when the user mentions "programmatic SEO," "template pages," "pages at scale," "directory pages," "location pages," "[keyword] + [city] pages," "comparison pages," "integration pages," "building many pages for SEO," "pSEO," "generate 100 pages," "data-driven pages," or "templated landing pages." Use this whenever someone wants to create many similar pages targeting different keywords or locations. For auditing existing SEO issues, see seo-audit. For content strategy planning, see content-strategy.
+description: Quando o usuário quiser criar páginas orientadas por SEO em escala usando templates e dados. Use também quando o usuário mencionar "programmatic SEO," "template pages," "pages at scale," "directory pages," "location pages," "[keyword] + [city] pages," "comparison pages," "integration pages," "building many pages for SEO," "pSEO," "generate 100 pages," "data-driven pages," ou "templated landing pages." Use esta skill sempre que alguém quiser criar muitas páginas similares direcionadas a palavras-chave ou localizações diferentes. Para auditar problemas de SEO existentes, veja seo-audit. Para planejamento de estratégia de conteúdo, veja content-strategy.
 metadata:
   version: 1.1.0
 aliases: [programmatic-seo]

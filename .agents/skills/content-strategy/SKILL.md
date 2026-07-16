@@ -1,6 +1,6 @@
 ---
 name: content-strategy
-description: When the user wants to plan a content strategy, decide what content to create, or figure out what topics to cover. Also use when the user mentions "content strategy," "what should I write about," "content ideas," "blog strategy," "topic clusters," "content planning," "editorial calendar," "content marketing," "content roadmap," "what content should I create," "blog topics," "content pillars," or "I don't know what to write." Use this whenever someone needs help deciding what content to produce, not just writing it. For writing individual pieces, see copywriting. For SEO-specific audits, see seo-audit. For social media content specifically, see social-content.
+description: Quando o usuário quiser planejar uma estratégia de conteúdo, decidir que conteúdo criar ou descobrir quais tópicos abordar. Use também quando o usuário mencionar "content strategy," "what should I write about," "content ideas," "blog strategy," "topic clusters," "content planning," "editorial calendar," "content marketing," "content roadmap," "what content should I create," "blog topics," "content pillars," ou "I don't know what to write." Use sempre que alguém precisar de ajuda para decidir que conteúdo produzir, não apenas escrevê-lo. Para escrever peças individuais, veja copywriting. Para auditorias específicas de SEO, veja seo-audit. Para conteúdo de redes sociais especificamente, veja social-content.
 metadata:
   version: 1.1.0
 aliases: [content-strategy]

@@ -1,11 +1,11 @@
 ---
 name: seo-plan
 description: >
-  Strategic SEO planning for new or existing websites. Industry-specific
-  templates, competitive analysis, content strategy, and implementation
-  roadmap. Use when user says "SEO plan", "SEO strategy", "SEO planning",
+  Planejamento estratégico de SEO para sites novos ou existentes. Modelos
+  específicos por setor, análise competitiva, estratégia de conteúdo e
+  roadmap de implementação. Use quando o usuário disser "SEO plan", "SEO strategy", "SEO planning",
   "content strategy", "keyword strategy", "content calendar",
-  "site architecture", or "SEO roadmap".
+  "site architecture", ou "SEO roadmap".
 user-invocable: true
 argument-hint: "[business-type]"
 license: MIT

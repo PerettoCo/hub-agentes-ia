@@ -1,14 +1,14 @@
 ---
 name: seo-google
 description: >
-  Google SEO APIs: Search Console (Search Analytics, URL Inspection, Sitemaps),
-  PageSpeed Insights v5, CrUX field data with 25-week history, Indexing API v3,
-  and GA4 organic traffic. Provides real Google field data for Core Web Vitals,
-  indexation status, search performance, and organic traffic trends. Use when
-  user says "search console", "GSC", "PageSpeed", "CrUX", "field data",
-  "indexing API", "GA4 organic", "URL inspection", "google api setup",
-  "real CWV data", "impressions", "clicks", "CTR", "position data",
-  "LCP", "INP", "CLS", "FCP", "TTFB", or "Lighthouse scores".
+  APIs de SEO do Google: Search Console (Search Analytics, URL Inspection,
+  Sitemaps), PageSpeed Insights v5, dados de campo CrUX com histórico de 25 semanas,
+  Indexing API v3 e tráfego orgânico do GA4. Fornece dados de campo reais do Google
+  para Core Web Vitals, status de indexação, desempenho de busca e tendências de
+  tráfego orgânico. Use quando o usuário disser "search console", "GSC", "PageSpeed",
+  "CrUX", "field data", "indexing API", "GA4 organic", "URL inspection",
+  "google api setup", "real CWV data", "impressions", "clicks", "CTR",
+  "position data", "LCP", "INP", "CLS", "FCP", "TTFB", ou "Lighthouse scores".
 user-invocable: true
 argument-hint: "[command] [url|property]"
 license: MIT

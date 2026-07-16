@@ -1,6 +1,6 @@
 ---
 name: free-tool-strategy
-description: When the user wants to plan, evaluate, or build a free tool for marketing purposes — lead generation, SEO value, or brand awareness. Also use when the user mentions "engineering as marketing," "free tool," "marketing tool," "calculator," "generator," "interactive tool," "lead gen tool," "build a tool for leads," "free resource," "ROI calculator," "grader tool," "audit tool," "should I build a free tool," or "tools for lead gen." Use this whenever someone wants to build something useful and give it away to attract leads or earn links. For downloadable content lead magnets (ebooks, checklists, templates), see lead-magnets.
+description: Quando o usuário quiser planejar, avaliar ou construir uma ferramenta gratuita para fins de marketing — geração de leads, valor de SEO ou reconhecimento de marca. Use também quando o usuário mencionar "engineering as marketing," "free tool," "marketing tool," "calculator," "generator," "interactive tool," "lead gen tool," "build a tool for leads," "free resource," "ROI calculator," "grader tool," "audit tool," "should I build a free tool," ou "tools for lead gen." Use sempre que alguém quiser construir algo útil e disponibilizá-lo gratuitamente para atrair leads ou conquistar links. Para lead magnets de conteúdo para download (ebooks, checklists, templates), veja lead-magnets.
 metadata:
   version: 1.1.0
 aliases: [free-tool-strategy]

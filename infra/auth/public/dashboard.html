@@ -43,9 +43,14 @@
     .card {
       background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
       border-radius: 16px; padding: 32px; text-align: left;
+      display: flex; align-items: center; gap: 24px;
     }
-    .card h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
-    .card .desc { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+    .card-avatar {
+      width: 80px; height: 80px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+    }
+    .card-body { flex: 1; min-width: 0; }
+    .card-body h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
+    .card-body .desc { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-bottom: 14px; }
     .btn-card {
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(230,57,70,0.1); border: 1px solid rgba(230,57,70,0.2);
@@ -240,11 +245,14 @@
       const data = await api('/api/targets');
       const container = document.getElementById('targets');
       container.innerHTML = data.targets.map(t => `
-        <h3>${t.name}</h3>
-        <div class="desc">Acesse o Hub de Agentes</div>
-        <a href="${t.url}" class="btn-card">
-          <span class="icon">▸</span> Abrir ${t.name}
-        </a>
+        <img src="/static/sofia.png" alt="Sofia" class="card-avatar">
+        <div class="card-body">
+          <h3>${t.name}</h3>
+          <div class="desc">Acesse o Hub de Agentes</div>
+          <a href="${t.url}" class="btn-card">
+            <span class="icon">▸</span> Abrir ${t.name}
+          </a>
+        </div>
       `).join('');
     }
 

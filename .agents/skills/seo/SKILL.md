@@ -1,6 +1,6 @@
 ---
 name: seo
-description: "Comprehensive SEO analysis for any website or business type. Full site audits, single-page analysis, technical SEO (crawlability, indexability, Core Web Vitals with INP), schema markup, content quality (E-E-A-T), image optimization, sitemap analysis, and GEO for AI Overviews/ChatGPT/Perplexity. Industry detection for SaaS, e-commerce, local, publishers, agencies. Triggers on: SEO, audit, schema, Core Web Vitals, sitemap, E-E-A-T, AI Overviews, GEO, technical SEO, content quality, page speed, structured data."
+description: "Análise SEO abrangente para qualquer site ou tipo de negócio. Auditorias completas de site, análise de página única, SEO técnico (crawlability, indexability, Core Web Vitals com INP), schema markup, qualidade de conteúdo (E-E-A-T), otimização de imagens, análise de sitemap e GEO para AI Overviews/ChatGPT/Perplexity. Detecção de setor para SaaS, e-commerce, local, publishers, agências. Dispara em: SEO, audit, schema, Core Web Vitals, sitemap, E-E-A-T, AI Overviews, GEO, technical SEO, content quality, page speed, structured data."
 user-invocable: true
 argument-hint: "[command] [url]"
 license: MIT

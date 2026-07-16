@@ -1,6 +1,6 @@
 ---
 name: revops
-description: "When the user wants help with revenue operations, lead lifecycle management, or marketing-to-sales handoff processes. Also use when the user mentions 'RevOps,' 'revenue operations,' 'lead scoring,' 'lead routing,' 'MQL,' 'SQL,' 'pipeline stages,' 'deal desk,' 'CRM automation,' 'marketing-to-sales handoff,' 'data hygiene,' 'leads aren't getting to sales,' 'pipeline management,' 'lead qualification,' or 'when should marketing hand off to sales.' Use this for anything involving the systems and processes that connect marketing to revenue. For cold outreach emails, see cold-email. For email drip campaigns, see email-sequence. For pricing decisions, see pricing-strategy."
+description: "Quando o usuário quiser ajuda com revenue operations, gestão do ciclo de vida de leads ou processos de handoff de marketing para vendas. Use também quando o usuário mencionar 'RevOps,' 'revenue operations,' 'lead scoring,' 'lead routing,' 'MQL,' 'SQL,' 'pipeline stages,' 'deal desk,' 'CRM automation,' 'marketing-to-sales handoff,' 'data hygiene,' 'leads aren't getting to sales,' 'pipeline management,' 'lead qualification,' ou 'when should marketing hand off to sales.' Use isto para qualquer coisa envolvendo os sistemas e processos que conectam marketing à receita. Para emails de cold outreach, veja cold-email. Para campanhas de email drip, veja email-sequence. Para decisões de preço, veja pricing-strategy."
 metadata:
   version: 1.1.0
 aliases: [revops]

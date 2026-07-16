@@ -1,6 +1,6 @@
 ---
 name: form-cro
-description: When the user wants to optimize any form that is NOT signup/registration — including lead capture forms, contact forms, demo request forms, application forms, survey forms, or checkout forms. Also use when the user mentions "form optimization," "lead form conversions," "form friction," "form fields," "form completion rate," "contact form," "nobody fills out our form," "form abandonment," "too many fields," "demo request form," or "lead form isn't converting." Use this for any non-signup form that captures information. For signup/registration forms, see signup-flow-cro. For popups containing forms, see popup-cro.
+description: Quando o usuário quiser otimizar qualquer formulário que NÃO seja de cadastro/registro — incluindo formulários de captura de lead, formulários de contato, formulários de solicitação de demo, formulários de candidatura, formulários de pesquisa ou formulários de checkout. Use também quando o usuário mencionar "form optimization," "lead form conversions," "form friction," "form fields," "form completion rate," "contact form," "nobody fills out our form," "form abandonment," "too many fields," "demo request form," ou "lead form isn't converting." Use isso para qualquer formulário de não-cadastro que capture informações. Para formulários de cadastro/registro, veja signup-flow-cro. Para pop-ups contendo formulários, veja popup-cro.
 metadata:
   version: 1.1.0
 aliases: [form-cro]

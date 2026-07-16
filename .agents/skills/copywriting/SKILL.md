@@ -1,6 +1,6 @@
 ---
 name: copywriting
-description: When the user wants to write, rewrite, or improve marketing copy for any page — including homepage, landing pages, pricing pages, feature pages, about pages, or product pages. Also use when the user says "write copy for," "improve this copy," "rewrite this page," "marketing copy," "headline help," "CTA copy," "value proposition," "tagline," "subheadline," "hero section copy," "above the fold," "this copy is weak," "make this more compelling," or "help me describe my product." Use this whenever someone is working on website text that needs to persuade or convert. For email copy, see email-sequence. For popup copy, see popup-cro. For editing existing copy, see copy-editing.
+description: Quando o usuário quiser escrever, reescrever ou melhorar copy de marketing para qualquer página — incluindo homepage, landing pages, páginas de preço, páginas de funcionalidades, páginas institucionais ou páginas de produto. Use também quando o usuário disser "write copy for," "improve this copy," "rewrite this page," "marketing copy," "headline help," "CTA copy," "value proposition," "tagline," "subheadline," "hero section copy," "above the fold," "this copy is weak," "make this more compelling," ou "help me describe my product." Use sempre que alguém estiver trabalhando em texto de site que precisa persuadir ou converter. Para copy de e-mail, veja email-sequence. Para copy de pop-up, veja popup-cro. Para editar copy existente, veja copy-editing.
 metadata:
   version: 1.1.0
 aliases: [copywriting]

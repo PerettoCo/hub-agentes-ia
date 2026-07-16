@@ -1,6 +1,6 @@
 ---
 name: marketing-psychology
-description: "When the user wants to apply psychological principles, mental models, or behavioral science to marketing. Also use when the user mentions 'psychology,' 'mental models,' 'cognitive bias,' 'persuasion,' 'behavioral science,' 'why people buy,' 'decision-making,' 'consumer behavior,' 'anchoring,' 'social proof,' 'scarcity,' 'loss aversion,' 'framing,' or 'nudge.' Use this whenever someone wants to understand or leverage how people think and make decisions in a marketing context."
+description: "Quando o usuário quiser aplicar princípios psicológicos, modelos mentais ou ciência comportamental ao marketing. Use também quando o usuário mencionar 'psychology,' 'mental models,' 'cognitive bias,' 'persuasion,' 'behavioral science,' 'why people buy,' 'decision-making,' 'consumer behavior,' 'anchoring,' 'social proof,' 'scarcity,' 'loss aversion,' 'framing,' ou 'nudge.' Use esta skill sempre que alguém quiser entender ou aproveitar como as pessoas pensam e tomam decisões em um contexto de marketing."
 metadata:
   version: 1.1.0
 aliases: [marketing-psychology]

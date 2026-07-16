@@ -1,6 +1,6 @@
 ---
 name: lead-magnets
-description: When the user wants to create, plan, or optimize a lead magnet for email capture or lead generation. Also use when the user mentions "lead magnet," "gated content," "content upgrade," "downloadable," "ebook," "cheat sheet," "checklist," "template download," "opt-in," "freebie," "PDF download," "resource library," "content offer," "email capture content," "Notion template," "spreadsheet template," or "what should I give away for emails." Use this for planning what to create and how to distribute it. For interactive tools as lead magnets, see free-tool-strategy. For writing the actual content, see copywriting. For the email sequence after capture, see email-sequence.
+description: Quando o usuário quiser criar, planejar ou otimizar um lead magnet para captura de e-mail ou geração de leads. Use também quando o usuário mencionar "lead magnet," "gated content," "content upgrade," "downloadable," "ebook," "cheat sheet," "checklist," "template download," "opt-in," "freebie," "PDF download," "resource library," "content offer," "email capture content," "Notion template," "spreadsheet template," ou "what should I give away for emails." Use isso para planejar o que criar e como distribuí-lo. Para ferramentas interativas como lead magnets, veja free-tool-strategy. Para escrever o conteúdo em si, veja copywriting. Para a sequência de e-mails após a captura, veja email-sequence.
 metadata:
   version: 1.0.0
 aliases: [lead-magnets]

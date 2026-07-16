@@ -1,13 +1,13 @@
 ---
 name: seo-geo
 description: >
-  Optimize content for AI Overviews (formerly SGE), ChatGPT web search,
-  Perplexity, and other AI-powered search experiences. Generative Engine
-  Optimization (GEO) analysis including brand mention signals, AI crawler
-  accessibility, llms.txt compliance, passage-level citability scoring, and
-  platform-specific optimization. Use when user says "AI Overviews", "SGE",
-  "GEO", "AI search", "LLM optimization", "Perplexity", "AI citations",
-  "ChatGPT search", or "AI visibility".
+  Otimiza conteúdo para AI Overviews (antigo SGE), busca web do ChatGPT, Perplexity
+  e outras experiências de busca baseadas em IA. Análise de GEO (Generative Engine
+  Optimization) incluindo sinais de menção de marca, acessibilidade a crawlers de IA,
+  conformidade com llms.txt, pontuação de citabilidade em nível de trecho e
+  otimização específica por plataforma. Use quando o usuário disser "AI Overviews",
+  "SGE", "GEO", "AI search", "LLM optimization", "Perplexity", "AI citations",
+  "ChatGPT search", ou "AI visibility".
 user-invocable: true
 argument-hint: "[url]"
 license: MIT

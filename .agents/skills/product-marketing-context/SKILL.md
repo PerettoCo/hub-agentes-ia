@@ -1,6 +1,6 @@
 ---
 name: product-marketing-context
-description: "When the user wants to create or update their product marketing context document. Also use when the user mentions 'product context,' 'marketing context,' 'set up context,' 'positioning,' 'who is my target audience,' 'describe my product,' 'ICP,' 'ideal customer profile,' or wants to avoid repeating foundational information across marketing tasks. Use this at the start of any new project before using other marketing skills — it creates `.agents/product-marketing-context.md` that all other skills reference for product, audience, and positioning context."
+description: "Quando o usuário quiser criar ou atualizar seu documento de contexto de marketing de produto. Use também quando o usuário mencionar 'product context,' 'marketing context,' 'set up context,' 'positioning,' 'who is my target audience,' 'describe my product,' 'ICP,' 'ideal customer profile,' ou quiser evitar repetir informações fundamentais entre tarefas de marketing. Use esta skill no início de qualquer novo projeto antes de usar outras skills de marketing — ela cria o `.agents/product-marketing-context.md` que todas as outras skills referenciam para contexto de produto, audiência e posicionamento."
 metadata:
   version: 1.1.0
 aliases: [product-marketing-context]

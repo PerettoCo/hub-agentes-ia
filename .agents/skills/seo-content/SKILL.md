@@ -1,9 +1,9 @@
 ---
 name: seo-content
 description: >
-  Content quality and E-E-A-T analysis with AI citation readiness assessment.
-  Use when user says "content quality", "E-E-A-T", "content analysis",
-  "readability check", "thin content", or "content audit".
+  Análise de qualidade de conteúdo e E-E-A-T com avaliação de prontidão para
+  citação por IA. Use quando o usuário disser "content quality", "E-E-A-T",
+  "content analysis", "readability check", "thin content", ou "content audit".
 user-invocable: true
 argument-hint: "[url]"
 license: MIT

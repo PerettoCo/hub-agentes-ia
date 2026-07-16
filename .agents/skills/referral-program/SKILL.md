@@ -1,6 +1,6 @@
 ---
 name: referral-program
-description: "When the user wants to create, optimize, or analyze a referral program, affiliate program, or word-of-mouth strategy. Also use when the user mentions 'referral,' 'affiliate,' 'ambassador,' 'word of mouth,' 'viral loop,' 'refer a friend,' 'partner program,' 'referral incentive,' 'how to get referrals,' 'customers referring customers,' or 'affiliate payout.' Use this whenever someone wants existing users or partners to bring in new customers. For launch-specific virality, see launch-strategy."
+description: "Quando o usuário quiser criar, otimizar ou analisar um programa de indicação, programa de afiliados ou estratégia de boca a boca. Use também quando o usuário mencionar 'referral,' 'affiliate,' 'ambassador,' 'word of mouth,' 'viral loop,' 'refer a friend,' 'partner program,' 'referral incentive,' 'how to get referrals,' 'customers referring customers,' ou 'affiliate payout.' Use esta skill sempre que alguém quiser que usuários ou parceiros existentes tragam novos clientes. Para viralidade específica de lançamento, veja launch-strategy."
 metadata:
   version: 1.1.0
 aliases: [referral-program]

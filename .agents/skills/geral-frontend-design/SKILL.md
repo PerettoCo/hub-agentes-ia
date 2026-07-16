@@ -1,6 +1,6 @@
 ---
 name: geral-frontend-design
-description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, or applications. Generates creative, polished code that avoids generic AI aesthetics.
+description: Crie interfaces de frontend distintas e prontas para produção com alto padrão de design. Use esta skill quando o usuário pedir para construir componentes web, páginas ou aplicações. Gera código criativo e polido que evita estéticas genéricas de IA.
 license: Complete terms in LICENSE.txt
 aliases: [geral-frontend-design]
 tags: [skill, area-geral]

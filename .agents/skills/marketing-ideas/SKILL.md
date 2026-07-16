@@ -1,6 +1,6 @@
 ---
 name: marketing-ideas
-description: "When the user needs marketing ideas, inspiration, or strategies for their SaaS or software product. Also use when the user asks for 'marketing ideas,' 'growth ideas,' 'how to market,' 'marketing strategies,' 'marketing tactics,' 'ways to promote,' 'ideas to grow,' 'what else can I try,' 'I don't know how to market this,' 'brainstorm marketing,' or 'what marketing should I do.' Use this as a starting point whenever someone is stuck or looking for inspiration on how to grow. For specific channel execution, see the relevant skill (paid-ads, social-content, email-sequence, etc.)."
+description: "Quando o usuário precisa de ideias de marketing, inspiração ou estratégias para seu produto SaaS ou de software. Use também quando o usuário pedir por 'marketing ideas,' 'growth ideas,' 'how to market,' 'marketing strategies,' 'marketing tactics,' 'ways to promote,' 'ideas to grow,' 'what else can I try,' 'I don't know how to market this,' 'brainstorm marketing,' ou 'what marketing should I do.' Use esta skill como ponto de partida sempre que alguém estiver travado ou buscando inspiração sobre como crescer. Para execução em canais específicos, veja a skill relevante (paid-ads, social-content, email-sequence, etc.)."
 metadata:
   version: 1.1.0
 aliases: [marketing-ideas]
