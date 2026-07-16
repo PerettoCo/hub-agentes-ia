@@ -10,7 +10,6 @@
       }
     }
   },
-  "workspace": "/workspace",
   "agent": {
     "account-orchestrator": { "description": "Account Orchestrator — orquestra a saude do cliente integrando check-ins, mission control, flags e expansao", "mode": "subagent" },
     "analista-dados": { "description": "Analisa dados de performance, OKRs, metricas e gera insights estruturados", "mode": "subagent" },

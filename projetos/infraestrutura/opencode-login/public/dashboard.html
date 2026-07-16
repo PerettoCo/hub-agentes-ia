@@ -283,7 +283,7 @@
     <div class="grid" id="targetsGrid">
       <a class="card" href="#" target="_blank" id="card-opencode">
         <div class="card-icon terminal">&#xFE0F;</div>
-        <h3>OpenCode Web</h3>
+        <h3>Hub de Agentes de IA</h3>
         <p>Interface do agente de IA com sessão individual</p>
         <div class="hint">Abrir em nova aba</div>
       </a>
@@ -310,7 +310,7 @@
         document.getElementById('avatar').textContent = me.name.charAt(0);
 
         const targets = data.targets || [];
-        const ocTarget = targets.find(t => t.name === 'OpenCode Web');
+        const ocTarget = targets.find(t => t.name === 'Hub de Agentes');
         if (ocTarget && ocTarget.url) {
           document.getElementById('card-opencode').href = ocTarget.url;
         }
