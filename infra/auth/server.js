@@ -82,11 +82,28 @@ function saveUsers(users) {
 
 let users = [];
 
+function applyPerUserPasswords() {
+  let changed = false;
+  for (const key of Object.keys(process.env)) {
+    const match = key.match(/^USERPWD_(.+)$/);
+    if (!match) continue;
+    const username = match[1].replace(/_/g, '.');
+    const user = users.find(u => u.username === username);
+    if (user) {
+      user.passwordHash = bcrypt.hashSync(process.env[key], 10);
+      log('info', 'Applied per-user password', { username });
+      changed = true;
+    }
+  }
+  if (changed) saveUsers(users);
+}
+
 function loadOrSeedUsers() {
   const loaded = loadUsers();
   if (loaded.length > 0) {
     users = loaded;
     log('info', 'Loaded users from file', { count: users.length });
+    applyPerUserPasswords();
     return;
   }
 
@@ -94,6 +111,7 @@ function loadOrSeedUsers() {
   const hash = bcrypt.hashSync(DEFAULT_PASSWORD, 10);
   users = DEFAULT_USERS.map(u => ({ ...u, passwordHash: hash }));
   saveUsers(users);
+  applyPerUserPasswords();
 
   if (BOOTSTRAP_ADMIN) {
     const [username] = BOOTSTRAP_ADMIN.split(':');
@@ -257,7 +275,7 @@ app.get('/api/me', requireAuth, (req, res) => {
 app.get('/api/targets', requireAuth, (req, res) => {
   const target = getTarget(req.session.user.username);
   res.json({ targets: [
-    { name: 'OpenCode Web', url: target.redirect, icon: 'terminal' },
+    { name: 'Hub de Agentes', url: target.redirect, icon: 'terminal' },
   ]});
 });
 

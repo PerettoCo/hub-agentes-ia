@@ -55,6 +55,7 @@
     }
     .btn-card:hover { background: rgba(230,57,70,0.2); border-color: #e63946; }
     .btn-card .icon { font-size: 1.1rem; }
+    .welcome-logo { width: 64px; height: 64px; margin-bottom: 16px; object-fit: contain; }
 
     /* Admin section */
     .admin-section {
@@ -141,6 +142,7 @@
   </div>
 
   <div class="main">
+    <img src="/static/logo.png" alt="V4 Company" class="welcome-logo">
     <h2>Bem-vindo(a), <span id="userDisplayName"></span></h2>
     <p>Selecione seu ambiente de IA para começar</p>
     <div class="card" id="targets"></div>
@@ -239,7 +241,7 @@
       const container = document.getElementById('targets');
       container.innerHTML = data.targets.map(t => `
         <h3>${t.name}</h3>
-        <div class="desc">Acesse sua interface OpenCode Web</div>
+        <div class="desc">Acesse o Hub de Agentes</div>
         <a href="${t.url}" class="btn-card">
           <span class="icon">▸</span> Abrir ${t.name}
         </a>

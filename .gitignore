@@ -1,1 +1,59 @@
-.env
+# Personal / Client Data — NOT part of the OpenCode project
+squads/
+PDI/
+allover-*
+conserva*
+consolidado-*
+atlas-copco
+diamond-tint-optimization-jun26
+dener.jpeg
+elementor-pro.zip
+gestao-marketplace-marcos*
+grupo-r1-title-optimization*
+gset-meta-ads-junho-2026.html
+hub-de-agentes/
+indianapolis-seo-audit/
+metal-indianapolis*
+nova-estrutura-campanhas-*
+premium-*
+marcosv4-blog-posts.html
+agents-hub.html
+index.html
+logo-*.png
+v4logo.png
+19-marketplace.png.webp
+authelia-login-llm-keys-digest.txt
+references/
+sdr-ia-hub/
+
+# Personal projects
+projetos/ajuda\ rede\ v4/
+projetos/analises/
+projetos/marcosv4-blog
+projetos/premiumcleaning
+projetos/premium-contractors-website
+projetos/sdr-ia/
+projetos/seo/
+projetos/AEO-GEO/
+projetos/Marcos\ V4\ Blog/
+projetos/SDR\ IA/
+projetos/SEO/
+projetos/Websites/
+projetos/Plano\ de\ Ação/
+projetos/ai-visibility-v4
+projetos/Infraestrutura\ AI/
+projetos/n8n/
+projetos/Chaves\ LLM.md
+
+# Obsidian local config
+.obsidian/
+
+# Untitled files
+Untitled*
+
+# System / Editors
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
