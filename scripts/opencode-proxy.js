@@ -81,9 +81,16 @@ var server = http.createServer(function(req, res) {
             var merged;
             if (urlPath === '/api/agent') {
               var orig = JSON.parse(body);
-              merged = { location: orig.location, data: (orig.data || []).concat(loadCustomApiAgents()) };
+              var existingIds = {};
+              (orig.data || []).forEach(function(a) { if (a.id) existingIds[a.id] = true; });
+              var customApi = loadCustomApiAgents().filter(function(a) { return !existingIds[a.id]; });
+              merged = { location: orig.location, data: (orig.data || []).concat(customApi) };
             } else {
-              merged = JSON.parse(body).concat(loadCustomAgents());
+              var base = JSON.parse(body);
+              var existingNames = {};
+              base.forEach(function(a) { if (a.name) existingNames[a.name] = true; });
+              var custom = loadCustomAgents().filter(function(a) { return !existingNames[a.name]; });
+              merged = base.concat(custom);
             }
             res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' });
             res.end(JSON.stringify(merged));
