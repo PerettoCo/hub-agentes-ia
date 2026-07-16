@@ -100,6 +100,13 @@
 
     .greeting {
       margin-bottom: 48px;
+      text-align: center;
+    }
+
+    .greeting-logo {
+      height: 80px;
+      width: auto;
+      margin-bottom: 28px;
     }
 
     .greeting h1 {
@@ -116,8 +123,10 @@
 
     .grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 20px;
+      max-width: 440px;
+      margin: 0 auto;
     }
 
     .card {
@@ -162,7 +171,6 @@
     }
 
     .card-icon.terminal { background: rgba(34,197,94,0.1); color: #22c55e; }
-    .card-icon.lightbulb { background: rgba(250,204,21,0.1); color: #facc15; }
 
     .card h3 {
       font-size: 1.1rem;
@@ -233,13 +241,14 @@
       .topbar-right { width: 100%; justify-content: space-between; }
       .main { padding: 32px 16px; }
       .greeting h1 { font-size: 1.4rem; }
+      .greeting-logo { height: 60px; }
     }
   </style>
 </head>
 <body>
   <div class="topbar">
     <div class="topbar-left">
-      <img src="logo-white.png" alt="V4">
+      <img src="/static/logo-v4.png" alt="V4 Company">
       <span>Hub de Agentes</span>
     </div>
     <div class="topbar-right">
@@ -266,7 +275,7 @@
 
   <div class="main" id="dashboardContent" style="display:none">
     <div class="greeting">
-      <img src="/static/logo-peretto-red.png" alt="Peretto & Co" style="height:48px;width:auto;margin-bottom:24px">
+      <img src="/static/logo-peretto-red.png" alt="Peretto & Co" class="greeting-logo">
       <h1>Olá, <span id="userDisplayName">—</span></h1>
       <p>Selecione um serviço para acessar</p>
     </div>
@@ -276,12 +285,6 @@
         <div class="card-icon terminal">&#xFE0F;</div>
         <h3>OpenCode Web</h3>
         <p>Interface do agente de IA com sessão individual</p>
-        <div class="hint">Abrir em nova aba</div>
-      </a>
-      <a class="card" href="#" target="_blank" id="card-litellm">
-        <div class="card-icon lightbulb">&#x1F4A1;</div>
-        <h3>LiteLLM Proxy</h3>
-        <p>Proxy de modelos LLM com chave virtual</p>
         <div class="hint">Abrir em nova aba</div>
       </a>
     </div>
@@ -308,10 +311,9 @@
 
         const targets = data.targets || [];
         const ocTarget = targets.find(t => t.name === 'OpenCode Web');
-        const llTarget = targets.find(t => t.name === 'LiteLLM Proxy');
-
-        if (ocTarget) document.getElementById('card-opencode').href = ocTarget.url;
-        if (llTarget) document.getElementById('card-litellm').href = llTarget.url;
+        if (ocTarget && ocTarget.url) {
+          document.getElementById('card-opencode').href = ocTarget.url;
+        }
 
       } catch (err) {
         showError();

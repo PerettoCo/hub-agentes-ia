@@ -122,6 +122,37 @@ Do not reconstruct `workflowsPath` from environment name/id, instance identifier
 Never write `n8nac-config.json`, `~/.n8n-manager`, or n8n-manager secret files by hand.
 <!-- n8n-as-code-end -->
 
+## Leitura de Arquivos (PDF, DOCX, Imagens, etc.)
+
+O agente usa `scripts/file-reader.py` para extrair texto de qualquer arquivo binário.
+
+### Fluxo quando o usuário envia um arquivo no chat
+
+1. O arquivo anexado no chat NÃO está acessível no filesystem — peça ao usuário para salvá-lo em uma pasta do workspace
+2. Após salvo, use o **Read tool** (suporta PDF e imagens nativamente) ou execute:
+   ```bash
+   python3 scripts/file-reader.py "caminho/do/arquivo.pdf"
+   ```
+3. Se `truncated: true` no resultado, pergunte se quer ler mais partes
+
+### Dependências instaladas
+
+Todas as dependências (`pypdf`, `Pillow`, `python-docx`, `openpyxl`, etc.) estão instaladas nos containers. Se algo falhar, execute:
+```bash
+pip3 install --break-system-packages --no-cache-dir pypdf python-docx openpyxl python-magic pillow pytesseract
+```
+
+### Skill dedicada
+
+Carregue a skill `geral-leitor-arquivos` para fluxo completo de leitura universal.
+
+## Workspace e Saída
+
+- O workspace é `/workspace` (compartilhado entre todos os agentes)
+- Saídas específicas do usuário vão em `squads/<squad>/clientes/<cliente>/` ou no diretório do projeto
+- Arquivos de sistema (skills, configs, scripts) não devem ser listados como entregáveis ao usuário a menos que solicitado
+- O agente SÓ deve mostrar/citar arquivos que são output do trabalho, não arquivos internos do sistema (.md de skills, configs, etc.)
+
 ## Sistema de Log de Sessões
 
 Toda sessão significativa deve ser salva em `log/` no raiz do projeto.
