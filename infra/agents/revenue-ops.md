@@ -1,7 +1,6 @@
 ---
 description: Revenue Operations Lead — orquestra a engrenagem de receita integrando pricing, churn, referral e automacao
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.15
 permission:
   read: allow

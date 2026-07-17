@@ -59,11 +59,11 @@ if [ -d /workspace/infra/agents ]; then
   chown -R node:node /home/node/.config/opencode/agents/ 2>/dev/null || true
 fi
 
-# Symlink workspace skills to home so opencode loads all 97 skills
+# Symlink workspace skills to home so opencode auto-discovers from home too
 if [ -d /workspace/.agents/skills ]; then
-  rm -rf /home/node/.config/opencode/skills-v4 2>/dev/null
-  ln -sf /workspace/.agents/skills /home/node/.config/opencode/skills-v4 2>/dev/null || true
-  chown -h node:node /home/node/.config/opencode/skills-v4 2>/dev/null || true
+  rm -rf /home/node/.config/opencode/skills 2>/dev/null
+  ln -sf /workspace/.agents/skills /home/node/.config/opencode/skills 2>/dev/null || true
+  chown -h node:node /home/node/.config/opencode/skills 2>/dev/null || true
 fi
 
 # Create agent proxy script  

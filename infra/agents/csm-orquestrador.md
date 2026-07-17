@@ -1,7 +1,6 @@
 ---
 description: Orquestrador CSM - Setup inicial, triagem de flags, QBR, fechamento de loop
 mode: subagent
-model: openrouter/openai/gpt-oss-120b:free
 temperature: 0.2
 permission:
   read: allow

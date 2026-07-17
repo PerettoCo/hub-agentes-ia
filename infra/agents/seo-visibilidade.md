@@ -1,7 +1,6 @@
 ---
 description: Especialista em SEO e AI Visibility — audita, otimiza e faz marcas aparecerem em buscas e IAs
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.15
 permission:
   read: allow

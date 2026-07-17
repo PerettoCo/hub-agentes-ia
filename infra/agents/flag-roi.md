@@ -1,7 +1,6 @@
 ---
 description: Diagnostico de ROAS abaixo da meta - classifica tipo e gera CHAS para o GT
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.1
 permission:
   read: allow

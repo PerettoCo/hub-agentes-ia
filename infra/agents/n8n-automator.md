@@ -1,7 +1,6 @@
 ---
 description: Arquiteto n8n — cria, edita, valida e sincroniza workflows de automacao com n8n-as-code
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.1
 permission:
   read: allow

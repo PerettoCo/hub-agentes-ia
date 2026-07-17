@@ -1,7 +1,6 @@
 ---
 description: Analista de evolucao de check-ins — le historico completo do Mission Control e gera relatorio de progressao: taxa de cumprimento de combinados, ciclo de vida das apostas, evolucao de personas e score de saude da relacao.
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.2
 permission:
   read: allow

@@ -1,7 +1,6 @@
 ---
 description: Diagnostico de risco de churn quando NPS + CSAT caem juntos
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.1
 permission:
   read: allow

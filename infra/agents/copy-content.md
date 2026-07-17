@@ -1,7 +1,6 @@
 ---
 description: Copywriter e produtor de conteudo — escreve landing pages, emails, anuncios, redes sociais e lead magnets
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.3
 permission:
   read: allow

@@ -1,7 +1,6 @@
 ---
 description: Analista de relatorios de trafego multicanal — Google Ads, Meta Ads, Bing Ads. Gera reports consolidados, detecta anomalias, calcula pace de verba e entrega analise IA.
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.15
 permission:
   read: allow

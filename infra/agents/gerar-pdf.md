@@ -1,7 +1,6 @@
 ---
 description: Gera PDFs estilizados no padrao visual V4/Peretto usando geral-frontend-design
 mode: subagent
-model: google/gemini-2.5-flash
 temperature: 0.3
 permission:
   read: allow

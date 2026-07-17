@@ -1,7 +1,6 @@
 ---
 description: Pesquisador de profundidade — minera dados publicos, reviews, concorrentes e consumidores para gerar insights acionaveis
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.15
 permission:
   read: allow

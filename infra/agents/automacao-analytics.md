@@ -1,7 +1,6 @@
 ---
 description: Arquiteto de automacao e analytics — setup de tracking, workflows n8n e pipelines de dados
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.1
 permission:
   read: allow

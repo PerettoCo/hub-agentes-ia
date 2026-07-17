@@ -1,7 +1,6 @@
 ---
 description: Content Studio Producer — orquestra producao de conteudo integrando pesquisa, copy, design e SEO
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.25
 permission:
   read: allow

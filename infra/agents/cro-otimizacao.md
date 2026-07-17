@@ -1,7 +1,6 @@
 ---
 description: Especialista em CRO e experimentacao — otimiza conversao em paginas, signups, formularios e onboarding
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.2
 permission:
   read: allow

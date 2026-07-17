@@ -1,7 +1,6 @@
 ---
 description: Media Buyer especialista — arquitetura de contas, analise preditiva, otimizacao ROAS/CPA com dados reais
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.1
 permission:
   read: allow

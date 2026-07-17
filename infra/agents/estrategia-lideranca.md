@@ -1,7 +1,6 @@
 ---
 description: Conselheiro de lideranca e estrategia — sabetina planos, brainstorm funcao, identifica parcerias e oportunidades de launch
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.3
 permission:
   read: allow

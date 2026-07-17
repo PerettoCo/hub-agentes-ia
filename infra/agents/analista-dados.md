@@ -1,7 +1,6 @@
 ---
 description: Analisa dados de performance, OKRs, metricas e gera insights estruturados
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.1
 permission:
   read: allow

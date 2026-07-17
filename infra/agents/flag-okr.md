@@ -1,7 +1,6 @@
 ---
 description: Diagnostico de desvio de OKR quando KR < 60% do esperado
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.1
 permission:
   read: allow

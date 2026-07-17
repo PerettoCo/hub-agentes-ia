@@ -1,7 +1,6 @@
 ---
 description: Gera paginas HTML completas e responsivas usando geral-frontend-design
 mode: subagent
-model: google/gemini-2.5-flash
 temperature: 0.3
 permission:
   read: allow

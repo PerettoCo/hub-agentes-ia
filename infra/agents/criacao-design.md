@@ -1,7 +1,6 @@
 ---
 description: Diretor de criacao e design — produz interfaces, imagens, videos e apresentacoes de alto nivel
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.3
 permission:
   read: allow

@@ -1,7 +1,6 @@
 ---
 description: Valida outputs de outros agentes, confere numeros e formata saida (peso e contrapeso)
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.1
 permission:
   read: allow

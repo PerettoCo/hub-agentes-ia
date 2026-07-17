@@ -1,7 +1,6 @@
 ---
 description: Estrategista de marketing — pesquisa mercado, analisa concorrencia, define posicionamento e estrategia de conteudo
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.2
 permission:
   read: allow

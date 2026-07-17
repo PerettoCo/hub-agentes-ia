@@ -1,7 +1,6 @@
 ---
 description: Produtor de conteudo editorial — cria calendario, produz blog posts e email marketing, gerencia fluxo de aprovacao no Google Drive e entrega JSONs finais publicaveis.
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.25
 permission:
   read: allow

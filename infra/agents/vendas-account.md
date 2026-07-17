@@ -1,7 +1,6 @@
 ---
 description: Especialista em vendas e account — cria collaterais de vendas, scripts de demo, handoff e pesquisa de cliente
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.2
 permission:
   read: allow

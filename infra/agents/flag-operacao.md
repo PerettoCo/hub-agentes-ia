@@ -1,7 +1,6 @@
 ---
 description: Alerta de operacao travada - sprint atrasada sem FCA ou timesheet zerado
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.1
 permission:
   read: allow

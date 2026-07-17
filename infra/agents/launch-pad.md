@@ -1,7 +1,6 @@
 ---
 description: Launch Pad — orquestra lancamentos de produtos integrando estrategia, conteudo, midia, SEO e diretorios
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.25
 permission:
   read: allow

@@ -1,7 +1,6 @@
 ---
 description: Growth Team Lead — orquestra a estrategia de growth integrando CRO, midia paga, SEO, conteudo e receita
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.2
 permission:
   read: allow

@@ -1,7 +1,6 @@
 ---
 description: Especialista em receita e crescimento — pricing, retencao, referrals, operacoes de receita
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.2
 permission:
   read: allow

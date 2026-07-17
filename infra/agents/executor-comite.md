@@ -1,7 +1,6 @@
 ---
 description: Gera briefing automatico do Comite de P&EG com dados reais de OKRs, sprints e FCAs
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.2
 permission:
   read: allow

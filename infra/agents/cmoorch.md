@@ -1,7 +1,6 @@
 ---
 description: CMO Orchestrator — orquestra a estrategia de marketing completa, integrando todos os times e especialistas
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.2
 permission:
   read: allow

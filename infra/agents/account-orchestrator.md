@@ -1,7 +1,6 @@
 ---
 description: Account Orchestrator — orquestra a saude do cliente integrando check-ins, mission control, flags e expansao
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.2
 permission:
   read: allow

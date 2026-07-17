@@ -1,7 +1,6 @@
 ---
 description: Estrategista de midia paga — planeja, estrutura e otimiza campanhas em Meta, Google, LinkedIn e TikTok
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 temperature: 0.15
 permission:
   read: allow

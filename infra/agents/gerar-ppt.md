@@ -1,7 +1,6 @@
 ---
 description: Gera apresentacoes em PPT/HTML no padrao visual V4 usando geral-frontend-design
 mode: subagent
-model: google/gemini-2.5-flash
 temperature: 0.3
 permission:
   read: allow

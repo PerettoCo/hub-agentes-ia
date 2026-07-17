@@ -136,6 +136,9 @@ services:
       SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
+      EKYTE_TOKEN: ${EKYTE_TOKEN_MARCOS:-}
+      GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
+      GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: marcos.luciano
     volumes:
       - opencode-data-marcos:/workspace/.local/share/opencode
@@ -167,6 +170,9 @@ services:
       SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
+      EKYTE_TOKEN: ${EKYTE_TOKEN_FHELIPE:-}
+      GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
+      GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: fhelipe.aranha
     volumes:
       - opencode-data-fhelipe:/workspace/.local/share/opencode
@@ -198,6 +204,9 @@ services:
       SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
+      EKYTE_TOKEN: ${EKYTE_TOKEN_LUCAS:-}
+      GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
+      GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: lucas.nunes
     volumes:
       - opencode-data-lucasnunes:/workspace/.local/share/opencode
@@ -229,6 +238,9 @@ services:
       SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
+      EKYTE_TOKEN: ${EKYTE_TOKEN_PAOLO:-}
+      GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
+      GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: paolo.carmine
     volumes:
       - opencode-data-paolo:/workspace/.local/share/opencode
@@ -260,6 +272,9 @@ services:
       SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
+      EKYTE_TOKEN: ${EKYTE_TOKEN_BRUNO:-}
+      GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
+      GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: bruno.lindenmeyer
     volumes:
       - opencode-data-bruno:/workspace/.local/share/opencode
@@ -291,6 +306,9 @@ services:
       SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
+      EKYTE_TOKEN: ${EKYTE_TOKEN_ITALO:-}
+      GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
+      GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: italo.rossi
     volumes:
       - opencode-data-italo:/workspace/.local/share/opencode
