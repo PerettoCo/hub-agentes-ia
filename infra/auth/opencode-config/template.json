@@ -8,10 +8,7 @@
         "apiKey": "{env:OPENAI_API_KEY}",
         "baseURL": "{env:OPENAI_BASE_URL}"
       },
-      "npm": "@ai-sdk/openai-compatible",
-      "models": {
-        "deepseek-v4-flash-free": { "type": "chat", "family": "deepseek" }
-      }
+      "npm": "@ai-sdk/openai-compatible"
     }
   },
   "mcp": {
