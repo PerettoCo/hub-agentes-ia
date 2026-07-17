@@ -14,7 +14,7 @@ mkdir -p /home/node/.npm /home/node/.cache /home/node/.config/opencode
 git config --global safe.directory '*'
 
 GIT_REPO="${HUB_REPO:-PerettoCo/hub-agentes}"
-GIT_BRANCH="${HUB_BRANCH:-infra-v2}"
+GIT_BRANCH="${HUB_BRANCH:-infra-v2-clean}"
 GIT_USER="${HUB_GIT_USER:-marcoslrvusa}"
 
 if [ -n "$GITHUB_TOKEN" ]; then
@@ -32,7 +32,7 @@ if [ -n "$GITHUB_TOKEN" ]; then
     echo "[entrypoint] Updating workspace..."
     git -C /workspace remote set-url origin "$REPO_URL"
     git -C /workspace fetch --all
-    git -C /workspace reset --hard "origin/$GIT_BRANCH"
+    git -C /workspace checkout -B "$GIT_BRANCH" "origin/$GIT_BRANCH"
     git -C /workspace remote set-url origin "$PUBLIC_URL"
   fi
 
