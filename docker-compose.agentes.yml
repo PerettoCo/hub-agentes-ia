@@ -1,16 +1,10 @@
 volumes:
   opencode-data-marcos:
-  opencode-workspace-marcos:
   opencode-data-fhelipe:
-  opencode-workspace-fhelipe:
   opencode-data-lucasnunes:
-  opencode-workspace-lucasnunes:
   opencode-data-paolo:
-  opencode-workspace-paolo:
   opencode-data-bruno:
-  opencode-workspace-bruno:
   opencode-data-italo:
-  opencode-workspace-italo:
   opencode-auth-data:
 
 services:
@@ -23,53 +17,6 @@ services:
     depends_on:
       opencode-auth:
         condition: service_started
-    networks:
-      - default
-      - dokploy-network
-    labels:
-      - traefik.enable=true
-      - traefik.docker.network=dokploy-network
-      - traefik.http.routers.opencode-gateway.rule=Host(`ia.fvmarketing.com.br`)
-      - traefik.http.routers.opencode-gateway-opencode.rule=Host(`opencode.fvmarketing.com.br`)
-      - traefik.http.routers.opencode-gateway-opencode.service=opencode-gateway
-      - traefik.http.routers.opencode-gateway-opencode.entrypoints=websecure
-      - traefik.http.routers.opencode-gateway-opencode.tls=true
-      - traefik.http.routers.opencode-gateway-opencode.tls.certresolver=letsencrypt
-      - traefik.http.routers.opencode-gateway-usermarcos.rule=Host(`ia.marcosluciano.fvmarketing.com.br`)
-      - traefik.http.routers.opencode-gateway-usermarcos.service=opencode-gateway
-      - traefik.http.routers.opencode-gateway-usermarcos.entrypoints=websecure
-      - traefik.http.routers.opencode-gateway-usermarcos.tls=true
-      - traefik.http.routers.opencode-gateway-usermarcos.tls.certresolver=letsencrypt
-      - traefik.http.routers.opencode-gateway-userfhelipe.rule=Host(`ia.fhelipearanha.fvmarketing.com.br`)
-      - traefik.http.routers.opencode-gateway-userfhelipe.service=opencode-gateway
-      - traefik.http.routers.opencode-gateway-userfhelipe.entrypoints=websecure
-      - traefik.http.routers.opencode-gateway-userfhelipe.tls=true
-      - traefik.http.routers.opencode-gateway-userfhelipe.tls.certresolver=letsencrypt
-      - traefik.http.routers.opencode-gateway-userlucas.rule=Host(`ia.lucasnunes.fvmarketing.com.br`)
-      - traefik.http.routers.opencode-gateway-userlucas.service=opencode-gateway
-      - traefik.http.routers.opencode-gateway-userlucas.entrypoints=websecure
-      - traefik.http.routers.opencode-gateway-userlucas.tls=true
-      - traefik.http.routers.opencode-gateway-userlucas.tls.certresolver=letsencrypt
-      - traefik.http.routers.opencode-gateway-userpaolo.rule=Host(`ia.paolocarmine.fvmarketing.com.br`)
-      - traefik.http.routers.opencode-gateway-userpaolo.service=opencode-gateway
-      - traefik.http.routers.opencode-gateway-userpaolo.entrypoints=websecure
-      - traefik.http.routers.opencode-gateway-userpaolo.tls=true
-      - traefik.http.routers.opencode-gateway-userpaolo.tls.certresolver=letsencrypt
-      - traefik.http.routers.opencode-gateway-userbruno.rule=Host(`ia.brunolindenmeyer.fvmarketing.com.br`)
-      - traefik.http.routers.opencode-gateway-userbruno.service=opencode-gateway
-      - traefik.http.routers.opencode-gateway-userbruno.entrypoints=websecure
-      - traefik.http.routers.opencode-gateway-userbruno.tls=true
-      - traefik.http.routers.opencode-gateway-userbruno.tls.certresolver=letsencrypt
-      - traefik.http.routers.opencode-gateway-useritalo.rule=Host(`ia.italorossi.fvmarketing.com.br`)
-      - traefik.http.routers.opencode-gateway-useritalo.service=opencode-gateway
-      - traefik.http.routers.opencode-gateway-useritalo.entrypoints=websecure
-      - traefik.http.routers.opencode-gateway-useritalo.tls=true
-      - traefik.http.routers.opencode-gateway-useritalo.tls.certresolver=letsencrypt
-      - traefik.http.services.opencode-gateway.loadbalancer.server.port=80
-      - traefik.http.routers.opencode-gateway.service=opencode-gateway
-      - traefik.http.routers.opencode-gateway.entrypoints=websecure
-      - traefik.http.routers.opencode-gateway.tls=true
-      - traefik.http.routers.opencode-gateway.tls.certresolver=letsencrypt
     healthcheck:
       test: ["CMD", "nginx", "-t"]
       interval: 30s
@@ -93,12 +40,6 @@ services:
       DEFAULT_PASSWORD: ${DEFAULT_PASSWORD:-v4@2025}
       USERS_PATH: /data/users.json
       NODE_ENV: production
-      USERPWD_marcos_luciano: ${USERPWD_MARCOS:-P3R3TT0M4RK3T1NG@PeTR}
-      USERPWD_fhelipe_aranha: ${USERPWD_FHELIPE:-P3R3TT0M4RK3T1NG@zfQk}
-      USERPWD_lucas_nunes: ${USERPWD_LUCAS:-P3R3TT0M4RK3T1NG@omBh}
-      USERPWD_paolo_carmine: ${USERPWD_PAOLO:-P3R3TT0M4RK3T1NG@Ufwb}
-      USERPWD_bruno_lindenmeyer: ${USERPWD_BRUNO:-P3R3TT0M4RK3T1NG@QBb}
-      USERPWD_italo_rossi: ${USERPWD_ITALO:-P3R3TT0M4RK3T1NG@GSb}
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/health"]
@@ -107,50 +48,29 @@ services:
       retries: 3
       start_period: 10s
 
-  # ─── Cloudflare Tunnel ───
-  # Descomente para usar. Substitui portas expostas — sem portas abertas no host.
-  # Configure TUNNEL_TOKEN no .env. Crie o tunnel em Cloudflare Zero Trust → Tunnels.
-  #
-  # cloudflared:
-  #   image: cloudflare/cloudflared:latest
-  #   command: tunnel --no-autoupdate run
-  #   environment:
-  #     TUNNEL_TOKEN: ${TUNNEL_TOKEN:?Configure TUNNEL_TOKEN no .env}
-  #   restart: unless-stopped
-  #   network_mode: "service:opencode-gateway"
-
   # ─── OpenCode — Marcos Luciano ───
   opencode-marcos:
     build:
       context: .
       dockerfile: infra/Dockerfile.opencode
     environment:
-      HOME: /workspace
       OPENCODE_SERVER_USERNAME: opencode
       OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?OPENCODE_SERVER_PASSWORD é obrigatório}
       OPENAI_API_KEY: ${LITELLM_KEY_MARCOS:?LITELLM_KEY_MARCOS é obrigatório}
-      OPENAI_BASE_URL: http://litellm:4000/v1
+      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       SUPABASE_URL: ${SUPABASE_URL:-}
       SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
-      EKYTE_TOKEN: ${EKYTE_TOKEN_MARCOS:-}
-      GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
-      GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: marcos.luciano
-    networks:
-      - default
-      - dokploy-network
     volumes:
-      - opencode-data-marcos:/workspace/.local/share/opencode
-      - opencode-workspace-marcos:/workspace
-      - ./infra/entrypoint.sh:/entrypoint.sh:ro
-      - ./infra/auth/opencode-config/marcos.luciano.json:/workspace/.config/opencode/opencode.json:ro
+      - opencode-data-marcos:/home/node/.local/share/opencode
+      - ./infra/auth/opencode-config/marcos.luciano.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- --user=opencode --password=\"$OPENCODE_SERVER_PASSWORD\" http://localhost:4096/global/health"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:4096/global/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -162,32 +82,23 @@ services:
       context: .
       dockerfile: infra/Dockerfile.opencode
     environment:
-      HOME: /workspace
       OPENCODE_SERVER_USERNAME: opencode
       OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?}
       OPENAI_API_KEY: ${LITELLM_KEY_FHELIPE:?}
-      OPENAI_BASE_URL: http://litellm:4000/v1
+      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       SUPABASE_URL: ${SUPABASE_URL:-}
       SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
-      EKYTE_TOKEN: ${EKYTE_TOKEN_FHELIPE:-}
-      GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
-      GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: fhelipe.aranha
-    networks:
-      - default
-      - dokploy-network
     volumes:
-      - opencode-data-fhelipe:/workspace/.local/share/opencode
-      - opencode-workspace-fhelipe:/workspace
-      - ./infra/entrypoint.sh:/entrypoint.sh:ro
-      - ./infra/auth/opencode-config/fhelipe.aranha.json:/workspace/.config/opencode/opencode.json:ro
+      - opencode-data-fhelipe:/home/node/.local/share/opencode
+      - ./infra/auth/opencode-config/fhelipe.aranha.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- --user=opencode --password=\"$OPENCODE_SERVER_PASSWORD\" http://localhost:4096/global/health"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:4096/global/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -199,32 +110,23 @@ services:
       context: .
       dockerfile: infra/Dockerfile.opencode
     environment:
-      HOME: /workspace
       OPENCODE_SERVER_USERNAME: opencode
       OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?}
       OPENAI_API_KEY: ${LITELLM_KEY_LUCASNUNES:?}
-      OPENAI_BASE_URL: http://litellm:4000/v1
+      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       SUPABASE_URL: ${SUPABASE_URL:-}
       SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
-      EKYTE_TOKEN: ${EKYTE_TOKEN_LUCAS:-}
-      GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
-      GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: lucas.nunes
-    networks:
-      - default
-      - dokploy-network
     volumes:
-      - opencode-data-lucasnunes:/workspace/.local/share/opencode
-      - opencode-workspace-lucasnunes:/workspace
-      - ./infra/entrypoint.sh:/entrypoint.sh:ro
-      - ./infra/auth/opencode-config/lucas.nunes.json:/workspace/.config/opencode/opencode.json:ro
+      - opencode-data-lucasnunes:/home/node/.local/share/opencode
+      - ./infra/auth/opencode-config/lucas.nunes.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- --user=opencode --password=\"$OPENCODE_SERVER_PASSWORD\" http://localhost:4096/global/health"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:4096/global/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -236,32 +138,23 @@ services:
       context: .
       dockerfile: infra/Dockerfile.opencode
     environment:
-      HOME: /workspace
       OPENCODE_SERVER_USERNAME: opencode
       OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?}
-      OPENAI_API_KEY: ${LITELLM_KEY_MARCOS:?}
-      OPENAI_BASE_URL: http://litellm:4000/v1
+      OPENAI_API_KEY: ${LITELLM_KEY_PAOLO:?}
+      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       SUPABASE_URL: ${SUPABASE_URL:-}
       SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
-      EKYTE_TOKEN: ${EKYTE_TOKEN_PAOLO:-}
-      GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
-      GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: paolo.carmine
-    networks:
-      - default
-      - dokploy-network
     volumes:
-      - opencode-data-paolo:/workspace/.local/share/opencode
-      - opencode-workspace-paolo:/workspace
-      - ./infra/entrypoint.sh:/entrypoint.sh:ro
-      - ./infra/auth/opencode-config/paolo.carmine.json:/workspace/.config/opencode/opencode.json:ro
+      - opencode-data-paolo:/home/node/.local/share/opencode
+      - ./infra/auth/opencode-config/paolo.carmine.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- --user=opencode --password=\"$OPENCODE_SERVER_PASSWORD\" http://localhost:4096/global/health"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:4096/global/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -273,32 +166,23 @@ services:
       context: .
       dockerfile: infra/Dockerfile.opencode
     environment:
-      HOME: /workspace
       OPENCODE_SERVER_USERNAME: opencode
       OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?}
       OPENAI_API_KEY: ${LITELLM_KEY_BRUNO:?}
-      OPENAI_BASE_URL: http://litellm:4000/v1
+      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       SUPABASE_URL: ${SUPABASE_URL:-}
       SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
-      EKYTE_TOKEN: ${EKYTE_TOKEN_BRUNO:-}
-      GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
-      GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: bruno.lindenmeyer
-    networks:
-      - default
-      - dokploy-network
     volumes:
-      - opencode-data-bruno:/workspace/.local/share/opencode
-      - opencode-workspace-bruno:/workspace
-      - ./infra/entrypoint.sh:/entrypoint.sh:ro
-      - ./infra/auth/opencode-config/bruno.lindenmeyer.json:/workspace/.config/opencode/opencode.json:ro
+      - opencode-data-bruno:/home/node/.local/share/opencode
+      - ./infra/auth/opencode-config/bruno.lindenmeyer.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- --user=opencode --password=\"$OPENCODE_SERVER_PASSWORD\" http://localhost:4096/global/health"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:4096/global/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -310,37 +194,24 @@ services:
       context: .
       dockerfile: infra/Dockerfile.opencode
     environment:
-      HOME: /workspace
       OPENCODE_SERVER_USERNAME: opencode
       OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?}
       OPENAI_API_KEY: ${LITELLM_KEY_ITALO:?}
-      OPENAI_BASE_URL: http://litellm:4000/v1
+      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       SUPABASE_URL: ${SUPABASE_URL:-}
       SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-}
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
-      EKYTE_TOKEN: ${EKYTE_TOKEN_ITALO:-}
-      GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
-      GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: italo.rossi
-    networks:
-      - default
-      - dokploy-network
     volumes:
-      - opencode-data-italo:/workspace/.local/share/opencode
-      - opencode-workspace-italo:/workspace
-      - ./infra/entrypoint.sh:/entrypoint.sh:ro
-      - ./infra/auth/opencode-config/italo.rossi.json:/workspace/.config/opencode/opencode.json:ro
+      - opencode-data-italo:/home/node/.local/share/opencode
+      - ./infra/auth/opencode-config/italo.rossi.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- --user=opencode --password=\"$OPENCODE_SERVER_PASSWORD\" http://localhost:4096/global/health"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:4096/global/health"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 30s
-
-networks:
-  dokploy-network:
-    external: true

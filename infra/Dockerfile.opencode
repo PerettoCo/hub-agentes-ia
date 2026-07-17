@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
   wget \
   && rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g opencode-ai@1.17.20 @ai-sdk/openai-compatible
+RUN npm install -g opencode-ai@latest @ai-sdk/openai-compatible
 
 COPY infra/scripts/requirements.txt /tmp/requirements.txt
 RUN pip3 install -r /tmp/requirements.txt --break-system-packages && rm -f /tmp/requirements.txt
@@ -16,22 +16,21 @@ RUN pip3 install -r /tmp/requirements.txt --break-system-packages && rm -f /tmp/
 RUN mkdir -p \
   /home/node/.config/opencode \
   /home/node/.local/share/opencode \
-  /home/node/.cache \
-  /home/node/.npm \
   /workspace \
   /home/node/.agents \
-  && chown -R node:node /home/node/.config /home/node/.local /home/node/.cache /home/node/.npm /workspace /home/node/.agents
+  && chown -R node:node /home/node/.config /home/node/.local /workspace /home/node/.agents
 
 ENV OPENCODE_HOSTNAME=0.0.0.0
 ENV OPENCODE_PORT=4096
 ENV NODE_PATH=/usr/local/lib/node_modules
 
 COPY --chown=node:node infra/entrypoint.sh /entrypoint.sh
-RUN chmod 755 /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
+USER node
 WORKDIR /workspace
 
 EXPOSE 4096
 
-ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["opencode", "web", "--hostname", "0.0.0.0", "--port", "4096", "--print-logs"]
