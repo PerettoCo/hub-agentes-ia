@@ -2,33 +2,62 @@
   "$schema": "https://opencode.ai/config.json",
   "model": "litellm/deepseek-v4-flash-free",
   "small_model": "litellm/deepseek-v4-flash-free",
-  "provider": {
+  "workspace": "/workspace",
+  "providers": {
     "litellm": {
-      "options": {
+      "name": "V4 LiteLLM",
+      "package": "aisdk:@ai-sdk/openai-compatible",
+      "settings": {
         "apiKey": "{env:OPENAI_API_KEY}",
         "baseURL": "{env:OPENAI_BASE_URL}"
       },
-      "npm": "@ai-sdk/openai-compatible"
+      "models": {
+        "deepseek-v4-flash-free": {
+          "name": "DeepSeek V4 Flash Free",
+          "capabilities": { "tools": true, "input": ["text"], "output": ["text"] },
+          "limit": { "context": 128000, "output": 32768 }
+        },
+        "mimo-v2.5-free": {
+          "name": "MiMo V2.5 Free",
+          "capabilities": { "tools": true, "input": ["text"], "output": ["text"] },
+          "limit": { "context": 128000, "output": 32768 }
+        },
+        "nemotron-3-ultra-free": {
+          "name": "Nemotron 3 Ultra Free",
+          "capabilities": { "tools": true, "input": ["text"], "output": ["text"] },
+          "limit": { "context": 128000, "output": 32768 }
+        },
+        "big-pickle": {
+          "name": "Big Pickle",
+          "capabilities": { "tools": true, "input": ["text"], "output": ["text"] },
+          "limit": { "context": 128000, "output": 8192 }
+        },
+        "north-mini-code-free": {
+          "name": "North Mini Code Free",
+          "capabilities": { "tools": true, "input": ["text"], "output": ["text"] },
+          "limit": { "context": 64000, "output": 16384 }
+        }
+      }
     }
   },
   "mcp": {
-    "ekyte": {
-      "type": "remote",
-      "url": "https://api.ekyte.com/mcp",
-      "headers": {
-        "Authorization": "Bearer {env:EKYTE_TOKEN}"
-      }
-    },
-    "google-drive": {
-      "type": "remote",
-      "url": "https://drivemcp.googleapis.com/mcp/v1",
-      "oauth": {
-        "clientId": "{env:GOOGLE_DRIVE_CLIENT_ID}",
-        "clientSecret": "{env:GOOGLE_DRIVE_CLIENT_SECRET}"
+    "servers": {
+      "ekyte": {
+        "type": "remote",
+        "url": "https://api.ekyte.com/mcp",
+        "headers": { "Authorization": "Bearer {env:EKYTE_TOKEN}" }
+      },
+      "google-drive": {
+        "type": "remote",
+        "url": "https://drivemcp.googleapis.com/mcp/v1",
+        "oauth": {
+          "clientId": "{env:GOOGLE_DRIVE_CLIENT_ID}",
+          "clientSecret": "{env:GOOGLE_DRIVE_CLIENT_SECRET}"
+        }
       }
     }
   },
-  "agent": {
+  "agents": {
     "account-orchestrator": { "description": "Account Orchestrator — orquestra a saude do cliente integrando check-ins, mission control, flags e expansao", "mode": "subagent" },
     "analista-dados": { "description": "Analisa dados de performance, OKRs, metricas e gera insights estruturados", "mode": "subagent" },
     "automacao-analytics": { "description": "Arquiteto de automacao e analytics — setup de tracking, workflows n8n e pipelines de dados", "mode": "subagent" },
@@ -65,16 +94,16 @@
     "seo-visibilidade": { "description": "Especialista em SEO e AI Visibility — audita, otimiza e faz marcas aparecerem em buscas e IAs", "mode": "subagent" },
     "vendas-account": { "description": "Especialista em vendas e account — cria collaterais de vendas, scripts de demo, handoff e pesquisa de cliente", "mode": "subagent" }
   },
-  "permission": {
-    "edit": "allow",
-    "bash": "allow",
-    "read": "allow",
-    "glob": "allow",
-    "grep": "allow",
-    "webfetch": "allow",
-    "websearch": "allow",
-    "skill": "allow",
-    "question": "allow",
-    "todowrite": "allow"
-  }
+  "permissions": [
+    { "action": "edit", "resource": "*", "effect": "allow" },
+    { "action": "bash", "resource": "*", "effect": "allow" },
+    { "action": "read", "resource": "*", "effect": "allow" },
+    { "action": "glob", "resource": "*", "effect": "allow" },
+    { "action": "grep", "resource": "*", "effect": "allow" },
+    { "action": "webfetch", "resource": "*", "effect": "allow" },
+    { "action": "websearch", "resource": "*", "effect": "allow" },
+    { "action": "skill", "resource": "*", "effect": "allow" },
+    { "action": "question", "resource": "*", "effect": "allow" },
+    { "action": "todowrite", "resource": "*", "effect": "allow" }
+  ]
 }
