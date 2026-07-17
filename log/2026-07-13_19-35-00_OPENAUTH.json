@@ -1,0 +1,16 @@
+{
+  "title": "OpenCode Login - Lucas finalizado + Docs + compactar rename",
+  "summary": "Finalização do lucas.nunes, criação de docs de acesso e auditoria, renomeação da skill compact para compactar.",
+  "changes": [
+    "Adicionado lucas.nunes em users.json (senha: P3R3TT0M4RK3T1NGbuf, porta 4095)",
+    "Adicionado LITELLM_KEY_LUCASNUNES no .env",
+    "Criado docs/acesso-hub-agentes.md — listinha de acesso com usuários e senhas explícitas",
+    "Criado docs/opencode-hub-documentacao.md — documentação completa em markdown",
+    "Criado docs/opencode-hub-auditoria.html — report visual no padrão V4 (vermelho+dourado+Ubuntu)",
+    "Renomeado skill geral-compact → geral-compactar (diretório + frontmatter + /compactar)",
+    "Skill geral-leitor-arquivos criada (dual-write)",
+    "Skill geral-rag-documentos criada (dual-write)",
+    "Script scripts/file-reader.py criado (PDF, DOCX, XLSX, PPTX, OCR)",
+    "Dockerfile.opencode atualizado com mammoth e pdf-parse"
+  ]
+}

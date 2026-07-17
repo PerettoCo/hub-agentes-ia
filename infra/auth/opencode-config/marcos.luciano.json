@@ -9,9 +9,9 @@
         "baseURL": "{env:OPENAI_BASE_URL}"
       },
       "npm": "@ai-sdk/openai-compatible",
-      "models": [
-        { "name": "deepseek-v4-flash-free", "type": "chat", "family": "deepseek" }
-      ]
+      "models": {
+        "deepseek-v4-flash-free": { "type": "chat", "family": "deepseek" }
+      }
     }
   },
   "mcp": {

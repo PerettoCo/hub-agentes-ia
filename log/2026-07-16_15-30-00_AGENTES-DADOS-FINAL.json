@@ -1,0 +1,86 @@
+{
+  "session": {
+    "date": "2026-07-16",
+    "title": "AGENTES-DADOS-FINAL",
+    "objective": "Adicionar Supabase DADOS como fonte primária de dados para todos os agentes no AGENTS.md, corrigir dual-folder (/ e /workspace) para fhelipe.aranha e paolo.carmine, e documentar todo o histórico de configuração."
+  },
+  "summary": "Finalização da configuração dos agentes OpenCode com banco de dados centralizado e correção de UI.",
+  "findings": {
+    "data_infrastructure": {
+      "supabase_dados": {
+        "url": "https://mhntycubvywjszweeuxs.supabase.co",
+        "tables": 112,
+        "fact_tables": ["11Service", "DBClientes", "f_gerenciador_meta", "f_gerenciador_google_ad"],
+        "dim_tables": ["DBSquads", "DBPessoas", "DBFuncoes", "DBProdutos", "d_conta_meta", "d_conta_google", "d_campanha_google", "d_ad_meta", "d_ad_google", "d_ad_group_google", "d_public_meta"],
+        "kickoff_tables": ["121Kickoff", "121KickoffEE"],
+        "checkin_table": "50TranscricaoCheckin"
+      },
+      "snowflake_relationships": {
+        "11Service.cliente12arrayvalueid": "→ DBClientes.cardid",
+        "11Service.squadsarrayvalueid": "→ DBSquads.cardid",
+        "11Service.pessoalenvolvidoarrayvalueid": "→ DBPessoas.cardid",
+        "DBClientes.headprincipaldacontaarrayvalueid": "→ DBPessoas.cardid",
+        "DBPessoas.funcaoarrayvalueid": "→ DBFuncoes.cardid",
+        "121KickoffEE.dbcliente_id": "→ DBClientes.cardid"
+      }
+    },
+    "container_issue": {
+      "problem": "fhelipe.aranha e paolo.carmine viam duas opções na home (/ e /workspace)",
+      "root_cause": "Ausência de workspace explícito no opencode.json — OpenCode mostrava o filesystem raiz como alternativa",
+      "fix": "Adicionado \"workspace\": \"/workspace\" a todos os 7 configs (+ template.json)"
+    }
+  },
+  "completed_work": [
+    "Sessão 1 (13/07): Deploy OpenCode — 6 containers, config SSHD + proxy + auth",
+    "Sessão 2 (13/07): Upload de 35 agentes V4 + 18 SEO + registro de 53 subagentes",
+    "Sessão 3 (13/07): Config de dados — 8 agentes com instruções de consulta ao Supabase DADOS",
+    "Sessão 4 (16/07): Schema snowflake — query das 5 tabelas principais + dims de tráfego",
+    "Sessão 5 (16/07): AGENTS.md global — seção Supabase DADOS com schema completo, relacionamentos, exemplos GET-only",
+    "Sessão 5 (16/07): PDF reading — instruções de file-reader.py no AGENTS.md",
+    "Sessão 5 (16/07): Fix dual-folder — workspace: /workspace em todos os configs",
+    "Sessão 5 (16/07): Restart fhelipe + paolo para aplicar correção"
+  ],
+  "file_system_changes": {
+    "server_files": [
+      "/etc/dokploy/compose/.../code/AGENTS.md — seção DADOS adicionada (13915 bytes, 256 linhas)",
+      "/etc/dokploy/compose/.../code/infra/auth/opencode-config/template.json — workspace: /workspace",
+      "/etc/dokploy/compose/.../code/infra/auth/opencode-config/marcos.luciano.json — workspace: /workspace",
+      "/etc/dokploy/compose/.../code/infra/auth/opencode-config/fhelipe.aranha.json — workspace: /workspace",
+      "/etc/dokploy/compose/.../code/infra/auth/opencode-config/paolo.carmine.json — workspace: /workspace",
+      "/etc/dokploy/compose/.../code/infra/auth/opencode-config/lucas.nunes.json — workspace: /workspace",
+      "/etc/dokploy/compose/.../code/infra/auth/opencode-config/bruno.lindenmeyer.json — workspace: /workspace",
+      "/etc/dokploy/compose/.../code/infra/auth/opencode-config/italo.rossi.json — workspace: /workspace"
+    ],
+    "docker_volumes_updated": [
+      "authopencode-authlogin-ippaei_opencode-workspace-marcos/_data/AGENTS.md",
+      "authopencode-authlogin-ippaei_opencode-workspace-bruno/_data/AGENTS.md",
+      "authopencode-authlogin-ippaei_opencode-workspace-fhelipe/_data/AGENTS.md",
+      "authopencode-authlogin-ippaei_opencode-workspace-paolo/_data/AGENTS.md",
+      "authopencode-authlogin-ippaei_opencode-workspace-italo/_data/AGENTS.md",
+      "authopencode-authlogin-ippaei_opencode-workspace-lucasnunes/_data/AGENTS.md"
+    ]
+  },
+  "user_status": {
+    "marcos.luciano": "Rodando redondo — workspace /workspace apenas",
+    "fhelipe.aranha": "CORRIGIDO — workspace configurado, container reiniciado",
+    "paolo.carmine": "CORRIGIDO — workspace configurado, container reiniciado",
+    "lucas.nunes": "Rodando perfeito — workspace /workspace apenas",
+    "bruno.lindenmeyer": "Funcionando redondo — workspace /workspace apenas",
+    "italo.rossi": "Funcionando redondo — workspace /workspace apenas"
+  },
+  "next_steps": [
+    "Usuários validarem que fhelipe e paolo agora mostram apenas /workspace",
+    "Testar @analista-dados e @seo-visibilidade consultando Supabase DADOS",
+    "Conectar MCP do Google Drive (para mission-control escrever nas pastas)",
+    "Conectar MCP do e-kyte (já configurado no opencode.server.json)",
+    "Adicionar skill de mission-control que sincroniza Supabase + Drive",
+    "Adicionar team config quando OpenCode suportar"
+  ],
+  "credentials": {
+    "server": "root@2.25.148.214",
+    "supabase_dados_url": "https://mhntycubvywjszweeuxs.supabase.co",
+    "supabase_dados_service_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1obnR5Y3Vidnl3anN6d2VldXhzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MDIyNDY5NSwiZXhwIjoyMDg1ODAwNjk1fQ.8zdXRCExxqIZ7rx25FORtd2ObmG974RdL-Sm7yErwVg",
+    "opencode_version": "1.17.20",
+    "opencode_server": "https://llm.v4company.com.br"
+  }
+}

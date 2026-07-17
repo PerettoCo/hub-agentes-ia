@@ -1,0 +1,36 @@
+Esses são os principais 
+
+121Kickoff
+121KickoffEE
+
+DBClientes
+-Space ID - Gchat
+-Workspace e-kyte
+-Link do drive do clienteTa
+
+11Service Fato (Clientes > Squad > Pessoas)
+50TranscricaoCheckin
+
+
+
+
+
+
+
+
+E tem os de tráfego (Espero que você consiga relacionar as tabelas entre si para quando perguntar sobre um cliente venha só sobre ele as informações. Tipo no topdown do Google sabe: Campanhas> Grupo de Anúncios > Anúncios 
+
+f_gerenciador_google_ad
+f_gerenciador_google_campanha
+f_gerenciador_google_pmax
+f_gerenciador_keyword
+f_gerenciador_search_term
+f_gerenciador_meta
+meta_anomalia_alerta_log
+meta_spend_diario_log
+meta_saldo_alerta_streak
+
+
+
+
+

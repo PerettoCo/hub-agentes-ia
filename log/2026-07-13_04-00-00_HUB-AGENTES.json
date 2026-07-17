@@ -1,0 +1,22 @@
+{
+  "title": "Hub de Agentes + Catálogo Skills — docs/",
+  "summary": "Criação do catálogo completo de skills/agentes/times + correções na documentação de infra",
+  "changes": [
+    "docs/catalogo-skills-v1.html — página interativa com busca: 96 skills, 35 agentes, 8 orquestradores, 2 times, 7 comandos",
+    "Tabela de usuários: adicionado Bruno Lindenmeyer + função de cada um (Stephanie copy, Samuel design, Bruno tráfego)",
+    "Seção de próximos passos atualizada com visão 'banco como fonte da verdade' (sem /contexto)",
+    "Vision section reescrita: base de dados → camada 1, não arquivos .md"
+  ],
+  "files_modified": [
+    "docs/catalogo-skills-v1.html",
+    "docs/hub-agentes-v1.html",
+    "docs/hub-agentes-v1.md"
+  ],
+  "next_steps": [
+    "Modelar banco de dados de clientes (tabelas calls, transcripts, decisions)",
+    "Instanciar novos usuários (Stephanie, Samuel, Bruno)",
+    "Configurar Google Drive MCP",
+    "Pipeline de integração Base → Agente",
+    "Dashboard executivo de clientes"
+  ]
+}

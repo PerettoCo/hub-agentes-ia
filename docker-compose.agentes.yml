@@ -129,7 +129,7 @@ services:
       OPENCODE_SERVER_USERNAME: opencode
       OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?OPENCODE_SERVER_PASSWORD é obrigatório}
       OPENAI_API_KEY: ${LITELLM_KEY_MARCOS:?LITELLM_KEY_MARCOS é obrigatório}
-      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
+      OPENAI_BASE_URL: http://litellm:4000/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       SUPABASE_URL: ${SUPABASE_URL:-}
@@ -140,6 +140,9 @@ services:
       GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
       GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: marcos.luciano
+    networks:
+      - default
+      - dokploy-network
     volumes:
       - opencode-data-marcos:/workspace/.local/share/opencode
       - opencode-workspace-marcos:/workspace
@@ -163,7 +166,7 @@ services:
       OPENCODE_SERVER_USERNAME: opencode
       OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?}
       OPENAI_API_KEY: ${LITELLM_KEY_FHELIPE:?}
-      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
+      OPENAI_BASE_URL: http://litellm:4000/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       SUPABASE_URL: ${SUPABASE_URL:-}
@@ -174,6 +177,9 @@ services:
       GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
       GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: fhelipe.aranha
+    networks:
+      - default
+      - dokploy-network
     volumes:
       - opencode-data-fhelipe:/workspace/.local/share/opencode
       - opencode-workspace-fhelipe:/workspace
@@ -197,7 +203,7 @@ services:
       OPENCODE_SERVER_USERNAME: opencode
       OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?}
       OPENAI_API_KEY: ${LITELLM_KEY_LUCASNUNES:?}
-      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
+      OPENAI_BASE_URL: http://litellm:4000/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       SUPABASE_URL: ${SUPABASE_URL:-}
@@ -208,6 +214,9 @@ services:
       GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
       GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: lucas.nunes
+    networks:
+      - default
+      - dokploy-network
     volumes:
       - opencode-data-lucasnunes:/workspace/.local/share/opencode
       - opencode-workspace-lucasnunes:/workspace
@@ -231,7 +240,7 @@ services:
       OPENCODE_SERVER_USERNAME: opencode
       OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?}
       OPENAI_API_KEY: ${LITELLM_KEY_MARCOS:?}
-      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
+      OPENAI_BASE_URL: http://litellm:4000/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       SUPABASE_URL: ${SUPABASE_URL:-}
@@ -242,6 +251,9 @@ services:
       GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
       GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: paolo.carmine
+    networks:
+      - default
+      - dokploy-network
     volumes:
       - opencode-data-paolo:/workspace/.local/share/opencode
       - opencode-workspace-paolo:/workspace
@@ -265,7 +277,7 @@ services:
       OPENCODE_SERVER_USERNAME: opencode
       OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?}
       OPENAI_API_KEY: ${LITELLM_KEY_BRUNO:?}
-      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
+      OPENAI_BASE_URL: http://litellm:4000/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       SUPABASE_URL: ${SUPABASE_URL:-}
@@ -276,6 +288,9 @@ services:
       GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
       GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: bruno.lindenmeyer
+    networks:
+      - default
+      - dokploy-network
     volumes:
       - opencode-data-bruno:/workspace/.local/share/opencode
       - opencode-workspace-bruno:/workspace
@@ -299,7 +314,7 @@ services:
       OPENCODE_SERVER_USERNAME: opencode
       OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?}
       OPENAI_API_KEY: ${LITELLM_KEY_ITALO:?}
-      OPENAI_BASE_URL: https://litellm.fvmarketing.com.br/v1
+      OPENAI_BASE_URL: http://litellm:4000/v1
       OPENCODE_DISABLE_MODELS_FETCH: "false"
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       SUPABASE_URL: ${SUPABASE_URL:-}
@@ -310,6 +325,9 @@ services:
       GOOGLE_DRIVE_CLIENT_ID: ${GOOGLE_DRIVE_CLIENT_ID:-}
       GOOGLE_DRIVE_CLIENT_SECRET: ${GOOGLE_DRIVE_CLIENT_SECRET:-}
       HUB_USERNAME: italo.rossi
+    networks:
+      - default
+      - dokploy-network
     volumes:
       - opencode-data-italo:/workspace/.local/share/opencode
       - opencode-workspace-italo:/workspace

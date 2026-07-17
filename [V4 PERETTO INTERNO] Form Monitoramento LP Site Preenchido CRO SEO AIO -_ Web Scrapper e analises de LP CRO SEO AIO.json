@@ -1,0 +1,642 @@
+{
+  "name": "[V4 PERETTO INTERNO] Form Monitoramento LP Site Preenchido CRO SEO AIO -> Web Scrapper e analises de LP CRO SEO AIO",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "0bc7d404-879c-4b93-99c5-5cd7fb22ab21",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        192
+      ],
+      "id": "86e7979a-25f1-4990-b9e6-9c66a7d9d04c",
+      "name": "Webhook",
+      "webhookId": "0bc7d404-879c-4b93-99c5-5cd7fb22ab21"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.body.url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        448,
+        -160
+      ],
+      "id": "b3b12698-77be-4bcd-bb68-00a55b23236b",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-5-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=Contexto do Cliente:\n{{ $('Webhook').item.json.body.contexto }}\nHTML:\n\n\n{{ $json.cleanedHtml }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {
+          "instructions": "=Você é o \"CRO-Bot 9000\", um especialista em Otimização da Taxa de Conversão (CRO) de classe mundial.  \nSua personalidade é *honesta, direta, bem-humorada e respeitosa*. Você fala a real, mas sempre com intenção construtiva. Use um tom profissional, com humor leve quando fizer sentido, sem exageros. Não use piadas que ridicularizem o trabalho, não use gírias excessivas nem comparações que deixem a análise pouco profissional. Você pode usar emojis com moderação para reforçar o tom.\n\n⚠️ REGRA DE FORMATAÇÃO GLOBAL:\n- Não use negrito com dois asteriscos em nenhuma parte da resposta (ex: **assim**).  \n- Use apenas itálico com um asterisco, assim: *texto em itálico*.  \n- Essa regra vale para o ROAST, HIGHLIGHTS e RECOMMENDATIONS.\n\nSua missão é analisar o conteúdo HTML de uma landing page e fornecer uma análise em três partes: um \"Roast\" (crítica direta, porém amigável e profissional), um bloco de \"Highlights\" (o que já está funcionando bem) e 10 \"Recomendações\" (dicas práticas).\n\n*COMO O INPUT CHEGARÁ ATÉ VOCÊ*\n\nO usuário vai enviar, na MESMA mensagem:\n1) Os dados de contexto abaixo (texto simples).\n2) Em seguida, o HTML completo da página.\n\nUse SEMPRE os dados de contexto para interpretar o HTML e propor melhorias.\n\n\n---\n\n*SUA TAREFA*\n\nGere a resposta EXATAMENTE no formato abaixo. Não inclua nenhuma outra palavra ou introdução antes do título \"ROAST\".\n\n1) Analise o HTML considerando:\n- Clareza e força do headline principal.\n- Proposta de valor (benefício, diferencial, especificidade).\n- Força e clareza dos CTAs.\n- Hierarquia de informação (o que aparece primeiro e como).\n- Prova social (depoimentos, cases, logos, números).\n- Redução de fricção (riscos, garantias, objeções respondidas).\n- Consistência com o Objetivo_principal_da_página, Público-alvo_ICP e Etapa_do_funil.\n\n2) Gere as saídas a seguir, exatamente nesta ordem.\n\n---\n\nROAST\n\n[Aqui vai o \"roast\". Seja crítico, claro e direto, mas *sempre respeitoso, profissional e construtivo*.  \nAponte o que não funciona: proposta de valor fraca, headlines genéricas, CTAs vagos, falta de foco, excesso de texto, elementos confusos, promessas vazias etc.  \nMostre por que alguém poderia não se importar com essa página e o que pode atrapalhar a confiança, sempre conectando o problema com o impacto na conversão e sugerindo o caminho de melhoria.  \nUse um tom de \"consultor sênior sincero que quer ajudar\", com humor leve quando fizer sentido.  \nNão use negrito em nenhum momento; se quiser destacar algo, use apenas itálico com um asterisco (*assim*).  \nEvite gírias, piadas exageradas e comparações do tipo \"mais X do que Y\" que possam soar pouco profissionais ou desrespeitosas.  \nExemplo de tom aceito:  \n\"O headline atual é genérico e poderia servir para várias empresas diferentes. Vale torná-lo mais específico para o seu ICP, deixando claro o benefício principal e o diferencial da oferta 😉\"  \nVocê pode usar emojis para reforçar o tom, mas sem exagerar.]\n\n---\n\nHIGHLIGHTS (WHAT'S WORKING)\n\n[Nesta seção, liste de 3 a 7 pontos positivos concretos da página.  \nFoque em coisas que já ajudam a conversão, como:  \n- Headline ou subheadline bem clara.  \n- Oferta atrativa.  \n- Boa estrutura visual ou hierarquia de informação.  \n- Prova social forte.  \n- CTAs bem posicionados ou bem escritos.  \n- Argumentos bons que não devem ser removidos.  \n\nEscreva em tom de reconhecimento, como “Aqui vocês mandaram bem em…” ou “Esse ponto está funcionando e vale manter/reforçar”.  \nNão use negrito; se quiser destacar, use apenas itálico.  \nA ideia é o usuário saber o que deve ser preservado ou até ampliado.]\n\n---\n\nRECOMMENDATIONS (10 CRO IDEAS)\n\nCrie exatamente 10 recomendações numeradas de 1 a 10.  \nCada recomendação deve seguir o formato:\n\nDeve usar emojis nos titulos das acoes  \n\nNAO USE ASTERISCOS DUPLOS **ASSIM**, USE *ASSIM*  \n(essa regra vale para toda a resposta, não apenas para os títulos)\n\n⚠️ REGRA SOBRE EMOJIS NOS TÍTULOS:\n- Cada título de ação DEVE obrigatoriamente começar com um emoji (por exemplo: 🚀, ✨, 📌, 🧭, 📣, 🧪, 🧲, 🧱, 💡, 🏁).\n- Caso um título não tenha emoji no início, a resposta é considerada fora do padrão.\n\n1. *🚀 [Título da Ação 1]*: [Descrição da ação. Seja específico. Em vez de \"Melhorar o headline\", diga \"Reescreva o headline para focar em um benefício imediato e mensurável para o ICP\".  \nInclua um exemplo concreto de cópia quando fizer sentido.  \nAo final da descrição, inclua uma classificação: [Impacto: alto/médio/baixo] [Esforço: alto/médio/baixo].\n\nExemplo de estrutura:\n\"Troque algo genérico como 'Marketing com IA' por algo específico como 'Nossa IA ajuda sua empresa a dobrar o ROI em até 90 dias. Veja como.' [Impacto: alto] [Esforço: médio]\"]\n\n\n\n2. *✨ [Título da Ação 2]*: [Descrição da ação, com foco em clareza, priorização de benefício, remoção de fricções, simplificação de formulário, etc. Quando possível, inclua exemplos práticos de texto. Termine com [Impacto: X] [Esforço: Y].]\n\n3. *📌 [Título da Ação 3]*: [Descrição da ação.]\n\n4. *🧭 [Título da Ação 4]*: [Descrição da ação.]\n\n5. *📣 [Título da Ação 5]*: [Descrição da ação.]\n\n6. *🧪 [Título da Ação 6]*: [Descrição da ação.]\n\n7. *🧲 [Título da Ação 7]*: [Descrição da ação.]\n\n8. *🧱 [Título da Ação 8]*: [Descrição da ação.]\n\n9. *💡 [Título da Ação 9]*: [Descrição da ação.]\n\n10. *🏁 [Título da Ação 10]*: [Descrição da ação.  \nNesta recomendação, faça duas coisas:\n- Traga uma sugestão forte relacionada à prova social, garantias ou CTA final (por exemplo: reforçar depoimentos, adicionar selo de segurança, reforçar urgência, criar CTA mais direto).  \n- Inclua, dentro da própria recomendação, uma mini-lista de elementos importantes que estão AUSENTES ou FRACOS na página, como:\n  - Prova social suficiente (depoimentos, cases, números).\n  - Garantias e redução de risco.\n  - FAQ para tirar dúvidas e objeções.\n  - Selos de segurança / confiança.\n  - Urgência ou escassez (quando fizer sentido).\n  - Microtextos de apoio nos formulários e CTAs.\nFinalize essa recomendação com [Impacto: alto/médio/baixo] [Esforço: alto/médio/baixo]. Emojis podem ser usados aqui para dar ênfase, se ajudarem na clareza.]\n\n*REGRAS ADICIONAIS*\n\n- Nunca mude o título \"ROAST\" nem \"RECOMMENDATIONS (10 CRO IDEAS)\".  \n- Não escreva nada antes de \"ROAST\".  \n- Use um tom coerente com o Tom_de_voz_da_marca e com as Restrições_de_tom enviados pelo usuário.  \n- Seja crítico, mas sempre com foco em ações práticas, sem agressividade gratuita.  \n- Evite gírias, exageros e metáforas que deixem a análise pouco profissional.  \n- Priorize um humor leve e comentários que ajudem o usuário a enxergar claramente o que melhorar.  \n- Use a seção HIGHLIGHTS (WHAT'S WORKING) para deixar claro o que já funciona e deve ser mantido ou potencializado.  \n- Em pelo menos 3 recomendações, inclua exemplos prontos de textos (headline, subheadline, CTA ou bloco de seção).\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2,
+      "position": [
+        1024,
+        -160
+      ],
+      "id": "ffb56441-0734-4bc7-b4ab-ba45b5826bba",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "X9ME71JvJJcVlKX2",
+          "name": "GPT Transcricoes"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Pega todos os itens de entrada\nconst items = $input.all();\n\nreturn items.map(item => {\n  // Garante que html seja uma string\n  let html = (item.json.data || '').toString();\n\n  // 1. Extrair apenas o conteúdo do <body> (se existir) para reduzir o tamanho inicial\n  const matchBody = html.match(/<body[^>]*>([\\s\\S]*?)<\\/body>/i);\n  if (matchBody) {\n    html = matchBody[1];\n  }\n\n  // 2. Remover tags inteiras que não interessam para CRO\n  // Remove: script, style, svg, noscript, iframe, head\n  html = html.replace(/<(script|style|noscript|iframe|svg|head)[^>]*>[\\s\\S]*?<\\/\\1>/gi, ' ');\n\n  // Remove tags soltas / self-closing comuns e inputs hidden\n  html = html.replace(/<(meta|link|hr|br)\\b[^>]*\\/?>/gi, ' ');\n  html = html.replace(/<input\\b[^>]*\\btype=[\"']?hidden[\"']?[^>]*\\/?>/gi, ' ');\n\n  // 3. Remover comentários HTML  ✅ (correção do seu erro)\n  html = html.replace(/<!--[\\s\\S]*?-->/g, ' ');\n\n  // 4. Limpeza de atributos (Mantendo apenas o essencial)\n  html = html.replace(/<([a-z0-9]+)\\s+([^>]+)>/gi, function(match, tagName, attributes) {\n    const allowedAttributes = ['href', 'src', 'alt', 'title', 'name', 'type', 'value', 'placeholder', 'id', 'action'];\n\n    const attrRegex = /([a-zA-Z0-9-]+)\\s*=\\s*[\"']([^\"']*)[\"']/g;\n\n    let newAttrs = [];\n    let attrMatch;\n\n    while ((attrMatch = attrRegex.exec(attributes)) !== null) {\n      const attrName = attrMatch[1].toLowerCase();\n      const attrValue = attrMatch[2];\n\n      if (allowedAttributes.includes(attrName)) {\n        if (attrName === 'src' && attrValue.startsWith('data:image')) {\n          newAttrs.push('src=\"[BASE64_IMAGE]\"');\n        } else {\n          newAttrs.push(attrName + '=\"' + attrValue + '\"');\n        }\n      }\n    }\n\n    const cleanTag = '<' + tagName + (newAttrs.length > 0 ? ' ' + newAttrs.join(' ') : '') + '>';\n    return cleanTag;\n  });\n\n  // 5. Remover linhas em branco e espaços duplicados gerados pela limpeza\n  html = html.replace(/\\s+/g, ' ').trim();\n\n  // 6. Remover tags vazias que sobraram\n  html = html.replace(/<([a-z]+)[^>]*>\\s*<\\/\\1>/gi, '');\n\n  // Salva o resultado\n  item.json.cleanedHtml = html;\n\n  return item;\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        736,
+        -160
+      ],
+      "id": "ba9c499e-67ab-4ec2-adbf-c73368954661",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "spaceId": "={{ $('Webhook').item.json.body['space-id'] }}",
+        "messageUi": {
+          "text": "=💎 *CRO Intelligence | Diagnóstico da Landing Page:\n{{ $('Webhook').item.json.body.url }} !*\n\n{{ $json.output[0].content[0].text }}"
+        },
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.googleChat",
+      "typeVersion": 1,
+      "position": [
+        1376,
+        -160
+      ],
+      "id": "c8385115-ff71-4f57-bd57-7d912bab911d",
+      "name": "Create a message",
+      "webhookId": "f907559f-c28a-4655-a05b-afb6d9f4e415",
+      "credentials": {
+        "googleApi": {
+          "id": "w4djRnCAopKNq6Gz",
+          "name": "Sofia Chatbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "736dd8ba-c7cb-44ec-bd63-40b0eb82988d",
+              "leftValue": "={{ $json.body['tipo-analise'] }}",
+              "rightValue": "CRO",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        192
+      ],
+      "id": "ffc33d89-f528-4f6b-9a3a-389ba20fc351",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Get the URL directly from the Trigger node\n// We reference the node by name to ensure we get the initial input\nconst landingPageUrl = $('Webhook').first().json.body.url;\n\n// 2. Get the aggregated outputs\n// The Aggregate node creates an array called \"output\" with all items\nconst aggregatedOutputs = $input.first().json.output;\n\n// 3. Assign variables (safely handling the array)\n// Index 0 = Technical Audit (Input 0 of Merge node)\n// Index 1 = Content Audit (Input 1 of Merge node)\nconst technicalAudit = aggregatedOutputs[0] || \"<p>⚠️ Technical Audit not found.</p>\";\nconst contentAudit = aggregatedOutputs[1] || \"<p>⚠️ Content Audit not found.</p>\";\n\n// 4. Generate the HTML structure\n// IMPORTANT: Notice the backtick (`) at the start of the next line\nconst htmlContent = `\n<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Auditoria SEO - ${landingPageUrl}</title>\n    <style>\n        body {\n            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n            line-height: 1.6;\n            color: #333;\n            max-width: 900px;\n            margin: 0 auto;\n            padding: 30px;\n            background-color: #f9fafb;\n        }\n        .header {\n            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n            color: white;\n            padding: 40px;\n            border-radius: 10px;\n            text-align: center;\n            margin-bottom: 30px;\n            box-shadow: 0 4px 6px rgba(0,0,0,0.1);\n        }\n        .header h1 {\n            margin: 0;\n            font-size: 2em;\n        }\n        .header .url {\n            margin-top: 10px;\n            font-size: 1.1em;\n            opacity: 0.9;\n        }\n        .header .date {\n            margin-top: 5px;\n            font-size: 0.9em;\n            opacity: 0.8;\n        }\n        .content {\n            background: white;\n            padding: 40px;\n            border-radius: 10px;\n            box-shadow: 0 2px 4px rgba(0,0,0,0.05);\n            margin-bottom: 20px;\n        }\n        h2 {\n            border-bottom: 3px solid #667eea;\n            padding-bottom: 10px;\n            margin-top: 30px;\n        }\n        h3 {\n            margin-top: 25px;\n            margin-bottom: 15px;\n        }\n        ul {\n            padding-left: 25px;\n        }\n        li {\n            margin-bottom: 12px;\n            line-height: 1.8;\n        }\n        .section-divider {\n            height: 2px;\n            background: linear-gradient(90deg, transparent, #667eea, transparent);\n            margin: 40px 0;\n        }\n        .footer {\n            text-align: center;\n            padding: 20px;\n            color: #666;\n            font-size: 0.9em;\n        }\n    </style>\n</head>\n<body>\n    <div class=\"header\">\n        <h1>🔍 Auditoria SEO Completa</h1>\n        <div class=\"url\">${landingPageUrl}</div>\n        <div class=\"date\">Data: ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}</div>\n    </div>\n    \n    <div class=\"content\">\n        ${technicalAudit}\n    </div>\n    \n    <div class=\"section-divider\"></div>\n    \n    <div class=\"content\">\n        ${contentAudit}\n    </div>\n    \n    <div class=\"footer\">\n        <p>Auditoria gerada automaticamente | n8n Workflow</p>\n    </div>\n</body>\n</html>\n`; \n// ^ IMPORTANT: The backtick above closes the template string\n\n// Converte o texto HTML num Ficheiro Binário para o CloudConvert ler\nconst binaryData = Buffer.from(htmlContent).toString('base64');\n\nreturn {\n    json: {\n        landingPageUrl: landingPageUrl\n    },\n    binary: {\n        data: {\n            data: binaryData,\n            mimeType: 'text/html',\n            fileExtension: 'html',\n            fileName: 'relatorio_seo.html'\n        }\n    }\n};"
+      },
+      "id": "615a6c06-f8ba-433f-aa7d-8c8e81aba02c",
+      "name": "Gerar HTML",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        2080,
+        336
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Webhook').item.json.body.url }}",
+        "options": {}
+      },
+      "id": "71489188-d0c2-49e3-b831-5825ba6cd480",
+      "name": "Scrape Website1",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        448,
+        336
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Você é um especialista em SEO.\n\nAnalise o conteúdo da página e faça uma auditoria de conteúdo SEO.\n\nSua resposta DEVE ser em HTML formatado. Use EXATAMENTE esta estrutura:\n\n<h2 style=\"color: #2563eb; margin-top: 30px;\">ANÁLISE DE CONTEÚDO SEO</h2>\n\n<h3 style=\"color: #1e40af; margin-top: 20px;\">Avaliação da Qualidade do Conteúdo</h3>\n<p style=\"line-height: 1.6;\">[Sua análise aqui em texto corrido]</p>\n\n<h3 style=\"color: #1e40af; margin-top: 20px;\">Pesquisa e Análise de Palavras-chave</h3>\n<p style=\"line-height: 1.6;\">[Sua análise aqui]</p>\n\n<h3 style=\"color: #1e40af; margin-top: 20px;\">Análise de Legibilidade</h3>\n<p style=\"line-height: 1.6;\">[Sua análise aqui]</p>\n\n<h2 style=\"color: #16a34a; margin-top: 30px;\">RECOMENDAÇÕES</h2>\n\n<h3 style=\"color: #15803d; margin-top: 20px;\">✅ Melhorias Prioritárias</h3>\n<ul style=\"line-height: 1.8;\">\n<li>[Recomendação 1]</li>\n<li>[Recomendação 2]</li>\n<li>[Recomendação 3]</li>\n</ul>\n\n<h3 style=\"color: #15803d; margin-top: 20px;\">📝 Otimizações de Conteúdo</h3>\n<ul style=\"line-height: 1.8;\">\n<li>[Recomendação 1]</li>\n<li>[Recomendação 2]</li>\n</ul>\n\n<h3 style=\"color: #15803d; margin-top: 20px;\">🚀 Melhorias de Engajamento</h3>\n<ul style=\"line-height: 1.8;\">\n<li>[Recomendação 1]</li>\n<li>[Recomendação 2]</li>\n</ul>\n\nIMPORTANTE: Retorne APENAS o HTML sem nenhum texto antes ou depois. Não inclua tags <html>, <body> ou comentários.\n\nConteúdo: {{ $json.cleanedHtml }}",
+        "options": {}
+      },
+      "id": "3a478f50-90bb-47c8-9021-42a6bdcc18f0",
+      "name": "Content Audit1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1152,
+        544
+      ],
+      "typeVersion": 1.7
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Você é um especialista em SEO técnico.\n\nAnalise o código HTML e faça uma auditoria técnica SEO on-page.\n\nSua resposta DEVE ser em HTML formatado. Use EXATAMENTE esta estrutura:\n\n<h2 style=\"color: #dc2626; margin-top: 30px;\">AUDITORIA TÉCNICA SEO ON-PAGE</h2>\n\n<h3 style=\"color: #b91c1c; margin-top: 20px;\">🚨 Problemas Críticos</h3>\n<p style=\"line-height: 1.6; color: #666;\">Itens que devem ser corrigidos imediatamente:</p>\n<ul style=\"line-height: 1.8; background-color: #fee2e2; padding: 15px; border-radius: 5px;\">\n<li><strong>[Problema 1]:</strong> [Explicação]</li>\n<li><strong>[Problema 2]:</strong> [Explicação]</li>\n<li><strong>[Problema 3]:</strong> [Explicação]</li>\n</ul>\n\n<h3 style=\"color: #ca8a04; margin-top: 20px;\">⚡ Ganhos Rápidos (Quick Wins)</h3>\n<p style=\"line-height: 1.6; color: #666;\">Correções fáceis com alto impacto:</p>\n<ul style=\"line-height: 1.8; background-color: #fef3c7; padding: 15px; border-radius: 5px;\">\n<li><strong>[Quick Win 1]:</strong> [Explicação]</li>\n<li><strong>[Quick Win 2]:</strong> [Explicação]</li>\n<li><strong>[Quick Win 3]:</strong> [Explicação]</li>\n</ul>\n\n<h3 style=\"color: #0891b2; margin-top: 20px;\">📈 Oportunidades de Melhoria</h3>\n<p style=\"line-height: 1.6; color: #666;\">Melhorias de médio/longo prazo:</p>\n<ul style=\"line-height: 1.8; background-color: #cffafe; padding: 15px; border-radius: 5px;\">\n<li><strong>[Oportunidade 1]:</strong> [Explicação]</li>\n<li><strong>[Oportunidade 2]:</strong> [Explicação]</li>\n<li><strong>[Oportunidade 3]:</strong> [Explicação]</li>\n</ul>\n\nIMPORTANTE: Retorne APENAS o HTML sem nenhum texto antes ou depois. Não inclua tags <html>, <body> ou comentários.\n\nConteúdo: {{ $json.cleanedHtml }}",
+        "options": {}
+      },
+      "id": "e44b980d-654c-48ca-9411-8de5b3300371",
+      "name": "Technical Audit1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1152,
+        32
+      ],
+      "typeVersion": 1.7,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {},
+      "id": "b8634ee7-9132-48d0-bf07-113f2331d15a",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        1568,
+        336
+      ],
+      "typeVersion": 3,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "output"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a784ca85-24bf-4700-93d2-7bcb6c556c67",
+      "name": "Aggregate1",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        1856,
+        336
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "spaceId": "={{ $('Webhook').item.json.body['space-id'] }}",
+        "messageUi": {
+          "text": "=👋 Olá! Sua auditoria de SEO foi finalizada com sucesso.\n\n🌐 Site analisado: {{ $('Webhook').item.json.body.url }}\n\n📂 Visualize o relatório completo aqui:\n{{ $('Upload file').item.json.webViewLink }}"
+        },
+        "additionalFields": {}
+      },
+      "id": "947991ba-a77d-4b25-b679-f111d5f2b2c2",
+      "name": "Google Chat1",
+      "type": "n8n-nodes-base.googleChat",
+      "typeVersion": 1,
+      "position": [
+        2752,
+        336
+      ],
+      "webhookId": "d3f92a1f-b6f4-4038-8a3e-689a444f525d",
+      "credentials": {
+        "googleApi": {
+          "id": "w4djRnCAopKNq6Gz",
+          "name": "Sofia Chatbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "outputFormat": "pdf"
+      },
+      "type": "@cloudconvert/n8n-nodes-cloudconvert.cloudConvert",
+      "typeVersion": 1,
+      "position": [
+        2304,
+        336
+      ],
+      "id": "1e6afb04-2aae-4a09-bac0-3c2e28951ce0",
+      "name": "CloudConvert",
+      "credentials": {
+        "cloudConvertOAuth2Api": {
+          "id": "XW6IT0LKRWH79Hsl",
+          "name": "CloudConvert account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "=Análise SEO -  {{ $('Webhook').item.json.body.url }}",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1nJlcQTJGk2Cwtj37oB2ImKGvuykDmBnP",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2528,
+        336
+      ],
+      "id": "24d33cbb-a96f-46aa-926b-83058d3673c2",
+      "name": "Upload file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "eeLqFlDHKRMoIl8f",
+          "name": "Peretto"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1152,
+        192
+      ],
+      "id": "85a49e8e-a400-4108-a2d5-2dde0bcfbe93",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "X9ME71JvJJcVlKX2",
+          "name": "GPT Transcricoes"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1152,
+        704
+      ],
+      "id": "9273f707-c2bb-47ad-9623-1a447ffb321b",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "X9ME71JvJJcVlKX2",
+          "name": "GPT Transcricoes"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Pega todos os itens de entrada\nconst items = $input.all();\n\nreturn items.map(item => {\n  // Garante que html seja uma string\n  let html = (item.json.data || '').toString();\n\n  // --- MUDANÇA 1: NÃO isolamos o <body>.\n  // Precisamos do <head> para ler Title e Meta Description.\n  // Apenas removemos o doctype para limpar o início.\n  html = html.replace(/<!DOCTYPE[^>]*>/i, '');\n\n  // 2. Remover tags que consomem tokens e não ajudam na análise de CONTEÚDO SEO\n  // Remove: script, style, svg, noscript, iframe, button\n  // Nota: Mantivemos 'meta', 'link', 'title' e 'head' propositalmente.\n  html = html.replace(/<(script|style|noscript|iframe|svg|button)[^>]*>[\\s\\S]*?<\\/\\1>/gi, '');\n\n  // Remove comentários HTML  ✅ (CORREÇÃO)\n  html = html.replace(/<!--[\\s\\S]*?-->/g, '');\n\n  // 3. Limpeza de atributos (Whitelisting focado em SEO)\n  html = html.replace(/<([a-z0-9]+)\\s+([^>]+)>/gi, function(match, tagName, attributes) {\n    // Lista de atributos vitais para SEO\n    const allowedAttributes = [\n      'href',     // Links\n      'src',      // Imagens\n      'alt',      // SEO de Imagem (Crucial)\n      'title',    // Títulos de links/imagens\n      'name',     // Meta tags names\n      'content',  // Meta description / OG tags\n      'rel',      // Canonical, nofollow, next/prev\n      'property', // Open Graph (Social SEO)\n      'lang',     // Idioma da página\n      'datetime'  // Útil para artigos/blogs\n    ];\n\n    // Regex simples para capturar chave=\"valor\"\n    const attrRegex = /([a-zA-Z0-9-]+)\\s*=\\s*[\"']([^\"']*)[\"']/g;\n\n    let newAttrs = [];\n    let attrMatch;\n\n    // Loop pelos atributos\n    while ((attrMatch = attrRegex.exec(attributes)) !== null) {\n      const attrName = attrMatch[1].toLowerCase();\n      const attrValue = attrMatch[2];\n\n      if (allowedAttributes.includes(attrName)) {\n        // Se for imagem em base64, remove para economizar espaço\n        if (attrName === 'src' && attrValue.startsWith('data:image')) {\n          // Ignora src base64\n        } else {\n          newAttrs.push(attrName + '=\"' + attrValue + '\"');\n        }\n      }\n    }\n\n    // Reconstrói a tag\n    const cleanTag = '<' + tagName + (newAttrs.length > 0 ? ' ' + newAttrs.join(' ') : '') + '>';\n    return cleanTag;\n  });\n\n  // 4. Remover tags vazias que não são de metadados\n  html = html.replace(/<(div|span|p|h[1-6]|li|ul|ol)[^>]*>\\s*<\\/\\1>/gi, '');\n\n  // 5. Remover linhas em branco e normalizar espaços\n  html = html.replace(/\\s+/g, ' ').trim();\n\n  // Salva o resultado\n  item.json.cleanedHtml = html;\n\n  return item;\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        48
+      ],
+      "id": "59284cdb-d4d2-4b1c-9951-e727e5426560",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Pega todos os itens de entrada\nconst items = $input.all();\n\nreturn items.map(item => {\n  // Garante que html seja uma string\n  let html = (item.json.data || '').toString();\n\n  // --- MUDANÇA 1: NÃO isolamos o <body>.\n  // Precisamos do <head> para ler Title e Meta Description.\n  // Apenas removemos o doctype para limpar o início.\n  html = html.replace(/<!DOCTYPE[^>]*>/i, '');\n\n  // 2. Remover tags que consomem tokens e não ajudam na análise de CONTEÚDO SEO\n  // Remove: script, style, svg, noscript, iframe, button\n  // Nota: Mantivemos 'meta', 'link', 'title' e 'head' propositalmente.\n  html = html.replace(/<(script|style|noscript|iframe|svg|button)[^>]*>[\\s\\S]*?<\\/\\1>/gi, '');\n\n  // Remove comentários HTML  ✅ (CORREÇÃO)\n  html = html.replace(/<!--[\\s\\S]*?-->/g, '');\n\n  // 3. Limpeza de atributos (Whitelisting focado em SEO)\n  html = html.replace(/<([a-z0-9]+)\\s+([^>]+)>/gi, function(match, tagName, attributes) {\n    // Lista de atributos vitais para SEO\n    const allowedAttributes = [\n      'href',     // Links\n      'src',      // Imagens\n      'alt',      // SEO de Imagem (Crucial)\n      'title',    // Títulos de links/imagens\n      'name',     // Meta tags names\n      'content',  // Meta description / OG tags\n      'rel',      // Canonical, nofollow, next/prev\n      'property', // Open Graph (Social SEO)\n      'lang',     // Idioma da página\n      'datetime'  // Útil para artigos/blogs\n    ];\n\n    // Regex simples para capturar chave=\"valor\"\n    const attrRegex = /([a-zA-Z0-9-]+)\\s*=\\s*[\"']([^\"']*)[\"']/g;\n\n    let newAttrs = [];\n    let attrMatch;\n\n    // Loop pelos atributos\n    while ((attrMatch = attrRegex.exec(attributes)) !== null) {\n      const attrName = attrMatch[1].toLowerCase();\n      const attrValue = attrMatch[2];\n\n      if (allowedAttributes.includes(attrName)) {\n        // Se for imagem em base64, remove para economizar espaço\n        if (attrName === 'src' && attrValue.startsWith('data:image')) {\n          // Ignora src base64\n        } else {\n          newAttrs.push(attrName + '=\"' + attrValue + '\"');\n        }\n      }\n    }\n\n    // Reconstrói a tag\n    const cleanTag = '<' + tagName + (newAttrs.length > 0 ? ' ' + newAttrs.join(' ') : '') + '>';\n    return cleanTag;\n  });\n\n  // 4. Remover tags vazias que não são de metadados\n  html = html.replace(/<(div|span|p|h[1-6]|li|ul|ol)[^>]*>\\s*<\\/\\1>/gi, '');\n\n  // 5. Remover linhas em branco e normalizar espaços\n  html = html.replace(/\\s+/g, ' ').trim();\n\n  // Salva o resultado\n  item.json.cleanedHtml = html;\n\n  return item;\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        864,
+        544
+      ],
+      "id": "c06818ee-70b4-4a07-9f62-a2d71fb3bda9",
+      "name": "Code in JavaScript3"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "peretton8n.fvmarketing.com.br",
+            "user-agent": "n8n",
+            "content-length": "194",
+            "accept": "application/json,text/html,application/xhtml+xml,application/xml,text/*;q=0.9, image/*;q=0.8, */*;q=0.7",
+            "accept-encoding": "gzip, compress, deflate, br",
+            "content-type": "application/json",
+            "x-forwarded-for": "172.18.0.1",
+            "x-forwarded-host": "peretton8n.fvmarketing.com.br",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "411b5e49097b",
+            "x-real-ip": "172.18.0.1"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "url": "https://peretton8n.fvmarketing.com.br/workflow/Jqnd0dKT6glzZ3Mn",
+            "cliente": "1226258621",
+            "space-id": "spaces/AAQAi67ADWg",
+            "contexto": "teste",
+            "tipo-analise": "Monitoramento de Sites e LP's"
+          },
+          "webhookUrl": "https://peretton8n.fvmarketing.com.br/webhook/0bc7d404-879c-4b93-99c5-5cd7fb22ab21",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Create a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Scrape Website1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gerar HTML": {
+      "main": [
+        [
+          {
+            "node": "CloudConvert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Website1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Content Audit1": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Technical Audit1": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Aggregate1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate1": {
+      "main": [
+        [
+          {
+            "node": "Gerar HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CloudConvert": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload file": {
+      "main": [
+        [
+          {
+            "node": "Google Chat1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Technical Audit1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Content Audit1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Technical Audit1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "Content Audit1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "errorWorkflow": "vPc4W9QJivVmwjml",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true
+  },
+  "versionId": "326e2802-b6e9-47b9-a5c4-149a18f89faf",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2f313a0f8d4301cb30bfc2eed9002e609662e65bab98f31e975fc08b9d2f64ce"
+  },
+  "id": "TTYryAbqHXOCOcIs",
+  "tags": []
+}

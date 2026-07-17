@@ -1,0 +1,48 @@
+{
+  "title": "Hub de Agentes OpenCode — fix agents/skills visíveis para a turma (hub-agentes)",
+  "projeto": "hub-agentes",
+  "data": "2026-07-16_18-13",
+  "objetivo": "Deixar o Hub de Agentes OpenCode (6 containers no servidor 2.25.148.214) funcional para a equipe V4: agentes (build/plan + 35 subagentes/orquestradores) visíveis no seletor e via @, e 97 skills com descrição em português. Reproduzir localmente o que já funciona no /workspace.",
+  "descobertas": [
+    "Servidor auto-atualizava opencode de 1.17.20 (local) para 1.18.3 (v2 Web UI) via 'npm install -g opencode-ai@latest' no entrypoint. Na v2, build/plan viram abas de MODO e somem do seletor/@ -> parecia 'sumiram'.",
+    "O entrypoint que roda é o HOST mount: /etc/dokploy/compose/authopencode-authlogin-ippaei/code/infra/entrypoint.sh (NÃO o git /workspace/infra/entrypoint.sh). Por isso editar só no git não surtia efeito no container.",
+    "O backend opencode 1.17.20 LÊ o config de ~/.config/opencode/opencode.json (copiado do workspace pelo entrypoint) e já serve os 35 agentes. O proxy os re-adicionava -> duplicata (77 agentes).",
+    "marcos.luciano.json estava CORROMPIDO: uma linha 'Warning: Permanently added ...' de SSH grudada no topo (JSON inválido). Corrigido e validei os 7 configs.",
+    "68 descrições de skills estavam em inglês; 4 skills V4 autorais (ai-search, copy-pipeline-conteudo, gt-relatorios-trafego, v4mos-dados-meta-ads) misturam termos em inglês e foram mantidas.",
+    "Local (máquina do Marcos): agentes em ~/.config/opencode/agents/*.md (35), skills em ~/.config/opencode/skills-v4/ (97). Servidor: /workspace/.agents/skills/ (git) + /workspace/.config/opencode/opencode.json (35 agentes inline)."
+  ],
+  "estado_atual": {
+    "opencode_version_servidor": "1.17.20 (fixado no entrypoint)",
+    "containers": "todos os 6 (marcos, fhelipe, paolo, lucasnunes, bruno, italo) healthy em 1.17.20",
+    "agentes_servidos": "42 por container (7 nativos + 35 custom), SEM duplicatas",
+    "build_plan": "presentes e visíveis no seletor/@ com 1.17.20",
+    "skills": "97, todas com descrição em PT (68 traduzidas nesta sessão)",
+    "git": "infra-v2-clean -> infra-v2 (fast-forward 758674c5..fe168cb2)",
+    "raw_export": "log/session-2026-07-16_18-13-16.json"
+  },
+  "proximo_passo": [
+    "Usuário deve fazer HARD REFRESH (Ctrl+F5 / Cmd+Shift+R) no navegador para limpar cache da v2 UI e ver a v1 com agentes no seletor.",
+    "Validar no browser: build/plan no seletor + @<subagente> funcionando + skills em PT no @.",
+    "Se quiser, travar o proxy no git (versionar o blob do proxy em infra/entrypoint.sh) para eliminar a dependência do arquivo host e evitar dessincronia futura.",
+    "Opcional: reconstruir imagem Docker com sofia.png/logo-v4.png embutidos (hoje montados via host)."
+  ],
+  "comandos_uteis": [
+    "SSH: SSH_ASKPASS=/tmp/ssh-pass.sh DISPLAY=dummy:0 setsid ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@2.25.148.214",
+    "Health: docker inspect -f '{{.State.Health.Status}}' authopencode-authlogin-ippaei-opencode-marcos-1",
+    "Restart marcos: docker restart authopencode-authlogin-ippaei-opencode-marcos-1",
+    "Ver agentes (proxy 4096): docker exec -i <container> python3 -c \"import json,urllib.request,base64; p='WmwZz%h!W^R^bpDx!xBt373@'; a='Basic '+base64.b64encode(('opencode:'+p).encode()).decode(); print(len(json.loads(urllib.request.urlopen(urllib.request.Request('http://127.0.0.1:4096/agent?directory=/workspace',headers={'Authorization':a})).read())))",
+    "Host entrypoint: /etc/dokploy/compose/authopencode-authlogin-ippaei/code/infra/entrypoint.sh",
+    "Push: git push hub-agentes infra-v2-clean:infra-v2",
+    "Retomar: RETOMAR hub-agentes (lê este arquivo)"
+  ],
+  "arquivos_chave": [
+    "infra/entrypoint.sh (versão fixada 1.17.20 + blob do proxy com dedup)",
+    "scripts/opencode-proxy.js (proxy: health passthrough + merge agentes/skills sem duplicar)",
+    "infra/auth/opencode-config/*.json (7 configs de usuário com 35 agentes)",
+    ".agents/skills/*/SKILL.md (97 skills, descrições em PT)"
+  ],
+  "pendencias": [
+    "Validação final no browser pelo usuário (hard refresh).",
+    "Decidir se mantém opencode 1.17.20 (v1) ou volta 1.18.3 (v2) — usuário pediu fixar 1.17.20."
+  ]
+}
