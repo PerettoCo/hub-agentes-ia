@@ -12,10 +12,19 @@
     html { font-size: 16px; -webkit-font-smoothing: antialiased; height: 100%; }
     body {
       font-family: 'Inter', -apple-system, sans-serif;
-      background: #0a0a0c;
+      background: #0a0a0c url('/static/v4bg.png') center/cover fixed no-repeat;
       color: #1d1d1f;
       min-height: 100vh;
       display: flex;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 12, 0.65);
+      pointer-events: none;
+      z-index: 0;
     }
     .panel-left {
       flex: 1;
@@ -25,7 +34,8 @@
       padding: 48px;
       position: relative;
       overflow: hidden;
-      background: linear-gradient(135deg, #0a0a0c 0%, #1a0a0c 40%, #0d0d10 100%);
+      z-index: 1;
+      background: rgba(10,10,12,0.5);
     }
     .panel-left::before {
       content: '';
@@ -66,71 +76,77 @@
     .dot:nth-child(8) { bottom: 15%; right: 35%; animation-delay: -3s; animation-duration: 4.3s; }
     .dot:nth-child(9) { top: 45%; right: 15%; animation-delay: -0.5s; animation-duration: 3.9s; }
     .dot:nth-child(10) { bottom: 50%; left: 40%; animation-delay: -1.5s; animation-duration: 4.1s; }
-    .promo { position: relative; z-index: 1; max-width: 480px; text-align: center; }
-    .promo-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: rgba(255,255,255,0.3);
-      border: 1px solid rgba(255,255,255,0.06); padding: 6px 14px;
-      border-radius: 100px; margin-bottom: 24px;
+    .promo {
+      position: relative;
+      z-index: 1;
+      max-width: 480px;
+      text-align: center;
     }
-    .promo-badge span { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; display: inline-block; }
-    .promo h2 {
-      font-size: 2.2rem; font-weight: 700; color: #ffffff;
-      line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px;
+    .promo .hero-logo {
+      height: 400px;
+      width: auto;
+      margin-bottom: 32px;
+      filter: drop-shadow(0 8px 32px rgba(230,57,70,0.2));
     }
-    .promo h2 em { font-style: normal; color: #e63946; }
-    .promo p { font-size: 0.95rem; color: rgba(255,255,255,0.4); line-height: 1.7; margin-bottom: 32px; }
-    .promo-stats { display: flex; justify-content: center; gap: 40px; }
+    .promo-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+    }
     .promo-stat { text-align: center; }
     .promo-stat .num { font-size: 1.6rem; font-weight: 700; color: #ffffff; line-height: 1; }
     .promo-stat .label { font-size: 0.72rem; color: rgba(255,255,255,0.3); margin-top: 4px; }
     .panel-right {
       width: 480px; min-width: 480px; display: flex;
       align-items: center; justify-content: center; padding: 48px;
-      background: #ffffff;
+      position: relative; z-index: 1;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      background: rgba(255,255,255,0.05);
+      border-left: 1px solid rgba(255,255,255,0.06);
     }
     .login-box { width: 100%; max-width: 360px; }
     .logo { margin-bottom: 40px; text-align: center; }
-    .logo-img { width: 48px; height: 48px; object-fit: contain; margin-bottom: 12px; }
-    .logo h1 { font-size: 1.1rem; font-weight: 600; color: #1d1d1f; margin-top: 12px; letter-spacing: -0.01em; }
-    .logo p { font-size: 0.8rem; color: #86868b; margin-top: 4px; }
+    .logo h1 { font-size: 1.1rem; font-weight: 600; color: #ffffff; margin-top: 20px; letter-spacing: -0.01em; }
+    .logo p { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 4px; }
     .form-group { margin-bottom: 20px; }
     .form-group label {
       display: block; font-size: 0.8rem; font-weight: 500;
-      color: #1d1d1f; margin-bottom: 6px;
+      color: rgba(255,255,255,0.6); margin-bottom: 6px;
     }
     .form-group input {
-      width: 100%; padding: 13px 16px;
-      border: 1.5px solid #e8e8ed; border-radius: 12px;
+      width: 100%; padding: 14px 16px;
+      border: 1.5px solid rgba(255,255,255,0.1); border-radius: 12px;
       font-family: 'Inter', sans-serif; font-size: 0.9rem;
-      color: #1d1d1f; outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      background: #ffffff;
+      color: #ffffff; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      background: rgba(255,255,255,0.04);
     }
-    .form-group input:focus { border-color: #e63946; box-shadow: 0 0 0 3px rgba(230,57,70,0.1); }
-    .form-group input::placeholder { color: #aeaeb2; }
+    .form-group input:focus { border-color: #e63946; box-shadow: 0 0 0 3px rgba(230,57,70,0.15); background: rgba(255,255,255,0.06); }
+    .form-group input::placeholder { color: rgba(255,255,255,0.25); }
     .btn {
-      width: 100%; padding: 14px; background: #e63946; color: #fff;
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, #e63946, #c62828); color: #fff;
       border: none; border-radius: 12px;
       font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600;
-      cursor: pointer; transition: background 0.2s, transform 0.1s; margin-top: 4px;
+      cursor: pointer; transition: transform 0.15s, box-shadow 0.2s; margin-top: 4px;
+      letter-spacing: 0.01em;
     }
-    .btn:hover { background: #d32d3a; }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(230,57,70,0.3); }
     .btn:active { transform: scale(0.98); }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .error {
-      display: none; font-size: 0.82rem; color: #e63946;
+      display: none; font-size: 0.82rem; color: #ff6b6b;
       margin-bottom: 16px; padding: 10px 14px;
-      background: rgba(230,57,70,0.06); border-radius: 10px;
-      align-items: center; gap: 8px;
+      background: rgba(230,57,70,0.1); border: 1px solid rgba(230,57,70,0.2);
+      border-radius: 10px; align-items: center; gap: 8px;
     }
     .error.visible { display: flex; }
-    .footer { text-align: center; margin-top: 24px; font-size: 0.72rem; color: #aeaeb2; }
+    .footer { text-align: center; margin-top: 24px; font-size: 0.72rem; color: rgba(255,255,255,0.3); }
     .loading { display: none; text-align: center; padding: 20px 0; }
     .loading.visible { display: block; }
     .spinner {
-      width: 24px; height: 24px; border: 2px solid #e8e8ed;
+      width: 24px; height: 24px; border: 2px solid rgba(255,255,255,0.1);
       border-top-color: #e63946; border-radius: 50%;
       animation: spin 0.8s linear infinite; margin: 0 auto 12px;
     }
@@ -141,14 +157,13 @@
       body { flex-direction: column; }
       .panel-left { padding: 48px 32px; min-height: auto; flex-shrink: 0; }
       .promo { max-width: 100%; }
-      .promo h2 { font-size: 1.6rem; }
+      .promo .hero-logo { height: 280px; }
       .promo-stats { gap: 24px; }
       .panel-right { width: 100%; min-width: unset; padding: 40px 32px; flex: 1; }
     }
     @media (max-width: 600px) {
       .panel-left { padding: 40px 20px; }
-      .promo h2 { font-size: 1.4rem; }
-      .promo p { font-size: 0.9rem; }
+      .promo .hero-logo { height: 200px; }
       .promo-stats { gap: 16px; }
       .promo-stat .num { font-size: 1.3rem; }
       .panel-right { padding: 32px 20px; }
@@ -163,12 +178,10 @@
       <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
     <div class="promo">
-      <div class="promo-badge"><span></span>V4 Company Peretto &amp; Co</div>
-      <h2>Hub de Agentes de <em>IA</em></h2>
-      <p>Dados integrados, rotinas automatizadas<br>e mentes livres para estratégia.</p>
+      <img src="/static/logo.png" alt="Peretto & Co" class="hero-logo">
       <div class="promo-stats">
-        <div class="promo-stat"><div class="num">35</div><div class="label">Agentes de IA</div></div>
-        <div class="promo-stat"><div class="num">97</div><div class="label">Skills especializadas</div></div>
+        <div class="promo-stat"><div class="num">36</div><div class="label">Agentes de IA</div></div>
+        <div class="promo-stat"><div class="num">102</div><div class="label">Skills especializadas</div></div>
         <div class="promo-stat"><div class="num">8</div><div class="label">Times integrados</div></div>
       </div>
     </div>
@@ -176,13 +189,12 @@
   <div class="panel-right">
     <div class="login-box">
       <div class="logo">
-        <img src="/static/logo.png" alt="V4 Company" class="logo-img">
         <h1>Acessar plataforma</h1>
         <p>Hub de Agentes de IA</p>
       </div>
       <div class="loading" id="loading">
         <div class="spinner"></div>
-        <p style="color:#86868b;font-size:0.85rem;">Conectando ao servidor...</p>
+        <p style="color:rgba(255,255,255,0.4);font-size:0.85rem;">Conectando ao servidor...</p>
       </div>
       <div id="formContent" class="form-content">
         <div class="error" id="error"><span id="errorText">Credenciais inválidas</span></div>

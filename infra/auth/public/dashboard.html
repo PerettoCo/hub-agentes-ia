@@ -9,12 +9,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; background: #0a0a0c; color: #fff; min-height: 100vh; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0c url('/static/v4bg.png') center/cover fixed no-repeat;
+      color: #fff; min-height: 100vh; position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: rgba(10, 10, 12, 0.6);
+      pointer-events: none; z-index: 0;
+    }
     .header {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 20px 32px; border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 20px 32px;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      position: relative; z-index: 2;
     }
-    .header h1 { font-size: 1rem; font-weight: 600; color: rgba(255,255,255,0.6); }
+    .header h1 { font-size: 1rem; font-weight: 600; color: rgba(255,255,255,0.5); }
     .header h1 span { color: #e63946; }
     .header-right { display: flex; align-items: center; gap: 16px; }
     .user-badge { display: flex; align-items: center; gap: 10px; }
@@ -28,7 +43,7 @@
       padding: 3px 10px; border-radius: 100px;
     }
     .btn {
-      background: none; border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.4);
+      background: none; border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.4);
       padding: 8px 16px; border-radius: 8px; cursor: pointer;
       font-family: 'Inter', sans-serif; font-size: 0.8rem; transition: all 0.2s;
     }
@@ -37,20 +52,27 @@
       background: #e63946; border-color: #e63946; color: #fff;
     }
     .btn-primary:hover { background: #d32d3a; border-color: #d32d3a; color: #fff; }
-    .main { max-width: 720px; margin: 60px auto; padding: 0 32px; text-align: center; }
+    .main {
+      position: relative; z-index: 1;
+      max-width: 720px; margin: 60px auto; padding: 0 32px; text-align: center;
+    }
+    .greeting-logo {
+      height: 400px;
+      width: auto;
+      margin-bottom: 24px;
+      filter: drop-shadow(0 8px 32px rgba(230,57,70,0.15));
+    }
     .main h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
-    .main p { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-bottom: 48px; }
+    .main .sub { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-bottom: 48px; }
     .card {
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.06);
       border-radius: 16px; padding: 32px; text-align: left;
-      display: flex; align-items: center; gap: 24px;
     }
-    .card-avatar {
-      width: 80px; height: 80px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
-    }
-    .card-body { flex: 1; min-width: 0; }
-    .card-body h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
-    .card-body .desc { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-bottom: 14px; }
+    .card h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
+    .card .desc { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
     .btn-card {
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(230,57,70,0.1); border: 1px solid rgba(230,57,70,0.2);
@@ -59,32 +81,23 @@
       cursor: pointer; transition: all 0.2s; text-decoration: none;
     }
     .btn-card:hover { background: rgba(230,57,70,0.2); border-color: #e63946; }
-    .btn-card .icon { font-size: 1.1rem; }
-    .welcome-logo { width: 64px; height: 64px; margin-bottom: 16px; object-fit: contain; }
 
-    /* Admin section */
     .admin-section {
       display: none;
-      max-width: 720px; margin: 40px auto; padding: 0 32px;
+      max-width: 720px; margin: 40px auto; padding: 0 32px; position: relative; z-index: 1;
     }
     .admin-section.visible { display: block; }
     .admin-header {
       display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
     }
     .admin-header h3 { font-size: 1.1rem; font-weight: 600; }
-    .users-table {
-      width: 100%; border-collapse: collapse; font-size: 0.85rem;
-    }
+    .users-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
     .users-table th {
       text-align: left; padding: 10px 12px; color: rgba(255,255,255,0.3);
       font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .users-table td {
-      padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.03);
-    }
-    .users-table .role-badge {
-      font-size: 0.7rem; padding: 2px 8px; border-radius: 100px;
-    }
+    .users-table td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+    .users-table .role-badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 100px; }
     .role-badge.admin { background: rgba(230,57,70,0.15); color: #e63946; }
     .role-badge.user { background: rgba(59,130,246,0.15); color: #60a5fa; }
     .users-table .actions { display: flex; gap: 8px; }
@@ -118,9 +131,7 @@
       color: #fff; font-family: 'Inter', sans-serif; font-size: 0.85rem;
       outline: none; transition: border-color 0.2s;
     }
-    .modal .form-group input:focus, .modal .form-group select:focus {
-      border-color: #e63946;
-    }
+    .modal .form-group input:focus, .modal .form-group select:focus { border-color: #e63946; }
     .modal .form-group select option { background: #1a1a1c; }
     .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
     .toast {
@@ -147,9 +158,9 @@
   </div>
 
   <div class="main">
-    <img src="/static/logo.png" alt="V4 Company" class="welcome-logo">
+    <img src="/static/logo.png" alt="Peretto & Co" class="greeting-logo">
     <h2>Bem-vindo(a), <span id="userDisplayName"></span></h2>
-    <p>Selecione seu ambiente de IA para começar</p>
+    <p class="sub">Selecione seu ambiente de IA para começar</p>
     <div class="card" id="targets"></div>
   </div>
 
@@ -245,14 +256,11 @@
       const data = await api('/api/targets');
       const container = document.getElementById('targets');
       container.innerHTML = data.targets.map(t => `
-        <img src="/static/sofia.png" alt="Sofia" class="card-avatar">
-        <div class="card-body">
-          <h3>${t.name}</h3>
-          <div class="desc">Acesse o Hub de Agentes</div>
-          <a href="${t.url}" class="btn-card">
-            <span class="icon">▸</span> Abrir ${t.name}
-          </a>
-        </div>
+        <h3>${t.name}</h3>
+        <div class="desc">Acesse sua interface OpenCode Web</div>
+        <a href="${t.url}" class="btn-card" target="_blank">
+          <span class="icon">▸</span> Abrir ${t.name}
+        </a>
       `).join('');
     }
 
@@ -284,13 +292,11 @@
     function editUser(username) {
       document.getElementById('modalTitle').textContent = 'Editar Usuário';
       document.getElementById('editUsername').value = username;
-      const u = document.getElementById('usersBody').querySelector(`tr`).querySelectorAll('td');
-      // Fetch fresh data
+      document.getElementById('fUsername').disabled = true;
       api('/api/users').then(list => {
         const user = list.find(u => u.username === username);
         if (!user) return;
         document.getElementById('fUsername').value = user.username;
-        document.getElementById('fUsername').disabled = true;
         document.getElementById('fName').value = user.name;
         document.getElementById('fEmail').value = user.email || '';
         document.getElementById('fSquad').value = user.squad || '';
