@@ -11,35 +11,50 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Inter', -apple-system, sans-serif;
-      background: #0a0a0c;
+      background: #0a0a0c url('/static/v4bg.png') center/cover fixed no-repeat;
       color: #ffffff;
       min-height: 100vh;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 12, 0.65);
+      pointer-events: none;
+      z-index: 0;
     }
 
     .topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 32px;
-      background: rgba(255,255,255,0.02);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      padding: 16px 40px;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      z-index: 2;
     }
 
     .topbar-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
     .topbar-left img {
-      height: 36px;
+      height: 32px;
       width: auto;
+      opacity: 0.8;
     }
 
     .topbar-left span {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 600;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.02em;
     }
 
     .topbar-right {
@@ -52,123 +67,156 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 8px 16px;
+      padding: 7px 16px 7px 12px;
       background: rgba(255,255,255,0.04);
-      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 100px;
       font-size: 0.82rem;
     }
 
     .user-avatar {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       background: linear-gradient(135deg, #e63946, #8b1a1a);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: #fff;
     }
 
-    .user-info .name { font-weight: 600; color: #fff; }
-    .user-info .squad { color: rgba(255,255,255,0.4); font-size: 0.75rem; }
+    .user-info .name { font-weight: 600; color: #fff; font-size: 0.82rem; }
+    .user-info .squad { color: rgba(255,255,255,0.35); font-size: 0.7rem; }
 
     .btn-logout {
-      padding: 8px 18px;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px;
+      padding: 7px 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px;
       background: transparent;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.5);
       font-family: 'Inter', sans-serif;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       cursor: pointer;
       transition: all 0.2s;
     }
 
     .btn-logout:hover {
-      background: rgba(230,57,70,0.15);
-      border-color: #e63946;
+      background: rgba(230,57,70,0.12);
+      border-color: rgba(230,57,70,0.3);
       color: #e63946;
     }
 
     .main {
-      max-width: 900px;
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
       margin: 0 auto;
-      padding: 64px 32px;
+      padding: 80px 32px 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: calc(100vh - 73px);
     }
 
     .greeting {
-      margin-bottom: 48px;
       text-align: center;
+      margin-bottom: 56px;
+      animation: fadeUp 0.6s ease-out;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .greeting-logo {
-      height: 80px;
+      height: 150px;
       width: auto;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
+      filter: drop-shadow(0 4px 20px rgba(230,57,70,0.15));
     }
 
     .greeting h1 {
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 700;
       letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .greeting h1 span {
+      background: linear-gradient(135deg, #e63946, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .greeting p {
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.4);
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.35);
       margin-top: 8px;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-      max-width: 440px;
-      margin: 0 auto;
-    }
-
     .card {
+      width: 100%;
       background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 16px;
-      padding: 32px;
+      border-radius: 24px;
+      padding: 36px;
       cursor: pointer;
-      transition: all 0.25s;
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
       text-decoration: none;
       color: inherit;
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 28px;
       position: relative;
       overflow: hidden;
+      animation: fadeUp 0.6s ease-out 0.15s both;
     }
 
     .card::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(230,57,70,0.06) 0%, transparent 70%);
+      background: radial-gradient(ellipse at 50% 0%, rgba(230,57,70,0.08) 0%, transparent 70%);
       opacity: 0;
-      transition: opacity 0.25s;
+      transition: opacity 0.4s;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(230,57,70,0.2), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
     }
 
     .card:hover {
-      border-color: rgba(230,57,70,0.3);
-      transform: translateY(-2px);
+      border-color: rgba(230,57,70,0.25);
+      transform: translateY(-3px) scale(1.005);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.3);
     }
 
     .card:hover::before { opacity: 1; }
+    .card:hover::after { opacity: 1; }
 
     .card-avatar {
-      width: 80px;
-      height: 80px;
+      width: 88px;
+      height: 88px;
       border-radius: 50%;
       object-fit: cover;
       flex-shrink: 0;
       position: relative;
       z-index: 1;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
     }
 
     .card-body {
@@ -179,23 +227,34 @@
     }
 
     .card-body h3 {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 600;
       margin-bottom: 6px;
+      letter-spacing: -0.01em;
     }
 
     .card-body p {
       font-size: 0.82rem;
       color: rgba(255,255,255,0.4);
+      line-height: 1.5;
     }
 
     .card-body .hint {
-      margin-top: 16px;
-      font-size: 0.75rem;
+      margin-top: 14px;
+      font-size: 0.72rem;
       color: rgba(255,255,255,0.2);
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
+      padding: 4px 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 100px;
+      transition: all 0.2s;
+    }
+
+    .card:hover .hint {
+      border-color: rgba(230,57,70,0.15);
+      color: rgba(255,255,255,0.4);
     }
 
     .loading {
@@ -203,13 +262,15 @@
       text-align: center;
       padding: 48px;
       color: rgba(255,255,255,0.3);
+      position: relative;
+      z-index: 1;
     }
 
     .loading.active { display: block; }
 
     .spinner {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       border: 2px solid rgba(255,255,255,0.06);
       border-top-color: #e63946;
       border-radius: 50%;
@@ -223,6 +284,8 @@
       display: none;
       text-align: center;
       padding: 48px;
+      position: relative;
+      z-index: 1;
     }
 
     .error-state.active { display: block; }
@@ -238,12 +301,13 @@
     .error-state p { color: rgba(255,255,255,0.4); font-size: 0.9rem; }
 
     @media (max-width: 640px) {
-      .grid { grid-template-columns: 1fr; }
       .topbar { padding: 12px 16px; flex-direction: column; gap: 12px; }
       .topbar-right { width: 100%; justify-content: space-between; }
-      .main { padding: 32px 16px; }
-      .greeting h1 { font-size: 1.4rem; }
-      .greeting-logo { height: 60px; }
+      .main { padding: 48px 16px 32px; }
+      .greeting h1 { font-size: 1.5rem; }
+      .greeting-logo { height: 120px; }
+      .card { padding: 24px; gap: 20px; flex-direction: column; text-align: center; }
+      .card-avatar { width: 72px; height: 72px; }
     }
   </style>
 </head>
@@ -278,19 +342,17 @@
   <div class="main" id="dashboardContent" style="display:none">
     <div class="greeting">
       <img src="/static/logo-peretto-red.png" alt="Peretto & Co" class="greeting-logo">
-      <h1>Olá, <span id="userDisplayName">—</span></h1>
+      <h1>Bem-vindo, <span id="userDisplayName">—</span></h1>
       <p>Selecione um serviço para acessar</p>
     </div>
 
-    <div class="grid" id="targetsGrid">
-      <a class="card" href="#" target="_blank" id="card-opencode">
-        <img src="/static/sofia.png" alt="Sofia" class="card-avatar">
-        <div class="card-body">
-          <h3>Hub de Agentes de IA</h3>
-          <p>Interface do agente de IA com sessão individual</p>
-          <div class="hint">Abrir em nova aba</div>
-        </div>
-      </a>
+    <div class="card" id="card-opencode" href="#" target="_blank">
+      <img src="/static/sofia.png" alt="Sofia" class="card-avatar">
+      <div class="card-body">
+        <h3>Hub de Agentes de IA</h3>
+        <p>Interface do agente de IA com sessão individual</p>
+        <div class="hint">Abrir em nova aba</div>
+      </div>
     </div>
   </div>
 
@@ -333,6 +395,12 @@
     document.getElementById('logoutBtn').addEventListener('click', async () => {
       await fetch('/api/logout', { method: 'POST' });
       window.location.href = '/login.html';
+    });
+
+    document.getElementById('card-opencode').addEventListener('click', function(e) {
+      if (this.href && this.href !== '#') {
+        window.open(this.href, '_blank');
+      }
     });
 
     init();
