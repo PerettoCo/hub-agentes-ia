@@ -82,7 +82,20 @@
       max-width: 480px;
       text-align: center;
     }
-    .promo p { font-size: 1rem; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 40px; }
+    .promo-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+      border: 1px solid rgba(255,255,255,0.06); padding: 6px 14px;
+      border-radius: 100px; margin-bottom: 24px;
+    }
+    .promo-badge span { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; display: inline-block; }
+    .promo h2 {
+      font-size: 2.2rem; font-weight: 700; color: #ffffff;
+      line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px;
+    }
+    .promo h2 em { font-style: normal; color: #e63946; }
+    .promo p { font-size: 0.95rem; color: rgba(255,255,255,0.4); line-height: 1.7; margin-bottom: 32px; }
     .promo-stats {
       display: flex;
       justify-content: center;
@@ -175,10 +188,12 @@
       <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
     <div class="promo">
-      <p>Hub de Agentes de IA da V4 Company — inteligência artificial especializada para cada área do seu negócio.</p>
+      <div class="promo-badge"><span></span>V4 Company Peretto &amp; Co</div>
+      <h2>Hub de Agentes de <em>IA</em></h2>
+      <p>Dados integrados, rotinas automatizadas<br>e mentes livres para estratégia.</p>
       <div class="promo-stats">
-        <div class="promo-stat"><div class="num">36</div><div class="label">Agentes de IA</div></div>
-        <div class="promo-stat"><div class="num">102</div><div class="label">Skills especializadas</div></div>
+        <div class="promo-stat"><div class="num">35</div><div class="label">Agentes de IA</div></div>
+        <div class="promo-stat"><div class="num">97</div><div class="label">Skills especializadas</div></div>
         <div class="promo-stat"><div class="num">8</div><div class="label">Times integrados</div></div>
       </div>
     </div>
