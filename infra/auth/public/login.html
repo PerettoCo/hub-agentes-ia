@@ -82,12 +82,7 @@
       max-width: 480px;
       text-align: center;
     }
-    .promo .hero-logo {
-      height: 400px;
-      width: auto;
-      margin-bottom: 32px;
-      filter: drop-shadow(0 8px 32px rgba(230,57,70,0.2));
-    }
+    .promo p { font-size: 1rem; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 40px; }
     .promo-stats {
       display: flex;
       justify-content: center;
@@ -96,6 +91,8 @@
     .promo-stat { text-align: center; }
     .promo-stat .num { font-size: 1.6rem; font-weight: 700; color: #ffffff; line-height: 1; }
     .promo-stat .label { font-size: 0.72rem; color: rgba(255,255,255,0.3); margin-top: 4px; }
+    .login-logo { width: 200px; height: auto; margin: 0 auto 32px; display: block; }
+    @media (max-width: 600px) { .login-logo { width: 160px; } }
     .panel-right {
       width: 480px; min-width: 480px; display: flex;
       align-items: center; justify-content: center; padding: 48px;
@@ -178,7 +175,7 @@
       <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
     <div class="promo">
-      <img src="/static/logo.png" alt="Peretto & Co" class="hero-logo">
+      <p>Hub de Agentes de IA da V4 Company — inteligência artificial especializada para cada área do seu negócio.</p>
       <div class="promo-stats">
         <div class="promo-stat"><div class="num">36</div><div class="label">Agentes de IA</div></div>
         <div class="promo-stat"><div class="num">102</div><div class="label">Skills especializadas</div></div>
@@ -188,6 +185,7 @@
   </div>
   <div class="panel-right">
     <div class="login-box">
+      <img src="/static/logo.png" alt="Peretto & Co" class="login-logo">
       <div class="logo">
         <h1>Acessar plataforma</h1>
         <p>Hub de Agentes de IA</p>
