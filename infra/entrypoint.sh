@@ -11,16 +11,16 @@ export PATH="/home/node/.local/bin:$PATH"
 export BROWSER=/home/node/.local/bin/xdg-open
 
 if [ -n "$GITHUB_TOKEN" ]; then
-  REPO_URL="https://marcoslrvusa:${GITHUB_TOKEN}@github.com/PerettoCo/hub-agentes.git"
+  REPO_URL="https://marcoslrvusa:${GITHUB_TOKEN}@github.com/PerettoCo/hub-agentes-ia.git"
   if [ ! -d /workspace/.git ]; then
-    echo "[entrypoint] Setting up workspace (infra-v2)..."
+    echo "[entrypoint] Setting up workspace..."
     rm -rf /workspace/* /workspace/.[!.]* /workspace/.??* 2>/dev/null || true
-    git clone -b infra-unify --single-branch "$REPO_URL" /workspace
-    git -C /workspace remote set-url origin https://github.com/PerettoCo/hub-agentes.git
+    git clone -b main --single-branch "$REPO_URL" /workspace || echo "[entrypoint] Git clone failed (non-fatal)"
+    git -C /workspace remote set-url origin https://github.com/PerettoCo/hub-agentes-ia.git 2>/dev/null || true
   else
     echo "[entrypoint] Updating workspace..."
-    git -C /workspace remote set-url origin "$REPO_URL"
-    git -C /workspace pull --ff-only
+    git -C /workspace remote set-url origin "$REPO_URL" 2>/dev/null || true
+    git -C /workspace pull --ff-only 2>/dev/null || echo "[entrypoint] Git pull failed (non-fatal)"
   fi
 fi
 
