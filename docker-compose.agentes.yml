@@ -6,6 +6,7 @@ volumes:
   opencode-data-bruno:
   opencode-data-italo:
   opencode-auth-data:
+  opencode-userdata:
 
 services:
   # ─── Gateway (roteado via Dokploy/Traefik, sem porta no host) ───
@@ -67,6 +68,7 @@ services:
       HUB_USERNAME: marcos.luciano
     volumes:
       - opencode-data-marcos:/home/node/.local/share/opencode
+      - opencode-userdata:/home/node/user-data
       - ./infra/auth/opencode-config/marcos.luciano.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
     healthcheck:
@@ -95,6 +97,7 @@ services:
       HUB_USERNAME: fhelipe.aranha
     volumes:
       - opencode-data-fhelipe:/home/node/.local/share/opencode
+      - opencode-userdata:/home/node/user-data
       - ./infra/auth/opencode-config/fhelipe.aranha.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
     healthcheck:
@@ -123,6 +126,7 @@ services:
       HUB_USERNAME: lucas.nunes
     volumes:
       - opencode-data-lucasnunes:/home/node/.local/share/opencode
+      - opencode-userdata:/home/node/user-data
       - ./infra/auth/opencode-config/lucas.nunes.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
     healthcheck:
@@ -151,6 +155,7 @@ services:
       HUB_USERNAME: paolo.carmine
     volumes:
       - opencode-data-paolo:/home/node/.local/share/opencode
+      - opencode-userdata:/home/node/user-data
       - ./infra/auth/opencode-config/paolo.carmine.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
     healthcheck:
@@ -179,6 +184,7 @@ services:
       HUB_USERNAME: bruno.lindenmeyer
     volumes:
       - opencode-data-bruno:/home/node/.local/share/opencode
+      - opencode-userdata:/home/node/user-data
       - ./infra/auth/opencode-config/bruno.lindenmeyer.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
     healthcheck:
@@ -207,6 +213,7 @@ services:
       HUB_USERNAME: italo.rossi
     volumes:
       - opencode-data-italo:/home/node/.local/share/opencode
+      - opencode-userdata:/home/node/user-data
       - ./infra/auth/opencode-config/italo.rossi.json:/home/node/.config/opencode/opencode.json:ro
     restart: unless-stopped
     healthcheck:

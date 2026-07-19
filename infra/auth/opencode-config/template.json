@@ -20,7 +20,7 @@
       "mode": "subagent"
     },
     "account-orchestrator": {
-      "description": "Account Orchestrator \u2014 orquestra a saude do cliente integrando check-ins, mission control, flags e expansao",
+      "description": "Account Orchestrator — orquestra a saude do cliente integrando check-ins, mission control, flags e expansao",
       "mode": "subagent"
     },
     "analista-dados": {
@@ -28,47 +28,47 @@
       "mode": "subagent"
     },
     "automacao-analytics": {
-      "description": "Arquiteto de automacao e analytics \u2014 setup de tracking, workflows n8n e pipelines de dados",
+      "description": "Arquiteto de automacao e analytics — setup de tracking, workflows n8n e pipelines de dados",
       "mode": "subagent"
     },
     "cmoorch": {
-      "description": "CMO Orchestrator \u2014 orquestra a estrategia de marketing completa, integrando todos os times e especialistas",
+      "description": "CMO Orchestrator — orquestra a estrategia de marketing completa, integrando todos os times e especialistas",
       "mode": "subagent"
     },
     "content-studio": {
-      "description": "Content Studio Producer \u2014 orquestra producao de conteudo integrando pesquisa, copy, design e SEO",
+      "description": "Content Studio Producer — orquestra producao de conteudo integrando pesquisa, copy, design e SEO",
       "mode": "subagent"
     },
     "copy-content": {
-      "description": "Copywriter e produtor de conteudo \u2014 escreve landing pages, emails, anuncios, redes sociais e lead magnets",
+      "description": "Copywriter e produtor de conteudo — escreve landing pages, emails, anuncios, redes sociais e lead magnets",
       "mode": "subagent"
     },
     "criacao-design": {
-      "description": "Diretor de criacao e design \u2014 produz interfaces, imagens, videos e apresentacoes de alto nivel",
+      "description": "Diretor de criacao e design — produz interfaces, imagens, videos e apresentacoes de alto nivel",
       "mode": "subagent"
     },
     "cro-lab": {
-      "description": "CRO Lab Lead \u2014 orquestra pipeline de experimentos continuo com hipoteses, design, execucao e aprendizado",
+      "description": "CRO Lab Lead — orquestra pipeline de experimentos continuo com hipoteses, design, execucao e aprendizado",
       "mode": "subagent"
     },
     "cro-otimizacao": {
-      "description": "Especialista em CRO e experimentacao \u2014 otimiza conversao em paginas, signups, formularios e onboarding",
+      "description": "Especialista em CRO e experimentacao — otimiza conversao em paginas, signups, formularios e onboarding",
       "mode": "subagent"
     },
     "csm-orquestrador": {
-      "description": "Orquestrador CSM \u2014 Setup inicial, triagem de flags, QBR, fechamento de loop",
+      "description": "Orquestrador CSM — Setup inicial, triagem de flags, QBR, fechamento de loop",
       "mode": "subagent"
     },
     "estrategia-lideranca": {
-      "description": "Conselheiro de lideranca e estrategia \u2014 sabatina planos, brainstorm funcao, identifica parcerias e oportunidades de launch",
+      "description": "Conselheiro de lideranca e estrategia — sabatina planos, brainstorm funcao, identifica parcerias e oportunidades de launch",
       "mode": "subagent"
     },
     "estrategia-marketing": {
-      "description": "Estrategista de marketing \u2014 pesquisa mercado, analisa concorrencia, define posicionamento e estrategia de conteudo",
+      "description": "Estrategista de marketing — pesquisa mercado, analisa concorrencia, define posicionamento e estrategia de conteudo",
       "mode": "subagent"
     },
     "evolucao-checkins": {
-      "description": "Analista de evolucao de check-ins \u2014 le historico completo do Mission Control e gera relatorio de progressao",
+      "description": "Analista de evolucao de check-ins — le historico completo do Mission Control e gera relatorio de progressao",
       "mode": "subagent"
     },
     "executor-comite": {
@@ -84,11 +84,11 @@
       "mode": "subagent"
     },
     "flag-operacao": {
-      "description": "Alerta de operacao travada \u2014 sprint atrasada sem FCA ou timesheet zerado",
+      "description": "Alerta de operacao travada — sprint atrasada sem FCA ou timesheet zerado",
       "mode": "subagent"
     },
     "flag-roi": {
-      "description": "Diagnostico de ROAS abaixo da meta \u2014 classifica tipo e gera CHAS para o GT",
+      "description": "Diagnostico de ROAS abaixo da meta — classifica tipo e gera CHAS para o GT",
       "mode": "subagent"
     },
     "gerar-doc": {
@@ -108,43 +108,43 @@
       "mode": "subagent"
     },
     "growth-team": {
-      "description": "Growth Team Lead \u2014 orquestra a estrategia de growth integrando CRO, midia paga, SEO, conteudo e receita",
+      "description": "Growth Team Lead — orquestra a estrategia de growth integrando CRO, midia paga, SEO, conteudo e receita",
       "mode": "subagent"
     },
     "launch-pad": {
-      "description": "Launch Pad \u2014 orquestra lancamentos de produtos integrando estrategia, conteudo, midia, SEO e diretorios",
+      "description": "Launch Pad — orquestra lancamentos de produtos integrando estrategia, conteudo, midia, SEO e diretorios",
       "mode": "subagent"
     },
     "media-buyer": {
-      "description": "Media Buyer especialista \u2014 arquitetura de contas, analise preditiva, otimizacao ROAS/CPA com dados reais",
+      "description": "Media Buyer especialista — arquitetura de contas, analise preditiva, otimizacao ROAS/CPA com dados reais",
       "mode": "subagent"
     },
     "midia-paga": {
-      "description": "Estrategista de midia paga \u2014 planeja, estrutura e otimiza campanhas em Meta, Google, LinkedIn e TikTok",
+      "description": "Estrategista de midia paga — planeja, estrutura e otimiza campanhas em Meta, Google, LinkedIn e TikTok",
       "mode": "subagent"
     },
     "n8n-automator": {
-      "description": "Arquiteto n8n \u2014 cria, edita, valida e sincroniza workflows de automacao com n8n-as-code",
+      "description": "Arquiteto n8n — cria, edita, valida e sincroniza workflows de automacao com n8n-as-code",
       "mode": "subagent"
     },
     "pesquisador": {
-      "description": "Pesquisador de profundidade \u2014 minera dados publicos, reviews, concorrentes e consumidores para gerar insights acionaveis",
+      "description": "Pesquisador de profundidade — minera dados publicos, reviews, concorrentes e consumidores para gerar insights acionaveis",
       "mode": "subagent"
     },
     "pipeline-conteudo": {
-      "description": "Produtor de conteudo editorial \u2014 cria calendario, produz blog posts e email marketing, gerencia fluxo de aprovacao no Google Drive e entrega JSONs finais",
+      "description": "Produtor de conteudo editorial — cria calendario, produz blog posts e email marketing, gerencia fluxo de aprovacao no Google Drive e entrega JSONs finais",
       "mode": "subagent"
     },
     "receita-crescimento": {
-      "description": "Especialista em receita e crescimento \u2014 pricing, retencao, referrals, operacoes de receita",
+      "description": "Especialista em receita e crescimento — pricing, retencao, referrals, operacoes de receita",
       "mode": "subagent"
     },
     "relatorios-trafego": {
-      "description": "Analista de relatorios de trafego multicanal \u2014 Google Ads, Meta Ads, Bing Ads. Gera reports consolidados, detecta anomalias e calcula pace de verba",
+      "description": "Analista de relatorios de trafego multicanal — Google Ads, Meta Ads, Bing Ads. Gera reports consolidados, detecta anomalias e calcula pace de verba",
       "mode": "subagent"
     },
     "revenue-ops": {
-      "description": "Revenue Operations Lead \u2014 orquestra a engrenagem de receita integrando pricing, churn, referral e automacao",
+      "description": "Revenue Operations Lead — orquestra a engrenagem de receita integrando pricing, churn, referral e automacao",
       "mode": "subagent"
     },
     "revisor": {
@@ -152,11 +152,11 @@
       "mode": "subagent"
     },
     "seo-visibilidade": {
-      "description": "Especialista em SEO e AI Visibility \u2014 audita, otimiza e faz marcas aparecerem em buscas e IAs",
+      "description": "Especialista em SEO e AI Visibility — audita, otimiza e faz marcas aparecerem em buscas e IAs",
       "mode": "subagent"
     },
     "vendas-account": {
-      "description": "Especialista em vendas e account \u2014 cria collaterais de vendas, scripts de demo, handoff e pesquisa de cliente",
+      "description": "Especialista em vendas e account — cria collaterais de vendas, scripts de demo, handoff e pesquisa de cliente",
       "mode": "subagent"
     }
   },
@@ -175,7 +175,7 @@
   "command": {
     "session-save": {
       "description": "Exporta a sessao atual para log/",
-      "template": "Exporte a sessao atual: !`bash scripts/session-save.sh`\n\nListe o arquivo gerado e confirme."
+      "template": "Exporte a sessao atual para log/ e liste o arquivo gerado."
     },
     "orquestra": {
       "description": "Mapa da Agent Orchestra V4",
@@ -185,17 +185,25 @@
       "description": "Executa consulta SQL no Supabase DADOS",
       "template": "Execute: !`python3 scripts/consultar-supabase.py \"{consulta}\"`\n\nRetorna dados do banco em JSON."
     },
-    "ingest": {
-      "description": "Le arquivos do input/ do usuario e processa com file-reader",
-      "template": "Execute: !`python3 scripts/ingest.py ingest`\n\nProcessa todos os arquivos em /workspace/input/<usuario>/ e salva outputs em /workspace/output/<usuario>/handoff/."
+    "list-inputs": {
+      "description": "Lista arquivos enviados pelo usuario",
+      "template": "Execute: !`ls -la /workspace/input/`\n\nMostra todos os arquivos que o usuario salvou em /workspace/input/"
     },
     "list-outputs": {
-      "description": "Lista outputs gerados pelo usuario",
-      "template": "Execute: !`python3 scripts/ingest.py list`\n\nMostra todos os arquivos processados em /workspace/output/<usuario>/"
+      "description": "Lista outputs gerados pelo agente para o usuario",
+      "template": "Execute: !`ls -R /workspace/output/`\n\nMostra todos os arquivos gerados em /workspace/output/"
+    },
+    "read-input": {
+      "description": "Le um arquivo do input do usuario (PDF, DOCX, imagem, etc)",
+      "template": "Execute: !`python3 scripts/file-reader.py \"/workspace/input/{filename}\"`\n\nExtrai texto do arquivo. Se truncated, pergunte se quer continuar."
+    },
+    "save-output": {
+      "description": "Salva um arquivo na pasta output do usuario",
+      "template": "Salve o arquivo em /workspace/output/{subpasta}/{filename}\nSubpastas: handoff, reports, queries, shared, temp"
     },
     "push-to-drive": {
       "description": "Envia outputs do usuario para o Google Drive (requer MCP configurado)",
-      "template": "Liste os outputs com /list-outputs, confirme com o usuario e sincronize /workspace/output/<usuario>/ com o Google Drive via MCP."
+      "template": "Liste os outputs com /list-outputs, confirme com o usuario e sincronize /workspace/output/ com o Google Drive via MCP."
     }
   }
 }

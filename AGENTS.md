@@ -122,36 +122,49 @@ Do not reconstruct `workflowsPath` from environment name/id, instance identifier
 Never write `n8nac-config.json`, `~/.n8n-manager`, or n8n-manager secret files by hand.
 <!-- n8n-as-code-end -->
 
-## Leitura de Arquivos (PDF, DOCX, Imagens, etc.)
+## Sistema de Arquivos do Usuário (Input/Output Persistentes)
 
-O agente usa `scripts/file-reader.py` para extrair texto de qualquer arquivo binário.
+Cada usuário tem pastas persistentes em `/home/node/user-data/` (volume Docker, sobrevive a restart):
 
-### Fluxo quando o usuário envia um arquivo no chat
+```
+/home/node/user-data/
+├── input/<usuario>/       ← Usuário envia arquivos aqui → agente lê instantaneamente
+└── output/<usuario>/
+    ├── handoff/           Documentos de handoff e transição
+    ├── reports/           Relatórios e análises
+    ├── queries/           Respostas de consultas ao banco
+    ├── shared/            Arquivos para compartilhar com o usuário
+    └── temp/              Trabalho em andamento (limpeza periódica)
+```
 
-1. O arquivo anexado no chat NÃO está acessível no filesystem — peça ao usuário para salvá-lo em uma pasta do workspace
-2. Após salvo, use o **Read tool** (suporta PDF e imagens nativamente) ou execute:
-   ```bash
-   python3 scripts/file-reader.py "caminho/do/arquivo.pdf"
-   ```
-3. Se `truncated: true` no resultado, pergunte se quer ler mais partes
+Symlink em `/workspace/input` → `/home/node/user-data/input/<user>` (mesmo para output).
 
-### Dependências instaladas
+### Fluxo Obrigatório
 
-Todas as dependências (`pypdf`, `Pillow`, `python-docx`, `openpyxl`, etc.) estão instaladas nos containers. Se algo falhar, execute:
+1. **Usuário envia arquivo no chat**: O agente DEVE salvá-lo em `/workspace/input/<filename>` usando o Write tool (ou copiar).
+2. **Agente precisa ler um arquivo**: Use o Read tool ou `python3 scripts/file-reader.py "/workspace/input/<filename>"`.
+3. **Agente gera saída para o usuário**: Salve em `/workspace/output/<subpasta>/<filename>`.
+4. **Usuário pergunta "o que tem na minha pasta"**: Execute `ls /workspace/input/` e `ls /workspace/output/`.
+
+### Comandos Úteis
+
+| Comando | Ação |
+|---------|------|
+| `ls /workspace/input/` | Lista arquivos enviados pelo usuário |
+| `ls /workspace/output/` | Lista saídas geradas |
+| `python3 scripts/file-reader.py "/workspace/input/arquivo.pdf"` | Lê PDF/DOCX/imagem |
+| `ls -R /workspace/output/` | Lista tudo incluindo subpastas |
+
+### Dependências de Leitura
+
+Todas instaladas nos containers. Se falhar:
 ```bash
 pip3 install --break-system-packages --no-cache-dir pypdf python-docx openpyxl python-magic pillow pytesseract
 ```
 
 ### Skill dedicada
 
-Carregue a skill `geral-leitor-arquivos` para fluxo completo de leitura universal.
-
-## Workspace e Saída
-
-- O workspace é `/workspace` (compartilhado entre todos os agentes)
-- Saídas específicas do usuário vão em `squads/<squad>/clientes/<cliente>/` ou no diretório do projeto
-- Arquivos de sistema (skills, configs, scripts) não devem ser listados como entregáveis ao usuário a menos que solicitado
-- O agente SÓ deve mostrar/citar arquivos que são output do trabalho, não arquivos internos do sistema (.md de skills, configs, etc.)
+Carregue `geral-leitor-arquivos` para fluxo completo de leitura universal.
 
 ## Sistema de Log de Sessões
 

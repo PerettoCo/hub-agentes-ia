@@ -176,7 +176,7 @@
   "command": {
     "session-save": {
       "description": "Exporta a sessao atual para log/",
-      "template": "Exporte a sessao atual: !`bash scripts/session-save.sh`\n\nListe o arquivo gerado e confirme."
+      "template": "Exporte a sessao atual para log/ e liste o arquivo gerado."
     },
     "orquestra": {
       "description": "Mapa da Agent Orchestra V4",
@@ -186,17 +186,25 @@
       "description": "Executa consulta SQL no Supabase DADOS",
       "template": "Execute: !`python3 scripts/consultar-supabase.py \"{consulta}\"`\n\nRetorna dados do banco em JSON."
     },
-    "ingest": {
-      "description": "Le arquivos do input/ do usuario e processa com file-reader",
-      "template": "Execute: !`python3 scripts/ingest.py ingest`\n\nProcessa todos os arquivos em /workspace/input/<usuario>/ e salva outputs em /workspace/output/<usuario>/handoff/."
+    "list-inputs": {
+      "description": "Lista arquivos enviados pelo usuario",
+      "template": "Execute: !`ls -la /workspace/input/`\n\nMostra todos os arquivos que o usuario salvou em /workspace/input/"
     },
     "list-outputs": {
-      "description": "Lista outputs gerados pelo usuario",
-      "template": "Execute: !`python3 scripts/ingest.py list`\n\nMostra todos os arquivos processados em /workspace/output/<usuario>/"
+      "description": "Lista outputs gerados pelo agente para o usuario",
+      "template": "Execute: !`ls -R /workspace/output/`\n\nMostra todos os arquivos gerados em /workspace/output/"
+    },
+    "read-input": {
+      "description": "Le um arquivo do input do usuario (PDF, DOCX, imagem, etc)",
+      "template": "Execute: !`python3 scripts/file-reader.py \"/workspace/input/{filename}\"`\n\nExtrai texto do arquivo. Se truncated, pergunte se quer continuar."
+    },
+    "save-output": {
+      "description": "Salva um arquivo na pasta output do usuario",
+      "template": "Salve o arquivo em /workspace/output/{subpasta}/{filename}\nSubpastas: handoff, reports, queries, shared, temp"
     },
     "push-to-drive": {
       "description": "Envia outputs do usuario para o Google Drive (requer MCP configurado)",
-      "template": "Liste os outputs com /list-outputs, confirme com o usuario e sincronize /workspace/output/<usuario>/ com o Google Drive via MCP."
+      "template": "Liste os outputs com /list-outputs, confirme com o usuario e sincronize /workspace/output/ com o Google Drive via MCP."
     }
   }
 }

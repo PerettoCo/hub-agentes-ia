@@ -6,39 +6,25 @@ Cria estrutura /workspace/output/<user>/ e /workspace/input/<user>/.
 import os, sys, json, shutil, subprocess, re, glob
 from pathlib import Path
 
-WORKSPACE = Path("/workspace")
+INPUT_DIR = Path("/workspace/input")
+OUTPUT_DIR = Path("/workspace/output")
 
 def get_user() -> str:
-    user = os.environ.get("HUB_USERNAME", "")
-    if not user:
-        # Try to determine from config path
-        config_path = Path.home() / ".config" / "opencode" / "opencode.json"
-        if config_path.exists():
-            try:
-                cfg = json.loads(config_path.read_text())
-                for k, v in cfg.get("agent", {}).items():
-                    if k != "explore" and k != "general":
-                        continue
-            except:
-                pass
-    if not user:
-        user = os.environ.get("USER", "unknown")
+    user = os.environ.get("HUB_USERNAME", "unknown")
     return user.replace(".", "-")
 
-def ensure_dirs(user: str):
-    """Cria estrutura de diretórios para o usuário."""
-    input_dir = WORKSPACE / "input" / user
-    output_dir = WORKSPACE / "output" / user
+def ensure_dirs(user: str = None):
+    """Cria subpastas de output."""
     for d in [
-        input_dir,
-        output_dir / "handoff",
-        output_dir / "reports",
-        output_dir / "queries",
-        output_dir / "shared",
-        output_dir / "temp",
+        INPUT_DIR,
+        OUTPUT_DIR / "handoff",
+        OUTPUT_DIR / "reports",
+        OUTPUT_DIR / "queries",
+        OUTPUT_DIR / "shared",
+        OUTPUT_DIR / "temp",
     ]:
         d.mkdir(parents=True, exist_ok=True)
-    return input_dir, output_dir
+    return INPUT_DIR, OUTPUT_DIR
 
 def scan_input(input_dir: Path) -> list:
     """Retorna arquivos novos no input (não processados)."""
@@ -118,7 +104,7 @@ def ingest(user: str = None, filespec: str = None):
             "input_dir": str(input_dir),
             "output_dir": str(output_dir),
             "status": "no_files",
-            "message": "Nenhum arquivo encontrado. Salve os arquivos em /workspace/input/<usuario>/ e rode /ingest novamente."
+            "message": "Nenhum arquivo encontrado. Salve os arquivos em /workspace/input/ e rode /ingest novamente."
         }, indent=2, ensure_ascii=False))
         return
 
