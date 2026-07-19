@@ -71,3 +71,4 @@ sofia.png
 
 # Binary/image artifacts (not source code)
 sofia.png
+*.restore
