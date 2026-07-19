@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
   wget \
   && rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g opencode-ai@latest @ai-sdk/openai-compatible
+RUN npm install -g opencode-ai@1.17.20 @ai-sdk/openai-compatible
 
 COPY infra/scripts/requirements.txt /tmp/requirements.txt
 RUN pip3 install -r /tmp/requirements.txt --break-system-packages && rm -f /tmp/requirements.txt
