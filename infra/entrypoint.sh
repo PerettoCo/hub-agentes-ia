@@ -24,7 +24,13 @@ if [ -n "$GITHUB_TOKEN" ]; then
   fi
 fi
 
-mkdir -p /workspace/outputs
+# Per-user workspace directories (any agent can use)
+HUB_USER="${HUB_USERNAME:-unknown}"
+for u in marcos.luciano fhelipe.aranha lucas.nunes paolo.carmine bruno.lindenmeyer italo.rossi; do
+  u_safe="${u//./-}"
+  mkdir -p /workspace/input/"$u_safe"
+  mkdir -p /workspace/output/"$u_safe"/{handoff,reports,queries,shared,temp}
+done
 
 rm -f /workspace/opencode.json
 
