@@ -64,8 +64,10 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Backup/snapshot dirs (not source)
+# Backup/snapshot / temp files
 backup-mvp/
+MVP-SNAPSHOT.md
+sofia.png
 
 # Binary/image artifacts (not source code)
 sofia.png

@@ -32,6 +32,11 @@ for u in marcos.luciano fhelipe.aranha lucas.nunes paolo.carmine bruno.lindenmey
   mkdir -p /workspace/output/"$u_safe"/{handoff,reports,queries,shared,temp}
 done
 
+# Input dir for file uploads (user saves files here, agent reads with file-reader.py)
+for u in bruno-lindenmeyer fhelipe-aranha italo-rossi lucas-nunes marcos-luciano paolo-carmine; do
+  mkdir -p /workspace/input/"$u"
+done
+
 rm -f /workspace/opencode.json
 
 exec "$@"
