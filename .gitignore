@@ -51,6 +51,9 @@ projetos/Chaves\ LLM.md
 # Untitled files
 Untitled*
 
+# Session logs (local, not shared)
+log/
+
 # Secrets
 .env
 
@@ -60,3 +63,9 @@ __pycache__/
 *.pyc
 .DS_Store
 Thumbs.db
+
+# Backup/snapshot dirs (not source)
+backup-mvp/
+
+# Binary/image artifacts (not source code)
+sofia.png
