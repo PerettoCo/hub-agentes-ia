@@ -57,8 +57,8 @@
       max-width: 720px; margin: 60px auto; padding: 0 32px; text-align: center;
     }
     .greeting-logo {
-      height: 400px;
-      width: auto;
+      width: 200px;
+      height: auto;
       margin-bottom: 24px;
       filter: drop-shadow(0 8px 32px rgba(230,57,70,0.15));
     }
@@ -70,7 +70,11 @@
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255,255,255,0.06);
       border-radius: 16px; padding: 32px; text-align: left;
+      display: flex; align-items: center; gap: 32px;
     }
+    .card-content { flex: 1; }
+    .card-avatar { flex-shrink: 0; width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 2px solid rgba(230,57,70,0.2); }
+    .card-avatar img { width: 100%; height: 100%; object-fit: cover; }
     .card h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
     .card .desc { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
     .btn-card {
@@ -256,11 +260,16 @@
       const data = await api('/api/targets');
       const container = document.getElementById('targets');
       container.innerHTML = data.targets.map(t => `
-        <h3>${t.name}</h3>
-        <div class="desc">Acesse sua interface OpenCode Web</div>
-        <a href="${t.url}" class="btn-card" target="_blank">
-          <span class="icon">▸</span> Abrir ${t.name}
-        </a>
+        <div class="card-content">
+          <h3>${t.name}</h3>
+          <div class="desc">Acesse sua interface OpenCode Web</div>
+          <a href="${t.url}" class="btn-card" target="_blank">
+            <span class="icon">▸</span> Abrir ${t.name}
+          </a>
+        </div>
+        <div class="card-avatar">
+          <img src="/static/sofia.png" alt="Sofia IA">
+        </div>
       `).join('');
     }
 
