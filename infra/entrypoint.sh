@@ -39,8 +39,9 @@ for u in $USERS; do
 done
 
 # Symlinks inside workspace for convenience (/workspace/input -> userdata)
-ln -sfn "$USERDATA/input/$HUB_USER" /workspace/input
-ln -sfn "$USERDATA/output/$HUB_USER" /workspace/output
+HUB_SAFE="${HUB_USER//./-}"
+ln -sfn "$USERDATA/input/$HUB_SAFE" /workspace/input
+ln -sfn "$USERDATA/output/$HUB_SAFE" /workspace/output
 
 rm -f /workspace/opencode.json
 
