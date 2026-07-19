@@ -16,9 +16,10 @@ RUN pip3 install -r /tmp/requirements.txt --break-system-packages && rm -f /tmp/
 RUN mkdir -p \
   /home/node/.config/opencode \
   /home/node/.local/share/opencode \
+  /home/node/user-data \
   /workspace \
   /home/node/.agents \
-  && chown -R node:node /home/node/.config /home/node/.local /workspace /home/node/.agents
+  && chown -R node:node /home/node/.config /home/node/.local /home/node/user-data /workspace /home/node/.agents
 
 ENV OPENCODE_HOSTNAME=0.0.0.0
 ENV OPENCODE_PORT=4096

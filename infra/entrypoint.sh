@@ -32,10 +32,10 @@ HUB_USER="${HUB_USERNAME:-unknown}"
 USERS="marcos.luciano fhelipe.aranha lucas.nunes paolo.carmine bruno.lindenmeyer italo.rossi"
 for u in $USERS; do
   u_safe="${u//./-}"
-  # Input: user uploads files here → agent reads instantly
   mkdir -p "$USERDATA/input/$u_safe"
-  # Output: agent writes results here → user accesses instantly
-  mkdir -p "$USERDATA/output/$u_safe"/{handoff,reports,queries,shared,temp}
+  for sub in handoff reports queries shared temp; do
+    mkdir -p "$USERDATA/output/$u_safe/$sub"
+  done
 done
 
 # Symlinks inside workspace for convenience (/workspace/input -> userdata)
