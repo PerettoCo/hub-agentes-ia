@@ -10,26 +10,7 @@
       }
     }
   },
-  "mcp": {
-    "servers": {
-      "enabled": ["ekyte", "google-drive"],
-      "ekyte": {
-        "type": "remote",
-        "url": "https://api.ekyte.com/mcp",
-        "headers": {
-          "Authorization": "Bearer {env:EKYTE_TOKEN}"
-        }
-      },
-      "google-drive": {
-        "type": "remote",
-        "url": "https://drivemcp.googleapis.com/mcp/v1",
-        "oauth": {
-          "clientId": "{env:GOOGLE_DRIVE_CLIENT_ID}",
-          "clientSecret": "{env:GOOGLE_DRIVE_CLIENT_SECRET}"
-        }
-      }
-    }
-  },
+
   "agent": {
     "explore": {
       "description": "Fast agent specialized for exploring codebases",

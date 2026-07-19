@@ -1,7 +1,0 @@
-{
-  "timestamp": "2026-07-08",
-  "action": "merge infra-login into main and push",
-  "commit": "26689e7",
-  "details": "Merge branch 'infra-login' into main — Login Portal + OpenCode Multi-User + LiteLLM",
-  "status": "completed"
-}
