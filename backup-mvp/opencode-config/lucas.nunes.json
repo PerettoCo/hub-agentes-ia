@@ -12,7 +12,6 @@
   },
   "mcp": {
     "servers": {
-      "enabled": ["ekyte", "google-drive"],
       "ekyte": {
         "type": "remote",
         "url": "https://api.ekyte.com/mcp",
@@ -204,18 +203,6 @@
     "consultar-banco": {
       "description": "Executa consulta SQL no Supabase DADOS",
       "template": "Execute: !`python3 scripts/consultar-supabase.py \"{consulta}\"`\n\nRetorna dados do banco em JSON."
-    },
-    "ingest": {
-      "description": "Le arquivos do input/ do usuario e processa com file-reader",
-      "template": "Execute: !`python3 scripts/ingest.py ingest`\n\nProcessa todos os arquivos em /workspace/input/<usuario>/ e salva outputs em /workspace/output/<usuario>/handoff/."
-    },
-    "list-outputs": {
-      "description": "Lista outputs gerados pelo usuario",
-      "template": "Execute: !`python3 scripts/ingest.py list`\n\nMostra todos os arquivos processados em /workspace/output/<usuario>/"
-    },
-    "push-to-drive": {
-      "description": "Envia outputs do usuario para o Google Drive (requer MCP configurado)",
-      "template": "Liste os outputs com /list-outputs, confirme com o usuario e sincronize /workspace/output/<usuario>/ com o Google Drive via MCP."
     }
   }
 }

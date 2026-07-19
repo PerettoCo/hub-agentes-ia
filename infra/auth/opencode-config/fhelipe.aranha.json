@@ -12,6 +12,10 @@
   },
   "mcp": {
     "servers": {
+      "enabled": [
+        "ekyte",
+        "google-drive"
+      ],
       "ekyte": {
         "type": "remote",
         "url": "https://api.ekyte.com/mcp",
