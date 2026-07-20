@@ -12,7 +12,7 @@
         "nemotron-super": {
           "name": "Nemotron 3 Super 120B (free)",
           "tool_call": true,
-          "attachment": false,
+          "attachment": true,
           "reasoning": false,
           "limit": {
             "context": 1000000,
