@@ -1,12 +1,44 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "openai/deepseek-v4-flash-free",
-  "small_model": "openai/mimo-v2.5-free",
+  "model": "openai/nemotron-super",
+  "small_model": "openai/gpt-oss-free",
   "provider": {
     "openai": {
       "options": {
         "apiKey": "{env:OPENAI_API_KEY}",
         "baseURL": "{env:OPENAI_BASE_URL}"
+      },
+      "models": {
+        "nemotron-super": {
+          "name": "Nemotron 3 Super 120B (free)",
+          "tool_call": true,
+          "attachment": false,
+          "reasoning": false,
+          "limit": {
+            "context": 1000000,
+            "output": 32000
+          }
+        },
+        "gpt-oss-free": {
+          "name": "GPT-OSS 20B (free)",
+          "tool_call": true,
+          "attachment": false,
+          "reasoning": false,
+          "limit": {
+            "context": 131072,
+            "output": 32000
+          }
+        },
+        "vision-free": {
+          "name": "Nemotron Nano VL (free, vision)",
+          "tool_call": false,
+          "attachment": true,
+          "reasoning": false,
+          "limit": {
+            "context": 128000,
+            "output": 8192
+          }
+        }
       }
     }
   },
