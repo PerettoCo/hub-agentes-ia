@@ -1,9 +1,18 @@
 #!/usr/bin/env python3
 """Consulta dados no Supabase DADOS via REST API.
-Uso: python3 scripts/consultar-supabase.py "SELECT * FROM DBClientes LIMIT 5"
-     python3 scripts/consultar-supabase.py "SELECT id,nome FROM 11Service LIMIT 10"
-     python3 scripts/consultar-supabase.py "SELECT * FROM DBSquads"
-     python3 scripts/consultar-supabase.py "SELECT * FROM DBPessoas WHERE squad_id = 1"
+Uso: consultar-supabase "SELECT * FROM DBClientes LIMIT 5"
+
+Tabelas principais da operacao:
+  DBClientes             Clientes (tabela principal)
+  DBSquads               Squads
+  DBPessoas              Pessoas
+  11Service              Servicos
+  121KickoffEE           Kickoff EE
+  121Kickoff             Kickoff
+  50TranscricaoCheckin   Transcricoes de check-in (combinados)
+  f_gerenciador_google   Contas Google Ads
+  f_gerenciador_meta     Contas Meta Ads
+  f_gerenciador_*        Demais contas de campanha
 """
 import os, sys, json, urllib.request, urllib.parse, re
 
