@@ -215,7 +215,7 @@
     },
     "consultar-banco": {
       "description": "Executa consulta SQL no Supabase DADOS",
-      "template": "Execute: !`consultar-supabase \"{consulta}\"`\n\nRetorna dados do banco em JSON."
+      "template": "Execute: !`echo '{consulta}' | consultar-supabase`\n\nRetorna dados do banco em JSON."
     },
     "list-inputs": {
       "description": "Lista arquivos enviados pelo usuario",
