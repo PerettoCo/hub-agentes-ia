@@ -300,6 +300,33 @@
 
     .error-state p { color: rgba(255,255,255,0.4); font-size: 0.9rem; }
 
+    .files-section {
+      margin-top: 40px;
+      text-align: left;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .files-section-head {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      margin-bottom: 6px;
+    }
+    .files-section-head h3 { font-size: 1.05rem; font-weight: 600; color: rgba(255,255,255,0.85); }
+    .files-hint { font-size: 0.75rem; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+    .files-hint code { color: #e63946; background: rgba(230,57,70,0.1); padding: 1px 6px; border-radius: 4px; }
+    .files-list { display: flex; flex-direction: column; gap: 8px; }
+    .file-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 12px 14px; border: 1px solid rgba(255,255,255,0.05); border-radius: 10px;
+      background: rgba(255,255,255,0.02); transition: all 0.2s;
+    }
+    .file-row:hover { border-color: rgba(230,57,70,0.25); background: rgba(230,57,70,0.04); }
+    .file-row a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.85rem; word-break: break-all; }
+    .file-row a:hover { color: #e63946; }
+    .file-meta { font-size: 0.72rem; color: rgba(255,255,255,0.3); white-space: nowrap; }
+    .files-empty { font-size: 0.8rem; color: rgba(255,255,255,0.3); padding: 8px 2px; }
+
     @media (max-width: 640px) {
       .topbar { padding: 12px 16px; flex-direction: column; gap: 12px; }
       .topbar-right { width: 100%; justify-content: space-between; }
@@ -354,6 +381,16 @@
         <div class="hint">Abrir em nova aba</div>
       </div>
     </div>
+
+    <div class="files-section" id="filesSection">
+      <div class="files-section-head">
+        <h3>Meus Arquivos</h3>
+      </div>
+      <p class="files-hint">Envie arquivos diretamente no chat do agente (arraste ou anexe na conversa). Eles aparecem aqui e ficam disponíveis via <code>/read-input &lt;nome&gt;</code>.</p>
+      <div class="files-list" id="filesList">
+        <div class="files-empty">Nenhum arquivo enviado ainda.</div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -369,6 +406,7 @@
 
         document.getElementById('loading').classList.remove('active');
         document.getElementById('dashboardContent').style.display = 'block';
+        loadFiles();
 
         document.getElementById('userName').textContent = me.name;
         document.getElementById('userSquad').textContent = me.squad;
@@ -402,6 +440,33 @@
         window.open(this.href, '_blank');
       }
     });
+
+    async function loadFiles() {
+      try {
+        const res = await fetch('/api/files');
+        if (!res.ok) return;
+        const files = await res.json();
+        const list = document.getElementById('filesList');
+        if (!Array.isArray(files) || !files.length) {
+          list.innerHTML = '<div class="files-empty">Nenhum arquivo enviado ainda.</div>';
+          return;
+        }
+        list.innerHTML = files.map(f => {
+          const kb = (f.size / 1024).toFixed(1);
+          const size = kb >= 1024 ? (kb / 1024).toFixed(2) + ' MB' : kb + ' KB';
+          const date = new Date(f.modified).toLocaleString('pt-BR');
+          return '<div class="file-row"><a href="/api/files/' + encodeURIComponent(f.name) +
+            '" target="_blank" rel="noopener">' + escapeHtml(f.name) +
+            '</a><span class="file-meta">' + size + ' · ' + date + '</span></div>';
+        }).join('');
+      } catch (e) { /* silencioso */ }
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[c]));
+    }
 
     init();
   </script>

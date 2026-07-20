@@ -139,9 +139,17 @@ Cada usuário tem pastas persistentes em `/home/node/user-data/` (volume Docker,
 
 Symlink em `/workspace/input` → `/home/node/user-data/input/<user>` (mesmo para output).
 
+### Leitura Automática (Obrigatória — nunca manual)
+
+A leitura de arquivos enviados pelo usuário é **automática**, sem comandos manuais:
+
+- **Ao iniciar cada resposta**, verifique se há arquivos novos em `/workspace/input/` com `ls -la /workspace/input/`. Se houver, leia o conteúdo automaticamente com `python3 scripts/file-reader.py "/workspace/input/<arquivo>"` (extrai texto de PDF, DOCX, XLSX, CSV, imagens com OCR etc.) e aja sobre ele. **Não peça para o usuário digitar `/read-input` nem nenhum comando — leia e processe sozinho.**
+- **Quando o usuário anexa um arquivo diretamente no chat**, leia e processe o conteúdo imediatamente, na mesma mensagem, sem etapas manuais.
+- Arquivos enviados aparecem no card "Meus Arquivos" do dashboard (somente visualização/download).
+
 ### Fluxo Obrigatório
 
-1. **Usuário envia arquivo no chat**: O agente DEVE salvá-lo em `/workspace/input/<filename>` usando o Write tool (ou copiar).
+1. **Usuário envia arquivo no chat**: O agente lê automaticamente (veja regra de Leitura Automática acima) — não exige ação do usuário.
 2. **Agente precisa ler um arquivo**: Use o Read tool ou `python3 scripts/file-reader.py "/workspace/input/<filename>"`.
 3. **Agente gera saída para o usuário**: Salve em `/workspace/output/<subpasta>/<filename>`.
 4. **Usuário pergunta "o que tem na minha pasta"**: Execute `ls /workspace/input/` e `ls /workspace/output/`.
