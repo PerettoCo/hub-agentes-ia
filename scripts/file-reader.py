@@ -238,31 +238,69 @@ def extract_xls(path: Path) -> str:
     return '[XLS: nao foi possivel extrair texto — converta para .xlsx]'
 
 # ============================================================
-# Imagem / OCR
+# Imagem / Visao (modelo de visao gratuito) + OCR fallback
 # ============================================================
 
+def extract_image_vision(path: Path) -> str:
+    """Usa um modelo de visao (via LiteLLM/OpenAI-compatible) para descrever
+    a imagem em texto. Requer VISION_MODEL registrado e OPENAI_BASE_URL/OPENAI_API_KEY."""
+    try:
+        import base64, json, mimetypes, urllib.request
+        base = (os.environ.get('OPENAI_BASE_URL') or '').rstrip('/')
+        if base and not base.endswith('/v1'):
+            base += '/v1'
+        if not base:
+            return ''
+        url = base + '/chat/completions'
+        key = os.environ.get('OPENAI_API_KEY', '')
+        model = os.environ.get('VISION_MODEL', 'vision-free')
+        mime = mimetypes.guess_type(str(path))[0] or 'image/png'
+        b64 = base64.b64encode(path.read_bytes()).decode('ascii')
+        data_url = f'data:{mime};base64,{b64}'
+        prompt = ('Descreva este arquivo/imagem em detalhes para que um assistente de texto '
+                  'possa entender seu conteudo completo: transcreva todo o texto visivel, '
+                  'tabelas, numeros, elementos visuais e o contexto. Se for um print, diagraMa '
+                  'ou captura, seja o mais fiel e completo possivel.')
+        payload = {
+            'model': model,
+            'messages': [{'role': 'user', 'content': [
+                {'type': 'text', 'text': prompt},
+                {'type': 'image_url', 'image_url': {'url': data_url}},
+            ]}],
+            'max_tokens': 4000,
+        }
+        req = urllib.request.Request(
+            url, data=json.dumps(payload).encode('utf-8'),
+            headers={'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'},
+        )
+        with urllib.request.urlopen(req, timeout=90) as resp:
+            j = json.load(resp)
+        return j['choices'][0]['message']['content'].strip()
+    except Exception:
+        return ''
+
 def extract_image(path: Path) -> str:
+    # 1) Tenta visao (modelo gratuito) — leitura semanticamente rica
+    vision = extract_image_vision(path)
+    if vision:
+        return vision
+    # 2) Fallback: OCR (se tesseract instalado)
     try:
         import pytesseract
         from PIL import Image, ImageEnhance, ImageFilter
         img = Image.open(str(path))
-        # Pre-processamento para OCR
-        img = img.convert('L')  # grayscale
+        img = img.convert('L')
         img = ImageEnhance.Contrast(img).enhance(2.0)
         img = ImageEnhance.Sharpness(img).enhance(2.0)
         text = pytesseract.image_to_string(img, lang='por+eng')
         if text.strip():
             return text
-        # Tentativa com config adicional
-        text = pytesseract.image_to_string(
-            img, lang='por+eng',
-            config='--psm 6 --oem 3',
-        )
+        text = pytesseract.image_to_string(img, lang='por+eng', config='--psm 6 --oem 3')
         return text if text.strip() else '[OCR: nenhum texto detectado]'
     except ImportError:
-        return '[OCR nao disponivel — instale pytesseract + tesseract-ocr]'
+        return '[Visao e OCR indisponiveis — adicione um modelo de visao gratuito (VISION_MODEL) no LiteLLM]'
     except Exception as e:
-        return f'[OCR: erro - {e}]'
+        return f'[Erro ao ler imagem: {e}]'
 
 # ============================================================
 # CSV
