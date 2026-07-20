@@ -81,6 +81,9 @@ services:
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
       HUB_USERNAME: marcos.luciano
+      HOME: /workspace
+      XDG_DATA_HOME: /home/node/.local/share
+      XDG_CONFIG_HOME: /home/node/.config
     volumes:
       - opencode-data-marcos:/home/node/.local/share/opencode
       - opencode-userdata:/home/node/user-data
@@ -113,6 +116,9 @@ services:
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
       HUB_USERNAME: fhelipe.aranha
+      HOME: /workspace
+      XDG_DATA_HOME: /home/node/.local/share
+      XDG_CONFIG_HOME: /home/node/.config
     volumes:
       - opencode-data-fhelipe:/home/node/.local/share/opencode
       - opencode-userdata:/home/node/user-data
@@ -145,6 +151,9 @@ services:
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
       HUB_USERNAME: lucas.nunes
+      HOME: /workspace
+      XDG_DATA_HOME: /home/node/.local/share
+      XDG_CONFIG_HOME: /home/node/.config
     volumes:
       - opencode-data-lucasnunes:/home/node/.local/share/opencode
       - opencode-userdata:/home/node/user-data
@@ -177,6 +186,9 @@ services:
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
       HUB_USERNAME: paolo.carmine
+      HOME: /workspace
+      XDG_DATA_HOME: /home/node/.local/share
+      XDG_CONFIG_HOME: /home/node/.config
     volumes:
       - opencode-data-paolo:/home/node/.local/share/opencode
       - opencode-userdata:/home/node/user-data
@@ -209,6 +221,9 @@ services:
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
       HUB_USERNAME: bruno.lindenmeyer
+      HOME: /workspace
+      XDG_DATA_HOME: /home/node/.local/share
+      XDG_CONFIG_HOME: /home/node/.config
     volumes:
       - opencode-data-bruno:/home/node/.local/share/opencode
       - opencode-userdata:/home/node/user-data
@@ -238,6 +253,9 @@ services:
       SUPABASE_DADOS_URL: ${SUPABASE_DADOS_URL:-}
       SUPABASE_DADOS_KEY: ${SUPABASE_DADOS_KEY:-}
       HUB_USERNAME: italo.rossi
+      HOME: /workspace
+      XDG_DATA_HOME: /home/node/.local/share
+      XDG_CONFIG_HOME: /home/node/.config
     volumes:
       - opencode-data-italo:/home/node/.local/share/opencode
       - opencode-userdata:/home/node/user-data
