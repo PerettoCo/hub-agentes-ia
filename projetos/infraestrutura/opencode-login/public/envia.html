@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enviar arquivo — PerettoCo</title>
+<style>
+  :root { --red:#c8102e; --gold:#d4af37; --bg:#0e0e12; --card:#1a1a22; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:'Ubuntu',-apple-system,Segoe UI,Roboto,sans-serif;
+    background:linear-gradient(135deg,#160a0e,#0e0e12); color:#eee; min-height:100vh;
+    display:flex; align-items:center; justify-content:center; padding:24px; }
+  .card { background:var(--card); border:1px solid #2a2a34; border-radius:16px;
+    padding:32px; width:100%; max-width:480px; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+  .logo { font-size:22px; font-weight:700; color:var(--gold); margin-bottom:4px; }
+  .sub { color:#9a9aa6; font-size:14px; margin-bottom:24px; }
+  .drop { border:2px dashed #3a3a46; border-radius:12px; padding:36px 20px; text-align:center;
+    cursor:pointer; transition:.2s; }
+  .drop:hover, .drop.drag { border-color:var(--gold); background:rgba(212,175,55,.06); }
+  .drop b { color:var(--gold); }
+  .hint { color:#7a7a86; font-size:12px; margin-top:10px; }
+  input[type=file] { display:none; }
+  .status { margin-top:18px; font-size:14px; min-height:20px; }
+  .ok { color:#5bd97a; } .err { color:#ff6b6b; }
+  .back { display:inline-block; margin-top:20px; color:#9a9aa6; font-size:13px; text-decoration:none; }
+  .back:hover { color:var(--gold); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">PerettoCo · Enviar arquivo</div>
+    <div class="sub">O agente lê automaticamente — não precisa de comandos.</div>
+    <label class="drop" id="drop">
+      <div>Arraste o arquivo aqui ou <b>clique para selecionar</b></div>
+      <div class="hint">PDF · DOCX · XLSX · CSV · TXT · PNG · JPG (e outros)</div>
+      <input type="file" id="file" />
+    </label>
+    <div class="status" id="status"></div>
+    <a class="back" href="/">&larr; Voltar ao dashboard</a>
+  </div>
+<script>
+const fileInput = document.getElementById('file');
+const drop = document.getElementById('drop');
+const status = document.getElementById('status');
+const ALLOW = ['pdf','doc','docx','odt','ods','odp','rtf','ppt','pptx','xls','xlsx','csv','txt','md','py','js','ts','json','html','png','jpg','jpeg','gif','bmp','webp'];
+drop.onclick = () => fileInput.click();
+['dragover','dragenter'].forEach(e=>drop.addEventListener(e,ev=>{ev.preventDefault();drop.classList.add('drag');}));
+['dragleave','drop'].forEach(e=>drop.addEventListener(e,ev=>{ev.preventDefault();drop.classList.remove('drag');}));
+drop.addEventListener('drop', ev => { if(ev.dataTransfer.files[0]) upload(ev.dataTransfer.files[0]); });
+fileInput.onchange = () => { if(fileInput.files[0]) upload(fileInput.files[0]); };
+async function upload(f){
+  const ext = (f.name.split('.').pop()||'').toLowerCase();
+  if(!ALLOW.includes(ext)){ status.className='status err'; status.textContent='Formato não suportado: .'+ext; return; }
+  if(f.size > 25*1024*1024){ status.className='status err'; status.textContent='Arquivo muito grande (máx 25MB)'; return; }
+  status.className='status'; status.textContent='Enviando…';
+  const fd = new FormData(); fd.append('file', f);
+  try{
+    const r = await fetch('/api/upload', { method:'POST', body:fd, credentials:'include' });
+    const j = await r.json();
+    if(!r.ok) throw new Error(j.error||'Falha no envio');
+    status.className='status ok';
+    status.textContent='✔ '+f.name+' enviado. O agente já está lendo.';
+    fileInput.value='';
+  }catch(e){ status.className='status err'; status.textContent='Erro: '+e.message; }
+}
+</script>
+</body>
+</html>

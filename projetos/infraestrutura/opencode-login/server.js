@@ -218,6 +218,19 @@ app.use(helmet({
   crossOriginEmbedderPolicy: false,
 }));
 
+const CORS_ALLOWED = ['.fvmarketing.com.br', 'https://ia.fvmarketing.com.br'];
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && CORS_ALLOWED.some(d => origin === d || origin.endsWith(d))) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+    if (req.method === 'OPTIONS') return res.sendStatus(204);
+  }
+  next();
+});
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -429,6 +442,11 @@ app.get('/api/health', (req, res) => {
 app.get('/', (req, res) => {
   if (!req.session.user) return res.redirect('/login');
   res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
+});
+
+app.get('/enviar', (req, res) => {
+  if (!req.session.user) return res.redirect('/login');
+  res.sendFile(path.join(__dirname, 'public', 'envia.html'));
 });
 
 app.post('/api/upload', requireAuth, (req, res, next) => {
