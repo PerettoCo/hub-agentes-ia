@@ -50,18 +50,23 @@ def extract_pdf(path: Path) -> str:
     except Exception:
         pass
 
-    # Fallback: OCR (scanned PDF)
+    # Fallback: PDF escaneado (sem texto) -> rasteriza paginas e le com VISAO/OCR
     try:
-        import subprocess
-        from PIL import Image
-        import pytesseract
-        r = subprocess.run(
-            ['pdftoppm', '-png', '-r', '300', str(path)],
-            capture_output=True, timeout=60,
-        )
-        if r.stdout:
-            img = Image.open(io.BytesIO(r.stdout))
-            return pytesseract.image_to_string(img, lang='por+eng')
+        import subprocess, tempfile, glob as _glob
+        with tempfile.TemporaryDirectory() as td:
+            prefix = os.path.join(td, 'page')
+            subprocess.run(
+                ['pdftoppm', '-png', '-r', '200', str(path), prefix],
+                capture_output=True, timeout=120,
+            )
+            pages_png = sorted(_glob.glob(prefix + '*.png'))
+            out = []
+            for i, pg in enumerate(pages_png[:20], 1):
+                txt = _image_to_text(Path(pg))
+                if txt and txt.strip():
+                    out.append('--- Pagina %d ---\n%s' % (i, txt.strip()))
+            if out:
+                return '\n\n'.join(out)
     except Exception:
         pass
 
@@ -279,28 +284,29 @@ def extract_image_vision(path: Path) -> str:
     except Exception:
         return ''
 
-def extract_image(path: Path) -> str:
-    # 1) Tenta visao (modelo gratuito) — leitura semanticamente rica
+def _image_to_text(path: Path) -> str:
+    """Retorna texto de uma imagem via VISAO (preferencial) ou OCR. '' se falhar."""
     vision = extract_image_vision(path)
-    if vision:
-        return vision
-    # 2) Fallback: OCR (se tesseract instalado)
+    if vision and vision.strip():
+        return vision.strip()
     try:
         import pytesseract
-        from PIL import Image, ImageEnhance, ImageFilter
-        img = Image.open(str(path))
-        img = img.convert('L')
+        from PIL import Image, ImageEnhance
+        img = Image.open(str(path)).convert('L')
         img = ImageEnhance.Contrast(img).enhance(2.0)
         img = ImageEnhance.Sharpness(img).enhance(2.0)
         text = pytesseract.image_to_string(img, lang='por+eng')
-        if text.strip():
-            return text
-        text = pytesseract.image_to_string(img, lang='por+eng', config='--psm 6 --oem 3')
-        return text if text.strip() else '[OCR: nenhum texto detectado]'
-    except ImportError:
-        return '[Visao e OCR indisponiveis — adicione um modelo de visao gratuito (VISION_MODEL) no LiteLLM]'
-    except Exception as e:
-        return f'[Erro ao ler imagem: {e}]'
+        if not text.strip():
+            text = pytesseract.image_to_string(img, lang='por+eng', config='--psm 6 --oem 3')
+        return text.strip()
+    except Exception:
+        return ''
+
+def extract_image(path: Path) -> str:
+    text = _image_to_text(path)
+    if text:
+        return text
+    return '[Imagem: nao foi possivel extrair texto (visao/OCR indisponivel ou imagem sem conteudo)]'
 
 # ============================================================
 # CSV
