@@ -6,6 +6,8 @@ const bcrypt = require('bcryptjs');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const fs = require('fs');
+const multer = require('multer');
+
 
 const app = express();
 app.set('trust proxy', 1);
@@ -19,6 +21,7 @@ const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY || '';
 const USERS_PATH = process.env.USERS_PATH || '/data/users.json';
 const BOOTSTRAP_ADMIN = process.env.BOOTSTRAP_ADMIN || '';
 const DEFAULT_PASSWORD = process.env.DEFAULT_PASSWORD || 'v4@2025';
+const USERDATA_PATH = process.env.USERDATA_PATH || '/user-data';
 
 const TARGETS = {
   'marcos.luciano':     { redirect: 'https://ia.marcosluciano.fvmarketing.com.br' },
@@ -28,6 +31,8 @@ const TARGETS = {
   'bruno.lindenmeyer':  { redirect: 'https://ia.brunolindenmeyer.fvmarketing.com.br' },
   'italo.rossi':        { redirect: 'https://ia.italorossi.fvmarketing.com.br' },
 };
+
+function userDir(username) { return username.replace(/\./g, '-'); }
 
 function getTarget(username) {
   return TARGETS[username] || { redirect: PUBLIC_URL };
@@ -175,10 +180,56 @@ loadOrSeedUsers();
 syncFromSupabase();
 setInterval(syncFromSupabase, 5 * 60 * 1000);
 
+
+const inputStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dir = path.join(USERDATA_PATH, 'input', userDir(req.session.user.username));
+    fs.mkdirSync(dir, { recursive: true });
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+const ALLOWED_EXTENSIONS = new Set([
+  '.pdf', '.doc', '.docx', '.odt', '.rtf',
+  '.xls', '.xlsx', '.csv',
+  '.ppt', '.pptx',
+  '.txt', '.md', '.json', '.html', '.htm',
+  '.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp',
+]);
+const uploadInput = multer({
+  storage: inputStorage,
+  limits: { fileSize: 100 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (!ALLOWED_EXTENSIONS.has(ext)) {
+      return cb(new Error('Tipo de arquivo nao permitido: ' + ext));
+    }
+    cb(null, true);
+  }
+});
+
+
+
+
 app.use(helmet({
   contentSecurityPolicy: false,
   crossOriginEmbedderPolicy: false,
 }));
+
+const CORS_ALLOWED = ['.fvmarketing.com.br', 'https://ia.fvmarketing.com.br'];
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && CORS_ALLOWED.some(d => origin === d || origin.endsWith(d))) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+    if (req.method === 'OPTIONS') return res.sendStatus(204);
+  }
+  next();
+});
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -392,6 +443,77 @@ app.get('/', (req, res) => {
   if (!req.session.user) return res.redirect('/login');
   res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
 });
+
+app.get('/enviar', (req, res) => {
+  if (!req.session.user) return res.redirect('/login');
+  res.sendFile(path.join(__dirname, 'public', 'envia.html'));
+});
+
+app.post('/api/upload', requireAuth, (req, res, next) => {
+  uploadInput.single('file')(req, res, (err) => {
+    if (err) return res.status(400).json({ error: 'Erro no upload: ' + err.message });
+    if (!req.file) return res.status(400).json({ error: 'Nenhum arquivo enviado' });
+    res.json({ success: true, file: { name: req.file.originalname, size: req.file.size, path: req.file.filename } });
+  });
+});
+
+app.get('/api/files', requireAuth, (req, res) => {
+  const dir = path.join(USERDATA_PATH, 'input', userDir(req.session.user.username));
+  try {
+    if (!fs.existsSync(dir)) return res.json([]);
+    const files = fs.readdirSync(dir).map(f => {
+      const stat = fs.statSync(path.join(dir, f));
+      return { name: f, size: stat.size, modified: stat.mtime.toISOString() };
+    });
+    files.sort((a, b) => new Date(b.modified) - new Date(a.modified));
+    res.json(files);
+  } catch (e) { res.json([]); }
+});
+
+app.get('/api/files/:filename', requireAuth, (req, res) => {
+  const filepath = path.join(USERDATA_PATH, 'input', userDir(req.session.user.username), req.params.filename);
+  const resolved = path.resolve(filepath);
+  if (!resolved.startsWith(path.resolve(USERDATA_PATH))) {
+    return res.status(403).json({ error: 'Acesso negado' });
+  }
+  if (!fs.existsSync(resolved)) return res.status(404).json({ error: 'Arquivo nao encontrado' });
+  res.download(resolved);
+});
+
+app.delete('/api/files/:filename', requireAuth, (req, res) => {
+  const filepath = path.join(USERDATA_PATH, 'input', userDir(req.session.user.username), req.params.filename);
+  const resolved = path.resolve(filepath);
+  if (!resolved.startsWith(path.resolve(USERDATA_PATH))) {
+    return res.status(403).json({ error: 'Acesso negado' });
+  }
+  if (!fs.existsSync(resolved)) return res.status(404).json({ error: 'Arquivo nao encontrado' });
+  fs.unlinkSync(resolved);
+  res.json({ success: true });
+});
+
+app.get('/api/outputs', requireAuth, (req, res) => {
+  const dir = path.join(USERDATA_PATH, 'output', userDir(req.session.user.username));
+  try {
+    if (!fs.existsSync(dir)) return res.json([]);
+    const items = [];
+    (function walk(d, prefix) {
+      const entries = fs.readdirSync(d, { withFileTypes: true });
+      for (const e of entries) {
+        const full = path.join(d, e.name);
+        if (e.isDirectory()) { walk(full, prefix ? prefix + '/' + e.name : e.name); }
+        else {
+          const s = fs.statSync(full);
+          items.push({ name: prefix ? prefix + '/' + e.name : e.name, size: s.size, modified: s.mtime.toISOString() });
+        }
+      }
+    })(dir, '');
+    items.sort((a, b) => new Date(b.modified) - new Date(a.modified));
+    res.json(items);
+  } catch (e) { res.json([]); }
+});
+
+
+
 
 app.use((err, req, res, next) => {
   log('error', 'Unhandled error', { error: err.message, stack: err.stack });

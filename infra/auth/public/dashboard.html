@@ -3,369 +3,472 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard · Hub de Agentes IA</title>
+  <title>V4 Company · Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', -apple-system, sans-serif;
       background: #0a0a0c url('/static/v4bg.png') center/cover fixed no-repeat;
-      color: #fff; min-height: 100vh; position: relative;
+      color: #ffffff;
+      min-height: 100vh;
+      position: relative;
     }
     body::before {
       content: '';
-      position: fixed; inset: 0;
-      background: rgba(10, 10, 12, 0.6);
-      pointer-events: none; z-index: 0;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 12, 0.65);
+      pointer-events: none;
+      z-index: 0;
     }
-    .header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 20px 32px;
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
       background: rgba(255,255,255,0.03);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(255,255,255,0.05);
-      position: relative; z-index: 2;
+      position: relative;
+      z-index: 2;
     }
-    .header h1 { font-size: 1rem; font-weight: 600; color: rgba(255,255,255,0.5); }
-    .header h1 span { color: #e63946; }
-    .header-right { display: flex; align-items: center; gap: 16px; }
-    .user-badge { display: flex; align-items: center; gap: 10px; }
-    .user-badge .name { font-size: 0.85rem; font-weight: 500; }
-    .user-badge .role {
-      font-size: 0.7rem; background: rgba(230,57,70,0.15); color: #e63946;
-      padding: 3px 10px; border-radius: 100px;
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
-    .user-badge .squad {
-      font-size: 0.7rem; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.4);
-      padding: 3px 10px; border-radius: 100px;
+
+    .topbar-left img {
+      height: 32px;
+      width: auto;
+      opacity: 0.8;
     }
-    .btn {
-      background: none; border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.4);
-      padding: 8px 16px; border-radius: 8px; cursor: pointer;
-      font-family: 'Inter', sans-serif; font-size: 0.8rem; transition: all 0.2s;
+
+    .topbar-left span {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.02em;
     }
-    .btn:hover { border-color: #e63946; color: #e63946; }
-    .btn-primary {
-      background: #e63946; border-color: #e63946; color: #fff;
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
-    .btn-primary:hover { background: #d32d3a; border-color: #d32d3a; color: #fff; }
-    .main {
-      position: relative; z-index: 1;
-      max-width: 720px; margin: 60px auto; padding: 0 32px; text-align: center;
-    }
-    .greeting-logo {
-      width: 200px;
-      height: auto;
-      margin-bottom: 24px;
-      filter: drop-shadow(0 8px 32px rgba(230,57,70,0.15));
-    }
-    .main h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
-    .main .sub { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-bottom: 48px; }
-    .card {
-      background: rgba(255,255,255,0.03);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+
+    .user-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 16px 7px 12px;
+      background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 16px; padding: 32px; text-align: left;
-      display: flex; align-items: center; gap: 32px;
+      border-radius: 100px;
+      font-size: 0.82rem;
     }
-    .card-content { flex: 1; }
-    .card-avatar { flex-shrink: 0; width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 2px solid rgba(230,57,70,0.2); }
-    .card-avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .card h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
-    .card .desc { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
-    .btn-card {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(230,57,70,0.1); border: 1px solid rgba(230,57,70,0.2);
-      color: #e63946; padding: 12px 24px; border-radius: 10px;
-      font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500;
-      cursor: pointer; transition: all 0.2s; text-decoration: none;
-    }
-    .btn-card:hover { background: rgba(230,57,70,0.2); border-color: #e63946; }
 
-    .admin-section {
+    .user-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e63946, #8b1a1a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: #fff;
+    }
+
+    .user-info .name { font-weight: 600; color: #fff; font-size: 0.82rem; }
+    .user-info .squad { color: rgba(255,255,255,0.35); font-size: 0.7rem; }
+
+    .btn-logout {
+      padding: 7px 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px;
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-logout:hover {
+      background: rgba(230,57,70,0.12);
+      border-color: rgba(230,57,70,0.3);
+      color: #e63946;
+    }
+
+    .main {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 80px 32px 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: calc(100vh - 73px);
+    }
+
+    .greeting {
+      text-align: center;
+      margin-bottom: 56px;
+      animation: fadeUp 0.6s ease-out;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .greeting-logo {
+      height: 150px;
+      width: auto;
+      margin-bottom: 32px;
+      filter: drop-shadow(0 4px 20px rgba(230,57,70,0.15));
+    }
+
+    .greeting h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .greeting h1 span {
+      background: linear-gradient(135deg, #e63946, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .greeting p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.35);
+      margin-top: 8px;
+    }
+
+    .card {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 24px;
+      padding: 36px;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.6s ease-out 0.15s both;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(230,57,70,0.08) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(230,57,70,0.2), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .card:hover {
+      border-color: rgba(230,57,70,0.25);
+      transform: translateY(-3px) scale(1.005);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.3);
+    }
+
+    .card:hover::before { opacity: 1; }
+    .card:hover::after { opacity: 1; }
+
+    .card-avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    .card-body {
+      flex: 1;
+      min-width: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-body h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .card-body p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.5;
+    }
+
+    .card-body .hint {
+      margin-top: 14px;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 100px;
+      transition: all 0.2s;
+    }
+
+    .card:hover .hint {
+      border-color: rgba(230,57,70,0.15);
+      color: rgba(255,255,255,0.4);
+    }
+
+    .loading {
       display: none;
-      max-width: 720px; margin: 40px auto; padding: 0 32px; position: relative; z-index: 1;
+      text-align: center;
+      padding: 48px;
+      color: rgba(255,255,255,0.3);
+      position: relative;
+      z-index: 1;
     }
-    .admin-section.visible { display: block; }
-    .admin-header {
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
-    }
-    .admin-header h3 { font-size: 1.1rem; font-weight: 600; }
-    .users-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-    .users-table th {
-      text-align: left; padding: 10px 12px; color: rgba(255,255,255,0.3);
-      font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .users-table td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); }
-    .users-table .role-badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 100px; }
-    .role-badge.admin { background: rgba(230,57,70,0.15); color: #e63946; }
-    .role-badge.user { background: rgba(59,130,246,0.15); color: #60a5fa; }
-    .users-table .actions { display: flex; gap: 8px; }
-    .users-table .actions button {
-      background: none; border: none; color: rgba(255,255,255,0.3);
-      cursor: pointer; font-family: 'Inter', sans-serif; font-size: 0.8rem;
-      padding: 4px 8px; border-radius: 4px; transition: all 0.2s;
-    }
-    .users-table .actions button:hover { background: rgba(255,255,255,0.05); }
-    .users-table .actions .delete:hover { color: #e63946; }
-    .users-table .actions .edit:hover { color: #60a5fa; }
 
-    .modal-overlay {
-      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
-      z-index: 100; align-items: center; justify-content: center;
+    .loading.active { display: block; }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 2px solid rgba(255,255,255,0.06);
+      border-top-color: #e63946;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
     }
-    .modal-overlay.visible { display: flex; }
-    .modal {
-      background: #1a1a1c; border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 16px; padding: 32px; width: 100%; max-width: 420px;
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .error-state {
+      display: none;
+      text-align: center;
+      padding: 48px;
+      position: relative;
+      z-index: 1;
     }
-    .modal h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 20px; }
-    .modal .form-group { margin-bottom: 16px; }
-    .modal .form-group label {
-      display: block; font-size: 0.8rem; font-weight: 500;
-      color: rgba(255,255,255,0.5); margin-bottom: 4px;
+
+    .error-state.active { display: block; }
+
+    .error-state .code {
+      font-size: 3rem;
+      font-weight: 800;
+      color: rgba(230,57,70,0.2);
+      line-height: 1;
+      margin-bottom: 8px;
     }
-    .modal .form-group input, .modal .form-group select {
-      width: 100%; padding: 10px 12px; background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
-      color: #fff; font-family: 'Inter', sans-serif; font-size: 0.85rem;
-      outline: none; transition: border-color 0.2s;
+
+    .error-state p { color: rgba(255,255,255,0.4); font-size: 0.9rem; }
+
+    .files-section {
+      margin-top: 40px;
+      text-align: left;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 28px;
     }
-    .modal .form-group input:focus, .modal .form-group select:focus { border-color: #e63946; }
-    .modal .form-group select option { background: #1a1a1c; }
-    .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
-    .toast {
-      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
-      padding: 12px 24px; border-radius: 10px; font-size: 0.85rem;
-      z-index: 200; opacity: 0; transition: opacity 0.3s;
+    .files-section-head {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      margin-bottom: 6px;
     }
-    .toast.visible { opacity: 1; }
-    .toast.success { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); color: #22c55e; }
-    .toast.error { background: rgba(230,57,70,0.15); border: 1px solid rgba(230,57,70,0.3); color: #e63946; }
+    .files-section-head h3 { font-size: 1.05rem; font-weight: 600; color: rgba(255,255,255,0.85); }
+    .files-hint { font-size: 0.75rem; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+    .files-hint code { color: #e63946; background: rgba(230,57,70,0.1); padding: 1px 6px; border-radius: 4px; }
+    .files-list { display: flex; flex-direction: column; gap: 8px; }
+    .file-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 12px 14px; border: 1px solid rgba(255,255,255,0.05); border-radius: 10px;
+      background: rgba(255,255,255,0.02); transition: all 0.2s;
+    }
+    .file-row:hover { border-color: rgba(230,57,70,0.25); background: rgba(230,57,70,0.04); }
+    .file-row a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.85rem; word-break: break-all; }
+    .file-row a:hover { color: #e63946; }
+    .file-meta { font-size: 0.72rem; color: rgba(255,255,255,0.3); white-space: nowrap; }
+    .files-empty { font-size: 0.8rem; color: rgba(255,255,255,0.3); padding: 8px 2px; }
+
+    @media (max-width: 640px) {
+      .topbar { padding: 12px 16px; flex-direction: column; gap: 12px; }
+      .topbar-right { width: 100%; justify-content: space-between; }
+      .main { padding: 48px 16px 32px; }
+      .greeting h1 { font-size: 1.5rem; }
+      .greeting-logo { height: 120px; }
+      .card { padding: 24px; gap: 20px; flex-direction: column; text-align: center; }
+      .card-avatar { width: 72px; height: 72px; }
+    }
   </style>
 </head>
 <body>
-  <div class="header">
-    <h1>V4 Company · <span>Hub de Agentes de IA</span></h1>
-    <div class="header-right">
+  <div class="topbar">
+    <div class="topbar-left">
+      <img src="/static/logo-v4.png" alt="V4 Company">
+      <span>Hub de Agentes</span>
+    </div>
+    <div class="topbar-right">
       <div class="user-badge">
-        <span class="name" id="userName"></span>
-        <span class="squad" id="userSquad"></span>
-        <span class="role" id="userRole"></span>
+        <div class="user-avatar" id="avatar">M</div>
+        <div class="user-info">
+          <div class="name" id="userName">—</div>
+          <div class="squad" id="userSquad">—</div>
+        </div>
       </div>
-      <button class="btn" onclick="logout()">Sair</button>
+      <button class="btn-logout" id="logoutBtn">Sair</button>
     </div>
   </div>
 
-  <div class="main">
-    <img src="/static/logo.png" alt="Peretto & Co" class="greeting-logo">
-    <h2>Bem-vindo(a), <span id="userDisplayName"></span></h2>
-    <p class="sub">Selecione seu ambiente de IA para começar</p>
-    <div class="card" id="targets"></div>
+  <div class="loading active" id="loading">
+    <div class="spinner"></div>
+    <span>Carregando...</span>
   </div>
 
-  <div class="admin-section" id="adminSection">
-    <div class="admin-header">
-      <h3>Gerenciar Usuários</h3>
-      <button class="btn btn-primary" onclick="openAddUser()">+ Novo</button>
-    </div>
-    <div class="card">
-      <table class="users-table">
-        <thead><tr>
-          <th>Usuário</th><th>Nome</th><th>Squad</th><th>Função</th><th></th>
-        </tr></thead>
-        <tbody id="usersBody"></tbody>
-      </table>
-    </div>
+  <div class="error-state" id="errorState">
+    <div class="code">401</div>
+    <p>Redirecionando para login...</p>
   </div>
 
-  <div class="modal-overlay" id="userModal">
-    <div class="modal">
-      <h3 id="modalTitle">Novo Usuário</h3>
-      <input type="hidden" id="editUsername">
-      <div class="form-group">
-        <label>Usuário (login)</label>
-        <input type="text" id="fUsername" placeholder="nome.sobrenome" autocomplete="off">
+  <div class="main" id="dashboardContent" style="display:none">
+    <div class="greeting">
+      <img src="/static/logo-peretto-red.png" alt="Peretto & Co" class="greeting-logo">
+      <h1>Bem-vindo, <span id="userDisplayName">—</span></h1>
+      <p>Selecione um serviço para acessar</p>
+    </div>
+
+    <div class="card" id="card-opencode" href="#" target="_blank">
+      <img src="/static/sofia.png" alt="Sofia" class="card-avatar">
+      <div class="card-body">
+        <h3>Hub de Agentes de IA</h3>
+        <p>Interface do agente de IA com sessão individual</p>
+        <div class="hint">Abrir em nova aba</div>
       </div>
-      <div class="form-group">
-        <label>Nome completo</label>
-        <input type="text" id="fName" placeholder="Nome Sobrenome">
+    </div>
+
+    <div class="files-section" id="filesSection">
+      <div class="files-section-head">
+        <h3>Meus Arquivos</h3>
       </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" id="fEmail" placeholder="email@v4company.com">
-      </div>
-      <div class="form-group">
-        <label>Squad</label>
-        <input type="text" id="fSquad" placeholder="Growth, Design, Tech...">
-      </div>
-      <div class="form-group">
-        <label>Função</label>
-        <select id="fRole">
-          <option value="user">Usuário</option>
-          <option value="admin">Admin</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Senha <span style="color:rgba(255,255,255,0.3);font-size:0.75rem;">(deixe em branco para senha padrão)</span></label>
-        <input type="password" id="fPassword" placeholder="••••••••">
-      </div>
-      <div class="modal-actions">
-        <button class="btn" onclick="closeModal()">Cancelar</button>
-        <button class="btn btn-primary" onclick="saveUser()">Salvar</button>
+      <p class="files-hint">Envie arquivos diretamente no chat do agente (arraste ou anexe na conversa). Eles aparecem aqui e ficam disponíveis via <code>/read-input &lt;nome&gt;</code>.</p>
+      <div class="files-list" id="filesList">
+        <div class="files-empty">Nenhum arquivo enviado ainda.</div>
       </div>
     </div>
   </div>
-
-  <div class="toast" id="toast"></div>
 
   <script>
-    let currentUser = null;
-
-    async function api(path, opts = {}) {
-      const res = await fetch(path, {
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json', ...opts.headers },
-        ...opts,
-      });
-      if (res.status === 401) { window.location = '/login?redirect=' + encodeURIComponent(window.location.href); return null; }
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Erro desconhecido');
-      return data;
-    }
-
-    function showToast(msg, type = 'success') {
-      const t = document.getElementById('toast');
-      t.textContent = msg; t.className = 'toast ' + type + ' visible';
-      setTimeout(() => t.classList.remove('visible'), 3000);
-    }
-
-    async function loadUser() {
-      currentUser = await api('/api/me');
-      document.getElementById('userName').textContent = currentUser.name;
-      document.getElementById('userDisplayName').textContent = currentUser.name.split(' ')[0];
-      document.getElementById('userSquad').textContent = currentUser.squad;
-      document.getElementById('userRole').textContent = currentUser.role === 'admin' ? 'Admin' : 'Usuário';
-      if (currentUser.role === 'admin') {
-        document.getElementById('adminSection').classList.add('visible');
-        loadUsers();
-      }
-    }
-
-    async function loadTargets() {
-      const data = await api('/api/targets');
-      const container = document.getElementById('targets');
-      container.innerHTML = data.targets.map(t => `
-        <div class="card-content">
-          <h3>${t.name}</h3>
-          <div class="desc">Acesse sua interface OpenCode Web</div>
-          <a href="${t.url}" class="btn-card" target="_blank">
-            <span class="icon">▸</span> Abrir ${t.name}
-          </a>
-        </div>
-        <div class="card-avatar">
-          <img src="/static/sofia.png" alt="Sofia IA">
-        </div>
-      `).join('');
-    }
-
-    async function loadUsers() {
-      const list = await api('/api/users');
-      const body = document.getElementById('usersBody');
-      body.innerHTML = list.map(u => `
-        <tr>
-          <td><strong>${u.username}</strong></td>
-          <td>${u.name}</td>
-          <td>${u.squad}</td>
-          <td><span class="role-badge ${u.role}">${u.role === 'admin' ? 'Admin' : 'Usuário'}</span></td>
-          <td class="actions">
-            <button class="edit" onclick="editUser('${u.username}')">Editar</button>
-            ${u.role !== 'admin' || currentUser.username !== u.username ? `<button class="delete" onclick="deleteUser('${u.username}')">Remover</button>` : ''}
-          </td>
-        </tr>
-      `).join('');
-    }
-
-    function openAddUser() {
-      document.getElementById('modalTitle').textContent = 'Novo Usuário';
-      document.getElementById('editUsername').value = '';
-      ['fUsername','fName','fEmail','fSquad','fPassword'].forEach(id => document.getElementById(id).value = '');
-      document.getElementById('fRole').value = 'user';
-      document.getElementById('userModal').classList.add('visible');
-    }
-
-    function editUser(username) {
-      document.getElementById('modalTitle').textContent = 'Editar Usuário';
-      document.getElementById('editUsername').value = username;
-      document.getElementById('fUsername').disabled = true;
-      api('/api/users').then(list => {
-        const user = list.find(u => u.username === username);
-        if (!user) return;
-        document.getElementById('fUsername').value = user.username;
-        document.getElementById('fName').value = user.name;
-        document.getElementById('fEmail').value = user.email || '';
-        document.getElementById('fSquad').value = user.squad || '';
-        document.getElementById('fRole').value = user.role || 'user';
-        document.getElementById('fPassword').value = '';
-        document.getElementById('userModal').classList.add('visible');
-      });
-    }
-
-    function closeModal() {
-      document.getElementById('userModal').classList.remove('visible');
-      document.getElementById('fUsername').disabled = false;
-    }
-
-    async function saveUser() {
-      const editUsername = document.getElementById('editUsername').value;
-      const data = {
-        username: document.getElementById('fUsername').value,
-        name: document.getElementById('fName').value,
-        email: document.getElementById('fEmail').value,
-        squad: document.getElementById('fSquad').value,
-        role: document.getElementById('fRole').value,
-      };
-      const password = document.getElementById('fPassword').value;
-      if (password) data.password = password;
-
+    async function init() {
       try {
-        if (editUsername) {
-          await api('/api/users/' + editUsername, { method: 'PATCH', body: JSON.stringify(data) });
-          showToast('Usuário atualizado');
-        } else {
-          await api('/api/users', { method: 'POST', body: JSON.stringify(data) });
-          showToast('Usuário criado');
+        const meRes = await fetch('/api/me');
+        if (!meRes.ok) { showError(); return; }
+        const me = await meRes.json();
+
+        const targetsRes = await fetch('/api/targets');
+        if (!targetsRes.ok) { showError(); return; }
+        const data = await targetsRes.json();
+
+        document.getElementById('loading').classList.remove('active');
+        document.getElementById('dashboardContent').style.display = 'block';
+        loadFiles();
+
+        document.getElementById('userName').textContent = me.name;
+        document.getElementById('userSquad').textContent = me.squad;
+        document.getElementById('userDisplayName').textContent = me.name.split(' ')[0];
+        document.getElementById('avatar').textContent = me.name.charAt(0);
+
+        const targets = data.targets || [];
+        const ocTarget = targets.find(t => t.name === 'Hub de Agentes');
+        if (ocTarget && ocTarget.url) {
+          document.getElementById('card-opencode').href = ocTarget.url;
         }
-        closeModal();
-        loadUsers();
-      } catch (e) {
-        showToast(e.message, 'error');
+
+      } catch (err) {
+        showError();
       }
     }
 
-    async function deleteUser(username) {
-      if (!confirm('Remover usuário "' + username + '"?')) return;
+    function showError() {
+      document.getElementById('loading').classList.remove('active');
+      document.getElementById('errorState').classList.add('active');
+      setTimeout(() => { window.location.href = '/login.html'; }, 2000);
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await fetch('/api/logout', { method: 'POST' });
+      window.location.href = '/login.html';
+    });
+
+    document.getElementById('card-opencode').addEventListener('click', function(e) {
+      if (this.href && this.href !== '#') {
+        window.open(this.href, '_blank');
+      }
+    });
+
+    async function loadFiles() {
       try {
-        await api('/api/users/' + username, { method: 'DELETE' });
-        showToast('Usuário removido');
-        loadUsers();
-      } catch (e) {
-        showToast(e.message, 'error');
-      }
+        const res = await fetch('/api/files');
+        if (!res.ok) return;
+        const files = await res.json();
+        const list = document.getElementById('filesList');
+        if (!Array.isArray(files) || !files.length) {
+          list.innerHTML = '<div class="files-empty">Nenhum arquivo enviado ainda.</div>';
+          return;
+        }
+        list.innerHTML = files.map(f => {
+          const kb = (f.size / 1024).toFixed(1);
+          const size = kb >= 1024 ? (kb / 1024).toFixed(2) + ' MB' : kb + ' KB';
+          const date = new Date(f.modified).toLocaleString('pt-BR');
+          return '<div class="file-row"><a href="/api/files/' + encodeURIComponent(f.name) +
+            '" target="_blank" rel="noopener">' + escapeHtml(f.name) +
+            '</a><span class="file-meta">' + size + ' · ' + date + '</span></div>';
+        }).join('');
+      } catch (e) { /* silencioso */ }
     }
 
-    function logout() {
-      fetch('/api/logout', { method: 'POST', credentials: 'same-origin' })
-        .then(() => window.location.href = '/login')
-        .catch(() => window.location.href = '/login');
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[c]));
     }
 
-    loadUser();
-    loadTargets();
+    init();
   </script>
 </body>
 </html>

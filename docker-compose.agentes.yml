@@ -41,6 +41,7 @@ services:
       - default
     volumes:
       - opencode-auth-data:/data
+      - opencode-userdata:/user-data
     environment:
       SESSION_SECRET: ${SESSION_SECRET:?SESSION_SECRET é obrigatório}
       COOKIE_DOMAIN: ${COOKIE_DOMAIN:-.fvmarketing.com.br}
@@ -50,6 +51,7 @@ services:
       BOOTSTRAP_ADMIN: ${BOOTSTRAP_ADMIN:-}
       DEFAULT_PASSWORD: ${DEFAULT_PASSWORD:-v4@2025}
       USERS_PATH: /data/users.json
+      USERDATA_PATH: /user-data
       NODE_ENV: production
     restart: unless-stopped
     healthcheck:
