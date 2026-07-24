@@ -191,3 +191,38 @@ Toda sessão significativa deve ser salva em `log/` no raiz do projeto.
 
 ### Sessões salvas
 - `log/2026-07-13_04-00-00_OPENAUTH.json` — Infraestrutura de proxy/autenticação OpenCode
+
+## ⚠️ GUARDRAILS — NUNCA IGNORAR
+
+### 1. NUNCA mude `HOME` em variáveis de ambiente de container
+
+`HOME=/workspace` quebra o workspace porque OpenCode escreve state dentro do repositório clonado. Use paths absolutos (`/home/node/...`), nunca relativos a `$HOME`.
+
+### 2. NUNCA empurre direto pra `main` alterações em infraestrutura
+
+Arquivos proibidos de ir direto pra `main` sem branch de teste:
+- `infra/entrypoint.sh` — contém `rm -rf /workspace/*` (destrutivo)
+- `infra/Dockerfile.opencode` — afeta a imagem de todos os usuários
+- `docker-compose.agentes.yml` — afeta runtime de produção
+- `infra/auth/` — afeta login/dashboard de todos
+
+### 3. SEMPRE verifique em qual clone local está
+
+Ambos `hub-agentes-ia/` e `hub-agentes-infra-unify/` apontam para o mesmo remote. Antes de qualquer alteração:
+```bash
+git remote -v
+git log --oneline -3
+git status --short
+```
+
+### 4. SEMPRE leia `infra/entrypoint.sh` antes de alterar paths
+
+O entrypoint tem lógica destrutiva condicional (linha 17: `rm -rf /workspace/*`). Qualquer arquivo inesperado no workspace pode disparar a destruição seguida de clone do zero.
+
+### 5. Workspace NÃO é lugar para state
+
+State do OpenCode (sessões, histórico, config) vive em volumes Docker (`/home/node/.local/share/opencode`). O `/workspace/` é o repositório clonado — qualquer escrita ali é perdida no próximo restart.
+
+### 6. Consulte `docs/agents-hub/LICOES-APRENDIDAS.md` antes de alterar infra
+
+Leia o documento completo de lições aprendidas antes de qualquer alteração em entrypoint, docker-compose, Dockerfile ou auth/.

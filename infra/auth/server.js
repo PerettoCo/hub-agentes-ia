@@ -261,6 +261,13 @@ const apiLimiter = rateLimit({
   message: { error: 'Muitas requisições. Aguarde.' },
 });
 
+function noCache(req, res, next) {
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  next();
+}
+
 app.use('/static', express.static(path.join(__dirname, 'public'), { maxAge: '1h' }));
 
 function requireAuth(req, res, next) {
@@ -279,7 +286,7 @@ app.get('/auth-check', (req, res) => {
   res.status(200).end();
 });
 
-app.get('/login', (req, res) => {
+app.get('/login', noCache, (req, res) => {
   if (req.session.user) return res.redirect('/');
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
@@ -364,7 +371,7 @@ app.post('/api/logout', (req, res) => {
   res.json({ success: true });
 });
 
-app.get('/logout', (req, res) => {
+app.get('/logout', noCache, (req, res) => {
   req.session.destroy();
   res.clearCookie('connect.sid', { domain: COOKIE_DOMAIN, path: '/', secure: process.env.NODE_ENV === 'production', sameSite: 'lax' });
   res.sendFile(path.join(__dirname, 'public', 'logout.html'));
@@ -439,12 +446,12 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-app.get('/', (req, res) => {
+app.get('/', noCache, (req, res) => {
   if (!req.session.user) return res.redirect('/login');
   res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
 });
 
-app.get('/enviar', (req, res) => {
+app.get('/enviar', noCache, (req, res) => {
   if (!req.session.user) return res.redirect('/login');
   res.sendFile(path.join(__dirname, 'public', 'envia.html'));
 });
