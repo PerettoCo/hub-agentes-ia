@@ -191,29 +191,3 @@ Toda sessão significativa deve ser salva em `log/` no raiz do projeto.
 
 ### Sessões salvas
 - `log/2026-07-13_04-00-00_OPENAUTH.json` — Infraestrutura de proxy/autenticação OpenCode
-
-## Consulta Automática ao Banco de Dados (NL → SQL)
-
-Sempre que o usuário pedir, **em linguagem natural (português)**, dados/números/relatórios sobre clientes, squads, pessoas, serviços, kickoffs, check-ins ou campanhas de mídia, **consulte o banco automaticamente** — não peça qual ferramenta usar.
-
-Fluxo obrigatório:
-1. Leia `DB_SCHEMA.md` (raiz do repo) para conhecer tabelas/colunas.
-2. Traduza a pergunta para um **SQL SELECT** (subconjunto PostgREST: `SELECT`, `WHERE` com `AND`, `ORDER BY`, `LIMIT`, `count(*)`).
-3. Execute: `python3 /home/node/.local/bin/consultar-supabase "SELECT ..."` (também disponível como comando `/consultar-banco`).
-4. Interprete o JSON retornado e responda em português, em formato claro (tabela/lista).
-
-Convenções de tradução (português → coluna):
-- "ativo/ativos" → `etiquetastatus = 'Ativo'`
-- "faturamento" → `faturamentoanual`
-- "estado/UF" → `uf` (sigla 2 letras: SP, RJ, RS…)
-- "squad" → `squads` (DBClientes) / tabela `DBSquads`
-- "check-in" → tabela `50TranscricaoCheckin`, filtre por `cliente` com `ILIKE`
-- "campanhas" → `f_gerenciador_meta` / `f_gerenciador_google_*`
-
-Exemplos:
-```sql
-SELECT count(*) FROM DBClientes WHERE etiquetastatus='Ativo';
-SELECT nomedaempresa, faturamentoanual FROM DBClientes WHERE uf='SP' ORDER BY faturamentoanual DESC LIMIT 10;
-SELECT * FROM 50TranscricaoCheckin WHERE cliente ILIKE '%Dettaglio%' LIMIT 5;
-```
-Limites: não use `JOIN`/`GROUP BY`; para contagens use `count(*)`; sempre inclua `LIMIT`.

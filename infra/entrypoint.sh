@@ -24,16 +24,6 @@ if [ -n "$GITHUB_TOKEN" ]; then
   fi
 fi
 
-# ─── Sync helper scripts from cloned repo into PATH (single source of truth) ───
-if [ -d /workspace/scripts ]; then
-  for s in /workspace/scripts/*.py; do
-    [ -e "$s" ] || continue
-    name="$(basename "$s" .py)"
-    cp "$s" "/home/node/.local/bin/$name" 2>/dev/null || true
-    chmod +x "/home/node/.local/bin/$name" 2>/dev/null || true
-  done
-fi
-
 # ─── User data (persistent volume: opencode-userdata) ───
 USERDATA="/home/node/user-data"
 mkdir -p "$USERDATA"
