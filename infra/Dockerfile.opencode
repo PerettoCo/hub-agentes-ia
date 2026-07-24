@@ -17,10 +17,6 @@ RUN npm install -g opencode-ai@1.17.20 @ai-sdk/openai-compatible
 COPY infra/scripts/requirements.txt /tmp/requirements.txt
 RUN pip3 install -r /tmp/requirements.txt --break-system-packages && rm -f /tmp/requirements.txt
 
-COPY scripts/consultar-supabase.py /home/node/.local/bin/consultar-supabase
-COPY scripts/file-reader.py /home/node/.local/bin/file-reader
-RUN chmod +x /home/node/.local/bin/consultar-supabase /home/node/.local/bin/file-reader
-
 RUN mkdir -p \
   /home/node/.config/opencode \
   /home/node/.local/share/opencode \
